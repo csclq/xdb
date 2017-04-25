@@ -1,0 +1,9 @@
+{php $bootstrap_type = 3;}
+
+{template 'header'}
+<form action="{php echo $this->createMobileUrl('payment', array('type' => 'self', 'product_id' => {$_GPC['product_id']},'order_id'=>{$_GPC['order_id']}));}" method="post" style="text-align: right;position: relative;right: 10px;bottom: 60px">
+    <input type="hidden" name="token" value="$_W['token']">
+    <input type="submit" value="立即支付" class="btn btn-danger">
+</form>
+hdsjdjk
+

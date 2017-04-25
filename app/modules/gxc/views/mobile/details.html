@@ -1,0 +1,319 @@
+{php $bootstrap_type = 3;}
+
+{template 'header'}
+<style>
+    .bottom_tip{
+        position: fixed;
+        left:0;
+        bottom:0;
+        right: 0;
+        background-color: #e0e0e0;
+        background: -moz-linear-gradient(top,  #848484 0%, #ffffff 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#848484), color-stop(100%,#ffffff));
+        background: -webkit-linear-gradient(top, rgba(132, 132, 132, 0.82) 0%,#ffffff 100%);
+        background: -o-linear-gradient(top,  #848484 0%,#ffffff 100%);
+        background: -ms-linear-gradient(top,  #848484 0%,#ffffff 100%);
+        background: linear-gradient(to bottom,  #848484 0%,#ffffff 100%);
+        color:#000;
+        height: 45px;
+        z-index: 1000;
+    }
+    .bottom_tip .font-vertical{
+        font-size: 14px;
+        font-family: Arial, "microsoft yahei";
+        text-align: center;
+        line-height: 15px;
+    }
+    ul,li,a{
+        list-style: none;
+        margin:0px;
+        padding:0px;
+    }
+    .bottom_tip .font-vertical ul{
+        height:45px;
+    }
+    .bottom_tip .font-vertical li{
+        float:left;
+        width:25%;
+        text-align: center;
+        border-right:1px solid #ccc;
+        border-left: 1px solid #ccc;
+        height:45px;
+        line-height: 45px;
+    }
+    .bottom_tip .font-vertical li a{
+        text-decoration: none;
+    }
+</style>
+<div class="detail-img">
+    <div id="banner_box" class="box_swipe">
+        <ul style="background:#FFF;margin-left:-40px;">
+            <li style="text-align:center;list-style: none;">
+                <a href="{php echo tomedia($row);}" rel='{php echo tomedia($row);}'>
+                    <img src="{$_W['attachurl']}{$product['pic_url']}" class="img-responsive center-block" />
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div style="position: absolute;top: 20px;left: 20px;color: white;font-size: 16px;z-index: 2000;">
+    <a href="javascript:history.back();" class="bn pull-left"><i class="fa fa-angle-left" style="font-size: 20px;color:white;"></i></a><!--
+    <span class="title">商品详情</span>
+    <a href="{php echo $this->createMobileUrl('list')}" class="bn pull-right" style="margin-right:30px;">
+        <i class="fa fa-home"></i>
+    </a>
+    <a href="{php echo $this->createMobileUrl('mycart')}" class="bn pull-right">
+        <i class="fa fa-shopping-cart"></i>
+        <span class="buy-num img-circle" id="carttotal">{$carttotal}</span>
+    </a>-->
+</div>
+
+<div class="detail-main" style='margin-bottom:65px;'>
+
+    <div class="detail-div">
+        <div class="detail-group text-center" style="line-height:20px;font-weight:bold;border-bottom: 1px solid #d3d3d3;">
+            {$product['name']}
+        </div>
+        <div class="detail-group" style='margin-top:10px;'>
+			<span class="col-xs-8" style="width:100%;">
+				现价 : <span id='marketprice' class="text-danger" style="font-size:18px; font-weight:bold;"><i class="fa fa-yen"></i>{$product['price']}元</span>
+                <span class="soldnum pull-right">已售{$product['num_sold']}件</span>
+			</span>
+        </div>
+
+        <div class='detail-group' style="margin-top:10px;display: none;">
+            <span style="float:left;margin-left:5px; margin-top:5px;">数量：</span>
+            <div class="input-group" style="width:100px;float:left;margin-left:8px;">
+				<span class="input-group-btn">
+					<button class="btn btn-default btn-sm" type="button" onclick="reduceNum()"><i class="fa fa-minus"></i></button>
+				</span>
+                <input type="tel" class="form-control input-sm pricetotal goodsnum" style="width:50px;text-align:center" value="1" id="total"/>
+				<span class="input-group-btn">
+					<button class="btn btn-default btn-sm" type="button" onclick="addNum()"><i class="fa fa-plus"></i></button>
+				</span>
+            </div>
+        </div>
+
+
+    <div style="clear: both;"></div>
+
+    <div class="detail-div detail-content" style="word-break:break-all;padding:10px 15px;">
+        {php echo html_entity_decode($product['description'])}
+    </div>
+    <div style="position:fixed; bottom:45px; left:0; width:100%; z-index:88; text-align:center; padding:10px 2%;">
+        <form action="{php echo $this->createMobileUrl('payment', array('type' => 'self', 'product_id' => $_GPC['id'],'order_id'=>$_GPC['order_id']));}" method="post">
+            <input type="hidden" name="token" value="$_W['token']">
+            <input type="submit" value="立即支付" class="btn btn-danger">
+        </form>
+        <!--<a href="{php echo $this->createMobileUrl('payment', array('type' => 'self', 'order_id' => $_GPC['id'],'product_id'=>$_GPC['order_id']));}" class="btn btn-danger col-xs-12" style="width:45%;background-color: #ff7b7b;border-color:#ff7b7b;">立即购买</a>-->
+        <!--<a href="{php echo $this->createMobileUrl('payment', array('type' => 'friends', 'product_id' => $_GPC['id']));}" class="btn btn-danger col-xs-12" style="float:right; width:45%;">朋友代付</a>-->
+    </div>
+
+</div>
+    <div class="bottom_tip">
+        <ul class="font-vertical">
+            <li><a href="http://abc.5xieys.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=diypage&id=21">活动须知</a></li>
+            <li><a href="http://abc.5xieys.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=diypage&id=22">参与步骤</a></li>
+            <li><a href="http://abc.5xieys.cn/app/index.php?i=2&c=entry&do=olist&m=qw_cca&u=2&wxref=mp.weixin.qq.com&winzoom=1">我的订单</a></li>
+            <li><a href="http://abc.5xieys.cn/app/index.php?i=2&c=entry&do=link&m=qw_cca&winzoom=1">我的链接</a></li>
+        </ul>
+    </div>
+<script>
+    var options = {php echo json_encode($options)};
+    var specs = {php echo json_encode($specs)};
+    var hasoption = {php echo $goods['hasoption'] == '1' ? 'true' : 'false'};
+
+    $(function () {
+        $('.other-detail .detail-group:last').css("border-bottom", "0");
+
+        if (proimg_count > 0) {
+            (function (window, $, PhotoSwipe) {
+                $('.touchslider-viewport .list a[rel]').photoSwipe({});
+            }(window, window.jQuery, window.Code.PhotoSwipe));
+
+            $('.touchslider').touchSlider({
+                mouseTouch: true,
+                autoplay: true,
+                delay: 2000
+            });
+        }
+        $(".option,.optionimg").click(function () {
+            var specid = $(this).attr("specid");
+            var oid = $(this).attr("oid");
+            $(".optionid_" + specid).val(oid);
+            $(".options_" + specid + "  span").removeClass("current").attr("sel", "false");
+            $(this).addClass("current").attr("sel", "true");
+
+            var optionid = "";
+            var stock = 0;
+            var marketprice = 0;
+            var productprice = 0;
+            var ret = option_selected();
+
+            if (ret.no == '') {
+                var len = options.length;
+                for (var i = 0; i < len; i++) {
+                    var o = options[i];
+                    var ids = ret.all.join("_");
+                    if (o.specs == ids) {
+                        optionid = o.id;
+                        stock = o.stock;
+                        marketprice = o.marketprice;
+                        productprice = o.productprice;
+                        break;
+                    }
+                }
+                $("#optionid").val(optionid);
+                if (stock != "-1") {
+                    $("#stockcontainer").html("( 剩余 <span id='stock'>" + stock + "</span> )");
+                } else {
+                    $("#stockcontainer").html("<span id='stock'></span>");
+                }
+                $("#marketprice").html(marketprice);
+                $("#productprice").html(productprice);
+                if (productprice <= 0) {
+                    $("#productpricecontainer").hide();
+                } else {
+                    $("#productpricecontainer").show();
+                }
+            }
+        });
+
+        $("#total").blur(function () {
+            var total = $("#total");
+            if (!total.isInt()) {
+                total.val("1");
+            }
+            var stock = $("#stock").html() == '' ? -1 : parseInt($("#stock").html());
+            var mb = maxbuy;
+            if (mb > stock && stock != -1) {
+                mb = stock;
+            }
+            var num = parseInt(total.val());
+            if (num > mb && mb > 0) {
+                tip("您最多可购买 " + mb + " 件!", true);
+                total.val(mb);
+            }
+        })
+
+    });
+    var maxbuy = {php echo empty($goods['maxbuy']) ? "0" : $goods['maxbuy']};
+
+    function addNum() {
+        var total = $("#total");
+        if (!total.isInt()) {
+            total.val("1");
+        }
+        var stock = $("#stock").html() == '' ? -1 : parseInt($("#stock").html());
+        var mb = maxbuy;
+        if (mb > stock && stock != -1) {
+            mb = stock;
+        }
+        var num = parseInt(total.val()) + 1;
+        if (num > stock) {
+            tip("您最多可购买 " + stock + " 件!", true);
+            num--;
+        }
+        if (num > mb && mb > 0) {
+            tip("您最多可购买 " + mb + " 件!", true);
+            num = mb;
+        }
+        total.val(num);
+    }
+
+    function reduceNum() {
+        var total = $("#total");
+        if (!total.isInt()) {
+            total.val("1");
+        }
+        var num = parseInt(total.val());
+        if (num - 1 <= 0) {
+            return;
+        }
+        num--;
+        total.val(num);
+    }
+
+    function addtocart() {
+        var ret = option_selected();
+        if (ret.no != '') {
+            tip("请选择" + ret.no + "!", true);
+            return;
+        }
+        tip("正在处理数据...");
+        var total = $("#total").val();
+        var stock = parseInt($('#stock').text());
+        if (stock == 0) {
+            tip('库存不足，无法购买。');
+            return;
+        }
+        var url = "{php echo murl('entry//mycart',array('id'=>$goods['id'],'op'=>'add','m'=>'ewei_shopping'),true)}" + "&optionid=" + $("#optionid").val() + "&total=" + total;
+        $.getJSON(url, function (s) {
+            if (s.result == 0) {
+                tip("只能购买 " + s.maxbuy + " 件!");
+            } else {
+                tip_close();
+                tip("已加入购物车!");
+                $('#carttotal').css({
+                    'width': '50px',
+                    'height': '50px',
+                    'line-height': '50px'
+                }).html(s.total).animate({'width': '20px', 'height': '20px', 'line-height': '20px'}, 'slow');
+            }
+        });
+    }
+
+    function buy() {
+        var ret = option_selected();
+        if (ret.no != '') {
+            tip("请选择" + ret.no + "!", true);
+            return;
+        }
+        var stock = parseInt($('#stock').text());
+        if (stock == 0) {
+            tip('库存不足，无法购买。');
+            return;
+        }
+        var total = $("#total").val();
+        location.href = "{php echo murl('entry//confirm',array('id'=>$goods['id'],'op'=>'confirm','m'=>'ewei_shopping'),true)}" + "&optionid=" + $("#optionid").val() + "&total=" + total;
+    }
+
+    var selected = [];
+    function option_selected() {
+        var ret = {
+            no: "",
+            all: []
+        };
+        if (!hasoption) {
+            return ret;
+        }
+        $(".optionid").each(function () {
+            ret.all.push($(this).val());
+            if ($(this).val() == '') {
+                ret.no = $(this).attr("title");
+                return false;
+            }
+        })
+        return ret;
+    }
+
+    // 微商城分享
+    wx.ready(function () {
+        sharedata = {
+            title: "{$goods['title']}",
+            desc: '{php echo cutstr(str_replace("\r\n", "", strip_tags($goods["content"])), 64, true);}',
+            link: "{$_W['siteurl']}",
+            imgUrl: "{php echo tomedia($goods['thumb']);}"
+        };
+        wx.onMenuShareAppMessage(sharedata);
+        wx.onMenuShareTimeline(sharedata);
+    });
+
+</script>
+
+
+{template 'footer'}
+<script>
+$(".footer").hide();
+</script>

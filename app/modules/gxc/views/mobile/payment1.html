@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>许多宝 - 许多宝</title>
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="keywords" content="微信营销系统,微信,微信公众平台" />
+    <meta name="description" content="微信营销系统是一款免费开源的微信公众平台管理系统，是国内最完善移动网站及移动互联网技术解决方案。" />
+    <link rel="shortcut icon" href="http://abc.5xieys.cn/attachment/images/global/wechat.jpg" />
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/app/util.js"></script>
+    <script src="http://abc.5xieys.cn/app/resource/js/require.js"></script>
+    <script src="http://abc.5xieys.cn/app/resource/js/app/config.js"></script>
+    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/lib/mui.min.js"></script>
+    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/app/common.js"></script>
+    <link href="http://abc.5xieys.cn/app/resource/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://abc.5xieys.cn/app/resource/css/common.min.css" rel="stylesheet">
+    <script type="text/javascript">
+        if(navigator.appName == 'Microsoft Internet Explorer'){
+            if(navigator.userAgent.indexOf("MSIE 5.0")>0 || navigator.userAgent.indexOf("MSIE 6.0")>0 || navigator.userAgent.indexOf("MSIE 7.0")>0) {
+                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+            }
+        }
+        window.sysinfo = {
+            'uniacid': '2',		'acid': '2',				'siteroot': 'http://abc.5xieys.cn/',
+            'siteurl': 'http://abc.5xieys.cn/app/index.php?i=2&c=entry&order_id=1212&paid=2&do=payment1&m=qw_cca&from=groupmessage&isappinstalled=0&wxref=mp.weixin.qq.com',
+            'attachurl': 'http://abc.5xieys.cn/attachment/',
+            'attachurl_local': 'http://abc.5xieys.cn/attachment/',
+            'attachurl_remote': '',
+            'MODULE_URL': 'http://abc.5xieys.cn/addons/qw_cca/',		'cookie' : {'pre': 'b961_'}
+        };
+        // jssdk config 对象
+        jssdkconfig = null || {};
+        // 是否启用调试
+        jssdkconfig.debug = false;
+        jssdkconfig.jsApiList = [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onRecordEnd',
+            'playVoice',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard',
+            'openAddress'
+        ];
+    </script>
+</head>
+<body>
+<div class="container container-fill">
+    <link type="text/css" rel="stylesheet" href="../assets/css/common.css">
+    <!--<div class="xuduobao">
+       <a href="javascript:history.back();" class="bn pull-left"><!--<i class="fa fa-angle-left"></i></a>
+       <span class="title">活动详情</span>
+        <a href="#" class="bn pull-right" style="margin-right:0;">
+            <i class="fa fa-home"></i>
+        </a>
+        <img src="/addons/qw_cca/template/assets/img/title.jpg" style="height:auto;width:100%"/>
+    </div>-->
+    <style>
+        /*.detail-main a{
+            color: #ffffff;
+        }
+        .detail-main a:active{color:#fff}*/
+
+        .error {
+            color:#a94442;
+        }
+        .error-input {
+            border:1px solid #a94442;
+        }
+        .masklayer_div{
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 180;
+            background: rgba(0,0,0,0);
+        }
+        .masklayer_div.on{display: block;}
+        .p-number{
+            margin:0 auto;
+            text-align: center;
+            color:#ffa250;
+            font-size: 16px;
+            font-weight: 600;
+            position: absolute;
+            top:30%;
+            width: 100%;
+        }
+        .bottom_tip{
+            position: fixed;
+            left:0;
+            bottom:0;
+            right: 0;
+            background-color: #e0e0e0;
+            background: -moz-linear-gradient(top,  #848484 0%, #ffffff 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#848484), color-stop(100%,#ffffff));
+            background: -webkit-linear-gradient(top, rgba(132, 132, 132, 0.82) 0%,#ffffff 100%);
+            background: -o-linear-gradient(top,  #848484 0%,#ffffff 100%);
+            background: -ms-linear-gradient(top,  #848484 0%,#ffffff 100%);
+            background: linear-gradient(to bottom,  #848484 0%,#ffffff 100%);
+            color:#000;
+            height: 45px;
+            z-index: 1000;
+        }
+        .bottom_tip .font-vertical{
+            font-size: 14px;
+            font-family: Arial, "microsoft yahei";
+            text-align: center;
+            line-height: 15px;
+        }
+        ul,li,a{
+            list-style: none;
+            margin:0px;
+            padding:0px;
+        }
+        a{
+            text-decoration:none;
+        }
+        a:hover{
+            text-decoration:none;
+        }
+        .bottom_tip .font-vertical ul{
+            height:45px;
+        }
+        .bottom_tip .font-vertical li{
+            float:left;
+            width:25%;
+            text-align: center;
+            border-right:1px solid #ccc;
+            border-left: 1px solid #ccc;
+            height:45px;
+            line-height: 45px;
+        }
+        .bottom_tip .font-vertical li a{
+            text-decoration: none;
+        }
+        .share-tip{
+            width:100%;
+            height:40px;
+            line-height: 40px;
+            text-align:center;
+        }
+        .share-tip a{
+            text-decoration: none;
+        }
+        .game-rule{
+            border:1px solid #c3c3c3;
+            border-radius: 10px;
+            width:90%;
+            margin:20px auto;
+            background-color: #cccccc;
+            -webkit-box-shadow:0 0 10px rgba(114, 114, 114, .5);
+            -moz-box-shadow:0 0 10px rgba(114, 114, 114, .5);
+            box-shadow:0 0 10px rgba(114, 114, 114, .5);
+            height:auto;
+        }
+        .game-rule span{text-align: center;font-size: 13px;color:#fff;font-family:"Microsoft YaHei UI";height:20px;line-height: 20px ;display: block;}
+        .game-rule .rule-list{font-size: 10px;padding: 8px;}
+        .game-rule .rule-list ul,li{margin: 0;padding: 0;list-style: none;}
+        .game-rule .rule-list li{text-indent: 2em}
+        .game-rule .rule-list ul li i{margin: 5px auto; position: relative; left: 48%;text-indent: 0em}
+    </style>
+    <script>
+        function checkform() {
+            var success = true;
+
+            var province = $("select[name='address[province]']");
+            var city = $("select[name='address[city]']");
+            var district = $("select[name='address[district]']");
+            var address = $("input[name='address[detail]']");
+            //var postcode = $("input[name='address[postcode]']");
+            var recipientName = $("input[name='recipient_name']");
+            var mobile = $("input[name='mobile']");
+            var splitNumber = $("input[name='split_number']");
+
+            $(province).removeClass("error");
+            if ($(province).val() == "") {
+                $(province).addClass("error");
+                success = false;
+            }
+
+            $(city).removeClass("error");
+            if ($(city).val() == "") {
+                $(city).addClass("error");
+                success = false;
+            }
+
+            $(district).removeClass("error");
+            if ($(district).val() == "") {
+                $(district).addClass("error");
+                success = false;
+            }
+
+            $(address).removeClass("error-input");
+            if ($(address).val() == "") {
+                $(address).addClass("error-input");
+                success = false;
+            }
+
+            //$(postcode).removeClass("error-input");
+            //if ($(postcode).val() == "") {
+            //   $(postcode).addClass("error-input");
+            //   success = false;
+            //}
+
+            $(recipientName).removeClass("error-input");
+            if ($(recipientName).val() == "") {
+                $(recipientName).addClass("error-input");
+                success = false;
+            }
+
+            $(mobile).removeClass("error-input");
+            if ($(mobile).val() == "") {
+                $(mobile).addClass("error-input");
+                success = false;
+            }
+
+            $(splitNumber).removeClass("error-input");
+            if ($(splitNumber).val() == "") {
+                $(splitNumber).addClass("error-input");
+                success = false;
+            }
+
+            return success;
+        }
+    </script>
+    <img src="../assets/img/back.gif" style="height:auto;width:100%;"/>
+    <div class="p-number">当前已参与人数：<span>1249</span></div>
+    <form action="" method="post" onsubmit="return checkform();" style="position:absolute;top:34%;right:0;left:0">
+        <input type="hidden" name="token" value="$_W['token']">
+        <div class="detail-main" style="";>
+            <a href="http://abc.5xieys.cn/app/index.php?i=2&c=entry&order_id=1212&paid=2&do=index&m=qw_cca&u=4&from=singlemessage&isappinstalled=0&winzoom=1&wxref=mp.weixin.qq.com#wechat_redirect">
+                <button type="button" class= "btn btn-danger" style="position: absolute;left: 50%;width: 136px;margin-left: -68px;box-shadow:0 0 10px rgba(43, 43, 43, .84) inset"><span style="font-size: 24px">点击参与</span></button>        </a>            <div class="person" style="margin-top:0;padding:0;width:260px;margin:0 auto;text-align: center">
+            <span style="display:block;text-align:center;color:#b4f3fd;font-weight: 600"></span>
+            <img src="http://wx.qlogo.cn/mmopen/vp4eqWr8G2Tk3VDkJ8IPb97003JYJ9nGiaAGw87jhtf4RJgsG3zWtlJ8HpLC0SrtNoQEpKt2Q6B6iaic0XGI2rz2AQMz7iaEicDSm/132" class="img-responsive" style="width:70px;height:70px;float:left;margin-top:20%;border-radius: 70px"/>
+            <!--<div style="heigth:74px;width:100%;line-height: 74px;">
+                <strong  style="color: #fff;float:left;width:35%;padding-left:15px;overflow:hidden;height:74px">恋恋红尘</strong>
+                <div style="color: #fff">2017年03月24日</div>
+            </div>-->
+            <div style='margin-top:30px;'>
+                <p style="margin-left:30%;"></p>
+            </div>
+        </div>
+        </div>
+    </form>
+
+    <div class="bottom_tip">
+        <ul class="font-vertical">
+            <li><a href="http://abc.5xieys.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=diypage&id=21">活动须知</a></li>
+            <li><a href="http://abc.5xieys.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=diypage&id=22">参与步骤</a></li>
+            <li><a href="http://abc.5xieys.cn/app/index.php?i=2&c=entry&do=olist&m=qw_cca&u=2&wxref=mp.weixin.qq.com&winzoom=1">我的订单</a></li>
+            <li><a href="http://abc.5xieys.cn/app/index.php?i=2&c=entry&do=link&m=qw_cca&winzoom=1">我的链接</a></li>
+        </ul>
+    </div>
+    <div class="flow">
+
+    </div>
+
+    <div id="shareit" style="position: fixed">
+        <img class="arrow" src="../assets/img/btnLightSmall.png" />
+        <a href="#" id="follow">
+
+        </a>
+    </div>
+    <script>
+        //立即分享到微信朋友圈点击事件
+        $("#share_btn").on("click", function() {
+            $("#shareit").show();
+        });
+        $("#shareit").on("click", function(){
+            $("#shareit").hide();
+        })
+        $(document).ready(function(){
+            var $count=$(".p-number span").html();
+            $(".p-number span").html(parseInt($count)+ parseInt((Date.parse(new Date())/10000+"").substr(3)));
+            //alert((Date.parse(new Date())/1000+"").substr(4));
+        });
+    </script>
+    <script>
+
+        wx.ready(function () {
+            sharedata = {
+                title: "许多宝——新品试用平台",
+                imgUrl:"http://abc.5xieys.cn/addons/qw_cca/template/assets/img/light.png",
+                desc: '任何企业商品的创新和升级只有得到消费者的认可，才算真正的成功。',
+                success:function () {
+//                location.href="./index.php?i=2&c=entry&friend=1&do=payment&m=qw_cca"
+                    alert("OK");
+                },
+                cancel:function () {
+                    alert("cancel")
+                }
+            };
+            wx.onMenuShareAppMessage(sharedata);
+            wx.onMenuShareTimeline(sharedata);
+        });
+
+    </script>
+
+    <div class="text-center footer" style="margin:10px 0; width:100%; text-align:center; word-break:break-all;">
+        &nbsp;&nbsp;			</div>
+    <script>require(['bootstrap']);</script>
+</div>
+<style>
+    h5{color:#555;}
+</style>
+<script type="text/javascript">
+    $(function(){
+        wx.config(jssdkconfig);
+        var $_share = {"title":"\u8bb8\u591a\u5b9d","imgUrl":"","desc":"","link":"http:\/\/abc.5xieys.cn\/app\/index.php?i=2&c=entry&order_id=1212&paid=2&do=payment1&m=qw_cca&from=groupmessage&isappinstalled=0&wxref=mp.weixin.qq.com"};
+        if(typeof sharedata == 'undefined'){
+            sharedata = $_share;
+        } else {
+            sharedata['title'] = sharedata['title'] || $_share['title'];
+            sharedata['desc'] = sharedata['desc'] || $_share['desc'];
+            sharedata['link'] = sharedata['link'] || $_share['link'];
+            sharedata['imgUrl'] = sharedata['imgUrl'] || $_share['imgUrl'];
+        }
+        if(sharedata.imgUrl == ''){
+            var _share_img = $('body img:eq(0)').attr("src");
+            if(_share_img == ""){
+                sharedata['imgUrl'] = window.sysinfo.attachurl + 'images/global/wechat_share.png';
+            } else {
+                sharedata['imgUrl'] = util.tomedia(_share_img);
+            }
+        }
+        if(sharedata.desc == ''){
+            var _share_content = util.removeHTMLTag($('body').html());
+            if(typeof _share_content == 'string'){
+                sharedata.desc = _share_content.replace($_share['title'], '')
+            }
+        }
+        wx.ready(function () {
+            wx.onMenuShareAppMessage(sharedata);
+            wx.onMenuShareTimeline(sharedata);
+            wx.onMenuShareQQ(sharedata);
+            wx.onMenuShareWeibo(sharedata);
+        });
+        if($('.js-quickmenu')!=null && $('.js-quickmenu')!=''){
+            var h = $('.js-quickmenu').height()+'px';
+            $('body').css("padding-bottom",h);
+        }else{
+            $('body').css("padding-bottom", "0");
+        }
+    });
+</script>
+</body>
+</html>
+<script>
+    $(".footer").hide();
+</script>

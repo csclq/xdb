@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>许多宝 - 许多宝</title>
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="keywords" content="微信营销系统,微信,微信公众平台" />
+    <meta name="description" content="微信营销系统是一款免费开源的微信公众平台管理系统，是国内最完善移动网站及移动互联网技术解决方案。" />
+    <link rel="shortcut icon" href="http://abc.5xieys.cn/attachment/images/global/wechat.jpg" />
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/app/util.js"></script>
+    <script src="http://abc.5xieys.cn/app/resource/js/require.js"></script>
+    <script src="http://abc.5xieys.cn/app/resource/js/app/config.js"></script>
+    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/lib/mui.min.js"></script>
+    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/app/common.js"></script>
+    <link href="http://abc.5xieys.cn/app/resource/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://abc.5xieys.cn/app/resource/css/common.min.css" rel="stylesheet">
+    <script type="text/javascript">
+        if(navigator.appName == 'Microsoft Internet Explorer'){
+            if(navigator.userAgent.indexOf("MSIE 5.0")>0 || navigator.userAgent.indexOf("MSIE 6.0")>0 || navigator.userAgent.indexOf("MSIE 7.0")>0) {
+                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+            }
+        }
+        window.sysinfo = {
+            'uniacid': '2',		'acid': '2',				'siteroot': 'http://abc.5xieys.cn/',
+            'siteurl': 'http://abc.5xieys.cn/app/index.php?i=2&c=entry&id=270&do=view_detail&m=qw_cca',
+            'attachurl': 'http://abc.5xieys.cn/attachment/',
+            'attachurl_local': 'http://abc.5xieys.cn/attachment/',
+            'attachurl_remote': '',
+            'MODULE_URL': 'http://abc.5xieys.cn/addons/qw_cca/',		'cookie' : {'pre': 'b961_'}
+        };
+        // jssdk config 对象
+        jssdkconfig = null || {};
+        // 是否启用调试
+        jssdkconfig.debug = false;
+        jssdkconfig.jsApiList = [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onRecordEnd',
+            'playVoice',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard',
+            'openAddress'
+        ];
+    </script>
+</head>
+<body>
+<div class="container container-fill">
+    <style>
+        ul,li{list-style: none;padding:0px;margin:0px}
+        .detail-main .detail-div .detail-group .spec{
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+        .comment{
+            height:40px;
+            line-height: 40px;
+            font-size: 14px;
+            color:#ff9a2e;
+            border:1px #ff9a2e solid;
+            border-radius: 5px;
+            width:50%;
+            text-align:center;
+            margin: 10px auto;
+
+        }
+        .comment a{
+            list-style: none;
+            color:#ff9a2e;
+        }
+        .comment a:hover{
+            list-style: none;
+            color:#ff9a2e;
+            text-decoration: none;
+        }
+        .comment_label{
+            margin: 10px;
+        }
+        .comment_label ul{display: block;width:100%;height:38px;margin:0 auto}
+        .comment_label ul li{float:left;width:31%;line-height:30px;border:1px solid #ff9a2e;border-radius: 5px;text-align: center;margin: 1%;display:inline;}
+        .comment_label ul li:hover{background-color: #ff9a2e;color:#fff}
+        .comment_label ul li a{color:#000;text-decoration: none}
+        .comment_label ul li a:hover{color:#fff;text-decoration: none}
+        .comment_details{width:90%;margin:0px auto;border:1px solid #ff9a2e;padding:5px;height:auto;border-radius: 7px;margin-bottom: 30px}
+        .comment_details .name{text-align: right;}
+        .comment_details .con-comment{width:100%;height:auto;padding-top: 10px}
+        .comment_details .time{text-align: right}
+        .comment_details li{border-bottom: 1px dotted #ccc}
+        .comment_details .con-img{width:100%;height:auto}
+        .comment_details img{border:1px solid #fff;width:30%;height:auto;}
+        .large-img{background-color: rgba(0,0,0,.8);position: absolute;top:5%;left:5%;right:5%;bottom:5%;z-index: 20;}
+    </style>
+    <div class="detail-img">
+        <div id="banner_box" class="box_swipe">
+            <ul style="background:#FFF;">
+                <li style="text-align:center;list-style: none;">
+                    <a href="" rel=''>
+                        <img src="http://abc.5xieys.cn/attachment/images/2/2017/03/l2242dDz3ddzf723cbBdCD52D0424N.jpg" class="img-responsive center-block" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--<div style="position: absolute;top: 20px;left: 20px;color: white;font-size: 16px;z-index: 2000;">
+        <a href="javascript:history.back();" class="bn pull-left"><i class="fa fa-angle-left" style="font-size: 20px;color:white;"></i></a>
+        <span class="title">商品详情</span>
+        <a href="./index.php?i=2&c=entry&do=list&m=qw_cca" class="bn pull-right" style="margin-right:30px;">
+            <i class="fa fa-home"></i>
+        </a>
+        <a href="./index.php?i=2&c=entry&do=mycart&m=qw_cca" class="bn pull-right">
+            <i class="fa fa-shopping-cart"></i>
+            <span class="buy-num img-circle" id="carttotal"></span>
+        </a>
+    </div>-->
+    <div class="comment">
+        <span>点击可查看商品评论</span>
+    </div>
+    <div class="comment_label" style="display: none">
+        <ul>
+            <li class="perfect">
+                好评 (0)
+            </li>
+            <li class="good">
+                中评 (0)
+            </li>
+            <li class="good">
+                差评 (0)
+            </li>
+        </ul>
+    </div>
+    <div class="comment_details" style="display: none">
+        <ul id="tabs-3">
+            <li>
+                <div class="con-comment">很好吃，果实饱满新鲜。甜甜酸酸的不腻口。也没有腌坏的怪味果实。一口气吃光光。</div>
+                <div class="con-img">
+                    <img src="/images/58ddc9887b7b6.jpeg" />
+                </div>
+                <div class="name">Eden</div>
+                <div class="time">2017-03-31 11:14</div>
+            </li>
+        </ul>
+        <ul id="tabs-2">
+        </ul>
+        <ul id="tabs-1">
+        </ul>
+    </div>
+
+    <div class="detail-main" style='margin-bottom:65px;'>
+        <div class="detail-div">
+            <div class="detail-group text-center" style="line-height:20px;font-weight:bold;border-bottom: 1px solid #d3d3d3;padding-bottom: 5px">
+                水果时光蓝莓罐头1瓶装        </div>
+            <div class="detail-group" style='border-bottom: 1px solid #ccc;padding: 3px 0px'>
+                <div class="spec">
+                    颜色
+                    <br>
+                    尺码             </div>
+			<span class="col-xs-8" style="width:100%;margin-top: 10px">
+				市场参考价 : <span id='marketprice' class="text-danger" style="font-size:18px; font-weight:bold;"><i class="fa fa-yen"></i>29.00元</span>
+                <span class="soldnum pull-right">已选577件</span>
+			</span>
+            </div>
+
+            <div style="clear: both;"></div>
+
+            <div class="detail-div detail-content" style="word-break:break-all;padding:10px 15px;">
+                <p><img src="http://abc.5xieys.cn/attachment/images/2/2017/03/R1u5UMU96Zf2uf2QUU5h1c9CZ9FgPP.jpg" width="100%" alt="images/2/2017/03/R1u5UMU96Zf2uf2QUU5h1c9CZ9FgPP.jpg"/><img src="http://abc.5xieys.cn/attachment/images/2/2017/03/u73nyXe87xtExnDI4Tg388txE8Xy8x.jpg" width="100%" style=""/></p><p><br/></p><p><img src="http://abc.5xieys.cn/attachment/images/2/2017/03/GHfOKSvzlr3sk8O3wWn30434vnf1hk.jpg" width="100%" style=""/></p><p><img src="http://abc.5xieys.cn/attachment/images/2/2017/03/ECcE3Ls6L3CSC3Lc63ALC76s03MzS3.jpg" width="100%" style=""/></p><p><img src="http://abc.5xieys.cn/attachment/images/2/2017/03/U1Z2L58oi71ot4OUf1dotgmTu4HIdM.jpg" width="100%" style=""/></p><p><img src="http://abc.5xieys.cn/attachment/images/2/2017/03/i45qZOO83636OSso1zqP88z850oJ33.jpg" width="100%" style=""/></p><p><br/></p>        </div>
+        </div>
+        <div style="position:fixed; bottom:0; left:0; width:100%; z-index:88; text-align:center; background:#E9E9E9; padding:10px 2%;">
+            <input type="hidden" name="token" value="$_W['token']">
+            <a href="javascript:history.back();"><button type="button" class="btn btn-danger">返回</button></a>
+            <!--<input type="submit" value="立即返回" class="btn btn-danger">-->
+            <!--<a href="./index.php?i=2&c=entry&type=self&order_id=270&do=payment&m=qw_cca" class="btn btn-danger col-xs-12" style="width:45%;background-color: #ff7b7b;border-color:#ff7b7b;">立即购买</a>-->
+            <!--<a href="./index.php?i=2&c=entry&type=friends&product_id=270&do=payment&m=qw_cca" class="btn btn-danger col-xs-12" style="float:right; width:45%;">朋友代付</a>-->
+        </div>
+    </div>
+    <script>
+        /*var options = null;
+         var specs = null;
+         var hasoption = false;
+
+         $(function () {
+         $('.other-detail .detail-group:last').css("border-bottom", "0");
+
+         if (proimg_count > 0) {
+         (function (window, $, PhotoSwipe) {
+         $('.touchslider-viewport .list a[rel]').photoSwipe({});
+         }(window, window.jQuery, window.Code.PhotoSwipe));
+
+         $('.touchslider').touchSlider({
+         mouseTouch: true,
+         autoplay: true,
+         delay: 2000
+         });
+         }
+         $(".option,.optionimg").click(function () {
+         var specid = $(this).attr("specid");
+         var oid = $(this).attr("oid");
+         $(".optionid_" + specid).val(oid);
+         $(".options_" + specid + "  span").removeClass("current").attr("sel", "false");
+         $(this).addClass("current").attr("sel", "true");
+
+         var optionid = "";
+         var stock = 0;
+         var marketprice = 0;
+         var productprice = 0;
+         var ret = option_selected();
+
+         if (ret.no == '') {
+         var len = options.length;
+         for (var i = 0; i < len; i++) {
+         var o = options[i];
+         var ids = ret.all.join("_");
+         if (o.specs == ids) {
+         optionid = o.id;
+         stock = o.stock;
+         marketprice = o.marketprice;
+         productprice = o.productprice;
+         break;
+         }
+         }
+         $("#optionid").val(optionid);
+         if (stock != "-1") {
+         $("#stockcontainer").html("( 剩余 <span id='stock'>" + stock + "</span> )");
+         } else {
+         $("#stockcontainer").html("<span id='stock'></span>");
+         }
+         $("#marketprice").html(marketprice);
+         $("#productprice").html(productprice);
+         if (productprice <= 0) {
+         $("#productpricecontainer").hide();
+         } else {
+         $("#productpricecontainer").show();
+         }
+         }
+         });
+
+         $("#total").blur(function () {
+         var total = $("#total");
+         if (!total.isInt()) {
+         total.val("1");
+         }
+         var stock = $("#stock").html() == '' ? -1 : parseInt($("#stock").html());
+         var mb = maxbuy;
+         if (mb > stock && stock != -1) {
+         mb = stock;
+         }
+         var num = parseInt(total.val());
+         if (num > mb && mb > 0) {
+         tip("您最多可购买 " + mb + " 件!", true);
+         total.val(mb);
+         }
+         })
+
+         });
+         var maxbuy = 0;
+
+         function addNum() {
+         var total = $("#total");
+         if (!total.isInt()) {
+         total.val("1");
+         }
+         var stock = $("#stock").html() == '' ? -1 : parseInt($("#stock").html());
+         var mb = maxbuy;
+         if (mb > stock && stock != -1) {
+         mb = stock;
+         }
+         var num = parseInt(total.val()) + 1;
+         if (num > stock) {
+         tip("您最多可购买 " + stock + " 件!", true);
+         num--;
+         }
+         if (num > mb && mb > 0) {
+         tip("您最多可购买 " + mb + " 件!", true);
+         num = mb;
+         }
+         total.val(num);
+         }
+
+         function reduceNum() {
+         var total = $("#total");
+         if (!total.isInt()) {
+         total.val("1");
+         }
+         var num = parseInt(total.val());
+         if (num - 1 <= 0) {
+         return;
+         }
+         num--;
+         total.val(num);
+         }
+
+         function addtocart() {
+         var ret = option_selected();
+         if (ret.no != '') {
+         tip("请选择" + ret.no + "!", true);
+         return;
+         }
+         tip("正在处理数据...");
+         var total = $("#total").val();
+         var stock = parseInt($('#stock').text());
+         if (stock == 0) {
+         tip('库存不足，无法购买。');
+         return;
+         }
+         var url = "./index.php?i=2&c=entry&do=mycart&op=add&m=ewei_shopping" + "&optionid=" + $("#optionid").val() + "&total=" + total;
+         $.getJSON(url, function (s) {
+         if (s.result == 0) {
+         tip("只能购买 " + s.maxbuy + " 件!");
+         } else {
+         tip_close();
+         tip("已加入购物车!");
+         $('#carttotal').css({
+         'width': '50px',
+         'height': '50px',
+         'line-height': '50px'
+         }).html(s.total).animate({'width': '20px', 'height': '20px', 'line-height': '20px'}, 'slow');
+         }
+         });
+         }
+
+         function buy() {
+         var ret = option_selected();
+         if (ret.no != '') {
+         tip("请选择" + ret.no + "!", true);
+         return;
+         }
+         var stock = parseInt($('#stock').text());
+         if (stock == 0) {
+         tip('库存不足，无法购买。');
+         return;
+         }
+         var total = $("#total").val();
+         location.href = "./index.php?i=2&c=entry&do=confirm&op=confirm&m=ewei_shopping" + "&optionid=" + $("#optionid").val() + "&total=" + total;
+         }
+
+         var selected = [];
+         function option_selected() {
+         var ret = {
+         no: "",
+         all: []
+         };
+         if (!hasoption) {
+         return ret;
+         }
+         $(".optionid").each(function () {
+         ret.all.push($(this).val());
+         if ($(this).val() == '') {
+         ret.no = $(this).attr("title");
+         return false;
+         }
+         })
+         return ret;
+         }*/
+        $(function () {
+            var pnumber=parseInt($(".perfect span").html())+218;
+            //alert(pnumber);
+            $(".perfect span").html(pnumber);
+            /*$(".comment_details img").on("click",function(){
+             var src=$(this)[0].src;
+             console.log(src);
+             var div="<div class='large-img'><img src=''></div>";
+             $(".large-img").children("img").src="http://abc.5xieys.cn/images/58c9eba4b8f03.jpeg";
+             $("body").append(div);
+             });*/
+            $(".comment").on("click",function(){
+                if($(this).next(".comment_label").css("display")=="none"){
+                    $(this).next(".comment_label").show(1000);
+                    $(this).next().next(".comment_details").show(1000);
+                }else{
+                    $(this).next(".comment_label").hide(1000);
+                    $(this).next().next(".comment_details").hide(1000);
+                }
+
+            });
+            var $div_li = $("div.comment_label ul li");
+            $div_li.click(function () {       //定义了tan_menu对应的单击事件，也就是类别的单击事件。
+                var index = $div_li.index(this);
+                $("div.comment_details>ul").eq(index).show()
+                        .siblings().hide();
+            })
+        });
+        // 微商城分享
+        wx.ready(function () {
+            sharedata = {
+                title: "",
+                desc: '',
+                link: "http://abc.5xieys.cn/app/index.php?i=2&c=entry&id=270&do=view_detail&m=qw_cca",
+                imgUrl: ""
+            };
+            wx.onMenuShareAppMessage(sharedata);
+            wx.onMenuShareTimeline(sharedata);
+        });
+
+    </script>
+
+
+    <div class="text-center footer" style="margin:10px 0; width:100%; text-align:center; word-break:break-all;">
+        &nbsp;&nbsp;			</div>
+    <script>require(['bootstrap']);</script>
+</div>
+<style>
+    h5{color:#555;}
+</style>
+<script type="text/javascript">
+    $(function(){
+        wx.config(jssdkconfig);
+        var $_share = {"title":"\u8bb8\u591a\u5b9d","imgUrl":"","desc":"","link":"http:\/\/abc.5xieys.cn\/app\/index.php?i=2&c=entry&id=270&do=view_detail&m=qw_cca"};
+        if(typeof sharedata == 'undefined'){
+            sharedata = $_share;
+        } else {
+            sharedata['title'] = sharedata['title'] || $_share['title'];
+            sharedata['desc'] = sharedata['desc'] || $_share['desc'];
+            sharedata['link'] = sharedata['link'] || $_share['link'];
+            sharedata['imgUrl'] = sharedata['imgUrl'] || $_share['imgUrl'];
+        }
+        if(sharedata.imgUrl == ''){
+            var _share_img = $('body img:eq(0)').attr("src");
+            if(_share_img == ""){
+                sharedata['imgUrl'] = window.sysinfo.attachurl + 'images/global/wechat_share.png';
+            } else {
+                sharedata['imgUrl'] = util.tomedia(_share_img);
+            }
+        }
+        if(sharedata.desc == ''){
+            var _share_content = util.removeHTMLTag($('body').html());
+            if(typeof _share_content == 'string'){
+                sharedata.desc = _share_content.replace($_share['title'], '')
+            }
+        }
+        wx.ready(function () {
+            wx.onMenuShareAppMessage(sharedata);
+            wx.onMenuShareTimeline(sharedata);
+            wx.onMenuShareQQ(sharedata);
+            wx.onMenuShareWeibo(sharedata);
+        });
+        if($('.js-quickmenu')!=null && $('.js-quickmenu')!=''){
+            var h = $('.js-quickmenu').height()+'px';
+            $('body').css("padding-bottom",h);
+        }else{
+            $('body').css("padding-bottom", "0");
+        }
+    });
+</script>
+</body>
+</html>
+<script>
+    $(".footer").hide();
+</script>

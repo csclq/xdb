@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="shortcut icon" href="http://abc.5xieys.cn/attachment/images/global/wechat.jpg" />
+    <link href="static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="static/css/animate.css" rel="stylesheet">
+    <link href="static/css/v2.css?v=4.1.0" rel="stylesheet">
+    <link href="static/css/common.css?v=2.0.0" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/fonts/iconfont.css?v=2016070717">
+    <script src="resource/js/lib/jquery-1.11.1.min.js"></script>
+    <script src="static/js/dist/jquery/jquery.gcjs.js"></script>
+    <script src="resource/js/app/util.js"></script>
+    <script src="static/js/require.js"></script>
+    <script src="resource/js/app/config.js"></script>
+    <script src="static/js/myconfig.js"></script>
+    <script>
+        require.config({
+            waitSeconds: 0
+        });
+    </script>
+    <script src="static/js/myconfig.js"></script>
+    <script type="text/javascript">
+        if (navigator.appName == 'Microsoft Internet Explorer') {
+            if (navigator.userAgent.indexOf("MSIE 5.0") > 0 || navigator.userAgent.indexOf("MSIE 6.0") > 0 || navigator.userAgent.indexOf("MSIE 7.0") > 0) {
+                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+            }
+        }
+        myrequire.path = "http://abc.5xieys.cn/addons/ewei_shopv2/static/js/";
+
+        function preview_html(txt)
+        {
+            var win = window.open("", "win", "width=300,height=600"); // a window object
+            win.document.open("text/html", "replace");
+            win.document.write($(txt).val());
+            win.document.close();
+        }
+    </script>
+    <script src="static/js/dist/echarts/echarts-all.js"></script>
+</head>
+
+
+<body class="white-bg ">
+<div id='topbar' class='top-navigation   gray-bg '>
+    <nav class="navbar   gray-bg " role="navigation" style="width:1024px;margin:auto;">
+        <div class="navbar-header" style="width:200px;">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <a class="navbar-brand" href="index.html">新品试用平台</a>
+        </div><style>
+        .deg180{
+            transform:rotate(180deg);
+            -ms-transform:rotate(180deg); 	/* IE 9 */
+            -moz-transform:rotate(180deg); 	/* Firefox */
+            -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+            -o-transform:rotate(180deg); 	/* Opera */
+        }
+    </style>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav gray-bg">
+                <li ><a href="index.html">首页</a></li>
+                <li ><a href="goods.html"> 商品管理</a></li>
+                <li  class="active"><a href="order.html"> 订单管理</a></li>
+                <li ><a href="basic.html"> 微信基本功能</a></li>
+                <li ><a href="data.html">数据分析</a></li>
+            </ul>
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown" style="position:relative;" onclick="$(this).find('span').toggleClass('deg180')">
+                        <name style="width: 80px;white-space:nowrap;overflow:hidden;text-overflow: ellipsis;display: block;text-align: center">许多宝</name>
+                        <span class="caret" style="position: absolute;top: 22px;right: 12px;"></span></a>
+                    <ul role="menu" class="dropdown-menu">
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=sysset.account"><i class="icon icon-similar"></i>  切换公众号</a></li>
+                        <li><a href="./index.php?c=account&a=post&uniacid=2" target="_blank"><i class="icon icon-wechat"></i>  编辑公众号</a></li>
+                        <li><a href="./index.php?c=profile&a=payment&" target="_blank"><i class="icon icon-pay"></i>  支付参数</a></li>
+                        <!--   <li><a href="./index.php?c=utility&a=emulator&" target="_blank"><i class="icon icon-machinery"></i>  模拟测试</a></li>-->
+                        <li class="divider"></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=perm"><i class="icon icon-person2"></i> 权限管理</a></li>
+                        <li class="divider"></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system"><i class="icon icon-settings"></i> 系统管理</a></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade"><i class="icon icon-down"></i> 系统更新</a></li>
+                        <li><a href="./index.php?c=user&a=profile&" target="_blank"><i class="icon icon-lock"></i>  修改密码</a></li>
+                        <li><a href="./index.php?c=account&a=display&" target="_blank"><i class="icon icon-back"></i>  返回系统</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+<div class='wrapper main-wrapper wrapper-content '>
+    <div class="page-menubar">
+        <style type='text/css'>
+            .order-list a {
+                position: relative;
+            }
+            .order-list span  {
+
+                float:right;margin-right:20px;
+            }
+        </style>
+        <ul class="menu-head-top">
+            <li  class="active" ><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order">订单概述 <i class="fa fa-caret-right"></i></a></li>
+        </ul>
+
+        <div class='menu-header'>订单</div>
+        <ul class='order-list'>
+            <li >
+                <a href="orderstatus1.html">待发货 <span class='text-danger status1'>--</span></a>
+            </li>
+            <li >
+                <a href="orderstatus2.html">待收货 <span class='text-warning status2'>--</span></a>
+            </li>
+            <li >
+                <a href="orderstatus3.html">待付款 <span class="status0">--</span></a>
+            </li>
+            <li >
+                <a href="orderstatus4.html">已完成 <span class='text-primary status3'>--</span></a>
+            </li>
+            <li >
+                <a href="orderstatus5.html">已关闭 <span class="status_1">--</span></a>
+            </li>
+            <li >
+                <a href="orderlist.html" >全部订单<span class="all">--</span></a>
+            </li>
+
+        </ul>
+        <div class='menu-header'>工具</div>
+        <ul>
+            <li >
+                <a href="orderout.html">自定义导出</a>
+            </li>
+
+            <li >
+                <a href="ordersend.html">批量发货</a>
+            </li>
+            <li><a href="conlight.html">次数控制</a>
+            </li>
+        </ul>
+        <script>
+            $(function () {
+                $.ajax({type: "GET",url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.list.ajaxgettotals",dataType:"json",success: function(data){
+                    var res = data.result;
+                    $("span.status0").text(res.status0);
+                    $("span.status1").text(res.status1);
+                    $("span.status2").text(res.status2);
+                    $("span.status3").text(res.status3);
+                    $("span.status4").text(res.status4);
+                    $("span.status5").text(res.status5);
+                    $("span.status_1").text(res.status_1);
+                    $("span.all").text(res.all);
+                }
+                });
+            });
+        </script>    </div>
+    <div class="page-content">
+
+
+        <div class="page-heading"> <h2>订单概述</h2> </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="ibox float-e-margins" style="border: 1px solid #e7eaec">
+                    <div class="ibox-title">
+                        <span class="label label-primary pull-left">今日成交</span>
+                        <span class="pull-right">人均消费 : ¥ <span class="today-avg"></span></span>
+                        <h5></h5>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="row">
+                            <div class="col-md-6 text-center">
+                                成交量
+                                <h2 class="no-margins today-count">--</h2>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                成交额
+                                <h2 class="no-margins">¥ <span class="today-price">--</span></h2>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+                <div class="ibox float-e-margins" style="border: 1px solid #e7eaec">
+                    <div class="ibox-title">
+                        <span class="label label-success pull-left">昨日成交</span>
+                        <span class="pull-right">人均消费 : ¥ <span class="yesterday-avg">--</span></span>
+                        <h5></h5>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="row">
+                            <div class="col-md-6 text-center">
+                                成交量
+                                <h2 class="no-margins yesterday-count">--</h2>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                成交额
+                                <h2 class="no-margins">¥ <span class="yesterday-price">--</span></h2>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+                <div class="ibox float-e-margins" style="border: 1px solid #e7eaec">
+                    <div class="ibox-title">
+                        <span class="label label-warning pull-left">近7日成交</span>
+                        <span class="pull-right">人均消费 : ¥ <span class="seven-avg">--</span></span>
+                        <h5></h5>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="row">
+                            <div class="col-md-6 text-center">
+                                成交量
+                                <h2 class="no-margins seven-count">--</h2>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                成交额
+                                <h2 class="no-margins">¥ <span class="seven-price">--</span></h2>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+                <div class="ibox float-e-margins" style="border: 1px solid #e7eaec">
+                    <div class="ibox-title">
+                        <span class="label label-danger pull-left">近1个月成交</span>
+                        <span class="pull-right">人均消费 : ¥ <span class="month-avg">--</span></span>
+                        <h5></h5>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="row">
+                            <div class="col-md-6 text-center">
+                                成交量
+                                <h2 class="no-margins month-count">--</h2>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                成交额
+                                <h2 class="no-margins">¥ <span class="month-price">--</span></h2>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins" style="border: 1px solid #e7eaec">
+                    <div class="ibox-title">
+                        <h5>交易走势图</h5>
+                    </div>
+                    <div id="main" style="width: 860px;height:400px;" ></div>
+                    <script type="text/javascript">
+                        // 基于准备好的dom，初始化echarts实例
+                        var myChart = echarts.init(document.getElementById('main'));
+
+                        // 指定图表的配置项和数据
+                        var option = {
+                            tooltip : {
+                                trigger: 'axis'
+                            },
+                            legend: {
+                                data:['人数','浏览量']
+                            },
+                            toolbox: {
+                                show : true,
+                                orient: 'horizontal',      // 布局方式，默认为水平布局，可选为：
+                                                           // 'horizontal' ¦ 'vertical'
+                                x: 'right',                // 水平安放位置，默认为全图右对齐，可选为：
+                                                           // 'center' ¦ 'left' ¦ 'right'
+                                                           // ¦ {number}（x坐标，单位px）
+                                y: 'top',                  // 垂直安放位置，默认为全图顶端，可选为：
+                                                           // 'top' ¦ 'bottom' ¦ 'center'
+                                                           // ¦ {number}（y坐标，单位px）
+                                color : ['#1e90ff','#22bb22','#4b0082','#d2691e'],
+                                backgroundColor: 'rgba(0,0,0,0)', // 工具箱背景颜色
+                                borderColor: '#ccc',       // 工具箱边框颜色
+                                borderWidth: 0,            // 工具箱边框线宽，单位px，默认为0（无边框）
+                                padding: 5,                // 工具箱内边距，单位px，默认各方向内边距为5，
+                                showTitle: true,
+                                feature : {
+                                    mark : {
+                                        show : true,
+                                        title : {
+                                            mark : '辅助线-开关',
+                                            markUndo : '辅助线-删除',
+                                            markClear : '辅助线-清空'
+                                        },
+                                        lineStyle : {
+                                            width : 1,
+                                            color : '#1e90ff',
+                                            type : 'dashed'
+                                        }
+                                    },
+                                    dataView : {
+                                        show : true,
+                                        title : '数据视图',
+                                        readOnly: true,
+                                        lang : ['数据视图', '关闭', '刷新'],
+                                        optionToContent: function(opt) {
+                                            var axisData = opt.xAxis[0].data;
+                                            var series = opt.series;
+                                            var table = '<table style="width:100%;text-align:center"><tbody><tr>'
+                                                    + '<td>时间</td>'
+                                                    + '<td>' + series[0].name + '</td>'
+                                                    + '<td>' + series[1].name + '</td>'
+                                                    + '</tr>';
+                                            for (var i = 0, l = axisData.length; i < l; i++) {
+                                                table += '<tr>'
+                                                + '<td>' + axisData[i] + '</td>'
+                                                + '<td>' + series[0].data[i] + '</td>'
+                                                + '<td>' + series[1].data[i] + '</td>'
+                                                + '</tr>';
+                                            }
+                                            table += '</tbody></table>';
+                                            return table;
+                                        }
+                                    },
+                                    magicType: {
+                                        show : true,
+                                        title : {
+                                            line : '动态类型切换-折线图',
+                                            bar : '动态类型切换-柱形图',
+                                            stack : '动态类型切换-堆积',
+                                            tiled : '动态类型切换-平铺'
+                                        },
+                                        type : ['line', 'bar', 'stack', 'tiled']
+                                    },
+                                    restore : {
+                                        show : true,
+                                        title : '还原',
+                                        color : 'black'
+                                    },
+                                    saveAsImage : {
+                                        show : true,
+                                        title : '保存为图片',
+                                        type : 'jpeg',
+                                        lang : ['点击本地保存']
+                                    },
+                                    myTool : {
+                                        show : true,
+                                        title : '自定义扩展方法',
+                                        icon : 'image://../asset/ico/favicon.png',
+                                        onclick : function (){
+                                            alert('myToolHandler')
+                                        }
+                                    }
+                                }
+                            },
+                            calculable : true,
+
+                            xAxis : [
+                                {
+                                    type : 'category',
+                                    boundaryGap : false,
+                                    data : function (){
+                                        var list = [];
+                                        for (var i = 1; i <= 7; i++) {
+                                            list.push('2017-03-' + i);
+                                        }
+                                        return list;
+                                    }()
+                                }
+                            ],
+                            yAxis : [
+                                {
+                                    type : 'value'
+                                }
+                            ],
+                            series : [
+                                {
+                                    name:'浏览量',
+                                    type:'line',
+                                    data:function (){
+                                        var list = [];
+                                        for (var i = 1; i <= 30; i++) {
+                                            list.push(Math.round(Math.random()* 300));
+                                        }
+                                        return list;
+                                    }()
+                                },
+                                {
+                                    name:'人数',
+                                    type:'line',
+                                    data:function (){
+                                        var list = [];
+                                        for (var i = 1; i <= 30; i++) {
+                                            list.push(Math.round(Math.random()* 100));
+                                        }
+                                        return list;
+                                    }()
+                                }
+                            ]
+                        };
+
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.ajaxorder",
+                    dataType: "json",
+                    success: function (data) {
+                        var json = data.result;
+                        $(".today-count").text(json.order0.count);
+                        $(".today-price").text(json.order0.price);
+                        $(".today-avg").text(json.order0.avg);
+
+                        $(".yesterday-count").text(json.order1.count);
+                        $(".yesterday-price").text(json.order1.price);
+                        $(".yesterday-avg").text(json.order1.avg);
+
+                        $(".seven-count").text(json.order7.count);
+                        $(".seven-price").text(json.order7.price);
+                        $(".seven-avg").text(json.order7.avg);
+
+                        $(".month-count").text(json.order30.count);
+                        $(".month-price").text(json.order30.price);
+                        $(".month-avg").text(json.order30.avg);
+
+                        $.ajax({
+                            type: "GET",
+                            async: false,
+                            url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.ajaxtransaction",
+                            dataType: "json",
+                            success: function (json) {
+                                myrequire(['echarts'], function () {
+                                    var lineChart = echarts.init(document.getElementById("echarts-line-chart"));
+                                    var lineoption = {
+                                        title: {
+                                            text: '最近7日交易走势'
+                                        },
+                                        tooltip: {
+                                            trigger: 'axis'
+                                        },
+                                        legend: {
+                                            data: ['人数', '浏览量']
+                                        },
+                                        grid: {
+                                            x: 50,
+                                            x2: 50,
+                                            y2: 30
+                                        },
+                                        calculable: true,
+                                        xAxis: [
+                                            {
+                                                type: 'category',
+                                                boundaryGap: false,
+                                                data: json.price_key
+                                            }
+                                        ],
+                                        yAxis: [
+                                            {
+                                                type: 'value',
+                                                axisLabel: {
+                                                    formatter: '{value}'
+                                                }
+                                            }
+                                        ],
+                                        series: [
+                                            {
+                                                name: '人数',
+                                                type: 'line',
+                                                data: json.price_value,
+                                                markPoint: {
+                                                    data: [
+                                                        {type: 'max', name: '最大值'},
+                                                        {type: 'min', name: '最小值'}
+                                                    ]
+                                                },
+                                                markLine: {
+                                                    data: [
+                                                        {type: 'average', name: '平均值'}
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                name: '浏览量',
+                                                type: 'line',
+                                                data: json.count_value,
+                                                markLine: {
+                                                    data: [
+                                                        {type: 'average', name: '平均值'}
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    };
+                                    lineChart.setOption(lineoption);
+                                    lineChart.resize();
+                                });
+                                //$("#echarts-line-chart-loading").hide();
+                                $("#echarts-line-chart").show();
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
+    </div>
+
+    <script language='javascript'>
+        require(['bootstrap'], function ($) {
+            $('[data-toggle="tooltip"]').tooltip({
+                container: $(document.body)
+            });
+            $('[data-toggle="popover"]').popover({
+                container: $(document.body)
+            });
+        });
+
+
+        function check_ewei_shopv2_upgrade() {
+
+            require(['util'], function (util) {
+                if (util.cookie.get('checkeweishopv2upgrade_sys')) {
+                    return;
+                }
+                $.post('http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade.check', function (ret) {
+                    if (ret && ret.status == '1') {
+
+                        var result = ret.result;
+                        if(result.filecount>0 || result.database || result.upgrades){
+
+                            var html = '<div id="ewei-shopv2-upgrade-tips" class="tips-upgrade">';
+                            html+='<span class="tclose" onclick="check_ewei_shopv2_upgrade_hide();"><i class="fa fa-times-circle fa-2x"></i></span>';
+                            html+= '<div class="title">检测到更新</div>';
+                            html+='<div class="text"> 新版本 ' + result.version + " RELEASE " + result.release;
+                            html+=',请尽快更新! </div>';
+                            html+='<div class="buttons"><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade" class="btn btn-warning btn-sm">立即去更新</a></div></div>';
+                            $('body').prepend(html);
+                        }
+                    }
+                },'json');
+            });
+        }
+        function check_ewei_shopv2_upgrade_hide() {
+            require(['util'], function (util) {
+                util.cookie.set('checkeweishopv2upgrade_sys', 1, 3600);
+                $('#ewei-shopv2-upgrade-tips').fadeOut(150);
+            });
+        }
+        $(function () {
+            setTimeout( function() {
+                check_ewei_shopv2_upgrade();
+            },4000);
+        });
+
+        $(function () {
+            $('.page-content').show();
+            $('.img-thumbnail').each(function () {
+                if ($(this).attr('src').indexOf('nopic.jpg') != -1) {
+                    $(this).attr('src', "../addons/ewei_shopv2/static/images/nopic.jpg");
+                }
+            })
+            $.ajax({
+                url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=util.task",
+                async:false,
+                cache: false
+            });
+        });
+    </script>
+    <script language="javascript">myrequire(['web/init'],function(){
+        if($('.form-validate').length<=0) {  $('#page-loading').remove(); }
+    });</script>
+<!--
+    <div id="page-loading" style="position: fixed;width:100%;height:100%;background:rgba(255,255,255,0.8);left:0;top:0;z-index:9999">
+        <div class="sk-spinner sk-spinner-double-bounce" style="position:fixed;top:50%;left:50%;width:40px;height:40px;margin-left:-20px;margin-top:-20px;">
+            <div class="sk-double-bounce1"></div>
+            <div class="sk-double-bounce2"></div>
+        </div>
+    </div>
+-->
+
+</body>
+</html>

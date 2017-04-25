@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>许多宝 - 许多宝</title>
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="keywords" content="微信营销系统,微信,微信公众平台" />
+    <meta name="description" content="微信营销系统是一款免费开源的微信公众平台管理系统，是国内最完善移动网站及移动互联网技术解决方案。" />
+    <link rel="shortcut icon" href="http://abc.5xieys.cn/attachment/images/global/wechat.jpg" />
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/app/util.js"></script>
+    <script src="http://abc.5xieys.cn/app/resource/js/require.js"></script>
+    <script src="http://abc.5xieys.cn/app/resource/js/app/config.js"></script>
+    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/lib/mui.min.js"></script>
+    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/app/common.js"></script>
+    <link href="http://abc.5xieys.cn/app/resource/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://abc.5xieys.cn/app/resource/css/common.min.css" rel="stylesheet">
+    <script type="text/javascript">
+        if(navigator.appName == 'Microsoft Internet Explorer'){
+            if(navigator.userAgent.indexOf("MSIE 5.0")>0 || navigator.userAgent.indexOf("MSIE 6.0")>0 || navigator.userAgent.indexOf("MSIE 7.0")>0) {
+                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+            }
+        }
+        window.sysinfo = {
+            'uniacid': '2',		'acid': '2',				'siteroot': 'http://abc.5xieys.cn/',
+            'siteurl': 'http://abc.5xieys.cn/app/index.php?i=2&c=entry&do=olist&m=qw_cca&u=2&wxref=mp.weixin.qq.com&winzoom=1',
+            'attachurl': 'http://abc.5xieys.cn/attachment/',
+            'attachurl_local': 'http://abc.5xieys.cn/attachment/',
+            'attachurl_remote': '',
+            'MODULE_URL': 'http://abc.5xieys.cn/addons/qw_cca/',		'cookie' : {'pre': 'b961_'}
+        };
+        // jssdk config 对象
+        jssdkconfig = null || {};
+        // 是否启用调试
+        jssdkconfig.debug = false;
+        jssdkconfig.jsApiList = [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onRecordEnd',
+            'playVoice',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard',
+            'openAddress'
+        ];
+    </script>
+</head>
+<body>
+<div class="container container-fill">
+    <link type="text/css" rel="stylesheet" href="../assets/css/common.css">
+    <style>
+        .table .id{width:20%;text-align: center}
+        .table .time{width:50%;text-align: center}
+        .table .price{width:25%}
+        .table .phone{width:40%}
+        .table .details{width:30%;text-align:center}
+        .btn-warning a{text-decoration: none;color: #000;}
+    </style>
+    <div class="head">
+        <!--<a href="javascript:history.back();" class="bn pull-left"><i class="fa fa-angle-left"></i></a>
+        <span class="title">订单列表</span>
+        <a href="./index.php?i=2&c=entry&do=list&m=qw_cca" class="bn pull-right" style="margin-right:30px;">
+            <i class="fa fa-home"></i>
+        </a>-->
+        <a href="#" class="bn pull-left"></a>
+        <span class="title">订单列表&nbsp;&nbsp;该页面不用转发</span>
+        <a href="#" class="bn pull-right" style="margin-right:30px;">
+        </a>
+    </div>
+    <div style="height:28px"></div>
+    <div class="detail-main" style='margin-bottom:65px;'>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="id">ID</th>
+                <!--<th class="price">价格</th>-->
+                <!--<th>地址</th>-->
+                <!--<th class="phone">电话</th>-->
+                <th class="time">下单时间</th>
+                <th class="details">详情</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="text-center footer" style="margin:10px 0; width:100%; text-align:center; word-break:break-all;">
+        &nbsp;&nbsp;			</div>
+    <script>require(['bootstrap']);</script>
+</div>
+<style>
+    h5{color:#555;}
+</style>
+<script type="text/javascript">
+    $(function(){
+        wx.config(jssdkconfig);
+        var $_share = {"title":"\u8bb8\u591a\u5b9d","imgUrl":"","desc":"","link":"http:\/\/abc.5xieys.cn\/app\/index.php?i=2&c=entry&do=olist&m=qw_cca&wxref=mp.weixin.qq.com&winzoom=1"};
+        if(typeof sharedata == 'undefined'){
+            sharedata = $_share;
+        } else {
+            sharedata['title'] = sharedata['title'] || $_share['title'];
+            sharedata['desc'] = sharedata['desc'] || $_share['desc'];
+            sharedata['link'] = sharedata['link'] || $_share['link'];
+            sharedata['imgUrl'] = sharedata['imgUrl'] || $_share['imgUrl'];
+        }
+        if(sharedata.imgUrl == ''){
+            var _share_img = $('body img:eq(0)').attr("src");
+            if(_share_img == ""){
+                sharedata['imgUrl'] = window.sysinfo.attachurl + 'images/global/wechat_share.png';
+            } else {
+                sharedata['imgUrl'] = util.tomedia(_share_img);
+            }
+        }
+        if(sharedata.desc == ''){
+            var _share_content = util.removeHTMLTag($('body').html());
+            if(typeof _share_content == 'string'){
+                sharedata.desc = _share_content.replace($_share['title'], '')
+            }
+        }
+        wx.ready(function () {
+            wx.onMenuShareAppMessage(sharedata);
+            wx.onMenuShareTimeline(sharedata);
+            wx.onMenuShareQQ(sharedata);
+            wx.onMenuShareWeibo(sharedata);
+        });
+        if($('.js-quickmenu')!=null && $('.js-quickmenu')!=''){
+            var h = $('.js-quickmenu').height()+'px';
+            $('body').css("padding-bottom",h);
+        }else{
+            $('body').css("padding-bottom", "0");
+        }
+    });
+</script>
+</body>
+</html>
+

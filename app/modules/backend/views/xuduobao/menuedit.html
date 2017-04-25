@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="shortcut icon" href="http://abc.5xieys.cn/attachment/images/global/wechat.jpg" />
+    <link href="static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="static/css/animate.css" rel="stylesheet">
+    <link href="static/css/v2.css?v=4.1.0" rel="stylesheet">
+    <link href="static/css/common.css?v=2.0.0" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/fonts/iconfont.css?v=2016070717">
+    <script src="resource/js/lib/jquery-1.11.1.min.js"></script>
+    <script src="static/js/dist/jquery/jquery.gcjs.js"></script>
+    <script src="resource/js/app/util.js"></script>
+    <script src="static/js/require.js"></script>
+    <script src="resource/js/app/config.js"></script>
+    <script>
+        require.config({
+            waitSeconds: 0
+        });
+    </script>
+    <script src="static/js/myconfig.js"></script>
+    <script type="text/javascript">
+        if (navigator.appName == 'Microsoft Internet Explorer') {
+            if (navigator.userAgent.indexOf("MSIE 5.0") > 0 || navigator.userAgent.indexOf("MSIE 6.0") > 0 || navigator.userAgent.indexOf("MSIE 7.0") > 0) {
+                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+            }
+        }
+        myrequire.path = "http://abc.5xieys.cn/addons/ewei_shopv2/static/js/";
+
+        function preview_html(txt)
+        {
+            var win = window.open("", "win", "width=300,height=600"); // a window object
+            win.document.open("text/html", "replace");
+            win.document.write($(txt).val());
+            win.document.close();
+        }
+    </script>
+
+</head>
+
+
+<body class="white-bg ">
+<div id='topbar' class='top-navigation   gray-bg '>
+    <nav class="navbar   gray-bg " role="navigation" style="width:1024px;margin:auto;">
+        <div class="navbar-header" style="width:200px;">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <a class="navbar-brand" href="index.html">新品试用平台</a>
+        </div><style>
+        .deg180{
+            transform:rotate(180deg);
+            -ms-transform:rotate(180deg); 	/* IE 9 */
+            -moz-transform:rotate(180deg); 	/* Firefox */
+            -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+            -o-transform:rotate(180deg); 	/* Opera */
+        }
+    </style>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav gray-bg">
+                <li ><a href="index.html">首页</a></li>
+                <li ><a href="goods.html"> 商品管理</a></li>
+                <li ><a href="order.html"> 订单管理</a></li>
+                <li class="active"><a href="basic.html"> 微信基本功能</a></li>
+                <li ><a href="data.html">数据分析</a></li>
+            </ul>
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown" style="position:relative;" onclick="$(this).find('span').toggleClass('deg180')">
+                        <name style="width: 80px;white-space:nowrap;overflow:hidden;text-overflow: ellipsis;display: block;text-align: center">许多宝</name>
+                        <span class="caret" style="position: absolute;top: 22px;right: 12px;"></span></a>
+                    <ul role="menu" class="dropdown-menu">
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=sysset.account"><i class="icon icon-similar"></i>  切换公众号</a></li>
+                        <li><a href="./index.php?c=account&a=post&uniacid=2" target="_blank"><i class="icon icon-wechat"></i>  编辑公众号</a></li>
+                        <li><a href="./index.php?c=profile&a=payment&" target="_blank"><i class="icon icon-pay"></i>  支付参数</a></li>
+                        <!--   <li><a href="./index.php?c=utility&a=emulator&" target="_blank"><i class="icon icon-machinery"></i>  模拟测试</a></li>-->
+                        <li class="divider"></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=perm"><i class="icon icon-person2"></i> 权限管理</a></li>
+                        <li class="divider"></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system"><i class="icon icon-settings"></i> 系统管理</a></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade"><i class="icon icon-down"></i> 系统更新</a></li>
+                        <li><a href="./index.php?c=user&a=profile&" target="_blank"><i class="icon icon-lock"></i>  修改密码</a></li>
+                        <li><a href="./index.php?c=account&a=display&" target="_blank"><i class="icon icon-back"></i>  返回系统</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+<div class='wrapper main-wrapper wrapper-content '>
+    <div class="page-menubar">
+        <style type='text/css'>
+            .order-list a {
+                position: relative;
+            }
+            .order-list span  {
+
+                float:right;margin-right:20px;
+            }
+        </style>
+        <ul class="menu-head-top">
+            <li><a href="basic.html">基本功能 <i class="fa fa-caret-right"></i></a></li>
+        </ul>
+
+        <div class='menu-header'>基本功能</div>
+        <ul class='order-list'>
+            <li>
+                <a href="basicword.html" >文字回复</a></li>
+            <li>
+                <a href="basicnews.html">图文回复</a></li>
+            <li>
+                <a href="basicmusic.html">音乐回复</a></li>
+            <li>
+                <a href="basicimg.html">图片回复</a></li>
+            <li>
+                <a href="basicvoice.html">语音回复</a></li>
+            <li>
+                <a href="basicsys.html">系统回复</a></li>
+            <li>
+                <a href="basicvideo.html">视频回复</a>
+            </li>
+        </ul>
+        <div class='menu-header'>高级功能</div>
+        <ul class='order-list'>
+            <li  class="active">
+                <a href="menu.html">自定义菜单</a>
+            </li>
+        </ul>
+        <div class='menu-header'>支付配置</div>
+        <ul class='order-list'>
+            <li >
+                <a href="#">支付参数设置</a>
+            </li>
+        </ul>
+        <script>
+            $(function () {
+                $.ajax({type: "GET",url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.list.ajaxgettotals",dataType:"json",success: function(data){
+                    var res = data.result;
+                    $("span.status0").text(res.status0);
+                    $("span.status1").text(res.status1);
+                    $("span.status2").text(res.status2);
+                    $("span.status3").text(res.status3);
+                    $("span.status4").text(res.status4);
+                    $("span.status5").text(res.status5);
+                    $("span.status_1").text(res.status_1);
+                    $("span.all").text(res.all);
+                }
+                });
+            });
+        </script>    </div>
+    <div class="page-content">
+        <div class="page-heading"> <h2>基本功能</h2> </div>
+        <div>
+            <link href="./resource/css/app.css" rel="stylesheet">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="./index.php?c=platform&amp;a=menu&amp;do=display&amp;status=normal">自定义菜单</a></li>
+                <li class=""><a href="./index.php?c=platform&amp;a=menu&amp;do=display&amp;status=history">历史菜单</a></li>
+            </ul>
+            <div class="clearfix">
+                <div style="margin-bottom:20px">
+                    <a href="menuadd.html" class="btn btn-primary"><i class="fa fa-plus"></i> 添加个性化菜单</a>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body table-responsive">
+                        <table class="table table-hover">
+                            <thead class="navbar-inner">
+                            <tr>
+                                <th>标题</th>
+                                <th>类型</th>
+                                <th>匹配规则</th>
+                                <th>创建时间</th>
+                                <th>是否生效</th>
+                                <th style="min-width:70px; width:350px" class="text-right">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody><tr>
+                                <td>
+                                    1											</td>
+                                <td>
+                                    <span class="label label-success">默认菜单</span>
+                                </td>
+                                <td>
+                                    所有粉丝
+                                </td>
+                                <td>2017-03-17 16:28</td>
+                                <td>
+                                    <span class="label label-success">已生效</span>
+                                </td>
+                                <td align="right">
+                                    <a href="./index.php?c=platform&amp;a=menu&amp;do=add&amp;id=1&amp;type=1" class="btn btn-default">编辑</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    1											</td>
+                                <td>
+                                    <span class="label label-warning">默认菜单(历史记录)</span>
+                                </td>
+                                <td>
+                                    所有粉丝
+                                </td>
+                                <td>2017-03-17 16:28</td>
+                                <td>
+                                    <span class="label label-danger">未生效</span>
+                                </td>
+                                <td align="right">
+                                    <a href="./index.php?c=platform&amp;a=menu&amp;do=add&amp;id=2&amp;type=2" class="btn btn-default">查看</a>
+                                    <a href="./index.php?c=platform&amp;a=menu&amp;do=push&amp;id=2" class="btn btn-default" onclick="if(!confirm('确定推送到微信端?')) return false;">推送到微信端</a>
+                                    <a href="./index.php?c=platform&amp;a=menu&amp;do=remove&amp;id=2" onclick="if(!confirm('确定删除菜单?')) return false;" class="btn btn-default">删除</a>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </div>
+            </div>
+
+
+            <script type="text/javascript">
+                require(['angular', 'underscore', 'jquery.ui', 'jquery.caret', 'wechatDistrict'], function(angular, _, $, $, dis){
+                    $(".tpl-district-container").each(function(){
+                        var elms = {};
+                        elms.province = $(this).find(".tpl-province")[0];
+                        elms.city = $(this).find(".tpl-city")[0];
+                        var vals = {};
+                        vals.province = $(elms.province).attr("data-value");
+                        vals.city = $(elms.city).attr("data-value");
+                        dis.render(elms, vals, {withTitle: true});
+                    });
+                    angular.module('app', []).controller('conditionMenuDesigner', function($scope, $http){
+                        $scope.context = {};
+                        $scope.context.group = null;
+                        if(!$scope.context.group) {
+                            $scope.context.group = {
+                                title: '标题',
+                                type: "",
+                                button: [{
+                                    name: '菜单名称',
+                                    type: 'url',
+                                    url: '',
+                                    key: '',
+                                    media_id : '',
+                                    sub_button: []
+                                }],
+                                matchrule: {
+                                    sex: 0,
+                                    client_platform_type: 0,
+                                    group_id: -1,
+                                    country: '',
+                                    province: '',
+                                    city: ''
+                                }
+                            };
+                            if($scope.context.group.type == 1) {
+                                $scope.context.group.title = '系统默认菜单';
+                            } else if($scope.context.group.type == 2) {
+                                $scope.context.group.title = '个性化菜单';
+                            }
+                        }
+                        $scope.context.activeIndex = 0;
+                        $scope.context.activeBut = $scope.context.group['button'][$scope.context.activeIndex];
+                        $scope.context.activeItem = $scope.context.activeBut;
+                        $scope.context.activeType = 1; //标识一级菜单
+                        //删除默认菜单
+                        $scope.context.remove = function(){
+                            if(!confirm('删除默认菜单会清空所有菜单记录，确定吗？')) {
+                                return false;
+                            }
+                            location.href = "./index.php?c=platform&a=menu&do=remove&id=1";
+                            return false;
+                        };
+
+                        $scope.context.submit = function(){
+                            var group = $scope.context.group;
+                            group.button = _.sortBy(group.button, function(h){
+                                var elm = $(':hidden[data-role="parent"][data-hash="' + h.$$hashKey + '"]');
+                                return elm.parent().index();
+                            });
+                            angular.forEach(group.button, function(j){
+                                j.sub_button = _.sortBy(j.sub_button, function(h){
+                                    var e = $(':hidden[data-role="sub"][data-hash="' + h.$$hashKey + '"]');
+                                    return e.parent().index();
+                                });
+                            });
+
+                            if(!$.trim(group.title)) {
+                                util.message('没有设置标题', '', 'error');
+                                return false;
+                            }
+                            if(group.button.length < 1) {
+                                util.message('没有设置菜单', '', 'error');
+                                return false;
+                            }
+                            var error = {name: '', action: ''};
+                            angular.forEach(group.button, function(val, index){
+                                if($.trim(val.name) == '') {
+                                    this.name += '第' + (index + 1) + '个一级菜单未设置菜单名称<br>';
+                                }
+                                if(val.sub_button.length > 0) {
+                                    angular.forEach(val.sub_button, function(v, index1){
+                                        if($.trim(v.name) == '') {
+                                            this.name += '第' + (index + 1) + '个一级菜单中的第' + (index1 + 1) + '个二级菜单未设置菜单名称<br>';
+                                        }
+                                        if((v.type == 'view' && $.trim(v.url) == '') || ((v.type != 'view' && v.type != 'media_id' && v.type != 'view_limited') && $.trim(v.key) == '') || ((v.type == 'media_id' || v.type == 'view_limited') && !$.trim(v.media_id))) {
+                                            this.action += '菜单【' + val.name + '】的子菜单【' + v.name + '】未设置操作选项. <br />';
+                                        }
+                                    }, error);
+                                } else {
+                                    if((val.type == 'view' && $.trim(val.url) == '') || ((val.type != 'view' && val.type != 'media_id' && val.type != 'view_limited') && $.trim(val.key) == '') || ((val.type == 'media_id' || val.type == 'view_limited') && !$.trim(val.media_id))) {
+                                        this.action += '菜单【' + val.name + '】不存在子菜单并且未设置操作选项. <br />';
+                                    }
+                                }
+                            }, error);
+
+                            if(error.name) {
+                                util.message(error.title, '', 'error');
+                                return;
+                            }
+                            if(error.action) {
+                                util.message(error.action, '', 'error');
+                                return;
+                            }
+                            $('#btn-submit').attr('disabled', true);
+                            $http.post(location.href, {group: group, method: 'save'}).success(function(dat){
+                                if(dat.message.errno != 0) {
+                                    $('#btn-submit').attr('disabled', false);
+                                    util.message(dat.message.message, '', 'error');
+                                } else {
+                                    util.message('创建菜单成功. ', "./index.php?c=platform&a=menu&do=display&", 'success');
+                                }
+                            });
+                        }
+
+                        $scope.context.triggerActiveBut = function(but){
+                            var index = $.inArray(but, $scope.context.group.button);
+                            if(index == -1) return false;
+                            $scope.context.activeIndex = index;
+                            $scope.context.activeBut = $scope.context.group['button'][$scope.context.activeIndex];
+                            $scope.context.activeItem = $scope.context.activeBut;
+                            $scope.context.activeType = 1;
+                        };
+
+                        $scope.context.editBut = function(subbut, but){
+                            $scope.context.triggerActiveBut(but);
+                            if(!subbut) {
+                                $scope.context.activeItem = but;
+                                $scope.context.activeType = 1;
+                            } else {
+                                $scope.context.activeItem = subbut;
+                                $scope.context.activeType = 2;
+                            }
+                        };
+
+                        $scope.context.addBut = function(){
+                            if($scope.context.group['button'].length >= 3) {
+                                return;
+                            }
+                            $scope.context.group['button'].push({
+                                name: '菜单名称',
+                                type: 'view',
+                                url: '',
+                                key: '',
+                                media_id : '',
+                                sub_button: []
+                            });
+                            var but = $scope.context.group['button'][$scope.context.group.button.length - 1];
+                            $scope.context.triggerActiveBut(but);
+                            $('.designer-x').sortable({
+                                items: '.js-sortable',
+                                axis: 'x'
+                            });
+                        }
+
+                        $scope.context.removeBut = function(but, type){
+                            if(type == 1) {
+                                if(!confirm('将同时删除所有子菜单,是否继续')) {
+                                    return false;
+                                }
+                                $scope.context.group.button = _.without($scope.context.group.button, but);
+                                $scope.context.triggerActiveBut($scope.context.group['button'][0]);
+                            } else {
+                                $scope.context.activeBut.sub_button = _.without($scope.context.activeBut.sub_button, but);
+                                $scope.context.triggerActiveBut($scope.context.activeBut);
+                            }
+                        };
+
+                        $scope.context.addSubBut = function(but){
+                            if($scope.context.group.disabled == 1) {
+                                return false;
+                            }
+                            $scope.context.triggerActiveBut(but);
+                            if($scope.context.activeBut.sub_button.length >= 5) {
+                                return;
+                            }
+                            $scope.context.activeBut.sub_button.push({
+                                name: '子菜单名称',
+                                type: 'url',
+                                url: '',
+                                key: '',
+                                media_id : ''
+                            });
+                            $('.designer-y').sortable({
+                                items: 'dd',
+                                axis: 'y',
+                                cancel: '.js-not-sortable'
+                            });
+                            $scope.context.activeItem = $scope.context.activeBut.sub_button[$scope.context.activeBut.sub_button.length - 1];
+                            $scope.context.activeType = 2;
+                        }
+
+                        /*选择Emoji表情*/
+                        $scope.context.selectEmoji = function() {
+                            util.emojiBrowser(function(emoji){
+                                var text = '::' + emoji.find("span").text() + '::';
+                                $('#title').setCaret();
+                                $('#title').insertAtCaret(text);
+                                $scope.context.activeItem.name = $('#title').val();
+                                $scope.$digest();
+                            });
+                        };
+
+                        //点击选择【系统连接】事件
+                        $scope.context.select_link = function(){
+                            var ipt = $(this).parent().prev();
+                            util.linkBrowser(function(href){
+                                var site_url = "http://abc.5xieys.cn/";
+                                if(href.substring(0, 4) == 'tel:') {
+                                    util.message('自定义菜单不能设置为一键拨号');
+                                    return;
+                                } else if(href.indexOf("http://") == -1 && href.indexOf("https://") == -1) {
+                                    href = href.replace('./index.php?', '/index.php?');
+                                    href = site_url + 'app' + href;
+                                }
+                                $scope.context.activeItem.url = href;
+                                $scope.$digest();
+                            });
+                        };
+
+                        $scope.context.search = function(){
+                            var search_value = $('#ipt-forward').val();
+                            $.post("./index.php?c=platform&a=menu&do=search_key&", {'key_word' : search_value}, function(data){
+                                var data = $.parseJSON(data);
+                                var total = data.length;
+                                var html = '';
+                                if(total > 0) {
+                                    for(var i = 0; i < total; i++) {
+                                        html += '<li><a href="javascript:;">' + data[i] + '</a></li>';
+                                    }
+                                } else {
+                                    html += '<li><a href="javascript:;" id="no-result">没有找到您输入的关键字</a></li>';
+                                }
+                                $('#key-result ul').html(html);
+                                $('#key-result ul li a[id!="no-result"]').click(function(){
+                                    $('#ipt-forward').val($(this).html());
+                                    $scope.context.activeItem.key = $(this).html();
+                                    $('#key-result').hide();
+                                });
+                                $('#key-result').show();
+                            });
+                        };
+
+                        $scope.context.select_mediaid = function(){
+                            var option = {
+                                'ignore' : {
+                                    'wxcard' : true
+                                }
+                            };
+                            if($scope.context.activeItem.type == 'view_limited') {
+                                option.ignore = {
+                                    'image' : true,
+                                    'voice' : true,
+                                    'video' : true,
+                                    'wxcard' : true
+                                };
+                            }
+                            util.material(function(material){
+                                $scope.context.activeItem.media_id = material.media_id;
+                                $scope.$digest();
+                            }, option);
+                        };
+                    });
+                    angular.bootstrap($('#conditionMenuDesigner')[0], ['app']);
+                    $(function(){
+                        $('.designer-y').sortable({
+                            items: 'dd',
+                            axis: 'y',
+                            cancel: '.js-not-sortable'
+                        });
+
+                        $('.designer-x').sortable({
+                            items: '.js-sortable',
+                            axis: 'x'
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </div>
+
+    <script language='javascript'>
+        require(['bootstrap'], function ($) {
+            $('[data-toggle="tooltip"]').tooltip({
+                container: $(document.body)
+            });
+            $('[data-toggle="popover"]').popover({
+                container: $(document.body)
+            });
+        });
+
+
+        function check_ewei_shopv2_upgrade() {
+
+            require(['util'], function (util) {
+                if (util.cookie.get('checkeweishopv2upgrade_sys')) {
+                    return;
+                }
+                $.post('http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade.check', function (ret) {
+                    if (ret && ret.status == '1') {
+
+                        var result = ret.result;
+                        if(result.filecount>0 || result.database || result.upgrades){
+
+                            var html = '<div id="ewei-shopv2-upgrade-tips" class="tips-upgrade">';
+                            html+='<span class="tclose" onclick="check_ewei_shopv2_upgrade_hide();"><i class="fa fa-times-circle fa-2x"></i></span>';
+                            html+= '<div class="title">检测到更新</div>';
+                            html+='<div class="text"> 新版本 ' + result.version + " RELEASE " + result.release;
+                            html+=',请尽快更新! </div>';
+                            html+='<div class="buttons"><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade" class="btn btn-warning btn-sm">立即去更新</a></div></div>';
+                            $('body').prepend(html);
+                        }
+                    }
+                },'json');
+            });
+        }
+        function check_ewei_shopv2_upgrade_hide() {
+            require(['util'], function (util) {
+                util.cookie.set('checkeweishopv2upgrade_sys', 1, 3600);
+                $('#ewei-shopv2-upgrade-tips').fadeOut(150);
+            });
+        }
+        $(function () {
+            setTimeout( function() {
+                check_ewei_shopv2_upgrade();
+            },4000);
+        });
+
+        $(function () {
+            $('.page-content').show();
+            $('.img-thumbnail').each(function () {
+                if ($(this).attr('src').indexOf('nopic.jpg') != -1) {
+                    $(this).attr('src', "../addons/ewei_shopv2/static/images/nopic.jpg");
+                }
+            })
+            $.ajax({
+                url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=util.task",
+                async:false,
+                cache: false
+            });
+        });
+    </script>
+    <script language="javascript">myrequire(['web/init'],function(){
+        if($('.form-validate').length<=0) {  $('#page-loading').remove(); }
+    });</script>
+    <!--
+        <div id="page-loading" style="position: fixed;width:100%;height:100%;background:rgba(255,255,255,0.8);left:0;top:0;z-index:9999">
+            <div class="sk-spinner sk-spinner-double-bounce" style="position:fixed;top:50%;left:50%;width:40px;height:40px;margin-left:-20px;margin-top:-20px;">
+                <div class="sk-double-bounce1"></div>
+                <div class="sk-double-bounce2"></div>
+            </div>
+        </div>
+    -->
+
+</body>
+</html>

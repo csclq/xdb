@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="shortcut icon" href="http://abc.5xieys.cn/attachment/images/global/wechat.jpg" />
+    <link href="static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="static/css/animate.css" rel="stylesheet">
+    <link href="static/css/v2.css?v=4.1.0" rel="stylesheet">
+    <link href="static/css/common.css?v=2.0.0" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/fonts/iconfont.css?v=2016070717">
+    <script src="resource/js/lib/jquery-1.11.1.min.js"></script>
+    <script src="static/js/dist/jquery/jquery.gcjs.js"></script>
+    <script src="resource/js/app/util.js"></script>
+
+
+    <script src="static/js/require.js"></script>
+    <script src="resource/js/app/config.js"></script>
+    <script>
+        require.config({
+            waitSeconds: 0
+        });
+    </script>
+    <script src="static/js/myconfig.js"></script>
+    <script type="text/javascript">
+        if (navigator.appName == 'Microsoft Internet Explorer') {
+            if (navigator.userAgent.indexOf("MSIE 5.0") > 0 || navigator.userAgent.indexOf("MSIE 6.0") > 0 || navigator.userAgent.indexOf("MSIE 7.0") > 0) {
+                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+            }
+        }
+        myrequire.path = "http://abc.5xieys.cn/addons/ewei_shopv2/static/js/";
+
+        function preview_html(txt)
+        {
+            var win = window.open("", "win", "width=300,height=600"); // a window object
+            win.document.open("text/html", "replace");
+            win.document.write($(txt).val());
+            win.document.close();
+        }
+    </script>
+
+</head>
+
+
+<body class="white-bg ">
+<div id='topbar' class='top-navigation   gray-bg '>
+    <nav class="navbar   gray-bg " role="navigation" style="width:1024px;margin:auto;">
+        <div class="navbar-header" style="width:200px;">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <a class="navbar-brand" href="index.html">新品试用平台</a>
+        </div><style>
+        .deg180{
+            transform:rotate(180deg);
+            -ms-transform:rotate(180deg); 	/* IE 9 */
+            -moz-transform:rotate(180deg); 	/* Firefox */
+            -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+            -o-transform:rotate(180deg); 	/* Opera */
+        }
+    </style>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav gray-bg">
+                <li ><a href="index.html">首页</a></li>
+                <li ><a href="goods.html"> 商品管理</a></li>
+                <li  class="active"><a href="order.html"> 订单管理</a></li>
+                <li ><a href="basicword.html"> 微信基本功能</a></li>
+                <li ><a href="data.html">数据分析</a></li>
+            </ul>
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown" style="position:relative;" onclick="$(this).find('span').toggleClass('deg180')">
+                        <name style="width: 80px;white-space:nowrap;overflow:hidden;text-overflow: ellipsis;display: block;text-align: center">许多宝</name>
+                        <span class="caret" style="position: absolute;top: 22px;right: 12px;"></span></a>
+                    <ul role="menu" class="dropdown-menu">
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=sysset.account"><i class="icon icon-similar"></i>  切换公众号</a></li>
+                        <li><a href="./index.php?c=account&a=post&uniacid=2" target="_blank"><i class="icon icon-wechat"></i>  编辑公众号</a></li>
+                        <li><a href="./index.php?c=profile&a=payment&" target="_blank"><i class="icon icon-pay"></i>  支付参数</a></li>
+                        <!--   <li><a href="./index.php?c=utility&a=emulator&" target="_blank"><i class="icon icon-machinery"></i>  模拟测试</a></li>-->
+                        <li class="divider"></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=perm"><i class="icon icon-person2"></i> 权限管理</a></li>
+                        <li class="divider"></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system"><i class="icon icon-settings"></i> 系统管理</a></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade"><i class="icon icon-down"></i> 系统更新</a></li>
+                        <li><a href="./index.php?c=user&a=profile&" target="_blank"><i class="icon icon-lock"></i>  修改密码</a></li>
+                        <li><a href="./index.php?c=account&a=display&" target="_blank"><i class="icon icon-back"></i>  返回系统</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+<div class='wrapper main-wrapper wrapper-content '>
+    <div class="page-menubar">
+        <style type='text/css'>
+            .order-list a {
+                position: relative;
+            }
+            .order-list span  {
+
+                float:right;margin-right:20px;
+            }
+        </style>
+        <ul class="menu-head-top">
+            <li ><a href="order.html">订单概述 <i class="fa fa-caret-right"></i></a></li>
+        </ul>
+
+        <div class='menu-header'>订单</div>
+        <ul class='order-list'>
+            <li >
+                <a href="orderstatus1.html">待发货 <span class='text-danger status1'>--</span></a>
+            </li>
+
+            <li >
+                <a href="orderstatus1.html">待收货 <span class='text-warning status2'>--</span></a>
+            </li>
+
+            <li >
+                <a href="orderstatus1.html">待付款 <span class="status0">--</span></a>
+            </li>
+            <li >
+                <a href="orderstatus1.html">已完成 <span class='text-primary status3'>--</span></a>
+            </li>
+
+            <li >
+                <a href="orderstatus1.html">已关闭 <span class="status_1">--</span></a>
+            </li>
+
+            <li >
+                <a href="orderstatus1.html" >全部订单<span class="all">--</span></a>
+            </li>
+
+        </ul>
+        <div class='menu-header'>工具</div>
+        <ul>
+            <li class="active">
+                <a href="orderout.html">自定义导出</a>
+            </li>
+
+            <li >
+                <a href="ordersend.html">批量发货</a>
+            </li>
+            <li><a href="conlight.html">次数控制</a>
+            </li>
+        </ul>
+        <script>
+            $(function () {
+                $.ajax({type: "GET",url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.list.ajaxgettotals",dataType:"json",success: function(data){
+                    var res = data.result;
+                    $("span.status0").text(res.status0);
+                    $("span.status1").text(res.status1);
+                    $("span.status2").text(res.status2);
+                    $("span.status3").text(res.status3);
+                    $("span.status4").text(res.status4);
+                    $("span.status5").text(res.status5);
+                    $("span.status_1").text(res.status_1);
+                    $("span.all").text(res.all);
+                }
+                });
+            });
+        </script>    </div>
+    <div class="page-content">
+
+        <div class="page-heading"> <h2>订单自定义导出</h2></div>
+        <style type='text/css'>
+            .dd-handle { height: 40px; line-height: 30px;width:100px;}
+            .field-item {
+                padding:10px; border:1px solid #ccc;
+                border-radius: 3px; float:left;
+                margin:5px;
+                -webkit-user-select: none;
+                -moz-user-select:none;
+                position:relative;
+                cursor: pointer;
+
+            }
+            .field-item:active {
+                background:#d9d9d9;
+            }
+            .drag{
+                background:#d9d9d9;
+            }
+            .form-control .select2-choice {
+                border: 0 none;
+                border-radius: 2px;
+                height: 32px;    line-height: 32px;
+            }
+            .field-item.field-item-remove span {
+                color:red;
+                position: absolute;right:-5px;top:-10px;cursor: pointer;
+            }
+
+        </style>
+
+
+        <form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+            <input type="hidden" name="c" value="site" />
+            <input type="hidden" name="a" value="entry" />
+            <input type="hidden" name="m" value="ewei_shopv2" />
+            <input type="hidden" name="do" value="web" />
+            <input type="hidden" name="r" value="order.export" />
+            <div class="panel panel-default">
+                <div class='panel-heading'>
+                    查询条件
+                </div>
+                <div class="panel-body">
+
+                    <div class="form-group">
+
+                        <div class="col-sm-3">
+
+                            <input class="form-control" name="keyword" type="text" value="" placeholder="订单号">
+
+                        </div>
+
+
+                        <div class="col-sm-3">
+
+                            <input class="form-control" name="expresssn" type="text" value="" placeholder="快递单号">
+                        </div>
+
+
+                        <div class="col-sm-3">
+                            <input class="form-control" name="member" type="text" value="" placeholder="用户手机号/姓名/昵称, 收件人姓名/手机号 ">
+                        </div>
+
+                        <div class="col-sm-3">
+
+                            <select name="paytype" class="form-control">
+                                <option value="" selected>支付方式</option>
+                                <option value="0" >未支付</option>
+                                <option value="1" >余额支付</option>
+                                <option value="11" >后台付款</option>
+                                <option value="2" >在线支付</option>
+                                <option value="21" >微信支付</option>
+                                <option value="22" >支付宝支付</option>
+                                <option value="23" >银联支付</option>
+                                <option value="3" >货到付款</option>
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-3">
+
+                            <select name="status" class="form-control">
+                                <option value="" selected>订单状态</option>
+                                <option value="-1" >已关闭</option>
+                                <option value="0" >待付款</option>
+                                <option value="1" >待发货</option>
+                                <option value="2" >待收货</option>
+                                <option value="3" >已完成</option>
+                            </select>
+
+                        </div>
+                        <div class="col-sm-5">
+
+                            <script type="text/javascript">
+                                require(["daterangepicker"], function($){
+                                    $(function(){
+                                        $(".daterange.daterange-time").each(function(){
+
+                                            var elm = this;
+                                            var container =$(elm).parent().prev();
+                                            $(this).daterangepicker({
+
+                                                format: "YYYY-MM-DD HH:mm",
+                                                timePicker: true,
+                                                timePicker12Hour : false,
+                                                timePickerIncrement: 1,
+                                                minuteStep: 1
+                                            }, function(start, end){
+                                                $(elm).find(".date-title").html(start.toDateTimeStr() + " 至 " + end.toDateTimeStr());
+                                                container.find(":input:first").val(start.toDateTimeStr());
+                                                container.find(":input:last").val(end.toDateTimeStr());
+                                            });
+                                        });
+                                    });
+                                });
+                                function clearTime(obj){
+
+                                    $(obj).prev().html("<span class=date-title>" + $(obj).attr("placeholder") + "</span>");
+                                    $(obj).parent().prev().find("input").val("");
+                                }
+                            </script>
+                            <div style="float:left">
+                                <input name="time[start]" type="hidden" value="" />
+                                <input name="time[end]" type="hidden" value="" />
+                            </div>
+                            <div class="btn-group btn-group-sm" style="padding-right:0;"  >
+
+                                <button style="width:240px" class="btn btn-default daterange daterange-time"  type="button"><span class="date-title">下单时间</span></button>
+                                <button class="btn btn-default btn-sm" " type="button" onclick="clearTime(this)" placeholder="下单时间"><i class="fa fa-remove"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-body" id='add_fields'>
+
+
+
+                    <div class='field-item  field-item-remove'
+                         data-field="mrealname"
+                         data-subtitle=""
+                         data-title="会员姓名"
+                         data-width="12">
+                        会员姓名   <span><i class='fa fa-remove'></i></span>
+
+                    </div>
+
+                </div>
+                <div class='panel-heading'>
+                    增加列 (点击增加)
+                </div>
+                <div class="panel-body" id='new_fields'>
+
+
+                    <div class='field-item field-item-add'
+                         data-field="ordersn"
+                         data-subtitle=""
+                         data-title="订单编号"
+                         data-width="24">
+                        订单编号
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="nickname"
+                         data-subtitle=""
+                         data-title="粉丝昵称"
+                         data-width="12">
+                        粉丝昵称
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="mmobile"
+                         data-subtitle=""
+                         data-title="会员手机号"
+                         data-width="12">
+                        会员手机号
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="openid"
+                         data-subtitle=""
+                         data-title="openid"
+                         data-width="24">
+                        openid
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="realname"
+                         data-subtitle=""
+                         data-title="收货姓名(或自提人)"
+                         data-width="12">
+                        收货姓名(或自提人)
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="mobile"
+                         data-subtitle=""
+                         data-title="联系电话"
+                         data-width="12">
+                        联系电话
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="address"
+                         data-subtitle="收货地址(省市区合并)"
+                         data-title="收货地址"
+                         data-width="24">
+                        收货地址(省市区合并)
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="address_province"
+                         data-subtitle="收货地址(省市区分离)"
+                         data-title="收货地址"
+                         data-width="12">
+                        收货地址(省市区分离)
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="goods_str"
+                         data-subtitle="商品信息(信息合并)"
+                         data-title="商品信息"
+                         data-width="36">
+                        商品信息(信息合并)
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="goods_title"
+                         data-subtitle="商品信息(信息分离)"
+                         data-title="商品信息"
+                         data-width="24">
+                        商品信息(信息分离)
+                    </div>
+
+                    <div class='field-item field-item-add'
+                         data-field="dispatchname"
+                         data-subtitle=""
+                         data-title="配送方式"
+                         data-width="12">
+                        配送方式
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="goodsprice"
+                         data-subtitle=""
+                         data-title="商品小计"
+                         data-width="12">
+                        商品小计
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="dispatchprice"
+                         data-subtitle=""
+                         data-title="运费"
+                         data-width="12">
+                        运费
+                    </div>
+
+                    <div class='field-item field-item-add'
+                         data-field="changedispatchprice"
+                         data-subtitle=""
+                         data-title="运费改价"
+                         data-width="12">
+                        运费改价
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="price"
+                         data-subtitle=""
+                         data-title="应收款"
+                         data-width="12">
+                        应收款
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="status"
+                         data-subtitle=""
+                         data-title="状态"
+                         data-width="12">
+                        状态
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="createtime"
+                         data-subtitle=""
+                         data-title="下单时间"
+                         data-width="24">
+                        下单时间
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="paytime"
+                         data-subtitle=""
+                         data-title="付款时间"
+                         data-width="24">
+                        付款时间
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="sendtime"
+                         data-subtitle=""
+                         data-title="发货时间"
+                         data-width="24">
+                        发货时间
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="finishtime"
+                         data-subtitle=""
+                         data-title="完成时间"
+                         data-width="24">
+                        完成时间
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="expresscom"
+                         data-subtitle=""
+                         data-title="快递公司"
+                         data-width="24">
+                        快递公司
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="expresssn"
+                         data-subtitle=""
+                         data-title="快递单号"
+                         data-width="24">
+                        快递单号
+                    </div>
+                    <div class='field-item field-item-add'
+                         data-field="remark"
+                         data-subtitle=""
+                         data-title="订单备注"
+                         data-width="36">
+                        订单备注
+                    </div>
+                </div>
+            </div>
+            <div class='panel-body'>
+
+                <div class="form-group">
+
+                    <div class="col-sm-7 col-lg-9 col-xs-12">
+                        <button type="submit" name="export" value="1" class="btn btn-primary">立即导出</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <script language='javascript'>
+            function resetFields() {
+                tip.confirm('确认全部清空?', function () {
+                    $.get("http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.export.reset", function () {
+                        location.href = "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.export&dflag=1";
+                    });
+                });
+            }
+
+            function defaultFields() {
+                tip.confirm('确认切换成默认模板?', function () {
+                    $.get("http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.export.reset", function () {
+                        location.href = "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.export";
+                    });
+                });
+            }
+
+            var currentTemplate = "";
+            function changeTemplate() {
+
+                var val = $('#templates').val();
+                currentTemplate = val;
+                if (val == '') {
+                    $('#deltemplate').hide();
+                    $('#changetemplate').text('将当前保存为模板');
+                }
+                else {
+                    $('#changetemplate').text('保存当前模板');
+                    $('#deltemplate').show().unbind('click').click(function () {
+                        if (confirm('确认要删除此导出模板?')) {
+                            $.post("http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.export.delete", {tempname: val}, function (ret) {
+                                ret = eval("(" + ret + ")");
+                                if (ret.templates) {
+                                    $('#templates').empty();
+                                    var opt = new Option('请选择导出列模板', '');
+                                    $('#templates')[0].options.add(opt);
+
+                                    $.each(ret.templates, function (i, tn) {
+                                        var opt = new Option(tn, tn);
+                                        $('#templates')[0].options.add(opt);
+                                    });
+                                    $('#templates').val('').trigger("change");
+                                    ;
+                                }
+                            });
+                        }
+                    });
+
+                    $.get("http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.export.gettemplate&tempname=" + currentTemplate, function (ret) {
+                        ret = eval("(" + ret + ")");
+                        if (ret.columns && ret.others) {
+
+                            $('#add_fields').empty();
+                            $.each(ret.columns, function (i, d) {
+                                addData(d, false);
+                            });
+                            $('#new_fields').empty();
+                            $.each(ret.others, function (i, d) {
+                                addData(d, true);
+                            });
+                        }
+                    });
+
+                }
+            }
+            function addData(data, other) {
+                var html = '';
+                if (!other) {
+                    html = '<div class="field-item field-item-remove"  data-field="' + data.field + '"  data-title="' + data.title + '" data-width="' + data.width + '" data-subtitle="' + (data.subtitle || "") + '">' + (data.subtitle || data.title) + ' <span><i class="fa fa-remove"></i></span></div>';
+                    $('#add_fields').append(html);
+                } else {
+                    html = '<div class="field-item field-item-add"  data-field="' + data.field + '"  data-title="' + data.title + '" data-width="' + data.width + '" data-subtitle="' + (data.subtitle || "") + '">' + (data.subtitle || data.title) + '</div>';
+                    $('#new_fields').append(html);
+                }
+                initEvents();
+
+            }
+            function addField(item) {
+
+                var field = item.data('field');
+                var html = '<div class="field-item field-item-remove"  data-field="' + field + '"  data-title="' + item.data('title') + '" data-width="' + item.data('width') + '" data-subtitle="' + item.data('subtitle') + '">' + (item.data('subtitle') || item.data('title')) + ' <span><i class="fa fa-remove"></i></span></div>';
+                $('#add_fields').append(html);
+                item.remove();
+                initEvents();
+                changedata();
+            }
+            function removeField(item) {
+                var field = item.data('field');
+                var html = '<div class="field-item field-item-add"  data-field="' + field + '"  data-title="' + item.data('title') + '" data-width="' + item.data('width') + '" data-subtitle="' + item.data('subtitle') + '">' + (item.data('subtitle') || item.data('title')) + ' </div>';
+                $('#new_fields').append(html);
+                item.remove();
+                initEvents();
+                changedata();
+            }
+            function changedata(isnew) {
+
+                var columns = [];
+                $('#add_fields').find('.field-item').each(function () {
+                    columns.push({
+                        field: $(this).data('field'),
+                        title: $(this).data('title'),
+                        subtitle: $(this).data('subtitle'),
+                        width: $(this).data('width')
+                    });
+                });
+                $.post("http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.export.save", {columns: columns, tempname: currentTemplate}, function (ret) {
+                    if (isnew) {
+                        ret = eval("(" + ret + ")");
+                        if (ret.templates) {
+                            $('#templates').empty();
+                            var opt = new Option('请选择导出列模板', '');
+                            $('#templates')[0].options.add(opt);
+                            $.each(ret.templates, function (i, tn) {
+                                var opt = new Option(tn, tn);
+                                $('#templates')[0].options.add(opt);
+                            });
+                            $('#templates').val(currentTemplate).trigger('change');
+
+                        }
+                    }
+                });
+            }
+            function saveFields() {
+                var isnew = false;
+                if (currentTemplate == '') {
+                    var templatename = prompt('请输入列模板名称:');
+                    if (!templatename) {
+                        return;
+                    }
+                    currentTemplate = templatename;
+                    isnew = true;
+                }
+                changedata(isnew);
+            }
+            function initEvents() {
+                $('.field-item-remove span').unbind('click').click(function () {
+                    removeField($(this).closest('.field-item'));
+                });
+                $('.field-item-add').unbind('click').click(function () {
+                    addField($(this));
+                });
+                require(['jquery.ui'], function () {
+                    $('#add_fields').sortable({
+                        stop: function () {
+                            changedata(false)
+                        }
+                    });
+                })
+            }
+            $(function () {
+
+                initEvents();
+            });
+        </script>
+    </div>
+
+    <script language='javascript'>
+        require(['bootstrap'], function ($) {
+            $('[data-toggle="tooltip"]').tooltip({
+                container: $(document.body)
+            });
+            $('[data-toggle="popover"]').popover({
+                container: $(document.body)
+            });
+        });
+
+
+        function check_ewei_shopv2_upgrade() {
+
+            require(['util'], function (util) {
+                if (util.cookie.get('checkeweishopv2upgrade_sys')) {
+                    return;
+                }
+                $.post('http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade.check', function (ret) {
+                    if (ret && ret.status == '1') {
+
+                        var result = ret.result;
+                        if(result.filecount>0 || result.database || result.upgrades){
+
+                            var html = '<div id="ewei-shopv2-upgrade-tips" class="tips-upgrade">';
+                            html+='<span class="tclose" onclick="check_ewei_shopv2_upgrade_hide();"><i class="fa fa-times-circle fa-2x"></i></span>';
+                            html+= '<div class="title">检测到更新</div>';
+                            html+='<div class="text"> 新版本 ' + result.version + " RELEASE " + result.release;
+                            html+=',请尽快更新! </div>';
+                            html+='<div class="buttons"><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade" class="btn btn-warning btn-sm">立即去更新</a></div></div>';
+                            $('body').prepend(html);
+                        }
+                    }
+                },'json');
+            });
+        }
+        function check_ewei_shopv2_upgrade_hide() {
+            require(['util'], function (util) {
+                util.cookie.set('checkeweishopv2upgrade_sys', 1, 3600);
+                $('#ewei-shopv2-upgrade-tips').fadeOut(150);
+            });
+        }
+        $(function () {
+            setTimeout( function() {
+                check_ewei_shopv2_upgrade();
+            },4000);
+        });
+
+        $(function () {
+            $('.page-content').show();
+            $('.img-thumbnail').each(function () {
+                if ($(this).attr('src').indexOf('nopic.jpg') != -1) {
+                    $(this).attr('src', "../addons/ewei_shopv2/static/images/nopic.jpg");
+                }
+            })
+            $.ajax({
+                url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=util.task",
+                async:false,
+                cache: false
+            });
+        });
+    </script>
+    <script language="javascript">myrequire(['web/init'],function(){
+        if($('.form-validate').length<=0) {  $('#page-loading').remove(); }
+    });</script>
+    <!--<div id="page-loading" style="position: fixed;width:100%;height:100%;background:rgba(255,255,255,0.8);left:0;top:0;z-index:9999">
+        <div class="sk-spinner sk-spinner-double-bounce" style="position:fixed;top:50%;left:50%;width:40px;height:40px;margin-left:-20px;margin-top:-20px;">
+            <div class="sk-double-bounce1"></div>
+            <div class="sk-double-bounce2"></div>
+        </div>
+    </div>-->
+
+</body>
+</html>

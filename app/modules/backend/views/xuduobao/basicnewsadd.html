@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="shortcut icon" href="http://abc.5xieys.cn/attachment/images/global/wechat.jpg" />
+    <link href="static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="static/css/animate.css" rel="stylesheet">
+    <link href="static/css/v2.css?v=4.1.0" rel="stylesheet">
+    <link href="static/css/common.css?v=2.0.0" rel="stylesheet">
+    <link href="static/mobapps/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/mobapps/css/bootstrap-reset.css" rel="stylesheet">
+    <!--<link href="static/mobapps/css/style.css" rel="stylesheet">-->
+    <link href="resource/css/common.css" rel="stylesheet">
+    <link href="static/mobapps/css/style-responsive.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="static/fonts/iconfont.css?v=2016070717">
+    <script src="resource/js/lib/jquery-1.11.1.min.js"></script>
+    <script src="static/js/dist/jquery/jquery.gcjs.js"></script>
+    <script src="resource/js/app/util.js"></script>
+    <script src="static/js/require.js"></script>
+    <script src="resource/js/app/config.js"></script>
+    <script>
+        require.config({
+            waitSeconds: 0
+        });
+    </script>
+    <script src="static/js/myconfig.js"></script>
+    <script type="text/javascript">
+        if (navigator.appName == 'Microsoft Internet Explorer') {
+            if (navigator.userAgent.indexOf("MSIE 5.0") > 0 || navigator.userAgent.indexOf("MSIE 6.0") > 0 || navigator.userAgent.indexOf("MSIE 7.0") > 0) {
+                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+            }
+        }
+        myrequire.path = "http://abc.5xieys.cn/addons/ewei_shopv2/static/js/";
+
+        function preview_html(txt)
+        {
+            var win = window.open("", "win", "width=300,height=600"); // a window object
+            win.document.open("text/html", "replace");
+            win.document.write($(txt).val());
+            win.document.close();
+        }
+    </script>
+
+</head>
+
+
+<body class="white-bg ">
+<div id='topbar' class='top-navigation   gray-bg '>
+    <nav class="navbar   gray-bg " role="navigation" style="width:1024px;margin:auto;">
+        <div class="navbar-header" style="width:200px;">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <a class="navbar-brand" href="index.html">新品试用平台</a>
+        </div><style>
+        .deg180{
+            transform:rotate(180deg);
+            -ms-transform:rotate(180deg); 	/* IE 9 */
+            -moz-transform:rotate(180deg); 	/* Firefox */
+            -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+            -o-transform:rotate(180deg); 	/* Opera */
+        }
+    </style>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav gray-bg">
+                <li ><a href="index.html">首页</a></li>
+                <li ><a href="goods.html"> 商品管理</a></li>
+                <li ><a href="order.html"> 订单管理</a></li>
+                <li class="active"><a href="basic.html"> 微信基本功能</a></li>
+                <li ><a href="data.html">数据分析</a></li>
+            </ul>
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown" style="position:relative;" onclick="$(this).find('span').toggleClass('deg180')">
+                        <name style="width: 80px;white-space:nowrap;overflow:hidden;text-overflow: ellipsis;display: block;text-align: center">许多宝</name>
+                        <span class="caret" style="position: absolute;top: 22px;right: 12px;"></span></a>
+                    <ul role="menu" class="dropdown-menu">
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=sysset.account"><i class="icon icon-similar"></i>  切换公众号</a></li>
+                        <li><a href="./index.php?c=account&a=post&uniacid=2" target="_blank"><i class="icon icon-wechat"></i>  编辑公众号</a></li>
+                        <li><a href="./index.php?c=profile&a=payment&" target="_blank"><i class="icon icon-pay"></i>  支付参数</a></li>
+                        <!--   <li><a href="./index.php?c=utility&a=emulator&" target="_blank"><i class="icon icon-machinery"></i>  模拟测试</a></li>-->
+                        <li class="divider"></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=perm"><i class="icon icon-person2"></i> 权限管理</a></li>
+                        <li class="divider"></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system"><i class="icon icon-settings"></i> 系统管理</a></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade"><i class="icon icon-down"></i> 系统更新</a></li>
+                        <li><a href="./index.php?c=user&a=profile&" target="_blank"><i class="icon icon-lock"></i>  修改密码</a></li>
+                        <li><a href="./index.php?c=account&a=display&" target="_blank"><i class="icon icon-back"></i>  返回系统</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+<div class='wrapper main-wrapper wrapper-content '>
+    <div class="page-menubar">
+        <style type='text/css'>
+            .order-list a {
+                position: relative;
+            }
+            .order-list span  {
+
+                float:right;margin-right:20px;
+            }
+        </style>
+        <ul class="menu-head-top">
+            <li><a href="basic.html">基本功能 <i class="fa fa-caret-right"></i></a></li>
+        </ul>
+
+        <div class='menu-header'>基本功能</div>
+        <ul class='order-list'>
+            <li>
+                <a href="basicword.html" >文字回复</a></li>
+            <li  class="active">
+                <a href="basicnews.html">图文回复</a></li>
+            <li>
+                <a href="basicmusic.html">音乐回复</a></li>
+            <li>
+                <a href="basicimg.html">图片回复</a></li>
+            <li>
+                <a href="basicvoice.html">语音回复</a></li>
+            <li>
+                <a href="basicsys.html">系统回复</a></li>
+            <li>
+                <a href="basicvideo.html">视频回复</a>
+            </li>
+        </ul>
+        <div class='menu-header'>高级功能</div>
+        <ul class='order-list'>
+            <li >
+                <a href="menu.html">自定义菜单</a>
+            </li>
+        </ul>
+        <div class='menu-header'>支付配置</div>
+        <ul class='order-list'>
+            <li >
+                <a href="payset.html">支付参数设置</a>
+            </li>
+        </ul>
+        <script>
+            $(function () {
+                $.ajax({type: "GET",url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.list.ajaxgettotals",dataType:"json",success: function(data){
+                    var res = data.result;
+                    $("span.status0").text(res.status0);
+                    $("span.status1").text(res.status1);
+                    $("span.status2").text(res.status2);
+                    $("span.status3").text(res.status3);
+                    $("span.status4").text(res.status4);
+                    $("span.status5").text(res.status5);
+                    $("span.status_1").text(res.status_1);
+                    $("span.all").text(res.all);
+                }
+                });
+            });
+        </script>    </div>
+    <div class="page-content">
+        <div class="page-heading"> <h2>基本功能</h2> </div>
+        <div>
+            <ul class="nav nav-tabs">
+                <li><a href="basicnews.html">管理基本混合图文回复</a></li>
+                <li class="active"><a href="basicnewsadd.html"><i class="fa fa-plus"></i> 添加基本混合图文回复</a></li>
+            </ul>
+            <style type="text/css">
+                .help-block em{display:inline-block;width:10em;font-weight:bold;font-style:normal;}
+            </style>
+            <script>
+                require(['angular.sanitize', 'bootstrap', 'underscore', 'util'], function(angular, $, _, util){
+                    angular.module('app', ['ngSanitize']).controller('replyForm', function($scope, $http){
+                        $scope.reply = {
+                            advSetting: false,
+                            advTrigger: false,
+                            entry: null
+                        };
+                        $scope.trigger = {};
+                        $scope.trigger.descriptions = {};
+                        $scope.trigger.descriptions.contains = '用户进行交谈时，对话中包含上述关键字就执行这条规则。';
+                        $scope.trigger.descriptions.regexp = '用户进行交谈时，对话内容符合述关键字中定义的模式才会执行这条规则。<br/><strong>注意：如果你不明白正则表达式的工作方式，请不要使用正则匹配</strong> <br/><strong>注意：正则匹配使用MySQL的匹配引擎，请使用MySQL的正则语法</strong> <br /><strong>示例: </strong><br/><em>^微信</em>匹配以“微信”开头的语句<br /><em>微信$</em>匹配以“微信”结尾的语句<br /><em>^微信$</em>匹配等同“微信”的语句<br /><em>微信</em>匹配包含“微信”的语句<br /><em>[0-9\.\-]</em>匹配所有的数字，句号和减号<br /><em>^[a-zA-Z_]$</em>所有的字母和下划线<br /><em>^[[:alpha:]]{3}$</em>所有的3个字母的单词<br /><em>^a{4}$</em>aaaa<br /><em>^a{2,4}$</em>aa，aaa或aaaa<br /><em>^a{2,}$</em>匹配多于两个a的字符串';
+                        $scope.trigger.descriptions.trustee = '如果没有比这条回复优先级更高的回复被触发，那么直接使用这条回复。<br/><strong>注意：如果你不明白这个机制的工作方式，请不要使用直接接管</strong>';
+                        $scope.trigger.labels = {};
+                        $scope.trigger.labels.contains = '包含关键字';
+                        $scope.trigger.labels.regexp = '正则表达式模式';
+                        $scope.trigger.labels.trustee = '直接接管操作';
+                        $scope.trigger.active = 'contains';
+                        $scope.trigger.items = {};
+                        $scope.trigger.items.default = '';
+                        $scope.trigger.items.contains = [];
+                        $scope.trigger.items.regexp = [];
+                        $scope.trigger.items.trustee = [];
+                        if($scope.reply.entry) {
+                            $scope.reply.entry.istop = $scope.reply.entry.displayorder >= 255 ? 1 : 0;
+                            //$scope.reply.advSetting = $scope.reply.entry.displayorder!=0 || !$scope.reply.entry.status;
+                            if($scope.reply.entry.keywords) {
+                                angular.forEach($scope.reply.entry.keywords, function(v, k){
+                                    if(v.type == '1') {
+                                        this.default += (v.content + ',');
+                                    }
+                                    if(v.type == '2') {
+                                        this.contains.push({content: v.content, label: '请输入' + $scope.trigger.labels.contains, saved: true});
+                                    }
+                                    if(v.type == '3') {
+                                        this.regexp.push({content: v.content, label: '请输入' + $scope.trigger.labels.regexp, saved: true});
+                                    }
+                                    if(v.type == '4') {
+                                        this.trustee.push({});
+                                    }
+                                }, $scope.trigger.items);
+                                if($scope.trigger.items.default.length > 1) {
+                                    $scope.trigger.items.default = $scope.trigger.items.default.slice(0, $scope.trigger.items.default.length - 1);
+                                }
+                                if($scope.trigger.items.contains.length > 0 || $scope.trigger.items.regexp.length > 0 || $scope.trigger.items.trustee.length > 0) {
+                                    $scope.reply.advTrigger = true;
+                                }
+                                if($scope.trigger.items.contains.length > 0) {
+                                    $('a[data-toggle="tab"]').eq(0).tab('show');
+                                    $scope.trigger.active = 'contains';
+                                } else if($scope.trigger.items.regexp.length > 0) {
+                                    $('a[data-toggle="tab"]').eq(1).tab('show');
+                                    $scope.trigger.active = 'regexp';
+                                } else if($scope.trigger.items.trustee.length > 0) {
+                                    $('a[data-toggle="tab"]').eq(2).tab('show');
+                                    $scope.trigger.active = 'trustee';
+                                }
+                            }
+                        }
+                        $scope.trigger.addItem = function(){
+                            var type = $scope.trigger.active;
+                            if(type != 'trustee') {
+                                $scope.trigger.items[type].push({content: '', label: '请输入' + $scope.trigger.labels[type], saved: false});
+                            } else {
+                                if($scope.trigger.items.trustee.length == 0) {
+                                    $scope.trigger.items.trustee.push({type:4, content:''});
+                                }
+                            }
+                        };
+
+                        $scope.trigger.saveItem = function(item){
+                            item.saved = !item.saved;
+                        };
+                        $scope.trigger.removeItem = function(item) {
+                            var type = $scope.trigger.active;
+                            $scope.trigger.items[type] = _.without($scope.trigger.items[type], item);
+                            $scope.$digest();
+                        };
+                        $scope.trigger.test = function(item) {
+                        }
+                        if($.isFunction(window.initReplyController)) {
+                            window.initReplyController($scope, $http);
+                        }
+                        $('#reply-form').submit(function(){
+                            if($.trim($(':text[name="name"]').val()) == '') {
+                                util.message('必须输入回复规则名称');
+                                return false;
+                            }
+                            var val = [];
+                            $scope.$digest();
+                            if($scope.trigger.items.default != '') {
+                                var kws = $scope.trigger.items.default.replace('，', ',').split(',');
+                                kws = _.union(kws);
+                                angular.forEach(kws, function(v){
+                                    if(v != '') {
+                                        val.push({type: 1, content: v});
+                                    }
+                                }, val);
+                            }
+                            angular.forEach($scope.trigger.items, function(v, name){
+                                var flag = true;
+                                if(name != 'default' && v.length > 0) {
+                                    if(name == 'contains' || name == 'regexp'){
+                                        angular.forEach(v, function(value){
+                                            if(value.content.trim() != '') {
+                                                this.push({
+                                                    content: value.content,
+                                                    type: name == 'contains' ? 2 : 3
+                                                });
+                                            }
+                                        }, val);
+                                    }
+                                    if(name == 'trustee'){
+                                        angular.forEach(v, function(value){
+                                            this.push({type:4, content:''});
+                                        }, val);
+                                    }
+                                }
+                            }, val);
+                            if(val.length == 0 && $scope.trigger.active != 'trustee') {
+                                util.message('请输入有效的触发关键字.');
+                                return false;
+                            }
+                            $scope.$digest();
+                            val = angular.toJson(val);
+                            $(':hidden[name=keywords]').val(val);
+                            if($.isFunction(window.validateReplyForm)) {
+                                return window.validateReplyForm(this, $, _, util, $scope, $http);
+                            }
+                            return true;
+                        });
+                        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                            $scope.trigger.active = e.target.hash.replace(/#/, '');
+                            $scope.$digest();
+                        })
+                        util.emotion($("#keyword"), $("#keywordinput")[0], function(txt, elm, target){
+                            $scope.trigger.items.default = $(target).val();
+                            $scope.$digest();
+                        });
+                    }).filter('nl2br', function($sce){
+                        return function(text) {
+                            return text ? $sce.trustAsHtml(text.replace(/\n/g, '<br/>')) : '';
+                        };
+                    }).directive('ngInvoker', function($parse){
+                        return function (scope, element, attr) {
+                            scope.$eval(attr.ngInvoker);
+                        };
+                    }).directive('ngMyEditor', function(){
+                        var editor = {
+                            'scope' : {
+                                'value' : '=ngMyValue'
+                            },
+                            'template' : '<textarea id="editor" style="height:600px;width:100%;"></textarea>',
+                            'link' : function ($scope, element, attr) {
+                                if(!element.data('editor')) {
+                                    editor = UE.getEditor('editor', ueditoroption);
+                                    element.data('editor', editor);
+                                    editor.addListener('contentChange', function() {
+                                        $scope.value = editor.getContent().replace(/\&quot\;/g, '"');
+                                        $scope.$root.$$phase || $scope.$apply('value');
+                                    });
+                                    $(element).parents('form').submit(function() {
+                                        if (editor.queryCommandState('source')) {
+                                            editor.execCommand('source');
+                                        }
+                                    });
+                                    editor.addListener('ready', function(){
+                                        if (editor && editor.getContent() != $scope.value) {
+                                            editor.setContent($scope.value);
+                                        }
+                                        $scope.$watch('value', function (value) {
+                                            if (editor && editor.getContent() != value) {
+                                                editor.setContent(value ? value : '');
+                                            }
+                                        });
+                                    });
+                                }
+                            }
+                        };
+                        return editor;
+                    });
+                    angular.bootstrap($('#js-reply-form')[0], ['app']);
+
+
+                    // 检测规则是否已经存在
+                    window.checkKeyWord = function(key) {
+                        var keyword = key.val().trim();
+                        if (keyword == '') {
+                            return false;
+                        }
+                        var type = key.attr('data-type');
+                        var wordIndex = key.index('.keyword');
+                        var isLeagl = true;
+                        $('.keyword').each(function(index) {
+                            var currentWord = $(this).val().trim();
+                            if (keyword == currentWord && wordIndex != index) {
+                                isLeagl = false;
+                                return false;
+                            }
+                        });
+                        if (isLeagl === false) {
+                            key.next().text('');
+                            util.message('该关键字已重复存在于当前规则中.');
+                            return false;
+                        }
+
+                        $.post(location.href, {keyword:keyword}, function(resp){
+                            if(resp != 'success') {
+                                var rid = $('input[name="rid"]').val();
+                                var rules = JSON.parse(resp);
+                                var url = "./index.php?c=platform&a=reply&do=post&m=news";
+                                var ruleurl = '';
+                                for (rule in rules) {
+                                    if (rid != rules[rule].id) {
+                                        ruleurl += "<a href='" + url + "&rid=" + rules[rule].id + "' target='_blank'><strong class='text-danger'>" + rules[rule].name + "</strong></a>&nbsp;";
+                                    }
+                                }
+                                if (ruleurl != '') {
+                                    key.next().html('该关键字已存在于 ' + ruleurl + ' 规则中.');
+                                }
+                            } else {
+                                key.next().text('');
+                            }
+                        });
+                    }
+
+                    $('.keyword').each(function() {
+                        $(this).attr('data-type', 'keyword');
+                    });
+                });
+
+            </script>
+            <div class="clearfix ng-scope" id="js-reply-form" ng-controller="replyForm">
+                <form id="reply-form" class="form-horizontal form ng-pristine ng-valid" action="./index.php?c=platform&amp;a=reply&amp;do=post&amp;m=news&amp;rid=0" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">添加回复规则 <span class="text-muted">删除，修改规则、关键字以及回复后，请提交以保存操作。</span></div>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="form-group">
+                                            <label class="col-xs-12 col-sm-3 col-md-2 control-label">回复规则名称</label>
+                                            <div class="col-sm-6 col-md-8 col-xs-12">
+                                                <input type="text" class="form-control" placeholder="请输入回复规则的名称" name="name" value="">
+									<span class="help-block">
+										您可以给这条规则起一个名字, 方便下次修改和查看. <br>
+										<strong class="text-danger">选择高级设置: 将会提供一系列的高级选项供专业用户使用.</strong>
+									</span>
+                                            </div>
+                                            <div class="col-sm-3 col-md-2">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" ng-model="reply.advSetting" class="ng-pristine ng-untouched ng-valid"> 高级设置
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group ng-hide" ng-show="reply.advSetting">
+                                            <label class="col-xs-12 col-sm-3 col-md-2 control-label">状态</label>
+                                            <div class="col-sm-9">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="status" value="1" checked="checked"> 启用
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="status" value="0"> 禁用
+                                                </label>
+                                                <span class="help-block">您可以临时禁用这条回复.</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group ng-hide" ng-show="reply.advSetting">
+                                            <label class="col-xs-12 col-sm-3 col-md-2 control-label">置顶回复</label>
+                                            <div class="col-sm-9">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="istop" ng-model="reply.entry.istop" ng-value="1" value="1" class="ng-pristine ng-untouched ng-valid"> 置顶
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="istop" ng-model="reply.entry.istop" ng-value="0" value="0" checked="checked" class="ng-pristine ng-untouched ng-valid"> 普通
+                                                </label>
+                                                <span class="help-block">“置顶”时无论在什么情况下均能触发且使终保持最优先级</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group ng-hide" ng-show="reply.advSetting &amp;&amp; !reply.entry.istop">
+                                            <label class="col-xs-12 col-sm-3 col-md-2 control-label">优先级</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" placeholder="输入这条回复规则优先级" name="displayorder_rule" value="">
+                                                <span class="help-block">规则优先级，越大则越靠前，最大不得超过254</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-12 col-sm-3 col-md-2 control-label">触发关键字</label>
+                                            <div class="col-sm-6 col-md-8 col-xs-12">
+                                                <input type="hidden" name="rid" value="0">
+                                                <input type="text" class="form-control keyword ng-pristine ng-untouched ng-valid" placeholder="请输入触发关键字" ng-model="trigger.items.default" id="keywordinput" onblur="checkKeyWord($(this));" data-type="keyword">
+                                                <span class="help-block"></span>
+                                                <input type="hidden" name="keywords">
+									<span class="help-block">
+										当用户的对话内容符合以上的关键字定义时，会触发这个回复定义。多个关键字请使用逗号隔开。<a href="javascript:;" id="keyword" data-original-title="" title=""><i class="fa fa-github-alt"></i> 表情</a> <br>
+										<strong class="text-danger">选择高级触发: 将会提供一系列的高级触发方式供专业用户使用(注意: 如果你不了解, 请不要使用). </strong>
+									</span>
+                                            </div>
+                                            <div class="col-sm-3 col-md-2">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" ng-model="reply.advTrigger" class="ng-pristine ng-untouched ng-valid"> 高级触发
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group ng-hide" ng-show="reply.advTrigger">
+                                            <label class="col-xs-12 col-sm-3 col-md-2 control-label">高级触发列表</label>
+                                            <div class="col-sm-9">
+                                                <div class="panel panel-default tab-content">
+                                                    <div class="panel-heading">
+                                                        <ul class="nav nav-pills">
+                                                            <li class="active"><a href="#contains" data-toggle="tab">包含关键字</a></li>
+                                                            <li><a href="#regexp" data-toggle="tab">正则表达式模式匹配</a></li>
+                                                            <li><a href="#trustee" data-toggle="tab">直接接管</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <ul class="tab-pane list-group active" id="contains">
+                                                        <!-- ngRepeat: entry in trigger.items.contains -->
+                                                    </ul>
+                                                    <ul class="tab-pane list-group" id="regexp">
+                                                        <!-- ngRepeat: entry in trigger.items.regexp -->
+                                                    </ul>
+                                                    <ul class="tab-pane list-group" id="trustee">
+                                                        <!-- ngRepeat: entry in trigger.items.trustee -->
+                                                    </ul>
+                                                    <div class="panel-footer">
+                                                        <a href="javascript:;" class="btn btn-default ng-binding" ng-click="trigger.addItem();" ng-bind="'添加' + trigger.labels[trigger.active]">添加包含关键字</a>
+                                                        <span class="help-block ng-binding" ng-bind-html="trigger.descriptions[trigger.active]">用户进行交谈时，对话中包含上述关键字就执行这条规则。</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <script type="text/javascript" src="./resource/components/ueditor/ueditor.config.js"></script><script type="text/javascript" src="./resource/components/ueditor/ueditor.all.min.js"></script><script type="text/javascript" src="./resource/components/ueditor/lang/zh-cn/zh-cn.js"></script>
+                            <script type="text/javascript">
+                                var ueditoroption = {
+                                    'autoClearinitialContent' : false,
+                                    'toolbars' : [['fullscreen', 'source', 'preview', '|', 'bold', 'italic', 'underline', 'strikethrough', 'forecolor', 'backcolor', '|',
+                                        'justifyleft', 'justifycenter', 'justifyright', '|', 'insertorderedlist', 'insertunorderedlist', 'blockquote', 'emotion', 'insertvideo',
+                                        'link', 'removeformat', '|', 'rowspacingtop', 'rowspacingbottom', 'lineheight','indent', 'paragraph', 'fontsize', '|',
+                                        'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol',
+                                        'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|', 'anchor', 'map', 'print', 'drafts']],
+                                    'elementPathEnabled' : false,
+                                    'initialFrameHeight': 200,
+                                    'focus' : false,
+                                    'maximumWords' : 9999999999999
+                                };
+                                var opts = {
+                                    type :'image',
+                                    direct : false,
+                                    multi : true,
+                                    tabs : {
+                                        'upload' : 'active',
+                                        'browser' : '',
+                                        'crawler' : ''
+                                    },
+                                    path : '',
+                                    dest_dir : '',
+                                    global : false,
+                                    thumb : false,
+                                    width : 0
+                                };
+                                UE.registerUI('myinsertimage',function(editor,uiName){
+                                    editor.registerCommand(uiName, {
+                                        execCommand:function(){
+                                            require(['fileUploader'], function(uploader){
+                                                uploader.show(function(imgs){
+                                                    if (imgs.length == 0) {
+                                                        return;
+                                                    } else if (imgs.length == 1) {
+                                                        editor.execCommand('insertimage', {
+                                                            'src' : imgs[0]['url'],
+                                                            '_src' : imgs[0]['attachment'],
+                                                            'width' : '100%',
+                                                            'alt' : imgs[0].filename
+                                                        });
+                                                    } else {
+                                                        var imglist = [];
+                                                        for (i in imgs) {
+                                                            imglist.push({
+                                                                'src' : imgs[i]['url'],
+                                                                '_src' : imgs[i]['attachment'],
+                                                                'width' : '100%',
+                                                                'alt' : imgs[i].filename
+                                                            });
+                                                        }
+                                                        editor.execCommand('insertimage', imglist);
+                                                    }
+                                                }, opts);
+                                            });
+                                        }
+                                    });
+                                    var btn = new UE.ui.Button({
+                                        name: '插入图片',
+                                        title: '插入图片',
+                                        cssRules :'background-position: -726px -77px',
+                                        onclick:function () {
+                                            editor.execCommand(uiName);
+                                        }
+                                    });
+                                    editor.addListener('selectionchange', function () {
+                                        var state = editor.queryCommandState(uiName);
+                                        if (state == -1) {
+                                            btn.setDisabled(true);
+                                            btn.setChecked(false);
+                                        } else {
+                                            btn.setDisabled(false);
+                                            btn.setChecked(state);
+                                        }
+                                    });
+                                    return btn;
+                                }, 19);
+
+                            </script><div class="alert alert-info" style="margin-top:-20px">
+                            <i class="fa fa-info-circle"></i>
+                            图文可添加多组回复，如果添加了多组回复，系统将随机选择一条回复给粉丝
+                        </div>
+                            <input type="hidden" name="replies" value="">
+                            <div class="panel panel-default clearfix">
+                                <div class="panel-heading">回复内容</div>
+                                <div class="panel-body">
+                                    <div class="row clearfix reply">
+                                        <div class="col-xs-6 col-sm-3 col-md-3">
+                                            <!-- ngRepeat: items in context.groups --><div class="panel-group ng-scope" ng-repeat="items in context.groups">
+                                            <!-- ngRepeat: item in items --><div class="panel panel-default ng-scope" ng-repeat="item in items">
+                                            <!-- ngIf: $index == 0 --><div class="panel-body ng-scope" ng-if="$index == 0">
+                                            <div class="img">
+                                                <i class="default">封面图片</i>
+                                                <img src="" ng-src="">
+                                                <span class="text-left ng-binding"></span>
+                                                <div class="mask">
+                                                    <a href="javascript:;" ng-click="context.exportFromCms(item, items)"><i class="fa fa-book"></i>导入文章</a>
+                                                    <a href="javascript:;" ng-click="context.editItem(item, items)"><i class="fa fa-edit"></i>编辑</a>
+                                                    <a href="javascript:;" ng-click="context.removeItem(item, items)"><i class="fa fa-times"></i>删除</a>
+                                                </div>
+                                            </div>
+                                        </div><!-- end ngIf: $index == 0 -->
+                                            <!-- ngIf: $index != 0 -->
+                                        </div><!-- end ngRepeat: item in items --><div class="panel panel-default ng-scope" ng-repeat="item in items">
+                                            <!-- ngIf: $index == 0 -->
+                                            <!-- ngIf: $index != 0 --><div class="panel-body ng-scope" ng-if="$index != 0">
+                                            <div class="text">
+                                                <h4 class="ng-binding"></h4>
+                                            </div>
+                                            <div class="img">
+                                                <img src="" ng-src="">
+                                                <i class="default">缩略图</i>
+                                            </div>
+                                            <div class="mask">
+                                                <a href="javascript:;" ng-click="context.exportFromCms(item, items)"><i class="fa fa-book"></i> 导入文章</a>
+                                                <a href="javascript:;" ng-click="context.editItem(item, items)"><i class="fa fa-edit"></i> 编辑</a>
+                                                <a href="javascript:;" ng-click="context.removeItem(item, items)"><i class="fa fa-times"></i> 删除</a>
+                                            </div>
+                                        </div><!-- end ngIf: $index != 0 -->
+                                        </div><!-- end ngRepeat: item in items -->
+                                            <div class="panel panel-default" ng-show="items.length < 8">
+                                                <div class="panel-body" style="padding-right:15px">
+                                                    <div class="add" ng-click="items.length >= 8 ? '' : context.addItem(items);"><span><i class="fa fa-plus"></i> 添加</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="no ng-binding">1</div>
+                                            <div class="del" ng-click="context.removeGroup(items);"><i class="fa fa-times"></i></div>
+                                        </div><!-- end ngRepeat: items in context.groups -->
+                                            <div class="btn btn-primary" ng-click="context.addGroup()" style="margin-bottom: 20px">添加一组回复</div>
+
+                                        </div>
+                                        <div class="col-xs-6 col-sm-9 col-md-9 aside" id="edit-container" style="margin-top: 185px;">
+                                            <div style="margin-bottom: 20px"></div>
+                                            <div class="card">
+                                                <div class="arrow-left"></div>
+                                                <div class="inner">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-body">
+                                                            <div class="form-group">
+                                                                <label class="col-xs-12 col-sm-3 col-md-2 control-label">标题</label>
+                                                                <div class="col-sm-9 col-xs-12">
+                                                                    <input type="text" class="form-control ng-pristine ng-untouched ng-valid" placeholder="添加图文消息的标题" ng-model="context.activeItem.title">
+                                                                    <input type="hidden" ng-model="context.activeItem.id" class="ng-pristine ng-untouched ng-valid">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-xs-12 col-sm-3 col-md-2 control-label">作者</label>
+                                                                <div class="col-sm-9 col-xs-12">
+                                                                    <input type="text" class="form-control ng-pristine ng-untouched ng-valid" placeholder="添加图文消息的作者" ng-model="context.activeItem.author">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" ng-show="!context.activeItem.isFirst">
+                                                                <label class="col-xs-12 col-sm-3 col-md-2 control-label">排序</label>
+                                                                <div class="col-sm-9 col-xs-12">
+                                                                    <input type="text" class="form-control ng-pristine ng-untouched ng-valid" placeholder="添加排序" ng-model="context.activeItem.displayorder">
+                                                                    <span class="help-block">排序只能在提交后显示。按照从大到小的顺序对图文排序</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-xs-12 col-sm-3 col-md-2 control-label">封面</label>
+                                                                <div class="col-sm-9 col-xs-12">
+                                                                    <!-- ngIf: context.activeItem.thumb == '' --><div class="col-xs-3 img ng-scope" ng-if="context.activeItem.thumb == ''">
+                                                                    <span ng-click="context.changeItem(context.activeItem)"><i class="fa fa-plus-circle green"></i>&nbsp;添加图片</span>
+                                                                </div><!-- end ngIf: context.activeItem.thumb == '' -->
+                                                                    <!-- ngIf: context.activeItem.thumb != '' -->
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                                                                <div class="col-sm-9 col-xs-12">
+                                                                    <label>
+                                                                        封面（大图片建议尺寸：360像素 * 200像素）
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                                                                <div class="col-sm-9 col-xs-12">
+                                                                    <label class="checkbox-inline">
+                                                                        <input type="checkbox" value="1" ng-model="context.activeItem.incontent" ng-checked="context.activeItem.incontent" class="ng-pristine ng-untouched ng-valid" checked="checked"> 封面图片显示在正文中
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-xs-12 col-sm-3 col-md-2 control-label">描述</label>
+                                                                <div class="col-sm-9 col-xs-12">
+                                                                    <textarea class="form-control ng-pristine ng-untouched ng-valid" placeholder="添加图文消息的简短描述" ng-model="context.activeItem.description"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-offset-4 col-md-offset-3 col-lg-offset-2 col-xs-12 col-sm-8 col-md-9 col-lg-10">
+                                                                    <label class="checkbox-inline">
+                                                                        <input type="checkbox" value="1" ng-model="context.activeItem.detail" ng-checked="context.activeItem.detail" ng-init="context.activeItem.detail = context.activeItem.content!=''" class="ng-pristine ng-untouched ng-valid"> 是否编辑图文详情
+                                                                    </label>
+                                                                    <span class="help-block">编辑详情可以展示这条图文的详细内容, 可以选择不编辑详情, 那么这条图文将直接链接至下方的原文地址中.</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group ng-hide" ng-show="context.activeItem.detail">
+                                                                <label class="col-xs-12 col-sm-3 col-md-2 control-label">详情</label>
+                                                                <div class="col-sm-9 col-xs-12">
+                                                                    <div ng-my-editor="" ng-my-value="context.activeItem.content" class="ng-isolate-scope"><div id="editor" class="edui-default" style="width: 100%;"><div id="edui1" class="edui-editor  edui-default" style="width: 100%; z-index: 999;"><div id="edui1_toolbarbox" class="edui-editor-toolbarbox edui-default"><div id="edui1_toolbarboxouter" class="edui-editor-toolbarboxouter edui-default"><div class="edui-editor-toolbarboxinner edui-default"><div id="edui2" class="edui-toolbar   edui-default" onselectstart="return false;" onmousedown="return $EDITORUI[&quot;edui2&quot;]._onMouseDown(event, this);" style="-webkit-user-select: none;"><div id="edui3" class="edui-box edui-button edui-for-fullscreen edui-default"><div id="edui3_state" onmousedown="$EDITORUI[&quot;edui3&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui3&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui3&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui3&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui3_body" unselectable="on" title="全屏" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui3&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui3&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui4" class="edui-box edui-button edui-for-source edui-default"><div id="edui4_state" onmousedown="$EDITORUI[&quot;edui4&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui4&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui4&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui4&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui4_body" unselectable="on" title="源代码" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui4&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui4&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui9" class="edui-box edui-button edui-for-preview edui-default"><div id="edui9_state" onmousedown="$EDITORUI[&quot;edui9&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui9&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui9&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui9&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui9_body" unselectable="on" title="预览" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui9&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui9&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui10" class="edui-box edui-separator  edui-default"></div><div id="edui11" class="edui-box edui-button edui-for-bold edui-default"><div id="edui11_state" onmousedown="$EDITORUI[&quot;edui11&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui11&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui11&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui11&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui11_body" unselectable="on" title="加粗" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui11&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui11&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui12" class="edui-box edui-button edui-for-italic edui-default"><div id="edui12_state" onmousedown="$EDITORUI[&quot;edui12&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui12&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui12&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui12&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui12_body" unselectable="on" title="斜体" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui12&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui12&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui13" class="edui-box edui-button edui-for-underline edui-default"><div id="edui13_state" onmousedown="$EDITORUI[&quot;edui13&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui13&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui13&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui13&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui13_body" unselectable="on" title="下划线" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui13&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui13&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui14" class="edui-box edui-button edui-for-strikethrough edui-default"><div id="edui14_state" onmousedown="$EDITORUI[&quot;edui14&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui14&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui14&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui14&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui14_body" unselectable="on" title="删除线" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui14&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui14&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui15" class="edui-box edui-splitbutton edui-for-forecolor edui-default edui-colorbutton"><div title="字体颜色" id="edui15_state" onmousedown="$EDITORUI[&quot;edui15&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui15&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui15&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui15&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-splitbutton-body edui-default"><div id="edui15_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui15&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div id="edui15_colorlump" class="edui-colorlump"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui15&quot;]._onArrowClick();"></div></div></div></div><div id="edui18" class="edui-box edui-splitbutton edui-for-backcolor edui-default edui-colorbutton"><div title="背景色" id="edui18_state" onmousedown="$EDITORUI[&quot;edui18&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui18&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui18&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui18&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-splitbutton-body edui-default"><div id="edui18_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui18&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div id="edui18_colorlump" class="edui-colorlump"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui18&quot;]._onArrowClick();"></div></div></div></div><div id="edui21" class="edui-box edui-separator  edui-default"></div><div id="edui22" class="edui-box edui-button edui-for-justifyleft edui-default"><div id="edui22_state" onmousedown="$EDITORUI[&quot;edui22&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui22&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui22&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui22&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui22_body" unselectable="on" title="居左对齐" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui22&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui22&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui23" class="edui-box edui-button edui-for-justifycenter edui-default"><div id="edui23_state" onmousedown="$EDITORUI[&quot;edui23&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui23&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui23&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui23&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui23_body" unselectable="on" title="居中对齐" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui23&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui23&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui24" class="edui-box edui-button edui-for-justifyright edui-default"><div id="edui24_state" onmousedown="$EDITORUI[&quot;edui24&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui24&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui24&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui24&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui24_body" unselectable="on" title="居右对齐" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui24&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui24&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui25" class="edui-box edui-separator  edui-default"></div><div id="edui26" class="edui-box edui-menubutton edui-for-insertorderedlist edui-default"><div title="有序列表" id="edui26_state" onmousedown="$EDITORUI[&quot;edui26&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui26&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui26&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui26&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-menubutton-body edui-default"><div id="edui26_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui26&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui26&quot;]._onArrowClick();"></div></div></div></div><div id="edui39" class="edui-box edui-menubutton edui-for-insertunorderedlist edui-default"><div title="无序列表" id="edui39_state" onmousedown="$EDITORUI[&quot;edui39&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui39&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui39&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui39&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-menubutton-body edui-default"><div id="edui39_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui39&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui39&quot;]._onArrowClick();"></div></div></div></div><div id="edui46" class="edui-box edui-button edui-for-blockquote edui-default"><div id="edui46_state" onmousedown="$EDITORUI[&quot;edui46&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui46&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui46&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui46&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui46_body" unselectable="on" title="引用" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui46&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui46&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui47" class="edui-box edui-splitbutton edui-for-emotion edui-default"><div title="表情" id="edui47_state" onmousedown="$EDITORUI[&quot;edui47&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui47&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui47&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui47&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-splitbutton-body edui-default"><div id="edui47_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui47&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui47&quot;]._onArrowClick();"></div></div></div></div><div id="edui134" class="edui-box edui-button edui-for-插入图片 edui-default"><div id="edui134_state" onmousedown="$EDITORUI[&quot;edui134&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui134&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui134&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui134&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui134_body" unselectable="on" title="插入图片" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui134&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui134&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui53" class="edui-box edui-button edui-for-insertvideo edui-default"><div id="edui53_state" onmousedown="$EDITORUI[&quot;edui53&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui53&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui53&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui53&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui53_body" unselectable="on" title="视频" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui53&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui53&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui58" class="edui-box edui-button edui-for-link edui-default"><div id="edui58_state" onmousedown="$EDITORUI[&quot;edui58&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui58&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui58&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui58&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui58_body" unselectable="on" title="超链接" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui58&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui58&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui59" class="edui-box edui-button edui-for-removeformat edui-default"><div id="edui59_state" onmousedown="$EDITORUI[&quot;edui59&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui59&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui59&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui59&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui59_body" unselectable="on" title="清除格式" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui59&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui59&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui60" class="edui-box edui-separator  edui-default"></div><div id="edui61" class="edui-box edui-menubutton edui-for-rowspacingtop edui-default"><div title="段前距" id="edui61_state" onmousedown="$EDITORUI[&quot;edui61&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui61&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui61&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui61&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-menubutton-body edui-default"><div id="edui61_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui61&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui61&quot;]._onArrowClick();"></div></div></div></div><div id="edui68" class="edui-box edui-menubutton edui-for-rowspacingbottom edui-default"><div title="段后距" id="edui68_state" onmousedown="$EDITORUI[&quot;edui68&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui68&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui68&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui68&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-menubutton-body edui-default"><div id="edui68_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui68&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui68&quot;]._onArrowClick();"></div></div></div></div><div id="edui75" class="edui-box edui-menubutton edui-for-lineheight edui-default"><div title="行间距" id="edui75_state" onmousedown="$EDITORUI[&quot;edui75&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui75&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui75&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui75&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-menubutton-body edui-default"><div id="edui75_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui75&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui75&quot;]._onArrowClick();"></div></div></div></div><div id="edui84" class="edui-box edui-button edui-for-indent edui-default"><div id="edui84_state" onmousedown="$EDITORUI[&quot;edui84&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui84&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui84&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui84&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui84_body" unselectable="on" title="首行缩进" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui84&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui84&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui85" class="edui-box edui-combox edui-for-paragraph edui-default"><div title="段落格式" id="edui85_state" onmousedown="$EDITORUI[&quot;edui85&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui85&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui85&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui85&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-combox-body edui-default"><div id="edui85_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui85&quot;]._onButtonClick(event, this);">段落格式</div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui85&quot;]._onArrowClick();"></div></div></div></div><div id="edui94" class="edui-box edui-combox edui-for-fontsize edui-default"><div title="字号" id="edui94_state" onmousedown="$EDITORUI[&quot;edui94&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui94&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui94&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui94&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-combox-body edui-default"><div id="edui94_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui94&quot;]._onButtonClick(event, this);">字号</div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui94&quot;]._onArrowClick();"></div></div></div></div><div id="edui105" class="edui-box edui-separator  edui-default"></div><div id="edui106" class="edui-box edui-splitbutton edui-for-inserttable edui-default"><div title="插入表格" id="edui106_state" onmousedown="$EDITORUI[&quot;edui106&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui106&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui106&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui106&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-splitbutton-body edui-default"><div id="edui106_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui106&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui106&quot;]._onArrowClick();"></div></div></div></div><div id="edui109" class="edui-box edui-button edui-for-deletetable edui-default"><div id="edui109_state" onmousedown="$EDITORUI[&quot;edui109&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui109&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui109&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui109&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui109_body" unselectable="on" title="删除表格" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui109&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui109&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui110" class="edui-box edui-button edui-for-insertparagraphbeforetable edui-default"><div id="edui110_state" onmousedown="$EDITORUI[&quot;edui110&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui110&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui110&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui110&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui110_body" unselectable="on" title="表格前插入行" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui110&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui110&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui111" class="edui-box edui-button edui-for-insertrow edui-default"><div id="edui111_state" onmousedown="$EDITORUI[&quot;edui111&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui111&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui111&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui111&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui111_body" unselectable="on" title="前插入行" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui111&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui111&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui112" class="edui-box edui-button edui-for-deleterow edui-default"><div id="edui112_state" onmousedown="$EDITORUI[&quot;edui112&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui112&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui112&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui112&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui112_body" unselectable="on" title="删除行" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui112&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui112&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui113" class="edui-box edui-button edui-for-insertcol edui-default"><div id="edui113_state" onmousedown="$EDITORUI[&quot;edui113&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui113&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui113&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui113&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui113_body" unselectable="on" title="前插入列" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui113&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui113&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui114" class="edui-box edui-button edui-for-deletecol edui-default"><div id="edui114_state" onmousedown="$EDITORUI[&quot;edui114&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui114&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui114&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui114&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui114_body" unselectable="on" title="删除列" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui114&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui114&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui115" class="edui-box edui-button edui-for-mergecells edui-default"><div id="edui115_state" onmousedown="$EDITORUI[&quot;edui115&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui115&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui115&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui115&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui115_body" unselectable="on" title="合并多个单元格" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui115&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui115&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui116" class="edui-box edui-button edui-for-mergeright edui-default"><div id="edui116_state" onmousedown="$EDITORUI[&quot;edui116&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui116&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui116&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui116&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui116_body" unselectable="on" title="右合并单元格" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui116&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui116&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui117" class="edui-box edui-button edui-for-mergedown edui-default"><div id="edui117_state" onmousedown="$EDITORUI[&quot;edui117&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui117&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui117&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui117&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui117_body" unselectable="on" title="下合并单元格" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui117&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui117&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui118" class="edui-box edui-button edui-for-splittocells edui-default"><div id="edui118_state" onmousedown="$EDITORUI[&quot;edui118&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui118&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui118&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui118&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui118_body" unselectable="on" title="完全拆分单元格" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui118&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui118&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui119" class="edui-box edui-button edui-for-splittorows edui-default"><div id="edui119_state" onmousedown="$EDITORUI[&quot;edui119&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui119&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui119&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui119&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui119_body" unselectable="on" title="拆分成行" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui119&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui119&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui120" class="edui-box edui-button edui-for-splittocols edui-default"><div id="edui120_state" onmousedown="$EDITORUI[&quot;edui120&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui120&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui120&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui120&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui120_body" unselectable="on" title="拆分成列" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui120&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui120&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui121" class="edui-box edui-separator  edui-default"></div><div id="edui126" class="edui-box edui-button edui-for-anchor edui-default"><div id="edui126_state" onmousedown="$EDITORUI[&quot;edui126&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui126&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui126&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui126&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui126_body" unselectable="on" title="锚点" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui126&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui126&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui131" class="edui-box edui-button edui-for-map edui-default"><div id="edui131_state" onmousedown="$EDITORUI[&quot;edui131&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui131&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui131&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui131&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui131_body" unselectable="on" title="Baidu地图" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui131&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui131&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui132" class="edui-box edui-button edui-for-print edui-default"><div id="edui132_state" onmousedown="$EDITORUI[&quot;edui132&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui132&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui132&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui132&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui132_body" unselectable="on" title="打印" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui132&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui132&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui133" class="edui-box edui-button edui-for-drafts edui-default"><div id="edui133_state" onmousedown="$EDITORUI[&quot;edui133&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui133&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui133&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui133&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui133_body" unselectable="on" title="从草稿箱加载" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui133&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui133&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div></div></div></div></div></div></div><div id="edui1_toolbarmsg" class="edui-editor-toolbarmsg edui-default" style="display:none;"><div id="edui1_upload_dialog" class="edui-editor-toolbarmsg-upload edui-default" onclick="$EDITORUI[&quot;edui1&quot;].showWordImageDialog();">点击上传</div><div class="edui-editor-toolbarmsg-close edui-default" onclick="$EDITORUI[&quot;edui1&quot;].hideToolbarMsg();">x</div><div id="edui1_toolbarmsg_label" class="edui-editor-toolbarmsg-label edui-default"></div><div style="height:0;overflow:hidden;clear:both;" class="edui-default"></div></div><div id="edui1_message_holder" class="edui-editor-messageholder edui-default" style="top: 3px; z-index: 1000;"></div></div><div id="edui1_iframeholder" class="edui-editor-iframeholder edui-default" style="width: 100%; height: 200px; z-index: 999; overflow: hidden;"><iframe id="ueditor_0" width="100%" height="100%" frameborder="0" src="javascript:void(function(){document.open();document.write(&quot;<!DOCTYPE html><html xmlns='http://www.w3.org/1999/xhtml' class='view' ><head><style type='text/css'>.view{padding:0;word-wrap:break-word;cursor:text;height:90%;}
+body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}</style><link rel='stylesheet' type='text/css' href='http://abc.5xieys.cn/web/resource/components/ueditor/themes/iframe.css'/></head><body class='view' ></body><script type='text/javascript'  id='_initialScript'>setTimeout(function(){editor = window.parent.UE.instants['ueditorInstant0'];editor._setup(document);},0);var _tmpScript = document.getElementById('_initialScript');_tmpScript.parentNode.removeChild(_tmpScript);</script></html>&quot;);document.close();}())"></iframe></div><div id="edui1_bottombar" class="edui-editor-bottomContainer edui-default"><table class="edui-default"><tbody class="edui-default"><tr class="edui-default"><td id="edui1_elementpath" class="edui-editor-bottombar edui-default"></td><td id="edui1_wordcount" class="edui-editor-wordcount edui-default">字数统计</td><td id="edui1_scale" class="edui-editor-scale edui-default" style="display: none;"><div class="edui-editor-icon edui-default"></div></td></tr></tbody></table></div><div id="edui1_scalelayer" class="edui-default"></div></div></div><textarea style="height: 600px; width: 100%; display: none;"></textarea></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-xs-12 col-sm-3 col-md-2 control-label">来源</label>
+                                                                <div class="col-sm-9 col-xs-12">
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control ng-pristine ng-untouched ng-valid" placeholder="图文消息的来源地址" ng-model="context.activeItem.url">
+											<span class="input-group-btn">
+												<button class="btn btn-default" type="button" ng-click="context.selectLink()"><i class="fa fa-external-link"></i> 系统链接</button>
+											</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                window.initReplyController = function($scope, $http) {
+                                    $scope.context = {};
+                                    $scope.context.groups = [];
+                                    if(!$.isArray($scope.context.groups)) {
+                                        $scope.context.groups = [];
+                                    }
+                                    if($scope.context.groups.length == 0) {
+                                        $scope.context.groups.push(
+                                                [{
+                                                    id: '',
+                                                    parent_id: -1,
+                                                    title: '',
+                                                    author: '',
+                                                    thumb: '',
+                                                    displayorder: '0',
+                                                    incontent: true,
+                                                    description: '',
+                                                    detail: true,
+                                                    content: '',
+                                                    url: ''
+                                                }]
+                                        );
+                                    }
+
+                                    //当前编辑的回复项目的索引
+                                    $scope.context.activeGroupIndex = 0;
+                                    $scope.context.activeIndex = 0;
+                                    //当前编辑的回复项目
+                                    $scope.context.activeItem = $scope.context.groups[$scope.context.activeGroupIndex][$scope.context.activeIndex];
+                                    $scope.context.activeItem.incontent = $scope.context.activeItem.incontent == 1;
+
+                                    $scope.context.addGroup = function(){
+                                        $scope.context.groups.push(
+                                                [{
+                                                    id: '',
+                                                    parent_id: -1,
+                                                    title: '',
+                                                    author: '',
+                                                    thumb: '',
+                                                    displayorder: '0',
+                                                    incontent: true,
+                                                    description: '',
+                                                    detail: true,
+                                                    content: '',
+                                                    url: ''
+                                                }]
+                                        );
+
+                                        $scope.context.activeGroupIndex = $scope.context.groups.length - 1;
+                                        $scope.context.triggerActiveItem(0);
+                                    };
+
+                                    $scope.context.removeGroup = function(items){
+                                        if($scope.context.groups.length == 1) {
+                                            util.message('至少有一组回复内容');
+                                            return false;
+                                        }
+                                        $scope.context.groups = _.without($scope.context.groups, items);
+                                        $scope.context.activeGroupIndex = 0;
+                                        $scope.context.triggerActiveItem(0);
+                                        $scope.$digest();
+                                    }
+
+                                    $scope.context.editItem = function(item, items){
+                                        $scope.context.triggerActiveGroup(items);
+                                        var index = $.inArray(item, $scope.context.groups[$scope.context.activeGroupIndex]);
+                                        if(index == -1) return false;
+                                        $scope.context.triggerActiveItem(index);
+                                    };
+
+                                    $scope.context.triggerActiveGroup = function(items) {
+                                        var index = $.inArray(items, $scope.context.groups);
+                                        if(index == -1) return false;
+                                        $scope.context.activeGroupIndex = index;
+                                    }
+
+                                    $scope.context.triggerActiveItem = function(index) {
+                                        var gindex = $scope.context.activeGroupIndex;
+                                        var top = 0;
+                                        for(i = 0; i < gindex; i++) {
+                                            if($scope.context.groups[i].length == 8) {
+                                                top = top + 7*105 + 210;
+                                            } else {
+                                                top = top + 210 + $scope.context.groups[i].length * 105;
+                                            }
+                                        }
+                                        top += index * 105 + 80;
+
+                                        $('#edit-container').css('marginTop', top);
+                                        $("html,body").animate({scrollTop:top + 500},500);
+                                        $scope.context.activeIndex = index;
+                                        $scope.context.activeItem = $scope.context.groups[$scope.context.activeGroupIndex][$scope.context.activeIndex];
+                                        $scope.context.activeItem.incontent = $scope.context.activeItem.incontent == 1;
+                                        $scope.context.activeItem.detail = $scope.context.activeItem.content != '';
+                                        $scope.context.activeItem.isFirst = false;
+                                        if(!index) {
+                                            $scope.context.activeItem.isFirst = true;
+                                        }
+                                    };
+
+                                    $scope.context.changeItem = function(item) {
+                                        require(['fileUploader'], function(uploader){
+                                            uploader.init(function(imgs){
+                                                var index = $.inArray(item, $scope.context.groups[$scope.context.activeGroupIndex]);
+                                                if(index > -1){
+                                                    $scope.context.groups[$scope.context.activeGroupIndex][index].thumb = imgs.url;
+                                                    $scope.$apply()
+                                                }
+                                            }, {'direct' : true, 'multiple' : false});
+                                        });
+                                    };
+
+                                    $scope.context.selectLink = function(){
+                                        util.linkBrowser(function(href){
+                                            $scope.context.activeItem.url = href;
+                                            $scope.$digest();
+                                        });
+                                    };
+
+                                    $scope.context.addItem = function(items){
+                                        $scope.context.triggerActiveGroup(items);
+
+                                        $scope.context.groups[$scope.context.activeGroupIndex].push({
+                                            id: '',
+                                            parent_id: -1,
+                                            title: '',
+                                            author: '',
+                                            thumb: '',
+                                            displayorder: '0',
+                                            incontent: true,
+                                            description: '',
+                                            detail: true,
+                                            content: '',
+                                            url: ''
+                                        });
+                                        var index = $scope.context.groups[$scope.context.activeGroupIndex].length - 1;
+                                        $scope.context.triggerActiveItem(index);
+                                    };
+
+                                    $scope.context.removeItem = function(item, items){
+                                        $scope.context.triggerActiveGroup(items);
+                                        require(['underscore'], function(_){
+                                            $scope.context.groups[$scope.context.activeGroupIndex] = _.without($scope.context.groups[$scope.context.activeGroupIndex], item);
+                                            $scope.context.triggerActiveItem(0);
+                                            $scope.$digest();
+                                        });
+                                    };
+
+                                    //导入文章
+                                    $scope.context.exportFromCms = function(item, items) {
+                                        $scope.context.triggerActiveGroup(items);
+                                        var index = $.inArray(item, $scope.context.groups[$scope.context.activeGroupIndex]);
+                                        if(index == -1) return false
+                                        $scope.context.triggerActiveItem(index);
+                                        $scope.context.searchCms();
+                                    }
+
+                                    $scope.context.searchCms = function(page) {
+                                        var html = {};
+                                        html['header'] = '<ul role="tablist" class="nav nav-pills" style="font-size:14px; margin-top:-20px;">'+
+                                        '	<li role="presentation" class="active" id="li_goodslist"><a data-toggle="tab" role="tab" aria-controls="articlelist" href="#articlelist">文章列表</a></li>'+
+                                        '</ul>';
+                                        html['content'] =
+                                                '<div class="tab-content">'+
+                                                '<div id="articlelist" class="tab-pane active" role="tabpanel">' +
+                                                '	<table class="table table-hover">' +
+                                                '		<thead class="navbar-inner">' +
+                                                '			<tr>' +
+                                                '				<th style="width:40%;">标题</th>' +
+                                                '				<th style="width:30%">创建时间</th>' +
+                                                '				<th style="width:30%; text-align:right">' +
+                                                '					<div class="input-group input-group-sm">' +
+                                                '						<input type="text" class="form-control">' +
+                                                '						<span class="input-group-btn">' +
+                                                '							<button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>' +
+                                                '						</span>' +
+                                                '					</div>' +
+                                                '				</th>' +
+                                                '			</tr>' +
+                                                '		</thead>' +
+                                                '		<tbody></tbody>'+
+                                                '	</table>'+
+                                                '	<div id="pager" style="text-align:center;"></div>'+
+                                                '</div>'+
+                                                '</div>';
+                                        html['footer'] = '';
+                                        html['articleitem'] =
+                                                '<%_.each(list, function(item) {%> \n' +
+                                                '<tr>\n' +
+                                                '	<td><a href="#" data-cover-attachment-url="<%=item.attachment%>" title="<%=item.title%>"><%=item.title%></a></td>\n' +
+                                                '	<td><%=item.createtime%></td>\n' +
+                                                '	<td class="text-right">\n' +
+                                                '		<button class="btn btn-default js-btn-select" js-id="<%=item.id%>">选取</button>\n' +
+                                                '	</td>\n' +
+                                                '</tr>\n' +
+                                                '<%});%>\n';
+                                        if (!$('#link-search-cms')[0]) {
+                                            $scope.modalobj = util.dialog(html['header'], html['content'], html['footer'] ,{'containerName' : 'link-search-cms'});
+                                            $scope.modalobj.find('.modal-body').css({'height':'680px','overflow-y':'auto' });
+                                            $scope.modalobj.modal('show');
+                                            $scope.modalobj.on('hidden.bs.modal', function(){$scope.modalobj.remove();});
+                                            $('#link-search-cms').data('modal', $scope.modalobj);
+                                        } else {
+                                            $scope.modalobj = $('#link-search-cms').data('modal');
+                                        }
+                                        page = page || 1;
+                                        $http.get('./index.php?c=utility&a=link&do=articlelist' + '&page=' + page).success(function(result, status, headers, config){
+                                            if (result.message.list) {
+                                                $scope.modalobj.find('#articlelist').data('articles', result.message.list);
+                                                $scope.modalobj.find('#articlelist tbody').html(_.template(html['articleitem'])(result.message));
+                                                $scope.modalobj.find('#pager').html(result.message.pager);
+                                                $scope.modalobj.find('#pager .pagination li[class!=\'active\'] a').click(function(){
+                                                    $scope.context.searchCms($(this).attr('page'));
+                                                    return false;
+                                                });
+                                                $scope.modalobj.find('.js-btn-select').click(function(){
+                                                    $scope.context.addCms($(this).attr('js-id'));
+                                                    $scope.$apply();
+                                                    $scope.modalobj.modal('hide');
+                                                });
+                                            }
+                                        });
+                                    };
+
+                                    $scope.context.addCms = function(id) {
+                                        var article =$scope.modalobj.find('#articlelist').data('articles')[id];
+                                        $scope.context.activeItem.title = article.title;
+                                        $scope.context.activeItem.thumb = article.thumb_url;
+                                        $scope.context.activeItem.author = article.author;
+                                        $scope.context.activeItem.incontent = article.incontent == 1;
+                                        $scope.context.activeItem.description = article.description;
+                                        $scope.context.activeItem.content = article.content;
+                                        $scope.context.activeItem.url = article.linkurl;
+                                        $scope.context.activeItem.detail = article.content != '';
+                                    };
+                                };
+
+                                window.validateReplyForm = function(form, $, _, util, $scope) {
+                                    if($scope.context.groups.length == 0) {
+                                        util.message('没有回复内容', '', 'error');
+                                        return false;
+                                    }
+                                    var error = {empty: false, message: ''};
+                                    angular.forEach($scope.context.groups, function(v, k){
+                                        var item = $scope.context.groups[k];
+                                        angular.forEach(item, function(v1){
+                                            if($.trim(v1.title) == '') {
+                                                this.empty = true;
+                                            }
+                                            if($.trim(v1.thumb) == '') {
+                                                this.message = '标题为 "' + v1.title + '" 的回复条目没有上传封面图片<br>';
+                                            }
+                                        }, error);
+                                    }, error);
+                                    if(error.empty) {
+                                        util.message('存在没有设置 "标题" 的回复条目');
+                                        return false;
+                                    }
+                                    if(error.message) {
+                                        util.message(error.message, '', 'error');
+                                        return false;
+                                    }
+                                    var val = angular.toJson($scope.context.groups);
+                                    $(':hidden[name=replies]').val(val);
+                                    return true;
+                                };
+                            </script>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+                            <input type="hidden" name="token" value="99ccb991">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script language='javascript'>
+        require(['bootstrap'], function ($) {
+            $('[data-toggle="tooltip"]').tooltip({
+                container: $(document.body)
+            });
+            $('[data-toggle="popover"]').popover({
+                container: $(document.body)
+            });
+        });
+
+
+        function check_ewei_shopv2_upgrade() {
+
+            require(['util'], function (util) {
+                if (util.cookie.get('checkeweishopv2upgrade_sys')) {
+                    return;
+                }
+                $.post('http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade.check', function (ret) {
+                    if (ret && ret.status == '1') {
+
+                        var result = ret.result;
+                        if(result.filecount>0 || result.database || result.upgrades){
+
+                            var html = '<div id="ewei-shopv2-upgrade-tips" class="tips-upgrade">';
+                            html+='<span class="tclose" onclick="check_ewei_shopv2_upgrade_hide();"><i class="fa fa-times-circle fa-2x"></i></span>';
+                            html+= '<div class="title">检测到更新</div>';
+                            html+='<div class="text"> 新版本 ' + result.version + " RELEASE " + result.release;
+                            html+=',请尽快更新! </div>';
+                            html+='<div class="buttons"><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade" class="btn btn-warning btn-sm">立即去更新</a></div></div>';
+                            $('body').prepend(html);
+                        }
+                    }
+                },'json');
+            });
+        }
+        function check_ewei_shopv2_upgrade_hide() {
+            require(['util'], function (util) {
+                util.cookie.set('checkeweishopv2upgrade_sys', 1, 3600);
+                $('#ewei-shopv2-upgrade-tips').fadeOut(150);
+            });
+        }
+        $(function () {
+            setTimeout( function() {
+                check_ewei_shopv2_upgrade();
+            },4000);
+        });
+
+        $(function () {
+            $('.page-content').show();
+            $('.img-thumbnail').each(function () {
+                if ($(this).attr('src').indexOf('nopic.jpg') != -1) {
+                    $(this).attr('src', "../addons/ewei_shopv2/static/images/nopic.jpg");
+                }
+            })
+            $.ajax({
+                url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=util.task",
+                async:false,
+                cache: false
+            });
+        });
+    </script>
+    <script language="javascript">myrequire(['web/init'],function(){
+        if($('.form-validate').length<=0) {  $('#page-loading').remove(); }
+    });</script>
+    <!--
+        <div id="page-loading" style="position: fixed;width:100%;height:100%;background:rgba(255,255,255,0.8);left:0;top:0;z-index:9999">
+            <div class="sk-spinner sk-spinner-double-bounce" style="position:fixed;top:50%;left:50%;width:40px;height:40px;margin-left:-20px;margin-top:-20px;">
+                <div class="sk-double-bounce1"></div>
+                <div class="sk-double-bounce2"></div>
+            </div>
+        </div>
+    -->
+
+</body>
+</html>

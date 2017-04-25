@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="shortcut icon" href="http://abc.5xieys.cn/attachment/images/global/wechat.jpg" />
+    <link href="static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="static/css/animate.css" rel="stylesheet">
+    <link href="static/css/v2.css?v=4.1.0" rel="stylesheet">
+    <link href="static/css/common.css?v=2.0.0" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/fonts/iconfont.css?v=2016070717">
+    <script src="resource/js/lib/jquery-1.11.1.min.js"></script>
+    <script src="static/js/dist/jquery/jquery.gcjs.js"></script>
+    <script src="resource/js/app/util.js"></script>
+
+
+    <script src="static/js/require.js"></script>
+    <script src="resource/js/app/config.js"></script>
+    <script>
+        require.config({
+            waitSeconds: 0
+        });
+    </script>
+    <script src="../addons/ewei_shopv2/static/js/myconfig.js"></script>
+    <script type="text/javascript">
+        if (navigator.appName == 'Microsoft Internet Explorer') {
+            if (navigator.userAgent.indexOf("MSIE 5.0") > 0 || navigator.userAgent.indexOf("MSIE 6.0") > 0 || navigator.userAgent.indexOf("MSIE 7.0") > 0) {
+                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+            }
+        }
+        myrequire.path = "http://abc.5xieys.cn/addons/ewei_shopv2/static/js/";
+
+        function preview_html(txt)
+        {
+            var win = window.open("", "win", "width=300,height=600"); // a window object
+            win.document.open("text/html", "replace");
+            win.document.write($(txt).val());
+            win.document.close();
+        }
+    </script>
+
+</head>
+
+
+<body class="white-bg ">
+<div id='topbar' class='top-navigation   gray-bg '>
+    <nav class="navbar   gray-bg " role="navigation" style="width:1024px;margin:auto;">
+        <div class="navbar-header" style="width:200px;">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <a class="navbar-brand" href="index.html">新品使用平台</a>
+        </div><style>
+        .deg180{
+            transform:rotate(180deg);
+            -ms-transform:rotate(180deg); 	/* IE 9 */
+            -moz-transform:rotate(180deg); 	/* Firefox */
+            -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+            -o-transform:rotate(180deg); 	/* Opera */
+        }
+    </style>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav gray-bg">
+                <li ><a href="index.html">首页</a></li>
+                <li ><a href="goods.html"> 商品管理</a></li>
+                <li ><a href="order.html"> 订单管理</a></li>
+                <li class="active"><a href="basicword.html"> 微信基本功能</a></li>
+                <li ><a href="data.html">数据分析</a></li>
+            </ul>
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown" style="position:relative;" onclick="$(this).find('span').toggleClass('deg180')">
+                        <name style="width: 80px;white-space:nowrap;overflow:hidden;text-overflow: ellipsis;display: block;text-align: center">许多宝</name>
+                        <span class="caret" style="position: absolute;top: 22px;right: 12px;"></span></a>
+                    <ul role="menu" class="dropdown-menu">
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=sysset.account"><i class="icon icon-similar"></i>  切换公众号</a></li>
+                        <li><a href="./index.php?c=account&a=post&uniacid=2" target="_blank"><i class="icon icon-wechat"></i>  编辑公众号</a></li>
+                        <li><a href="./index.php?c=profile&a=payment&" target="_blank"><i class="icon icon-pay"></i>  支付参数</a></li>
+                        <!--   <li><a href="./index.php?c=utility&a=emulator&" target="_blank"><i class="icon icon-machinery"></i>  模拟测试</a></li>-->
+                        <li class="divider"></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=perm"><i class="icon icon-person2"></i> 权限管理</a></li>
+                        <li class="divider"></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system"><i class="icon icon-settings"></i> 系统管理</a></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade"><i class="icon icon-down"></i> 系统更新</a></li>
+                        <li><a href="./index.php?c=user&a=profile&" target="_blank"><i class="icon icon-lock"></i>  修改密码</a></li>
+                        <li><a href="./index.php?c=account&a=display&" target="_blank"><i class="icon icon-back"></i>  返回系统</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+<div class='wrapper main-wrapper wrapper-content '>
+    <div class="page-menubar">
+        <style type='text/css'>
+            .order-list a {
+                position: relative;
+            }
+            .order-list span  {
+
+                float:right;margin-right:20px;
+            }
+        </style>
+        <ul class="menu-head-top">
+            <li><a href="basic.html">基本功能 <i class="fa fa-caret-right"></i></a></li>
+        </ul>
+
+        <div class='menu-header'>基本功能</div>
+        <ul class='order-list'>
+            <li class="active">
+                <a href="basicword.html" >文字回复</a></li>
+            <li>
+                <a href="basicnews.html">图文回复</a></li>
+            <li>
+                <a href="basicmusic.html">音乐回复</a></li>
+            <li>
+                <a href="basicimg.html">图片回复</a></li>
+            <li>
+                <a href="basicvoice.html">语音回复</a></li>
+            <li>
+                <a href="basicsys.html">系统回复</a></li>
+            <li>
+                <a href="basicvideo.html">视频回复</a>
+            </li>
+        </ul>
+        <div class='menu-header'>高级功能</div>
+        <ul class='order-list'>
+            <li >
+                <a href="menu.html">自定义菜单</a>
+            </li>
+        </ul>
+        <div class='menu-header'>支付配置</div>
+        <ul class='order-list'>
+            <li >
+                <a href="payset.html">支付参数设置</a>
+            </li>
+        </ul>
+        <script>
+            $(function () {
+                $.ajax({type: "GET",url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.list.ajaxgettotals",dataType:"json",success: function(data){
+                    var res = data.result;
+                    $("span.status0").text(res.status0);
+                    $("span.status1").text(res.status1);
+                    $("span.status2").text(res.status2);
+                    $("span.status3").text(res.status3);
+                    $("span.status4").text(res.status4);
+                    $("span.status5").text(res.status5);
+                    $("span.status_1").text(res.status_1);
+                    $("span.all").text(res.all);
+                }
+                });
+            });
+        </script>    </div>
+    <div class="page-content">
+        <div class="page-heading"> <h2>基本功能</h2> </div>
+        <div class="clearfix welcome-container">
+
+            <div class="col-xs-12 col-sm-9 col-lg-10 subcontentwarp">
+                <ul class="nav nav-tabs">
+                    <li><a href="basicword.html">管理基本文字回复</a></li>
+                    <li class="active"><a href="basicwordadd.html"><i class="fa fa-plus"></i> 添加基本文字回复</a></li>
+                </ul>
+                <style type="text/css">
+                    .help-block em{display:inline-block;width:10em;font-weight:bold;font-style:normal;}
+                </style>
+                <script>
+                    require(['angular.sanitize', 'bootstrap', 'underscore', 'util'], function(angular, $, _, util){
+                        angular.module('app', ['ngSanitize']).controller('replyForm', function($scope, $http){
+                            $scope.reply = {
+                                advSetting: false,
+                                advTrigger: false,
+                                entry: null
+                            };
+                            $scope.trigger = {};
+                            $scope.trigger.descriptions = {};
+                            $scope.trigger.descriptions.contains = '用户进行交谈时，对话中包含上述关键字就执行这条规则。';
+                            $scope.trigger.descriptions.regexp = '用户进行交谈时，对话内容符合述关键字中定义的模式才会执行这条规则。<br/><strong>注意：如果你不明白正则表达式的工作方式，请不要使用正则匹配</strong> <br/><strong>注意：正则匹配使用MySQL的匹配引擎，请使用MySQL的正则语法</strong> <br /><strong>示例: </strong><br/><em>^微信</em>匹配以“微信”开头的语句<br /><em>微信$</em>匹配以“微信”结尾的语句<br /><em>^微信$</em>匹配等同“微信”的语句<br /><em>微信</em>匹配包含“微信”的语句<br /><em>[0-9\.\-]</em>匹配所有的数字，句号和减号<br /><em>^[a-zA-Z_]$</em>所有的字母和下划线<br /><em>^[[:alpha:]]{3}$</em>所有的3个字母的单词<br /><em>^a{4}$</em>aaaa<br /><em>^a{2,4}$</em>aa，aaa或aaaa<br /><em>^a{2,}$</em>匹配多于两个a的字符串';
+                            $scope.trigger.descriptions.trustee = '如果没有比这条回复优先级更高的回复被触发，那么直接使用这条回复。<br/><strong>注意：如果你不明白这个机制的工作方式，请不要使用直接接管</strong>';
+                            $scope.trigger.labels = {};
+                            $scope.trigger.labels.contains = '包含关键字';
+                            $scope.trigger.labels.regexp = '正则表达式模式';
+                            $scope.trigger.labels.trustee = '直接接管操作';
+                            $scope.trigger.active = 'contains';
+                            $scope.trigger.items = {};
+                            $scope.trigger.items.default = '';
+                            $scope.trigger.items.contains = [];
+                            $scope.trigger.items.regexp = [];
+                            $scope.trigger.items.trustee = [];
+                            if($scope.reply.entry) {
+                                $scope.reply.entry.istop = $scope.reply.entry.displayorder >= 255 ? 1 : 0;
+                                //$scope.reply.advSetting = $scope.reply.entry.displayorder!=0 || !$scope.reply.entry.status;
+                                if($scope.reply.entry.keywords) {
+                                    angular.forEach($scope.reply.entry.keywords, function(v, k){
+                                        if(v.type == '1') {
+                                            this.default += (v.content + ',');
+                                        }
+                                        if(v.type == '2') {
+                                            this.contains.push({content: v.content, label: '请输入' + $scope.trigger.labels.contains, saved: true});
+                                        }
+                                        if(v.type == '3') {
+                                            this.regexp.push({content: v.content, label: '请输入' + $scope.trigger.labels.regexp, saved: true});
+                                        }
+                                        if(v.type == '4') {
+                                            this.trustee.push({});
+                                        }
+                                    }, $scope.trigger.items);
+                                    if($scope.trigger.items.default.length > 1) {
+                                        $scope.trigger.items.default = $scope.trigger.items.default.slice(0, $scope.trigger.items.default.length - 1);
+                                    }
+                                    if($scope.trigger.items.contains.length > 0 || $scope.trigger.items.regexp.length > 0 || $scope.trigger.items.trustee.length > 0) {
+                                        $scope.reply.advTrigger = true;
+                                    }
+                                    if($scope.trigger.items.contains.length > 0) {
+                                        $('a[data-toggle="tab"]').eq(0).tab('show');
+                                        $scope.trigger.active = 'contains';
+                                    } else if($scope.trigger.items.regexp.length > 0) {
+                                        $('a[data-toggle="tab"]').eq(1).tab('show');
+                                        $scope.trigger.active = 'regexp';
+                                    } else if($scope.trigger.items.trustee.length > 0) {
+                                        $('a[data-toggle="tab"]').eq(2).tab('show');
+                                        $scope.trigger.active = 'trustee';
+                                    }
+                                }
+                            }
+                            $scope.trigger.addItem = function(){
+                                var type = $scope.trigger.active;
+                                if(type != 'trustee') {
+                                    $scope.trigger.items[type].push({content: '', label: '请输入' + $scope.trigger.labels[type], saved: false});
+                                } else {
+                                    if($scope.trigger.items.trustee.length == 0) {
+                                        $scope.trigger.items.trustee.push({type:4, content:''});
+                                    }
+                                }
+                            };
+
+                            $scope.trigger.saveItem = function(item){
+                                item.saved = !item.saved;
+                            };
+                            $scope.trigger.removeItem = function(item) {
+                                var type = $scope.trigger.active;
+                                $scope.trigger.items[type] = _.without($scope.trigger.items[type], item);
+                                $scope.$digest();
+                            };
+                            $scope.trigger.test = function(item) {
+                            }
+                            if($.isFunction(window.initReplyController)) {
+                                window.initReplyController($scope, $http);
+                            }
+                            $('#reply-form').submit(function(){
+                                if($.trim($(':text[name="name"]').val()) == '') {
+                                    util.message('必须输入回复规则名称');
+                                    return false;
+                                }
+                                var val = [];
+                                $scope.$digest();
+                                if($scope.trigger.items.default != '') {
+                                    var kws = $scope.trigger.items.default.replace('，', ',').split(',');
+                                    kws = _.union(kws);
+                                    angular.forEach(kws, function(v){
+                                        if(v != '') {
+                                            val.push({type: 1, content: v});
+                                        }
+                                    }, val);
+                                }
+                                angular.forEach($scope.trigger.items, function(v, name){
+                                    var flag = true;
+                                    if(name != 'default' && v.length > 0) {
+                                        if(name == 'contains' || name == 'regexp'){
+                                            angular.forEach(v, function(value){
+                                                if(value.content.trim() != '') {
+                                                    this.push({
+                                                        content: value.content,
+                                                        type: name == 'contains' ? 2 : 3
+                                                    });
+                                                }
+                                            }, val);
+                                        }
+                                        if(name == 'trustee'){
+                                            angular.forEach(v, function(value){
+                                                this.push({type:4, content:''});
+                                            }, val);
+                                        }
+                                    }
+                                }, val);
+                                if(val.length == 0 && $scope.trigger.active != 'trustee') {
+                                    util.message('请输入有效的触发关键字.');
+                                    return false;
+                                }
+                                $scope.$digest();
+                                val = angular.toJson(val);
+                                $(':hidden[name=keywords]').val(val);
+                                if($.isFunction(window.validateReplyForm)) {
+                                    return window.validateReplyForm(this, $, _, util, $scope, $http);
+                                }
+                                return true;
+                            });
+                            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                                $scope.trigger.active = e.target.hash.replace(/#/, '');
+                                $scope.$digest();
+                            })
+                            util.emotion($("#keyword"), $("#keywordinput")[0], function(txt, elm, target){
+                                $scope.trigger.items.default = $(target).val();
+                                $scope.$digest();
+                            });
+                        }).filter('nl2br', function($sce){
+                            return function(text) {
+                                return text ? $sce.trustAsHtml(text.replace(/\n/g, '<br/>')) : '';
+                            };
+                        }).directive('ngInvoker', function($parse){
+                            return function (scope, element, attr) {
+                                scope.$eval(attr.ngInvoker);
+                            };
+                        }).directive('ngMyEditor', function(){
+                            var editor = {
+                                'scope' : {
+                                    'value' : '=ngMyValue'
+                                },
+                                'template' : '<textarea id="editor" style="height:600px;width:100%;"></textarea>',
+                                'link' : function ($scope, element, attr) {
+                                    if(!element.data('editor')) {
+                                        editor = UE.getEditor('editor', ueditoroption);
+                                        element.data('editor', editor);
+                                        editor.addListener('contentChange', function() {
+                                            $scope.value = editor.getContent().replace(/\&quot\;/g, '"');
+                                            $scope.$root.$$phase || $scope.$apply('value');
+                                        });
+                                        $(element).parents('form').submit(function() {
+                                            if (editor.queryCommandState('source')) {
+                                                editor.execCommand('source');
+                                            }
+                                        });
+                                        editor.addListener('ready', function(){
+                                            if (editor && editor.getContent() != $scope.value) {
+                                                editor.setContent($scope.value);
+                                            }
+                                            $scope.$watch('value', function (value) {
+                                                if (editor && editor.getContent() != value) {
+                                                    editor.setContent(value ? value : '');
+                                                }
+                                            });
+                                        });
+                                    }
+                                }
+                            };
+                            return editor;
+                        });
+                        angular.bootstrap($('#js-reply-form')[0], ['app']);
+
+
+                        // 检测规则是否已经存在
+                        window.checkKeyWord = function(key) {
+                            var keyword = key.val().trim();
+                            if (keyword == '') {
+                                return false;
+                            }
+                            var type = key.attr('data-type');
+                            var wordIndex = key.index('.keyword');
+                            var isLeagl = true;
+                            $('.keyword').each(function(index) {
+                                var currentWord = $(this).val().trim();
+                                if (keyword == currentWord && wordIndex != index) {
+                                    isLeagl = false;
+                                    return false;
+                                }
+                            });
+                            if (isLeagl === false) {
+                                key.next().text('');
+                                util.message('该关键字已重复存在于当前规则中.');
+                                return false;
+                            }
+
+                            $.post(location.href, {keyword:keyword}, function(resp){
+                                if(resp != 'success') {
+                                    var rid = $('input[name="rid"]').val();
+                                    var rules = JSON.parse(resp);
+                                    var url = "./index.php?c=platform&a=reply&do=post&m=basic";
+                                    var ruleurl = '';
+                                    for (rule in rules) {
+                                        if (rid != rules[rule].id) {
+                                            ruleurl += "<a href='" + url + "&rid=" + rules[rule].id + "' target='_blank'><strong class='text-danger'>" + rules[rule].name + "</strong></a>&nbsp;";
+                                        }
+                                    }
+                                    if (ruleurl != '') {
+                                        key.next().html('该关键字已存在于 ' + ruleurl + ' 规则中.');
+                                    }
+                                } else {
+                                    key.next().text('');
+                                }
+                            });
+                        }
+
+                        $('.keyword').each(function() {
+                            $(this).attr('data-type', 'keyword');
+                        });
+                    });
+
+                </script>
+                <div class="clearfix ng-scope" id="js-reply-form" ng-controller="replyForm">
+                    <form id="reply-form" class="form-horizontal form ng-pristine ng-valid" action="./index.php?c=platform&amp;a=reply&amp;do=post&amp;m=basic&amp;rid=0" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">添加回复规则 <span class="text-muted">删除，修改规则、关键字以及回复后，请提交以保存操作。</span></div>
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <div class="form-group">
+                                                <label class="col-xs-12 col-sm-3 col-md-2 control-label">回复规则名称</label>
+                                                <div class="col-sm-6 col-md-8 col-xs-12">
+                                                    <input type="text" class="form-control" placeholder="请输入回复规则的名称" name="name" value="">
+									<span class="help-block">
+										您可以给这条规则起一个名字, 方便下次修改和查看. <br>
+										<strong class="text-danger">选择高级设置: 将会提供一系列的高级选项供专业用户使用.</strong>
+									</span>
+                                                </div>
+                                                <div class="col-sm-3 col-md-2">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" ng-model="reply.advSetting" class="ng-pristine ng-untouched ng-valid"> 高级设置
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group ng-hide" ng-show="reply.advSetting">
+                                                <label class="col-xs-12 col-sm-3 col-md-2 control-label">状态</label>
+                                                <div class="col-sm-9">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="status" value="1" checked="checked"> 启用
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="status" value="0"> 禁用
+                                                    </label>
+                                                    <span class="help-block">您可以临时禁用这条回复.</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group ng-hide" ng-show="reply.advSetting">
+                                                <label class="col-xs-12 col-sm-3 col-md-2 control-label">置顶回复</label>
+                                                <div class="col-sm-9">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="istop" ng-model="reply.entry.istop" ng-value="1" value="1" class="ng-pristine ng-untouched ng-valid"> 置顶
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="istop" ng-model="reply.entry.istop" ng-value="0" value="0" checked="checked" class="ng-pristine ng-untouched ng-valid"> 普通
+                                                    </label>
+                                                    <span class="help-block">“置顶”时无论在什么情况下均能触发且使终保持最优先级</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group ng-hide" ng-show="reply.advSetting &amp;&amp; !reply.entry.istop">
+                                                <label class="col-xs-12 col-sm-3 col-md-2 control-label">优先级</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" placeholder="输入这条回复规则优先级" name="displayorder_rule" value="">
+                                                    <span class="help-block">规则优先级，越大则越靠前，最大不得超过254</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-xs-12 col-sm-3 col-md-2 control-label">触发关键字</label>
+                                                <div class="col-sm-6 col-md-8 col-xs-12">
+                                                    <input type="hidden" name="rid" value="0">
+                                                    <input type="text" class="form-control keyword ng-pristine ng-untouched ng-valid" placeholder="请输入触发关键字" ng-model="trigger.items.default" id="keywordinput" onblur="checkKeyWord($(this));" data-type="keyword">
+                                                    <span class="help-block"></span>
+                                                    <input type="hidden" name="keywords">
+									<span class="help-block">
+										当用户的对话内容符合以上的关键字定义时，会触发这个回复定义。多个关键字请使用逗号隔开。<a href="javascript:;" id="keyword" data-original-title="" title=""><i class="fa fa-github-alt"></i> 表情</a> <br>
+										<strong class="text-danger">选择高级触发: 将会提供一系列的高级触发方式供专业用户使用(注意: 如果你不了解, 请不要使用). </strong>
+									</span>
+                                                </div>
+                                                <div class="col-sm-3 col-md-2">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" ng-model="reply.advTrigger" class="ng-pristine ng-untouched ng-valid"> 高级触发
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group ng-hide" ng-show="reply.advTrigger">
+                                                <label class="col-xs-12 col-sm-3 col-md-2 control-label">高级触发列表</label>
+                                                <div class="col-sm-9">
+                                                    <div class="panel panel-default tab-content">
+                                                        <div class="panel-heading">
+                                                            <ul class="nav nav-pills">
+                                                                <li class="active"><a href="#contains" data-toggle="tab">包含关键字</a></li>
+                                                                <li><a href="#regexp" data-toggle="tab">正则表达式模式匹配</a></li>
+                                                                <li><a href="#trustee" data-toggle="tab">直接接管</a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <ul class="tab-pane list-group active" id="contains">
+                                                            <!-- ngRepeat: entry in trigger.items.contains -->
+                                                        </ul>
+                                                        <ul class="tab-pane list-group" id="regexp">
+                                                            <!-- ngRepeat: entry in trigger.items.regexp -->
+                                                        </ul>
+                                                        <ul class="tab-pane list-group" id="trustee">
+                                                            <!-- ngRepeat: entry in trigger.items.trustee -->
+                                                        </ul>
+                                                        <div class="panel-footer">
+                                                            <a href="javascript:;" class="btn btn-default ng-binding" ng-click="trigger.addItem();" ng-bind="'添加' + trigger.labels[trigger.active]">添加包含关键字</a>
+                                                            <span class="help-block ng-binding" ng-bind-html="trigger.descriptions[trigger.active]">用户进行交谈时，对话中包含上述关键字就执行这条规则。</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        回复内容
+                                    </div>
+                                    <ul class="list-group">
+                                        <!-- ngRepeat: item in context.items --><li class="row list-group-item ng-scope" ng-repeat="item in context.items">
+                                        <div class="block">
+                                            <div class="col-xs-12 col-sm-12">
+                                                <textarea class="form-control content ng-pristine ng-untouched ng-valid" ng-hide="item.saved" placeholder="添加要回复的内容" ng-model="item.content" rows="4" onkeyup="if (this.value.split('\n').length>4) this.rows=this.value.split('\n').length;"></textarea>
+                                                <p class="form-control-static ng-binding ng-hide" ng-show="item.saved" ng-bind-html="item.content | nl2br"></p>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 help-block">您还可以使用表情和链接。<a class="emotion-triggers" href="javascript:;" ng-init="initEmotion(this);" data-original-title="" title=""><i class="fa fa-github-alt"></i> 表情</a> <a class="emoji-triggers" href="javascript:;" ng-click="selectEmoji(this)" title="添加表情"><i class="fa fa-github-alt"></i> Emoji</a></div>
+                                        </div>
+                                        <div class="col-sm-12 text-right">
+                                            <div class="btn-group">
+                                                <a href="javascript:;" class="btn btn-default ng-binding" ng-click="context.saveItem(item);">保存</a>
+                                                <a href="javascript:;" class="btn btn-default" ng-click="context.removeItem(item);">删除</a>
+                                            </div>
+                                        </div>
+                                    </li><!-- end ngRepeat: item in context.items -->
+                                    </ul>
+                                    <!-- <div class="form-group">
+                                        <div class="col-sm-9">
+                                            <textarea type="text" name="welcome" class="form-control" id="welcomeinput" autocomplete="off" /></textarea>
+                                            <div class="help-block">设置用户添加公众帐号好友时，发送的欢迎信息。<a href="javascript:;" id="welcome"><i class="fa fa-github-alt"></i> 表情</a></div>
+                                        </div>
+                                    </div> -->
+                                    <div class="panel-footer">
+                                        <a href="javascript:;" class="btn btn-default" ng-click="context.addItem();">添加回复条目</a>
+                                        <span class="help-block">添加多条回复内容时, 随机回复其中一条</span>
+                                    </div>
+                                    <input type="hidden" name="replies">
+                                </div>
+                                <script>
+                                    window.initReplyController = function($scope) {
+                                        $scope.context = {};
+                                        $scope.context.items = null;
+                                        if(!$.isArray($scope.context.items)) {
+                                            $scope.context.items = [];
+                                        }
+                                        if($scope.context.items.length == 0) {
+                                            $scope.context.items.push({content: ''});
+                                        }
+                                        $scope.context.addItem = function(){
+                                            $scope.context.items.push({
+                                                content: ''
+                                            });
+                                        };
+                                        $scope.context.saveItem = function(item){
+                                            item.saved = !item.saved;
+                                        };
+                                        $scope.context.removeItem = function(item) {
+                                            require(['underscore'], function(_){
+                                                $scope.context.items = _.without($scope.context.items, item);
+                                                $scope.$digest();
+                                            });
+                                        };
+                                        $scope.initEmotion = function(obj) {
+                                            require(['util'], function(util){
+                                                var elm = $('.emotion-triggers').eq(obj.$index);
+                                                util.emotion(elm[0], elm.parent().parent().find('.content')[0], function(txt, elm, target){
+                                                    obj.item.content = $(target).val();
+                                                    $scope.$digest();
+                                                });
+                                            });
+                                        };
+                                        /*选择Emoji表情*/
+                                        $scope.selectEmoji = function(obj) {
+                                            require(['util'], function(util){
+                                                var elm = $('.emoji-triggers').eq(obj.$index);
+                                                var textbox = elm.parent().parent().find('.content')[0];
+                                                util.emojiBrowser(function(emoji){
+                                                    var unshift = '[U+' + emoji.find("span").text() + ']';
+                                                    var newstart = textbox.selectionStart + unshift.length;
+                                                    var insertval = textbox.value.substr(0,textbox.selectionStart) + unshift + textbox.value.substring(textbox.selectionEnd);
+                                                    obj.item.content = insertval;
+                                                    $scope.$digest();
+                                                });
+                                            });
+                                        };
+                                    };
+                                    window.validateReplyForm = function(form, $, _, util, $scope) {
+                                        var val = [];
+                                        $scope.$digest();
+                                        angular.forEach($scope.context.items, function(v, k){
+                                            if($.trim(v.content) != '') {
+                                                this.push(v);
+                                            }
+                                        }, val);
+                                        if(val.length == 0) {
+                                            util.message('请输入有效的回复内容.');
+                                            return false;
+                                        }
+                                        $scope.$digest();
+                                        val = angular.toJson(val);
+                                        $(':hidden[name=replies]').val(val);
+                                        return true;
+                                    };
+                                </script>			</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+                                <input type="hidden" name="token" value="99ccb991">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script language='javascript'>
+        require(['bootstrap'], function ($) {
+            $('[data-toggle="tooltip"]').tooltip({
+                container: $(document.body)
+            });
+            $('[data-toggle="popover"]').popover({
+                container: $(document.body)
+            });
+        });
+
+
+        function check_ewei_shopv2_upgrade() {
+
+            require(['util'], function (util) {
+                if (util.cookie.get('checkeweishopv2upgrade_sys')) {
+                    return;
+                }
+                $.post('http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade.check', function (ret) {
+                    if (ret && ret.status == '1') {
+
+                        var result = ret.result;
+                        if(result.filecount>0 || result.database || result.upgrades){
+
+                            var html = '<div id="ewei-shopv2-upgrade-tips" class="tips-upgrade">';
+                            html+='<span class="tclose" onclick="check_ewei_shopv2_upgrade_hide();"><i class="fa fa-times-circle fa-2x"></i></span>';
+                            html+= '<div class="title">检测到更新</div>';
+                            html+='<div class="text"> 新版本 ' + result.version + " RELEASE " + result.release;
+                            html+=',请尽快更新! </div>';
+                            html+='<div class="buttons"><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade" class="btn btn-warning btn-sm">立即去更新</a></div></div>';
+                            $('body').prepend(html);
+                        }
+                    }
+                },'json');
+            });
+        }
+        function check_ewei_shopv2_upgrade_hide() {
+            require(['util'], function (util) {
+                util.cookie.set('checkeweishopv2upgrade_sys', 1, 3600);
+                $('#ewei-shopv2-upgrade-tips').fadeOut(150);
+            });
+        }
+        $(function () {
+            setTimeout( function() {
+                check_ewei_shopv2_upgrade();
+            },4000);
+        });
+
+        $(function () {
+            $('.page-content').show();
+            $('.img-thumbnail').each(function () {
+                if ($(this).attr('src').indexOf('nopic.jpg') != -1) {
+                    $(this).attr('src', "../addons/ewei_shopv2/static/images/nopic.jpg");
+                }
+            })
+            $.ajax({
+                url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=util.task",
+                async:false,
+                cache: false
+            });
+        });
+    </script>
+    <script language="javascript">myrequire(['web/init'],function(){
+        if($('.form-validate').length<=0) {  $('#page-loading').remove(); }
+    });</script>
+    <!--
+        <div id="page-loading" style="position: fixed;width:100%;height:100%;background:rgba(255,255,255,0.8);left:0;top:0;z-index:9999">
+            <div class="sk-spinner sk-spinner-double-bounce" style="position:fixed;top:50%;left:50%;width:40px;height:40px;margin-left:-20px;margin-top:-20px;">
+                <div class="sk-double-bounce1"></div>
+                <div class="sk-double-bounce2"></div>
+            </div>
+        </div>
+    -->
+
+</body>
+</html>

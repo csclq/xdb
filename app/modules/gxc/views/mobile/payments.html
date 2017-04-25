@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>许多宝 - 许多宝</title>
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="keywords" content="微信营销系统,微信,微信公众平台" />
+    <meta name="description" content="微信营销系统是一款免费开源的微信公众平台管理系统，是国内最完善移动网站及移动互联网技术解决方案。" />
+    <link rel="shortcut icon" href="http://abc.5xieys.cn/attachment/images/global/wechat.jpg" />
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/app/util.js"></script>
+    <script src="http://abc.5xieys.cn/app/resource/js/require.js"></script>
+    <script src="http://abc.5xieys.cn/app/resource/js/app/config.js"></script>
+    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/lib/mui.min.js"></script>
+    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/app/common.js"></script>
+    <link href="http://abc.5xieys.cn/app/resource/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://abc.5xieys.cn/app/resource/css/common.min.css" rel="stylesheet">
+    <script type="text/javascript">
+        if(navigator.appName == 'Microsoft Internet Explorer'){
+            if(navigator.userAgent.indexOf("MSIE 5.0")>0 || navigator.userAgent.indexOf("MSIE 6.0")>0 || navigator.userAgent.indexOf("MSIE 7.0")>0) {
+                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+            }
+        }
+        window.sysinfo = {
+            'uniacid': '2',		'acid': '2',				'siteroot': 'http://abc.5xieys.cn/',
+            'siteurl': 'http://abc.5xieys.cn/app/index.php?i=2&c=entry&pid=269&oid=528&do=comment&m=qw_cca',
+            'attachurl': 'http://abc.5xieys.cn/attachment/',
+            'attachurl_local': 'http://abc.5xieys.cn/attachment/',
+            'attachurl_remote': '',
+            'MODULE_URL': 'http://abc.5xieys.cn/addons/qw_cca/',		'cookie' : {'pre': 'b961_'}
+        };
+        // jssdk config 对象
+        jssdkconfig = null || {};
+        // 是否启用调试
+        jssdkconfig.debug = false;
+        jssdkconfig.jsApiList = [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onRecordEnd',
+            'playVoice',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard',
+            'openAddress'
+        ];
+    </script>
+</head>
+<body class="mui-android mui-android-6 mui-android-6-0">
+<div class="container container-fill">
+    <link type="text/css" rel="stylesheet" href="../assets/css/common.css">
+    <link type="text/css" rel="stylesheet" href="../assets/css/jd_cart.css">
+
+    <div class="head" style="background-color: #5e5e5e;">
+        <a href="javascript:history.back();" class="bn pull-left"><i class="fa fa-angle-left"></i></a>
+        <span class="title">下订单</span>
+        <a href="#" class="bn pull-right" style="margin-right:0;">
+
+        </a>
+    </div>
+    <style>
+        .error {
+            color:#a94442;
+        }
+        .error-input {
+            border:1px solid #a94442;
+        }
+        .masklayer_div{
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 180;
+            background: rgba(0,0,0,0);
+        }
+        .masklayer_div.on{display: block;}
+        .bottom_tip{
+            position: fixed;
+            left:0;
+            bottom:0;
+            right: 0;
+            background-color: #e0e0e0;
+            background: -moz-linear-gradient(top,  #848484 0%, #ffffff 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#848484), color-stop(100%,#ffffff));
+            background: -webkit-linear-gradient(top, rgba(132, 132, 132, 0.82) 0%,#ffffff 100%);
+            background: -o-linear-gradient(top,  #848484 0%,#ffffff 100%);
+            background: -ms-linear-gradient(top,  #848484 0%,#ffffff 100%);
+            background: linear-gradient(to bottom,  #848484 0%,#ffffff 100%);
+            color:#000;
+            height: 45px;
+            z-index: 1000;
+        }
+        .bottom_tip .font-vertical{
+            font-size: 14px;
+            font-family: Arial, "microsoft yahei";
+            text-align: center;
+            line-height: 15px;
+        }
+        ul,li,a,span,select{
+            list-style: none;
+            margin:0px;
+            padding:0px;
+        }
+        .bottom_tip .font-vertical ul{
+            height:45px;
+        }
+        .bottom_tip .font-vertical li{
+            float:left;
+            width:25%;
+            text-align: center;
+            border-right:1px solid #ccc;
+            border-left: 1px solid #ccc;
+            height:45px;
+            line-height: 45px;
+        }
+        .bottom_tip .font-vertical li a{
+            text-decoration: none;
+        }
+        .location{
+            display: none;
+        }
+        .info{
+            width:100%;height:90px;
+        }
+        .goods{
+            position: relative;
+        }
+        ul,li{margin:0px;padding:0px;list-style: none}
+        .move{
+            position: fixed;
+            top:30%;
+            z-index: 999;
+            background-color: #fff;
+            border-radius: 5px;
+            border:1px solid #ccc;
+            width: 200px;
+            left:50%;
+            margin-left:-100px;
+            height:230px;
+            display: none;
+        }
+        .move span{display: block;text-align:center;margin:10px 0px;}
+        .move li{
+            width:60px;
+            margin:10px 3px;
+            float:left;
+            text-align: center;
+            list-style: none;
+            border:1px solid #ccc;
+        }
+        .move li:hover{
+            background-color: aqua;
+        }
+        .move .btn{text-align: center;width:200px;height:40px;margin: 0 auto;}
+        .move .btn button{background-color: #9a9291;border:none;border-radius: 3px;width: 100px;height:30px;color:#fff;}
+    </style>
+    <script>
+        function checkform() {
+            var success = true;
+            var province = $("select[name='address[province]']");
+            var city = $("select[name='address[city]']");
+            var district = $("select[name='address[district]']");
+            var address = $("input[name='address[detail]']");
+            //var postcode = $("input[name='address[postcode]']");
+            var recipientName = $("input[name='recipient_name']");
+            var mobile = $("input[name='mobile']");
+            var splitNumber = $("input[name='split_number']");
+
+            $(province).removeClass("error");
+            if ($(province).val() == "") {
+                $(province).addClass("error");
+                success = false;
+            }
+
+            $(city).removeClass("error");
+            if ($(city).val() == "") {
+                $(city).addClass("error");
+                success = false;
+            }
+
+            $(district).removeClass("error");
+            if ($(district).val() == "") {
+                $(district).addClass("error");
+                success = false;
+            }
+
+            $(address).removeClass("error-input");
+            if ($(address).val() == "") {
+                $(address).addClass("error-input");
+                success = false;
+            }
+
+            //$(postcode).removeClass("error-input");
+            //if ($(postcode).val() == "") {
+            //   $(postcode).addClass("error-input");
+            //   success = false;
+            //}
+
+            $(recipientName).removeClass("error-input");
+            if ($(recipientName).val() == "") {
+                $(recipientName).addClass("error-input");
+                success = false;
+            }
+
+            $(mobile).removeClass("error-input");
+            if ($(mobile).val() == "") {
+                $(mobile).addClass("error-input");
+                success = false;
+            }
+
+            $(splitNumber).removeClass("error-input");
+            if ($(splitNumber).val() == "") {
+                $(splitNumber).addClass("error-input");
+                success = false;
+            }
+
+            return success;
+        }
+    </script>
+
+    <form action="" method="post" onsubmit="return checkform();">
+        <input type="hidden" name="token" value="$_W['token']">
+        <div class="detail-main" style="margin-bottom:45px;margin-top:40px;padding:0;">
+            <div class="detail-div address">
+                <span class="margin-5 pull-left">请输入收货地址</span>
+                <span class="margin-5 text-danger pull-right">友情提示：以下均为必添项</span>
+                <div style="clear: both;"></div>
+                <div class="form-horizontal">
+                    <script type="text/javascript">
+                        require(["jquery", "district"], function($, dis){
+                            $(".tpl-district-container").each(function(){
+                                var elms = {};
+                                elms.province = $(this).find(".tpl-province")[0];
+                                elms.city = $(this).find(".tpl-city")[0];
+                                elms.district = $(this).find(".tpl-district")[0];
+                                var vals = {};
+                                vals.province = $(elms.province).attr("data-value");
+                                vals.city = $(elms.city).attr("data-value");
+                                vals.district = $(elms.district).attr("data-value");
+                                dis.render(elms, vals, {withTitle: true});
+                            });
+                        });
+                    </script>
+                    <div class="row row-fix tpl-district-container" style="margin-right: -10px;margin-left: -5px;">
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <!-- -->
+                            <select name="address[province]" data-value="" class="form-control tpl-province">
+                                <option value="">省/直辖市</option><option value="北京" pid="110000">北京</option><option value="天津" pid="120000">天津</option><option value="河北省" pid="130000">河北省</option><option value="山西省" pid="140000">山西省</option><option value="内蒙古自治区" pid="150000">内蒙古自治区</option><option value="辽宁省" pid="210000">辽宁省</option><option value="吉林省" pid="220000">吉林省</option><option value="黑龙江省" pid="230000">黑龙江省</option><option value="上海" pid="310000">上海</option><option value="江苏省" pid="320000">江苏省</option><option value="浙江省" pid="330000">浙江省</option><option value="安徽省" pid="340000">安徽省</option><option value="福建省" pid="350000">福建省</option><option value="江西省" pid="360000">江西省</option><option value="山东省" pid="370000">山东省</option><option value="河南省" pid="410000">河南省</option><option value="湖北省" pid="420000">湖北省</option><option value="湖南省" pid="430000">湖南省</option><option value="广东省" pid="440000">广东省</option><option value="广西壮族自治区" pid="450000">广西壮族自治区</option><option value="海南省" pid="460000">海南省</option><option value="重庆" pid="500000">重庆</option><option value="四川省" pid="510000">四川省</option><option value="贵州省" pid="520000">贵州省</option><option value="云南省" pid="530000">云南省</option><option value="西藏自治区" pid="540000">西藏自治区</option><option value="陕西省" pid="610000">陕西省</option><option value="甘肃省" pid="620000">甘肃省</option><option value="青海省" pid="630000">青海省</option><option value="宁夏回族自治区" pid="640000">宁夏回族自治区</option><option value="新疆维吾尔自治区" pid="650000">新疆维吾尔自治区</option><option value="台湾省" pid="710000">台湾省</option><option value="香港特别行政区" pid="810000">香港特别行政区</option><option value="澳门特别行政区" pid="820000">澳门特别行政区</option><option value="海外" pid="990000">海外</option></select>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <select name="address[city]" data-value="" class="form-control tpl-city">
+                                <option value="">市</option></select>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <select name="address[district]" data-value="" class="form-control tpl-district">
+                                <option value="">区/县</option></select>
+                        </div>
+                    </div>
+                    <input type="text" name="address[detail]" class="form-control margin-5" required="" placeholder="详细地址" value="">
+                    <input type="text" name="recipient_name" class="form-control margin-5" required="" placeholder="收货人姓名" value="">
+                    <input type="tel" name="mobile" class="form-control margin-5" required="" placeholder="手机号码" value="">
+                </div>
+            </div>
+
+            <div class="detail-div goods">
+                <div class="selected">
+                    <div class="list-item">
+                        <label style="float:left;margin:3px;width:23%;height:115px">
+                            <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/l2242dDz3ddzf723cbBdCD52D0424N.jpg') top center no-repeat;background-size:cover;height:70px;width:70px;">
+                                <a href="#" style="display: block;height:30px;">
+                                </a>
+                                <input type="hidden" name="products[]" value="270" class="selected_id">
+                                <input type="hidden" name="color[]" value="270_">
+                                <input type="hidden" name="size[]" value="270_">
+                                <div class="delete_box f_right" onclick="delgood(this)">
+                                    <span class="delete_up"></span>
+                                    <span class="delete_down"></span>
+                                </div>
+                            </div>
+                            <div class="sold">
+                    <span class="title" style="display: block">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 29.00元</strong>
+                        <!--<p style="display: block;width: 83%;overflow: hidden;height: 20px;">水果时光蓝莓罐头1瓶装</p>-->
+                    </span>
+                            </div>
+                        </label>
+                        <!--<span class="soldnum pull-right">已售577件</span>
+                            <a href="./index.php?i=2&c=entry&id=270&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                        -->
+                    </div>
+                </div>
+                <div class="move">
+                    <div>
+                        <span>选择商品排序</span>
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                            <li>5</li>
+                            <li>6</li>
+                            <li>7</li>
+                            <li>8</li>
+                            <li>9</li>
+                        </ul>
+                        <div class="btn"><button type="button">取消</button></div>
+                    </div>
+                </div>
+                <div class="addstore">
+                    <img src="../assets/img/add.png" height="70px" width="70px" onclick="addstore()" style="margin:2px">
+                </div>
+            </div>
+            <div class="bottom">
+
+                <p class="pull-right">
+                    <input type="hidden" value="1" name="split_number">
+                    <input type="hidden" value="270,275,263,262,269,271,267,268,273" name="productids">
+                    <input type="hidden" value="29.00" name="price">
+                    <button type="submit" class="btn btn-danger btn-md">确定</button>
+                </p>
+                <!--<span class="pull-left">合计：<strong class="text-danger"><i class="fa fa-yen"></i> <label id="total"></label></strong> </span>-->
+            </div>
+
+            <div class="bottom_tip">
+                <ul class="font-vertical">
+                    <li><a href="http://abc.5xieys.cn/app/index.php?i=2&amp;c=entry&amp;m=ewei_shopv2&amp;do=mobile&amp;r=diypage&amp;id=21">活动须知</a></li>
+                    <li><a href="http://abc.5xieys.cn/app/index.php?i=2&amp;c=entry&amp;m=ewei_shopv2&amp;do=mobile&amp;r=diypage&amp;id=22">参与步骤</a></li>
+                    <li><a href="http://abc.5xieys.cn/app/index.php?i=2&amp;c=entry&amp;do=olist&amp;m=qw_cca&amp;u=2&amp;wxref=mp.weixin.qq.com&amp;winzoom=1">我的订单</a></li>
+                    <li><a href="http://abc.5xieys.cn/app/index.php?i=2&amp;c=entry&amp;do=link&amp;m=qw_cca&amp;winzoom=1">我的链接</a></li>
+                </ul>
+            </div>
+        </div>
+    </form></div>
+
+<div class="jd_win">
+    <div class="jd_win_box">
+        <div class="jd_win_tit">你确定删除该商品吗？</div>
+        <div class="jd_btn clearfix">
+            <a href="#" class="qr_left">取消</a>
+            <a href="#" class="qr_right">确定</a>
+        </div>
+
+    </div>
+</div>
+
+<!--<form action="./index.php?i=2&c=entry&type=self&product_id=225&order_id=160&do=payment&m=qw_cca" method="post" style="text-align: right;position: relative;right: 10px;bottom: 60px">
+    <input type="hidden" name="token" value="$_W['token']">
+    <input type="submit" value="立即支付" class="btn btn-danger">
+</form>-->
+<div class="add-store">
+    <h3 class="add-store-title">添加商品</h3>
+    <ul class="add-store-list">
+        <div class="list all" style="border-top:1px solid #dfdfdf">
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="270">
+                <input type="hidden" name="products[]" value="270" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/l2242dDz3ddzf723cbBdCD52D0424N.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/l2242dDz3ddzf723cbBdCD52D0424N.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 29.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">水果时光蓝莓罐头1瓶装</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售577件</span>
+                    <a href="./index.php?i=2&c=entry&id=270&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="275">
+                <input type="hidden" name="products[]" value="275" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/Tth5wA5ctTHwpH5mt50adcH5h0h3rA.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/Tth5wA5ctTHwpH5mt50adcH5h0h3rA.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 19.90元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">泊泉雅魅惑秘密果冻口红保湿唇彩（1支）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                        <option value="275_烈焰红">烈焰红</option>
+                                        <option value="275_芭比粉">芭比粉</option>
+                                        <option value="275_果粒橙">果粒橙</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售1897件</span>
+                    <a href="./index.php?i=2&c=entry&id=275&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="263">
+                <input type="hidden" name="products[]" value="263" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/amv17v4wvFcmS26D8uGCvv8zucSCB6.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/amv17v4wvFcmS26D8uGCvv8zucSCB6.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 77.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">许多宝美白面膜（1盒）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售2223件</span>
+                    <a href="./index.php?i=2&c=entry&id=263&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="262">
+                <input type="hidden" name="products[]" value="262" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/YAKN8XKK8n06KKZbLVTVK6Dks3gtkk.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/YAKN8XKK8n06KKZbLVTVK6Dks3gtkk.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 77.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">许多宝保湿面膜（1盒）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售2633件</span>
+                    <a href="./index.php?i=2&c=entry&id=262&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="269">
+                <input type="hidden" name="products[]" value="269" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/HG4G5w1plgDTKLP4pdTl0sspW5kjbZ.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/HG4G5w1plgDTKLP4pdTl0sspW5kjbZ.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 21.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">水果时光黄桃罐头2瓶装</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售679件</span>
+                    <a href="./index.php?i=2&c=entry&id=269&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="271">
+                <input type="hidden" name="products[]" value="271" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/Jn9g79N4kKf2In20fCF7Cm2DC46c9k.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/Jn9g79N4kKf2In20fCF7Cm2DC46c9k.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 14.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">金枕头榴莲干（1包）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售406件</span>
+                    <a href="./index.php?i=2&c=entry&id=271&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="267">
+                <input type="hidden" name="products[]" value="267" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/R42P48hDgnH8BU3bA8j3OGsNunu88G.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/R42P48hDgnH8BU3bA8j3OGsNunu88G.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 15.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">五香鹌鹑泡椒味QQ蛋（1包）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售306件</span>
+                    <a href="./index.php?i=2&c=entry&id=267&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="268">
+                <input type="hidden" name="products[]" value="268" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/XA8ooi4ay85191vYl1ooZlsOQ4QF5A.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/XA8ooi4ay85191vYl1ooZlsOQ4QF5A.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 19.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">香辣味手撕黑猪肉（1包）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售449件</span>
+                    <a href="./index.php?i=2&c=entry&id=268&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="274">
+                <input type="hidden" name="products[]" value="274" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/gNO13l4o9436fg19rN7R31w19G73MW.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/gNO13l4o9436fg19rN7R31w19G73MW.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 19.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">麻辣味牛板筋180g四川小吃肉类（1包装）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售673件</span>
+                    <a href="./index.php?i=2&c=entry&id=274&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="273">
+                <input type="hidden" name="products[]" value="273" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/F79hO79e6cFfe7E6CsffSs7pffo77F.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/F79hO79e6cFfe7E6CsffSs7pffo77F.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 22.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">即食柠檬片 柠檬干（6包）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售490件</span>
+                    <a href="./index.php?i=2&c=entry&id=273&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="272">
+                <input type="hidden" name="products[]" value="272" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/bPDNNN9D11DcCaK1T8axdD3dpTEexp.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/bPDNNN9D11DcCaK1T8axdD3dpTEexp.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 23.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">芒果干108g果脯蜜饯水果（2包）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售510件</span>
+                    <a href="./index.php?i=2&c=entry&id=272&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="277">
+                <input type="hidden" name="products[]" value="277" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/tgeZe00E6weeM3C00WW9CDb39cuMsw.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/tgeZe00E6weeM3C00WW9CDb39cuMsw.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 19.90元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">泊泉雅 去黑头 面膜膏控油化妆品（1支）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售585件</span>
+                    <a href="./index.php?i=2&c=entry&id=277&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="276">
+                <input type="hidden" name="products[]" value="276" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/eReUul7Wl4WzaePvLE4llqlZpWzw34.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/eReUul7Wl4WzaePvLE4llqlZpWzw34.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 19.90元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">泊泉雅晶透皙润素颜霜 补水保湿（1瓶）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售642件</span>
+                    <a href="./index.php?i=2&c=entry&id=276&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="255">
+                <input type="hidden" name="products[]" value="255" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/wExVu3b1ZBlxEX0Z0d30zXUFwcbF1K.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/wExVu3b1ZBlxEX0Z0d30zXUFwcbF1K.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 22.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">无痕蕾丝边花女士内裤（1条）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售1365件</span>
+                    <a href="./index.php?i=2&c=entry&id=255&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="259">
+                <input type="hidden" name="products[]" value="259" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/Cj0E0350Zcj5kVoCv5JHjZID6J550H.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/Cj0E0350Zcj5kVoCv5JHjZID6J550H.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 28.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">无痕印花纯棉女士内裤（1条）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售1415件</span>
+                    <a href="./index.php?i=2&c=entry&id=259&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="256">
+                <input type="hidden" name="products[]" value="256" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/gRr7Vv5v7klnvRkJVOzOK9fARq91FJ.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/gRr7Vv5v7klnvRkJVOzOK9fARq91FJ.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 22.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">贴身花边纯棉女士内裤（1条）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售487件</span>
+                    <a href="./index.php?i=2&c=entry&id=256&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="258">
+                <input type="hidden" name="products[]" value="258" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/YTLXjKjl8X6rlXOO8KhzJXrzVtQuUK.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/YTLXjKjl8X6rlXOO8KhzJXrzVtQuUK.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 24.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">印花纯棉蕾丝边女士内裤（1条）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售308件</span>
+                    <a href="./index.php?i=2&c=entry&id=258&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="260">
+                <input type="hidden" name="products[]" value="260" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/Zr1Cr7k661KMU6szkK8gz8rRsCU1kr.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/Zr1Cr7k661KMU6szkK8gz8rRsCU1kr.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 22.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">清新小可爱女士内裤（1条）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售444件</span>
+                    <a href="./index.php?i=2&c=entry&id=260&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="261">
+                <input type="hidden" name="products[]" value="261" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/tRMHOVZ5hvGj82kjoS3cMGvSSGZGOC.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/tRMHOVZ5hvGj82kjoS3cMGvSSGZGOC.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 22.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">日系可爱平角女士内裤（1条）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售301件</span>
+                    <a href="./index.php?i=2&c=entry&id=261&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="257">
+                <input type="hidden" name="products[]" value="257" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/n446iORsjWIBiiSAEkeKqZOexDWvdJ.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/n446iORsjWIBiiSAEkeKqZOexDWvdJ.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 28.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">一片整体弹性纯棉女士内裤（1条）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售365件</span>
+                    <a href="./index.php?i=2&c=entry&id=257&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="264">
+                <input type="hidden" name="products[]" value="264" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/peAMyFAdKemJkeZm36368D386ai7zY.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/peAMyFAdKemJkeZm36368D386ai7zY.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 25.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">顶鹿莫代尔大仓男士内裤（1条）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                        <option value="264_黑色">黑色</option>
+                                        <option value="264_宝蓝">宝蓝</option>
+                                        <option value="264_深紫">深紫</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                        <option value="264_XL">XL</option>
+                                        <option value="264_L">L</option>
+                                        <option value="264_XXL">XXL</option>
+                                        <option value="264_XXXL">XXXL</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售468件</span>
+                    <a href="./index.php?i=2&c=entry&id=264&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="265">
+                <input type="hidden" name="products[]" value="265" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/IBb5rybRxiULyYjbuEbpBeIxUBWBxp.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/IBb5rybRxiULyYjbuEbpBeIxUBWBxp.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 28.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">红豆立体平角凹凸男士内裤（1条）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                        <option value="265_L">L</option>
+                                        <option value="265_XL">XL</option>
+                                        <option value="265_XXL">XXL</option>
+                                        <option value="265_XXXL">XXXL</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售347件</span>
+                    <a href="./index.php?i=2&c=entry&id=265&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="266">
+                <input type="hidden" name="products[]" value="266" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/v4J9C5F270j9jU54lJfj5Fc55Fff4U.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/v4J9C5F270j9jU54lJfj5Fc55Fff4U.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 28.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">红豆粘纤平角透气男士内裤（1条）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                        <option value="266_L">L</option>
+                                        <option value="266_XL">XL</option>
+                                        <option value="266_XXL">XXL</option>
+                                        <option value="266_XXXL">XXXL</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售367件</span>
+                    <a href="./index.php?i=2&c=entry&id=266&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="278">
+                <input type="hidden" name="products[]" value="278" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/v10LSsSt5D0QO41f7lssSQxv1q5045.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/v10LSsSt5D0QO41f7lssSQxv1q5045.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 22.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">波司登超薄莫代尔男袜（2双）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                        <option value="278_黑色">黑色</option>
+                                        <option value="278_白色">白色</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售604件</span>
+                    <a href="./index.php?i=2&c=entry&id=278&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="279">
+                <input type="hidden" name="products[]" value="279" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/tIVoR4T427OV29zT4XZXx49T5OX75R.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/tIVoR4T427OV29zT4XZXx49T5OX75R.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 22.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">波司登竹炭纤维男袜（2双）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                        <option value="279_白色">白色</option>
+                                        <option value="279_黑色">黑色</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售724件</span>
+                    <a href="./index.php?i=2&c=entry&id=279&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="280">
+                <input type="hidden" name="products[]" value="280" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/h8OW0g88TRo0wxXnya00OoHn7r6hXz.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/h8OW0g88TRo0wxXnya00OoHn7r6hXz.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 22.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">波司登运动网眼男袜（2双）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                        <option value="280_只有蓝色款">只有蓝色款</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售486件</span>
+                    <a href="./index.php?i=2&c=entry&id=280&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="281">
+                <input type="hidden" name="products[]" value="281" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/lYYc84H8uTsXuAIH47hA8u89X88HIu.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/lYYc84H8uTsXuAIH47hA8u89X88HIu.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 22.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">波司登浅口运动男袜（2双）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                        <option value="281_只有黑色">只有黑色</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售324件</span>
+                    <a href="./index.php?i=2&c=entry&id=281&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="211">
+                <input type="hidden" name="products[]" value="211" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/02/jbd6QGMbxfCrdXF3BlH0GL8wqlFGLn.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/02/jbd6QGMbxfCrdXF3BlH0GL8wqlFGLn.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 21.90元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">波司登精梳棉学生袜（2双）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售766件</span>
+                    <a href="./index.php?i=2&c=entry&id=211&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="213">
+                <input type="hidden" name="products[]" value="213" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/02/RgwCzc7MLrzcGFRcIH33CVEtlMzCqT.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/02/RgwCzc7MLrzcGFRcIH33CVEtlMzCqT.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 21.90元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">波司登网眼运动女袜（2双）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left; display: none;" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售256件</span>
+                    <a href="./index.php?i=2&c=entry&id=213&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="282">
+                <input type="hidden" name="products[]" value="282" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/bmHm9lO14oMo1B4jb4BJ11Qj8lKZR3.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/bmHm9lO14oMo1B4jb4BJ11Qj8lKZR3.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 24.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">波司登浅口日系学生袜（2双）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                        <option value="282_粉色">粉色</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售582件</span>
+                    <a href="./index.php?i=2&c=entry&id=282&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+            <div class="list-item">
+                <input type="checkbox" id="checkbox_1" class="select_product" name="product_id[]" value="283">
+                <input type="hidden" name="products[]" value="283" class="selected_id">
+                <label for="checkbox_1" style="float:left;margin:3px;width:24%;height:160px;">
+                    <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/QifsNoUrIrXFYU0kkrwK9RXiM9IikI.jpg') top center no-repeat;background-size:cover;height:70px;width:70px">
+                        <a href="#" style="display: block;height:30px;">
+                            <!--
+                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/QifsNoUrIrXFYU0kkrwK9RXiM9IikI.jpg">-->
+                        </a>
+                    </div>
+                    <div style="width:100%;height:20px;text-align: center;">
+                    <span class="title" style="display: block;width:70px">
+                        <strong class="price pull-left text-danger" style="display: block">
+                            <i class="fa fa-yen"></i> 24.00元</strong>
+                        <!--<p style="display: block;width: 83%; overflow: hidden; height: 20px;">波司登浅口运动女袜（2双）</p>-->
+                    </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody><tr style="text-align: left" class="c-color">
+                                <td>
+                                    <select name="color[]" class="s-color">
+                                        <option value="283_绿色">绿色</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="text-align: left; display: none;" class="c-size">
+                                <td>
+                                    <select name="size[]" class="s-size">
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </div>
+                </label>
+                <!--<span class="soldnum pull-right">已售723件</span>
+                    <a href="./index.php?i=2&c=entry&id=283&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>
+                -->
+            </div>
+        </div>
+    </ul>
+    <div class="add-store-footer">
+        <button class="cancle_btn">取消</button>
+        <button class="confirm_btn">添加</button>
+    </div>
+</div>
+<div id="shareit">
+    <img class="arrow" src="/addons/qw_cca/template/assets/img/btnLightSmall.png">
+    <a href="#" id="follow">
+
+    </a>
+</div>
+<script>
+    /*$(".products").each(function(a,b){
+     $(this).on("click",function(){
+     var list1=$(this).closest(".list-item");
+     var list2=list1.clone();
+     var goods=list1.closest(".goods");
+     //console.log(list1);
+     //console.log(list2);
+     var sort=$(this).closest(".selected").next();
+     sort.css("display","block");
+     sort.find(".btn").on("click",function(){
+     $(this).closest(".move").hide();
+     });
+     $(".move li").on("click",function(){
+     var number=$(this).html()-1;//选择的位置
+     sort.hide();
+     list1.remove();
+     if(number==0){
+     goods.find(".list-item").eq(0).before(list2);
+     }else{
+     goods.find(".list-item").eq(number-1).after(list2);
+     }
+     })
+     });
+     });*/
+    $(".info").each(function(){
+        if($(this).find(".s-color option").size()==0){
+            $(this).find(".c-color").hide();
+        }
+        if($(this).find(".s-size option").size()==0){
+            $(this).find(".c-size").hide();
+        }
+    });
+    /*    $(function(){
+     $("label").Tdrag({
+     scope:".detail-div .goods",
+     pos:true,
+     dragChange:true
+     });
+     });*/
+    //立即分享到微信朋友圈点击事件
+    $("#share_btn").on("click", function() {
+        $("#shareit").show();
+    });
+
+    $("#shareit").on("click", function(){
+        $("#shareit").hide();
+    });
+    //添加商品
+    function addstore(){
+        $(".add-store").addClass("am-modal-active");
+        if($(".cancle").length>0){
+            $(".cancle").addClass("cancle-active");
+        }else{
+            $("body").append('<div class="cancle"></div>');
+            $(".cancle").addClass("cancle-active");
+        }
+        $(".cancle-active,.cancle_btn").click(function(){
+            $(".add-store").removeClass("am-modal-active");
+            $(".cancle-active").removeClass("cancle-active");
+            $(".cancle").remove();
+        })
+    };
+
+    //删除商品
+    var that;
+    function delgood(e){
+        $(".jd_win").fadeIn(1000);
+        that = e
+    }
+
+    $(".qr_left").on("click",function(){
+        $(".jd_win").hide();
+    })
+    $(".qr_right").on("click",function(){
+        $(that).parent().parent().parent().remove();
+        $(".jd_win").hide();
+    })
+
+    $(".confirm_btn").click(function () {
+        var selected=$(".selected .selected_id").length;//已添加
+        console.log(selected);
+        var preselect=$(".all .select_product:checked").length;//未添加
+        console.log(preselect);
+        var arr=[];
+        if(preselect>0&&preselect<10){
+            if(selected+preselect<10){
+                $(".selected .selected_id").each(function () {
+                    arr.push(parseInt($(this).val()));//已添加商品id
+                    console.log(arr);
+                })
+                $(".all .select_product:checked").each(function (index,elem) {
+                    var val=parseInt($(this).val());//添加商品后的商品id
+                    console.log(val);
+                    if($.inArray(val,arr)==-1){
+                        var obj=$(elem).parent(".list-item").clone();
+                        $(obj).find(".select_product").remove();
+                        $(obj).find(".products").append("<div class='delete_box f_right' onclick='delgood(this)'></div>");
+                        var $append1=$(obj).find(".products").children().append("<span class='delete_up'></span>");
+                        $append1.append("<span class='delete_down'></span>");
+                        $(".selected").append(obj);
+                    }else{
+                        alert("您有重复选择的商品，将添加尚未选择的商品");
+                    }
+                });
+
+                $(".add-store").removeClass("am-modal-active");
+                $(".cancle-active").removeClass("cancle-active");
+                $(".cancle").remove();
+            }
+            else{
+                alert("最多可选择9件商品，请重新选择");}
+        }
+        else{
+            alert("最多可选择9件商品，请重新选择");
+        }
+    })
+</script>
+
+
+<div class="text-center footer" style="margin: 10px 0px; width: 100%; text-align: center; word-break: break-all; display: none;">
+    &nbsp;&nbsp;			</div>
+<script>require(['bootstrap']);</script>
+
+<style>
+    h5{color:#555;}
+</style>
+<script type="text/javascript">
+    $(function(){
+        wx.config(jssdkconfig);
+        var $_share = {"title":"\u8bb8\u591a\u5b9d","imgUrl":"","desc":"","link":"http:\/\/abc.5xieys.cn\/app\/index.php?i=2&c=entry&orderid=1212&do=payments&m=qw_cca"};
+        if(typeof sharedata == 'undefined'){
+            sharedata = $_share;
+        } else {
+            sharedata['title'] = sharedata['title'] || $_share['title'];
+            sharedata['desc'] = sharedata['desc'] || $_share['desc'];
+            sharedata['link'] = sharedata['link'] || $_share['link'];
+            sharedata['imgUrl'] = sharedata['imgUrl'] || $_share['imgUrl'];
+        }
+        if(sharedata.imgUrl == ''){
+            var _share_img = $('body img:eq(0)').attr("src");
+            if(_share_img == ""){
+                sharedata['imgUrl'] = window.sysinfo.attachurl + 'images/global/wechat_share.png';
+            } else {
+                sharedata['imgUrl'] = util.tomedia(_share_img);
+            }
+        }
+        if(sharedata.desc == ''){
+            var _share_content = util.removeHTMLTag($('body').html());
+            if(typeof _share_content == 'string'){
+                sharedata.desc = _share_content.replace($_share['title'], '')
+            }
+        }
+        wx.ready(function () {
+            wx.onMenuShareAppMessage(sharedata);
+            wx.onMenuShareTimeline(sharedata);
+            wx.onMenuShareQQ(sharedata);
+            wx.onMenuShareWeibo(sharedata);
+        });
+        if($('.js-quickmenu')!=null && $('.js-quickmenu')!=''){
+            var h = $('.js-quickmenu').height()+'px';
+            $('body').css("padding-bottom",h);
+        }else{
+            $('body').css("padding-bottom", "0");
+        }
+    });
+</script>
+
+
+<script>
+    $(".footer").hide();
+</script>
+</body>
+</html>
+
+

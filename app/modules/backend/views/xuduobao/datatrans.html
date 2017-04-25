@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+          <link rel="shortcut icon" href="http://abc.5xieys.cn/attachment/images/global/wechat.jpg" />
+        <link href="static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+        <link href="static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+        <link href="static/css/animate.css" rel="stylesheet">
+        <link href="static/css/v2.css?v=4.1.0" rel="stylesheet">
+        <link href="static/css/common.css?v=2.0.0" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="static/fonts/iconfont.css?v=2016070717">
+        <script src="./resource/js/lib/jquery-1.11.1.min.js"></script>
+        <script src="static/js/dist/jquery/jquery.gcjs.js"></script>
+        <script src="./resource/js/app/util.js"></script>
+        <script src="static/js/require.js"></script>
+        <script src="./resource/js/app/config.js"></script>
+        <script>
+            require.config({
+                waitSeconds: 0
+            });
+        </script>
+        <script src="static/js/myconfig.js"></script>
+        <script type="text/javascript">
+                if (navigator.appName == 'Microsoft Internet Explorer') {
+                    if (navigator.userAgent.indexOf("MSIE 5.0") > 0 || navigator.userAgent.indexOf("MSIE 6.0") > 0 || navigator.userAgent.indexOf("MSIE 7.0") > 0) {
+                        alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+                    }
+                }
+                myrequire.path = "http://abc.5xieys.cn/addons/ewei_shopv2/static/js/";
+                
+            function preview_html(txt)
+            {
+                var win = window.open("", "win", "width=300,height=600"); // a window object
+                win.document.open("text/html", "replace");
+                win.document.write($(txt).val());
+                win.document.close();
+            }
+        </script>
+
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="static/js/web/init.js?v=1491528809322" src="static/js/web/init.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jquery" src="resource/js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="bootstrap" src="resource/js/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="static/js/dist/jquery/jquery.gcjs.js?v=1491528809322" src="static/js/dist/jquery/jquery.gcjs.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="static/js/web/tip.js?v=1491528809322" src="static/js/web/tip.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="static/js/web/form.js?v=1491528809322" src="static/js/web/form.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="static/js/web/biz.js?v=1491528809322" src="static/js/web/biz.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="static/js/web/table.js?v=1491528809322" src="static/js/web/table.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="util" src="resource/js/app/util.js"></script></head>
+
+
+    <body class="white-bg ">
+        <div id="topbar" class="top-navigation   gray-bg ">
+            <nav class="navbar   gray-bg " role="navigation" style="width:1024px;margin:auto;">
+                <div class="navbar-header" style="width:200px;">
+                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                        <i class="fa fa-reorder"></i>
+                    </button>
+		    		    <a class="navbar-brand" href="http://abc.5xieys.cn/web/index.php?c=site&amp;a=entry&amp;m=ewei_shopv2&amp;do=web">新品使用平台</a>
+		    		</div><style>
+    .deg180{
+        transform:rotate(180deg);
+        -ms-transform:rotate(180deg); 	/* IE 9 */
+        -moz-transform:rotate(180deg); 	/* Firefox */
+        -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+        -o-transform:rotate(180deg); 	/* Opera */
+    }
+</style>
+<div class="navbar-collapse collapse" id="navbar">
+     <ul class="nav navbar-nav gray-bg">
+                <li ><a href="index.html">首页</a></li>
+                <li ><a href="goods.html"> 商品管理</a></li>
+                <li  ><a href="order.html"> 订单管理</a></li>
+                <li ><a href="basic.html"> 微信基本功能</a></li>
+                <li class="active"><a href="data.html">数据分析</a></li>
+            </ul>
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    <ul class="nav navbar-top-links navbar-right">
+        <li class="dropdown">
+            <a aria-expanded="false" role="button" href="http://abc.5xieys.cn/web/index.php?c=site&amp;a=entry&amp;m=ewei_shopv2&amp;do=web&amp;r=statistics.goods_trans#" class="dropdown-toggle" data-toggle="dropdown" style="position:relative;" onclick="$(this).find(&#39;span&#39;).toggleClass(&#39;deg180&#39;)">
+                <name style="width: 80px;white-space:nowrap;overflow:hidden;text-overflow: ellipsis;display: block;text-align: center">许多宝</name>
+                <span class="caret" style="position: absolute;top: 22px;right: 12px;"></span></a>
+            <ul role="menu" class="dropdown-menu">
+                <li><a href="http://abc.5xieys.cn/web/index.php?c=site&amp;a=entry&amp;m=ewei_shopv2&amp;do=web&amp;r=sysset.account"><i class="icon icon-similar"></i>  切换公众号</a></li>
+                                <li><a href="http://abc.5xieys.cn/web/index.php?c=account&amp;a=post&amp;uniacid=2" target="_blank"><i class="icon icon-wechat"></i>  编辑公众号</a></li>
+                <li><a href="http://abc.5xieys.cn/web/index.php?c=profile&amp;a=payment&amp;" target="_blank"><i class="icon icon-pay"></i>  支付参数</a></li>
+                             <!--   <li><a href="./index.php?c=utility&a=emulator&" target="_blank"><i class="icon icon-machinery"></i>  模拟测试</a></li>-->
+				<li class="divider"></li>  
+		<li><a href="http://abc.5xieys.cn/web/index.php?c=site&amp;a=entry&amp;m=ewei_shopv2&amp;do=web&amp;r=perm"><i class="icon icon-person2"></i> 权限管理</a></li>
+		     		<li class="divider"></li>  
+	<li><a href="http://abc.5xieys.cn/web/index.php?c=site&amp;a=entry&amp;m=ewei_shopv2&amp;do=web&amp;r=system"><i class="icon icon-settings"></i> 系统管理</a></li>
+	<li><a href="http://abc.5xieys.cn/web/index.php?c=site&amp;a=entry&amp;m=ewei_shopv2&amp;do=web&amp;r=system.auth.upgrade"><i class="icon icon-down"></i> 系统更新</a></li>
+	                <li><a href="http://abc.5xieys.cn/web/index.php?c=user&amp;a=profile&amp;" target="_blank"><i class="icon icon-lock"></i>  修改密码</a></li>
+                <li><a href="http://abc.5xieys.cn/web/index.php?c=account&amp;a=display&amp;" target="_blank"><i class="icon icon-back"></i>  返回系统</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    </div>
+</nav>				
+</div> 
+<div class="wrapper main-wrapper wrapper-content ">
+    <div class="page-menubar">
+<div class="menu-header">销售统计</div>
+<ul>
+        <ul>
+            <li ><a href="data.html">销售排行</a></li>
+                <li class="active"><a href="datatrans.html">销售转化率</a></li>
+                <li ><a href="dataincrease.html">增长趋势</a></li>
+    
+
+</ul>
+
+    </div>
+    <div class="page-content" style="display: block;">
+        <div class="page-heading"> <h2>商品销售转化率</h2> <span>查询商品浏览量及购买转化率，默认排序为转化率从高到低 总数: <span style="color:red">21</span></span></div>
+
+
+
+        <form action="http://abc.5xieys.cn/web/index.php" method="get" class="form-horizontal">
+            <input type="hidden" name="c" value="site">
+            <input type="hidden" name="a" value="entry">
+            <input type="hidden" name="m" value="ewei_shopv2">
+            <input type="hidden" name="do" value="web">
+            <input type="hidden" name="r" value="statistics.goods_trans">
+	<div class="page-toolbar row m-b-sm m-t-sm">
+		<div class="col-sm-5">
+
+			<div class="btn-group btn-group-sm" style="float:left">
+				<button class="btn btn-default btn-sm" type="button" data-toggle="refresh"><i class="fa fa-refresh"></i></button>
+
+			</div> 
+  
+			 			
+		</div>	
+
+
+		<div class="col-sm-6 pull-right">
+
+			<select name="orderby" class="form-control  input-sm select-md" style="width:100px;">
+
+				<option value="" selected="">排序</option>
+				<option value="0">降序</option>
+				<option value="1">升序</option>
+			</select>
+			<div class="input-group">				 
+				<input type="text" class="form-control input-sm" name="title" value="" placeholder="商品名称"> 
+				<span class="input-group-btn">
+							
+					<button class="btn btn-sm btn-primary btn-sm" type="submit"> 搜索</button>
+                       <button type="submit" name="export" value="1" class="btn btn-success  btn-sm">导出 Excel</button>
+                    				</span>
+			</div>
+
+		</div>
+	</div>
+
+</form>
+ 
+     <table class="table table-hover">
+            <thead>
+                <tr>
+                
+                    <th>商品名称</th>
+                    <th style="width:100px;">访问次数</th>
+                    <th style="width:100px;">购买件数</th>
+                    <th>转化率</th>
+                </tr>
+            </thead>
+            <tbody>
+                                <tr>
+                    <td>
+                        <img src="" style="width: 30px; height: 30px;border:1px solid #ccc;padding:1px;">
+                        许多宝保湿面膜(活动)</td>
+                    <td>24</td>
+                    <td>7</td> 
+                    <td>   <div class="progress" style="max-width:500px;">
+                            <div style="width: 29.17%;" class="progress-bar progress-bar-info"><span style="color:#000">29.17%</span></div>
+                       </div></td>
+                </tr>
+                              
+                        </tbody></table>
+        <div><ul class="pagination pagination-centered">
+        <li class="active"><a href="javascript:;">1</a></li>
+      <!--   <li><a href="http://abc.5xieys.cn/web/index.php?c=site&amp;a=entry&amp;m=ewei_shopv2&amp;do=web&amp;r=statistics.goods_trans&amp;page=2">2</a></li >
+        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&amp;a=entry&amp;m=ewei_shopv2&amp;do=web&amp;r=statistics.goods_trans&amp;page=2" class="pager-nav">下一页»</a></li> -->
+        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&amp;a=entry&amp;m=ewei_shopv2&amp;do=web&amp;r=statistics.goods_trans&amp;page=2" class="pager-nav">尾页</a></li></ul></div> 
+</div>
+
+<script language="javascript">
+    require(['bootstrap'], function ($) {
+        $('[data-toggle="tooltip"]').tooltip({
+            container: $(document.body)
+        });
+        $('[data-toggle="popover"]').popover({
+            container: $(document.body)
+        });
+    });
+
+
+     function check_ewei_shopv2_upgrade() {
+  
+        require(['util'], function (util) {  
+            if (util.cookie.get('checkeweishopv2upgrade_sys')) {
+                return;
+            }
+            $.post('http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade.check', function (ret) {
+                if (ret && ret.status == '1') { 
+		  
+	var result = ret.result;	    
+                    if(result.filecount>0 || result.database || result.upgrades){
+	 	 
+                        var html = '<div id="ewei-shopv2-upgrade-tips" class="tips-upgrade">';
+	   html+='<span class="tclose" onclick="check_ewei_shopv2_upgrade_hide();"><i class="fa fa-times-circle fa-2x"></i></span>';
+                         html+= '<div class="title">检测到更新</div>';
+                        html+='<div class="text"> 新版本 ' + result.version + " RELEASE " + result.release;
+                        html+=',请尽快更新! </div>';
+			html+='<div class="buttons"><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade" class="btn btn-warning btn-sm">立即去更新</a></div></div>';
+                        $('body').prepend(html);
+                   }
+                }
+            },'json');
+        });
+    }
+      function check_ewei_shopv2_upgrade_hide() {
+        require(['util'], function (util) {
+            util.cookie.set('checkeweishopv2upgrade_sys', 1, 3600);
+            $('#ewei-shopv2-upgrade-tips').fadeOut(150);
+        });
+    }
+    $(function () {
+        setTimeout( function() {
+            check_ewei_shopv2_upgrade();
+        },4000);
+    });
+    
+    $(function () {
+        $('.page-content').show();
+        $('.img-thumbnail').each(function () {
+            if ($(this).attr('src').indexOf('nopic.jpg') != -1) {
+                $(this).attr('src', "../addons/ewei_shopv2/static/images/nopic.jpg");
+            }
+        })
+        $.ajax({
+              url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=util.task",
+			  async:false,
+              cache: false
+        });
+    });
+</script>
+<script language="javascript">myrequire(['web/init'],function(){
+    if($('.form-validate').length<=0) {  $('#page-loading').remove(); }
+});</script>
+
+
+
+
+</div><div id="tip-msgbox" class="msgbox"></div></body></html>

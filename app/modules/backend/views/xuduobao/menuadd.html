@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="shortcut icon" href="http://abc.5xieys.cn/attachment/images/global/wechat.jpg" />
+    <link href="static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="static/css/animate.css" rel="stylesheet">
+    <link href="static/css/v2.css?v=4.1.0" rel="stylesheet">
+    <link href="static/css/common.css?v=2.0.0" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/fonts/iconfont.css?v=2016070717">
+    <script src="resource/js/lib/jquery-1.11.1.min.js"></script>
+    <script src="static/js/dist/jquery/jquery.gcjs.js"></script>
+    <script src="resource/js/app/util.js"></script>
+    <script src="static/js/require.js"></script>
+    <script src="resource/js/app/config.js"></script>
+    <script>
+        require.config({
+            waitSeconds: 0
+        });
+    </script>
+    <script src="static/js/myconfig.js"></script>
+    <script type="text/javascript">
+        if (navigator.appName == 'Microsoft Internet Explorer') {
+            if (navigator.userAgent.indexOf("MSIE 5.0") > 0 || navigator.userAgent.indexOf("MSIE 6.0") > 0 || navigator.userAgent.indexOf("MSIE 7.0") > 0) {
+                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+            }
+        }
+        myrequire.path = "http://abc.5xieys.cn/addons/ewei_shopv2/static/js/";
+
+        function preview_html(txt)
+        {
+            var win = window.open("", "win", "width=300,height=600"); // a window object
+            win.document.open("text/html", "replace");
+            win.document.write($(txt).val());
+            win.document.close();
+        }
+    </script>
+</head>
+
+<body class="white-bg ">
+<div id='topbar' class='top-navigation   gray-bg '>
+    <nav class="navbar   gray-bg " role="navigation" style="width:1024px;margin:auto;">
+        <div class="navbar-header" style="width:200px;">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <a class="navbar-brand" href="index.html">新品使用平台</a>
+        </div><style>
+        .deg180{
+            transform:rotate(180deg);
+            -ms-transform:rotate(180deg); 	/* IE 9 */
+            -moz-transform:rotate(180deg); 	/* Firefox */
+            -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+            -o-transform:rotate(180deg); 	/* Opera */
+        }
+    </style>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav gray-bg">
+                <li ><a href="index.html">首页</a></li>
+                <li ><a href="goods.html"> 商品管理</a></li>
+                <li ><a href="order.html"> 订单管理</a></li>
+                <li class="active"><a href="basic.html"> 微信基本功能</a></li>
+                <li ><a href="data.html">数据分析</a></li>
+            </ul>
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown" style="position:relative;" onclick="$(this).find('span').toggleClass('deg180')">
+                        <name style="width: 80px;white-space:nowrap;overflow:hidden;text-overflow: ellipsis;display: block;text-align: center">许多宝</name>
+                        <span class="caret" style="position: absolute;top: 22px;right: 12px;"></span></a>
+                    <ul role="menu" class="dropdown-menu">
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=sysset.account"><i class="icon icon-similar"></i>  切换公众号</a></li>
+                        <li><a href="./index.php?c=account&a=post&uniacid=2" target="_blank"><i class="icon icon-wechat"></i>  编辑公众号</a></li>
+                        <li><a href="./index.php?c=profile&a=payment&" target="_blank"><i class="icon icon-pay"></i>  支付参数</a></li>
+                        <!--   <li><a href="./index.php?c=utility&a=emulator&" target="_blank"><i class="icon icon-machinery"></i>  模拟测试</a></li>-->
+                        <li class="divider"></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=perm"><i class="icon icon-person2"></i> 权限管理</a></li>
+                        <li class="divider"></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system"><i class="icon icon-settings"></i> 系统管理</a></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade"><i class="icon icon-down"></i> 系统更新</a></li>
+                        <li><a href="./index.php?c=user&a=profile&" target="_blank"><i class="icon icon-lock"></i>  修改密码</a></li>
+                        <li><a href="./index.php?c=account&a=display&" target="_blank"><i class="icon icon-back"></i>  返回系统</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+<div class='wrapper main-wrapper wrapper-content '>
+    <div class="page-menubar">
+        <style type='text/css'>
+            .order-list a {
+                position: relative;
+            }
+            .order-list span  {
+
+                float:right;margin-right:20px;
+            }
+        </style>
+        <ul class="menu-head-top">
+            <li><a href="basic.html">基本功能 <i class="fa fa-caret-right"></i></a></li>
+        </ul>
+
+        <div class='menu-header'>基本功能</div>
+        <ul class='order-list'>
+            <li>
+                <a href="basicword.html" >文字回复</a></li>
+            <li>
+                <a href="basicnews.html">图文回复</a></li>
+            <li>
+                <a href="basicmusic.html">音乐回复</a></li>
+            <li>
+                <a href="basicimg.html">图片回复</a></li>
+            <li>
+                <a href="basicvoice.html">语音回复</a></li>
+            <li>
+                <a href="basicsys.html">系统回复</a></li>
+            <li>
+                <a href="basicvideo.html">视频回复</a>
+            </li>
+        </ul>
+        <div class='menu-header'>高级功能</div>
+        <ul class='order-list'>
+            <li  class="active">
+                <a href="menu.html">自定义菜单</a>
+            </li>
+        </ul>
+        <div class='menu-header'>支付配置</div>
+        <ul class='order-list'>
+            <li >
+                <a href="payset.html">支付参数设置</a>
+            </li>
+        </ul>
+        <script>
+            $(function () {
+                $.ajax({type: "GET",url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.list.ajaxgettotals",dataType:"json",success: function(data){
+                    var res = data.result;
+                    $("span.status0").text(res.status0);
+                    $("span.status1").text(res.status1);
+                    $("span.status2").text(res.status2);
+                    $("span.status3").text(res.status3);
+                    $("span.status4").text(res.status4);
+                    $("span.status5").text(res.status5);
+                    $("span.status_1").text(res.status_1);
+                    $("span.all").text(res.all);
+                }
+                });
+            });
+        </script>    </div>
+    <div class="page-content">
+        <div class="page-heading"> <h2>基本功能</h2> </div>
+        <div>
+            <link href="./resource/css/app.css" rel="stylesheet">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="./index.php?c=platform&amp;a=menu&amp;do=display&amp;status=normal">自定义菜单</a></li>
+                <li class=""><a href="./index.php?c=platform&amp;a=menu&amp;do=display&amp;status=history">历史菜单</a></li>
+            </ul>
+
+            <div class="conditionMenu ng-scope" ng-controller="conditionMenuDesigner" id="conditionMenuDesigner">
+                <div class="app clearfix">
+                    <div class="app-preview">
+                        <div class="app-header"></div>
+                        <div class="app-content">
+                            <div class="inner">
+                                <div class="title">
+                                    <h1><span class="ng-binding">个性化菜单</span></h1>
+                                </div>
+                            </div>
+                            <div class="nav-menu">
+                                <div class="js-quickmenu nav-menu-wx clearfix has-nav-2" ng-class="{0 : 'has-nav-0', 1 : 'has-nav-1', 2: 'has-nav-2', 3: 'has-nav-3', 4 : 'has-nav-3'}[context.group.button.length + 1]">
+                                    <ul class="nav-group designer-x ui-sortable">
+                                        <!-- ngRepeat: but in context.group.button --><li class="nav-group-item js-sortable ng-scope active" ng-repeat="but in context.group.button" ng-class="{0 : '', 1 : 'active'}[context.activeItem == but ? 1 : 0 ]">
+                                        <input type="hidden" data-role="parent" data-hash="object:10">
+                                        <a href="javascript:void(0);" title="拖动排序" ng-click="context.editBut('', but);" class="ng-binding">
+                                            <i class="fa fa-minus-circle ng-hide" ng-show="but.sub_button.length > 0"></i>
+                                            菜单名称
+                                        </a>
+                                        <dl class="designer-y ui-sortable">
+                                            <!-- ngRepeat: subBut in but.sub_button -->
+                                            <!-- ngIf: but.sub_button.length < 5 --><dd ng-if="but.sub_button.length < 5" class="js-not-sortable ng-scope">
+                                            <a href="javascript:void(0)" ng-click="context.addSubBut(but);"><i class="fa fa-plus"></i></a>
+                                        </dd><!-- end ngIf: but.sub_button.length < 5 -->
+                                        </dl>
+                                    </li><!-- end ngRepeat: but in context.group.button -->
+                                        <!-- ngIf: context.group.button.length < 3 --><li class="nav-group-item ng-scope" ng-if="context.group.button.length < 3" ng-hide="context.group.disabled">
+                                        <a href="javascript:void(0);" ng-click="context.addBut();" class="text-success">
+                                            <i class="fa fa-plus"></i> 添加菜单
+                                        </a>
+                                    </li><!-- end ngIf: context.group.button.length < 3 -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="app-side">
+                        <div class="menu app-conditionMenu-edit">
+                            <div class="arrow-left"></div>
+                            <div class="inner">
+                                <div class="panel panel-default">
+                                    <div class="panel-body form-horizontal">
+                                        <div class="conditionMenu-wx">
+                                            <div class="card">
+                                                <div class="nav-region">
+                                                    <div class="first-nav">
+                                                        <h3>标题</h3>
+                                                        <div class="alert">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-xs-2">标题</label>
+                                                                <div class="col-xs-10">
+                                                                    <input type="text" class="form-control ng-pristine ng-untouched ng-valid" ng-model="context.group.title" ng-disabled="context.group.disabled">
+                                                                    <span class="help-block">仅用于区分个性化菜单</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-danger" style="background:#ebccd1">
+                                            <i class="fa fa-info-circle"></i> 个性化菜单一旦上架提交后,将不可更改.如果您不需要某个菜单,您可以删除该菜单后重新设置新菜单.<br>
+                                        </div>
+                                        <div class="conditionMenu-wx">
+                                            <div class="card">
+                                                <div class="nav-region">
+                                                    <div class="first-nav">
+                                                        <h3>匹配设置</h3>
+                                                        <div class="alert">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-xs-2">性别</label>
+                                                                <div class="col-xs-10">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="context.group.matchrule.sex" value="0" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid" name="3"> 不限
+                                                                    </label>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="context.group.matchrule.sex" value="1" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid" name="4"> 男
+                                                                    </label>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="context.group.matchrule.sex" value="2" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid" name="5"> 女
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group fans-group">
+                                                                <label class="control-label col-xs-2">粉丝分组</label>
+                                                                <div class="col-xs-10">
+                                                                    <label class="radio-inline"><input type="radio" name="group" value="-1" ng-model="context.group.matchrule.group_id" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid"> 不限</label>
+                                                                    <label class="radio-inline"><input type="radio" name="group" value="0" ng-model="context.group.matchrule.group_id" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid"> 未分组</label>
+                                                                    <label class="radio-inline"><input type="radio" name="group" value="1" ng-model="context.group.matchrule.group_id" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid"> 黑名单</label>
+                                                                    <label class="radio-inline"><input type="radio" name="group" value="2" ng-model="context.group.matchrule.group_id" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid"> 星标组</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label col-xs-2">客户端</label>
+                                                                <div class="col-xs-10">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="context.group.matchrule.client_platform_type" value="0" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid" name="6"> 不限
+                                                                    </label>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="context.group.matchrule.client_platform_type" value="1" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid" name="7"> IOS(苹果)
+                                                                    </label>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="context.group.matchrule.client_platform_type" value="2" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid" name="8"> Android(安卓)
+                                                                    </label>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="context.group.matchrule.client_platform_type" value="3" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid" name="9"> Others(其他)
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label col-xs-2">地区限制</label>
+                                                                <div class="col-xs-10">
+                                                                    <div style="margin-top:15px">
+                                                                        <div class="row row-fix tpl-district-container">
+                                                                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                                                                <select name="" data-value="" ng-model="context.group.matchrule.province" ng-disabled="context.group.disabled" class="form-control tpl-province ng-pristine ng-untouched ng-valid">
+                                                                                    <option value="">省/直辖市</option><option value="四川" pid="10">四川</option><option value="重庆" pid="20">重庆</option><option value="陕西" pid="30">陕西</option><option value="甘肃" pid="40">甘肃</option><option value="青海" pid="50">青海</option><option value="宁夏" pid="60">宁夏</option><option value="云南" pid="70">云南</option><option value="澳门" pid="80">澳门</option><option value="贵州" pid="90">贵州</option><option value="香港" pid="100">香港</option><option value="辽宁" pid="110">辽宁</option><option value="吉林" pid="120">吉林</option><option value="黑龙江" pid="130">黑龙江</option><option value="海南" pid="140">海南</option><option value="广东" pid="150">广东</option><option value="广西" pid="160">广西</option><option value="湖北" pid="170">湖北</option><option value="湖南" pid="180">湖南</option><option value="河南" pid="190">河南</option><option value="台湾" pid="200">台湾</option><option value="北京" pid="210">北京</option><option value="河北" pid="220">河北</option><option value="天津" pid="230">天津</option><option value="内蒙古" pid="240">内蒙古</option><option value="山西" pid="250">山西</option><option value="浙江" pid="260">浙江</option><option value="江苏" pid="270">江苏</option><option value="上海" pid="280">上海</option><option value="山东" pid="290">山东</option><option value="江西" pid="300">江西</option><option value="福建" pid="310">福建</option><option value="安徽" pid="320">安徽</option><option value="西藏" pid="330">西藏</option><option value="新疆" pid="340">新疆</option></select>
+                                                                            </div>
+                                                                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                                                                <select name="" data-value="" ng-model="context.group.matchrule.city" ng-disabled="context.group.disabled" class="form-control tpl-city ng-pristine ng-untouched ng-valid">
+                                                                                    <option value="">市</option></select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- ngIf: context.group.button.length > 0 --><div class="card ng-scope" ng-if="context.group.button.length > 0">
+                                            <div class="btns">
+                                                <a href="javascript:;" ng-click="context.removeBut(context.activeItem, context.activeType)"><i class="fa fa-times"></i></a>
+                                            </div>
+                                            <div class="nav-region">
+                                                <div class="first-nav">
+                                                    <h3>菜单设置</h3>
+                                                    <div class="alert">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-xs-2">菜单名称</label>
+                                                            <div class="col-xs-10">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control ng-pristine ng-untouched ng-valid" name="" id="title" ng-model="context.activeItem.name" ng-disabled="context.group.disabled">
+                                                                    <div class="input-group-btn">
+                                                                        <span class="btn btn-primary" ng-click="context.selectEmoji();" ng-disabled="context.group.disabled"><i class="fa fa-github-alt"></i> 添加表情</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- ngIf: context.activeType == 2 || (context.activeType == 1 && context.activeItem.sub_button.length == 0) --><div class="form-group ng-scope" ng-if="context.activeType == 2 || (context.activeType == 1 &amp;&amp; context.activeItem.sub_button.length == 0)">
+                                                        <label class="control-label col-xs-2">菜单动作</label>
+                                                        <div class="col-xs-10 menu-action">
+													<span>
+													<label class="radio-inline">
+                                                        <input type="radio" name="ipt" ng-model="context.activeItem.type" value="view" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid"> 链接
+                                                    </label>
+													<label class="radio-inline">
+                                                        <input type="radio" name="ipt" ng-model="context.activeItem.type" value="click" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid"> 触发关键字
+                                                    </label>
+													<label class="radio-inline">
+                                                        <input type="radio" name="ipt" ng-model="context.activeItem.type" value="scancode_push" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid"> 扫码
+                                                    </label>
+													<label class="radio-inline">
+                                                        <input type="radio" name="ipt" ng-model="context.activeItem.type" value="scancode_waitmsg" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid"> 扫码（等待信息）
+                                                    </label>
+													<label class="radio-inline">
+                                                        <input type="radio" name="ipt" ng-model="context.activeItem.type" value="pic_sysphoto" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid"> 系统拍照发图
+                                                    </label>
+													<label class="radio-inline">
+                                                        <input type="radio" name="ipt" ng-model="context.activeItem.type" value="pic_photo_or_album" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid"> 拍照或者相册发图
+                                                    </label>
+													<label class="radio-inline">
+                                                        <input type="radio" name="ipt" ng-model="context.activeItem.type" value="pic_weixin" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid"> 微信相册发图
+                                                    </label>
+													<label class="radio-inline">
+                                                        <input type="radio" name="ipt" ng-model="context.activeItem.type" value="location_select" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid"> 地理位置
+                                                    </label>
+													</span>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="ipt" ng-model="context.activeItem.type" value="media_id" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid"> 回复素材
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="ipt" ng-model="context.activeItem.type" value="view_limited" ng-disabled="context.group.disabled" class="ng-pristine ng-untouched ng-valid"> 跳转图文
+                                                            </label>
+                                                            <div ng-show="context.activeItem.type == 'view';" class="ng-hide">
+                                                                <hr>
+                                                                <div class="input-group">
+                                                                    <input class="form-control ng-pristine ng-untouched ng-valid" id="ipt-url" type="text" ng-model="context.activeItem.url" ng-disabled="context.group.disabled">
+                                                                    <div class="input-group-btn">
+                                                                        <button class="btn btn-primary" id="search" ng-click="context.select_link()" ng-disabled="context.group.disabled"><i class="fa fa-external-link"></i> 系统链接</button>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="help-block">指定点击此菜单时要跳转的链接（注：链接需加http://）</span>
+                                                                <span class="help-block"><strong>注意: 由于接口限制. 如果你没有网页oAuth接口权限, 这里输入链接直接进入微站个人中心时将会有缺陷(有可能获得不到当前访问用户的身份信息. 如果没有oAuth接口权限, 建议你使用图文回复的形式来访问个人中心)</strong></span>
+                                                            </div>
+                                                            <div ng-show="context.activeItem.type == 'media_id' || context.activeItem.type == 'view_limited';" class="ng-hide">
+                                                                <hr>
+                                                                <div class="input-group">
+                                                                    <input class="form-control ng-pristine ng-untouched ng-valid" id="ipt-url" type="text" ng-model="context.activeItem.media_id" ng-disabled="context.group.disabled">
+                                                                    <div class="input-group-btn">
+                                                                        <button class="btn btn-primary" id="media_id" ng-click="context.select_mediaid()" ng-disabled="context.group.disabled"><i class="fa fa-external-link"></i> 选择素材</button>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="help-block">公众平台的素材id</span>
+                                                            </div>
+                                                            <div ng-show="context.activeItem.type != 'view' &amp;&amp; context.activeItem.type != 'media_id' &amp;&amp; context.activeItem.type != 'view_limited'" style="position:relative;">
+                                                                <hr>
+                                                                <div class="input-group">
+                                                                    <input class="form-control ng-pristine ng-untouched ng-valid" id="ipt-forward" type="text" ng-model="context.activeItem.key" ng-disabled="context.group.disabled">
+                                                                    <div class="input-group-btn">
+                                                                        <button class="btn btn-primary" id="search" ng-click="context.search()" ng-disabled="context.group.disabled"><i class="fa fa-search"></i> 搜索</button>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="key-result" style="width:100%;position:absolute;top:55px;left:0px;display:none;z-index:10000">
+                                                                    <ul class="dropdown-menu" style="display:block;width:88%;"></ul>
+                                                                </div>
+                                                                <span class="help-block">指定点击此菜单时要执行的操作, 你可以在这里输入关键字, 那么点击这个菜单时就就相当于发送这个内容至微信系统</span>
+                                                                <span class="help-block"><strong>这个过程是程序模拟的, 比如这里添加关键字: 优惠券, 那么点击这个菜单是, 微信系统相当于接受了粉丝用户的消息, 内容为"优惠券"</strong></span>
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- end ngIf: context.activeType == 2 || (context.activeType == 1 && context.activeItem.sub_button.length == 0) -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- end ngIf: context.group.button.length > 0 -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="shop-preview col-xs-12 col-sm-9 col-lg-10">
+                            <span class="btn btn-primary" id="btn-submit" ng-click="context.submit();">上架</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                require(['angular', 'underscore', 'jquery.ui', 'jquery.caret', 'wechatDistrict'], function(angular, _, $, $, dis){
+                    $(".tpl-district-container").each(function(){
+                        var elms = {};
+                        elms.province = $(this).find(".tpl-province")[0];
+                        elms.city = $(this).find(".tpl-city")[0];
+                        var vals = {};
+                        vals.province = $(elms.province).attr("data-value");
+                        vals.city = $(elms.city).attr("data-value");
+                        dis.render(elms, vals, {withTitle: true});
+                    });
+                    angular.module('app', []).controller('conditionMenuDesigner', function($scope, $http){
+                        $scope.context = {};
+                        $scope.context.group = null;
+                        if(!$scope.context.group) {
+                            $scope.context.group = {
+                                title: '标题',
+                                type: "3",
+                                button: [{
+                                    name: '菜单名称',
+                                    type: 'url',
+                                    url: '',
+                                    key: '',
+                                    media_id : '',
+                                    sub_button: []
+                                }],
+                                matchrule: {
+                                    sex: 0,
+                                    client_platform_type: 0,
+                                    group_id: -1,
+                                    country: '',
+                                    province: '',
+                                    city: ''
+                                }
+                            };
+                            if($scope.context.group.type == 1) {
+                                $scope.context.group.title = '系统默认菜单';
+                            } else if($scope.context.group.type == 2) {
+                                $scope.context.group.title = '个性化菜单';
+                            }
+                        }
+                        $scope.context.activeIndex = 0;
+                        $scope.context.activeBut = $scope.context.group['button'][$scope.context.activeIndex];
+                        $scope.context.activeItem = $scope.context.activeBut;
+                        $scope.context.activeType = 1; //标识一级菜单
+                        //删除默认菜单
+                        $scope.context.remove = function(){
+                            if(!confirm('删除默认菜单会清空所有菜单记录，确定吗？')) {
+                                return false;
+                            }
+                            location.href = "./index.php?c=platform&a=menu&do=remove&id=0";
+                            return false;
+                        };
+
+                        $scope.context.submit = function(){
+                            var group = $scope.context.group;
+                            group.button = _.sortBy(group.button, function(h){
+                                var elm = $(':hidden[data-role="parent"][data-hash="' + h.$$hashKey + '"]');
+                                return elm.parent().index();
+                            });
+                            angular.forEach(group.button, function(j){
+                                j.sub_button = _.sortBy(j.sub_button, function(h){
+                                    var e = $(':hidden[data-role="sub"][data-hash="' + h.$$hashKey + '"]');
+                                    return e.parent().index();
+                                });
+                            });
+
+                            if(!$.trim(group.title)) {
+                                util.message('没有设置标题', '', 'error');
+                                return false;
+                            }
+                            if(group.button.length < 1) {
+                                util.message('没有设置菜单', '', 'error');
+                                return false;
+                            }
+                            var error = {name: '', action: ''};
+                            angular.forEach(group.button, function(val, index){
+                                if($.trim(val.name) == '') {
+                                    this.name += '第' + (index + 1) + '个一级菜单未设置菜单名称<br>';
+                                }
+                                if(val.sub_button.length > 0) {
+                                    angular.forEach(val.sub_button, function(v, index1){
+                                        if($.trim(v.name) == '') {
+                                            this.name += '第' + (index + 1) + '个一级菜单中的第' + (index1 + 1) + '个二级菜单未设置菜单名称<br>';
+                                        }
+                                        if((v.type == 'view' && $.trim(v.url) == '') || ((v.type != 'view' && v.type != 'media_id' && v.type != 'view_limited') && $.trim(v.key) == '') || ((v.type == 'media_id' || v.type == 'view_limited') && !$.trim(v.media_id))) {
+                                            this.action += '菜单【' + val.name + '】的子菜单【' + v.name + '】未设置操作选项. <br />';
+                                        }
+                                    }, error);
+                                } else {
+                                    if((val.type == 'view' && $.trim(val.url) == '') || ((val.type != 'view' && val.type != 'media_id' && val.type != 'view_limited') && $.trim(val.key) == '') || ((val.type == 'media_id' || val.type == 'view_limited') && !$.trim(val.media_id))) {
+                                        this.action += '菜单【' + val.name + '】不存在子菜单并且未设置操作选项. <br />';
+                                    }
+                                }
+                            }, error);
+
+                            if(error.name) {
+                                util.message(error.title, '', 'error');
+                                return;
+                            }
+                            if(error.action) {
+                                util.message(error.action, '', 'error');
+                                return;
+                            }
+                            $('#btn-submit').attr('disabled', true);
+                            $http.post(location.href, {group: group, method: 'save'}).success(function(dat){
+                                if(dat.message.errno != 0) {
+                                    $('#btn-submit').attr('disabled', false);
+                                    util.message(dat.message.message, '', 'error');
+                                } else {
+                                    util.message('创建菜单成功. ', "./index.php?c=platform&a=menu&do=display&", 'success');
+                                }
+                            });
+                        }
+
+                        $scope.context.triggerActiveBut = function(but){
+                            var index = $.inArray(but, $scope.context.group.button);
+                            if(index == -1) return false;
+                            $scope.context.activeIndex = index;
+                            $scope.context.activeBut = $scope.context.group['button'][$scope.context.activeIndex];
+                            $scope.context.activeItem = $scope.context.activeBut;
+                            $scope.context.activeType = 1;
+                        };
+
+                        $scope.context.editBut = function(subbut, but){
+                            $scope.context.triggerActiveBut(but);
+                            if(!subbut) {
+                                $scope.context.activeItem = but;
+                                $scope.context.activeType = 1;
+                            } else {
+                                $scope.context.activeItem = subbut;
+                                $scope.context.activeType = 2;
+                            }
+                        };
+
+                        $scope.context.addBut = function(){
+                            if($scope.context.group['button'].length >= 3) {
+                                return;
+                            }
+                            $scope.context.group['button'].push({
+                                name: '菜单名称',
+                                type: 'view',
+                                url: '',
+                                key: '',
+                                media_id : '',
+                                sub_button: []
+                            });
+                            var but = $scope.context.group['button'][$scope.context.group.button.length - 1];
+                            $scope.context.triggerActiveBut(but);
+                            $('.designer-x').sortable({
+                                items: '.js-sortable',
+                                axis: 'x'
+                            });
+                        }
+
+                        $scope.context.removeBut = function(but, type){
+                            if(type == 1) {
+                                if(!confirm('将同时删除所有子菜单,是否继续')) {
+                                    return false;
+                                }
+                                $scope.context.group.button = _.without($scope.context.group.button, but);
+                                $scope.context.triggerActiveBut($scope.context.group['button'][0]);
+                            } else {
+                                $scope.context.activeBut.sub_button = _.without($scope.context.activeBut.sub_button, but);
+                                $scope.context.triggerActiveBut($scope.context.activeBut);
+                            }
+                        };
+
+                        $scope.context.addSubBut = function(but){
+                            if($scope.context.group.disabled == 1) {
+                                return false;
+                            }
+                            $scope.context.triggerActiveBut(but);
+                            if($scope.context.activeBut.sub_button.length >= 5) {
+                                return;
+                            }
+                            $scope.context.activeBut.sub_button.push({
+                                name: '子菜单名称',
+                                type: 'url',
+                                url: '',
+                                key: '',
+                                media_id : ''
+                            });
+                            $('.designer-y').sortable({
+                                items: 'dd',
+                                axis: 'y',
+                                cancel: '.js-not-sortable'
+                            });
+                            $scope.context.activeItem = $scope.context.activeBut.sub_button[$scope.context.activeBut.sub_button.length - 1];
+                            $scope.context.activeType = 2;
+                        }
+
+                        /*选择Emoji表情*/
+                        $scope.context.selectEmoji = function() {
+                            util.emojiBrowser(function(emoji){
+                                var text = '::' + emoji.find("span").text() + '::';
+                                $('#title').setCaret();
+                                $('#title').insertAtCaret(text);
+                                $scope.context.activeItem.name = $('#title').val();
+                                $scope.$digest();
+                            });
+                        };
+
+                        //点击选择【系统连接】事件
+                        $scope.context.select_link = function(){
+                            var ipt = $(this).parent().prev();
+                            util.linkBrowser(function(href){
+                                var site_url = "http://abc.5xieys.cn/";
+                                if(href.substring(0, 4) == 'tel:') {
+                                    util.message('自定义菜单不能设置为一键拨号');
+                                    return;
+                                } else if(href.indexOf("http://") == -1 && href.indexOf("https://") == -1) {
+                                    href = href.replace('./index.php?', '/index.php?');
+                                    href = site_url + 'app' + href;
+                                }
+                                $scope.context.activeItem.url = href;
+                                $scope.$digest();
+                            });
+                        };
+
+                        $scope.context.search = function(){
+                            var search_value = $('#ipt-forward').val();
+                            $.post("./index.php?c=platform&a=menu&do=search_key&", {'key_word' : search_value}, function(data){
+                                var data = $.parseJSON(data);
+                                var total = data.length;
+                                var html = '';
+                                if(total > 0) {
+                                    for(var i = 0; i < total; i++) {
+                                        html += '<li><a href="javascript:;">' + data[i] + '</a></li>';
+                                    }
+                                } else {
+                                    html += '<li><a href="javascript:;" id="no-result">没有找到您输入的关键字</a></li>';
+                                }
+                                $('#key-result ul').html(html);
+                                $('#key-result ul li a[id!="no-result"]').click(function(){
+                                    $('#ipt-forward').val($(this).html());
+                                    $scope.context.activeItem.key = $(this).html();
+                                    $('#key-result').hide();
+                                });
+                                $('#key-result').show();
+                            });
+                        };
+
+                        $scope.context.select_mediaid = function(){
+                            var option = {
+                                'ignore' : {
+                                    'wxcard' : true
+                                }
+                            };
+                            if($scope.context.activeItem.type == 'view_limited') {
+                                option.ignore = {
+                                    'image' : true,
+                                    'voice' : true,
+                                    'video' : true,
+                                    'wxcard' : true
+                                };
+                            }
+                            util.material(function(material){
+                                $scope.context.activeItem.media_id = material.media_id;
+                                $scope.$digest();
+                            }, option);
+                        };
+                    });
+                    angular.bootstrap($('#conditionMenuDesigner')[0], ['app']);
+                    $(function(){
+                        $('.designer-y').sortable({
+                            items: 'dd',
+                            axis: 'y',
+                            cancel: '.js-not-sortable'
+                        });
+
+                        $('.designer-x').sortable({
+                            items: '.js-sortable',
+                            axis: 'x'
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </div>
+
+    <script language='javascript'>
+        require(['bootstrap'], function ($) {
+            $('[data-toggle="tooltip"]').tooltip({
+                container: $(document.body)
+            });
+            $('[data-toggle="popover"]').popover({
+                container: $(document.body)
+            });
+        });
+
+
+        function check_ewei_shopv2_upgrade() {
+
+            require(['util'], function (util) {
+                if (util.cookie.get('checkeweishopv2upgrade_sys')) {
+                    return;
+                }
+                $.post('http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade.check', function (ret) {
+                    if (ret && ret.status == '1') {
+
+                        var result = ret.result;
+                        if(result.filecount>0 || result.database || result.upgrades){
+
+                            var html = '<div id="ewei-shopv2-upgrade-tips" class="tips-upgrade">';
+                            html+='<span class="tclose" onclick="check_ewei_shopv2_upgrade_hide();"><i class="fa fa-times-circle fa-2x"></i></span>';
+                            html+= '<div class="title">检测到更新</div>';
+                            html+='<div class="text"> 新版本 ' + result.version + " RELEASE " + result.release;
+                            html+=',请尽快更新! </div>';
+                            html+='<div class="buttons"><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade" class="btn btn-warning btn-sm">立即去更新</a></div></div>';
+                            $('body').prepend(html);
+                        }
+                    }
+                },'json');
+            });
+        }
+        function check_ewei_shopv2_upgrade_hide() {
+            require(['util'], function (util) {
+                util.cookie.set('checkeweishopv2upgrade_sys', 1, 3600);
+                $('#ewei-shopv2-upgrade-tips').fadeOut(150);
+            });
+        }
+        $(function () {
+            setTimeout( function() {
+                check_ewei_shopv2_upgrade();
+            },4000);
+        });
+
+        $(function () {
+            $('.page-content').show();
+            $('.img-thumbnail').each(function () {
+                if ($(this).attr('src').indexOf('nopic.jpg') != -1) {
+                    $(this).attr('src', "../addons/ewei_shopv2/static/images/nopic.jpg");
+                }
+            })
+            $.ajax({
+                url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=util.task",
+                async:false,
+                cache: false
+            });
+        });
+    </script>
+    <script language="javascript">myrequire(['web/init'],function(){
+        if($('.form-validate').length<=0) {  $('#page-loading').remove(); }
+    });</script>
+    <!--
+        <div id="page-loading" style="position: fixed;width:100%;height:100%;background:rgba(255,255,255,0.8);left:0;top:0;z-index:9999">
+            <div class="sk-spinner sk-spinner-double-bounce" style="position:fixed;top:50%;left:50%;width:40px;height:40px;margin-left:-20px;margin-top:-20px;">
+                <div class="sk-double-bounce1"></div>
+                <div class="sk-double-bounce2"></div>
+            </div>
+        </div>
+    -->
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<div ng-controller="myCtrl">
+    <p ng-repeat="item in list">
+        name:{_ item['name'] _} --- age:{_ item['age'] _} --- weight:{_ item['weight'] _}
+    </p>
+    <button ng-click="log()">显示</button>
+    <input ng-model="haha">{_ haha _}
+</div>
+<script>
+    myapp.controller('myCtrl',['$scope','$http','retrieve', function ($scope,$http,retrieve) {
+        $scope.list=[];
+        $scope.total=1;                                                         //总页数
+
+
+
+
+        retrieve.list($scope);
+        $scope.log=function () {
+            console.log($scope.list);
+        }
+
+
+    }])
+</script>

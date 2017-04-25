@@ -1,0 +1,14 @@
+{template 'header'}
+<form action="" method="post" enctype="multipart/form-data" >
+    <label><input name="star"      type="radio"      value="3">好评</label>
+    <label><input name="star"  type="radio" value="2">中评</label>
+    <label><input name="star" type="radio"  value="1">差评</label>
+    <input type="hidden" name="pid" value="{$_GPC['pid']}">
+    <input type="hidden" name="oid" value="{$_GPC['oid']}">
+        <textarea name="comment"></textarea>
+    <input type="file" name="img[]" accept="image/*" multiple />
+    <input type="submit">
+</form>
+{template 'footer'}
+
+

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="shortcut icon" href="http://abc.5xieys.cn/attachment/images/global/wechat.jpg" />
+    <link href="static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="static/css/animate.css" rel="stylesheet">
+    <link href="static/css/v2.css?v=4.1.0" rel="stylesheet">
+    <link href="static/css/common.css?v=2.0.0" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/fonts/iconfont.css?v=2016070717">
+    <script src="resource/js/lib/jquery-1.11.1.min.js"></script>
+    <script src="static/js/dist/jquery/jquery.gcjs.js"></script>
+    <script src="resource/js/app/util.js"></script>
+    <script src="static/js/require.js"></script>
+    <script src="resource/js/app/config.js"></script>
+    <script>
+        require.config({
+            waitSeconds: 0
+        });
+    </script>
+    <script src="static/js/myconfig.js"></script>
+    <script type="text/javascript">
+        if (navigator.appName == 'Microsoft Internet Explorer') {
+            if (navigator.userAgent.indexOf("MSIE 5.0") > 0 || navigator.userAgent.indexOf("MSIE 6.0") > 0 || navigator.userAgent.indexOf("MSIE 7.0") > 0) {
+                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+            }
+        }
+        myrequire.path = "http://abc.5xieys.cn/addons/ewei_shopv2/static/js/";
+
+        function preview_html(txt)
+        {
+            var win = window.open("", "win", "width=300,height=600"); // a window object
+            win.document.open("text/html", "replace");
+            win.document.write($(txt).val());
+            win.document.close();
+        }
+    </script>
+    <script src="static/js/dist/echarts/echarts-all.js"></script>
+</head>
+
+
+<body class="white-bg ">
+<div id='topbar' class='top-navigation   gray-bg '>
+    <nav class="navbar   gray-bg " role="navigation" style="width:1024px;margin:auto;">
+        <div class="navbar-header" style="width:200px;">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <a class="navbar-brand" href="index.html">新品试用平台</a>
+        </div><style>
+        .deg180{
+            transform:rotate(180deg);
+            -ms-transform:rotate(180deg); 	/* IE 9 */
+            -moz-transform:rotate(180deg); 	/* Firefox */
+            -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+            -o-transform:rotate(180deg); 	/* Opera */
+        }
+    </style>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav gray-bg">
+                <li  class="active"><a href="index.html">首页</a></li>
+                <li ><a href="goods.html"> 商品管理</a></li>
+                <li ><a href="order.html"> 订单管理</a></li>
+                <li ><a href="basicword.html"> 微信基本功能</a></li>
+                <li ><a href="data.html">数据分析</a></li>
+            </ul>
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown" style="position:relative;" onclick="$(this).find('span').toggleClass('deg180')">
+                        <name style="width: 80px;white-space:nowrap;overflow:hidden;text-overflow: ellipsis;display: block;text-align: center">许多宝</name>
+                        <span class="caret" style="position: absolute;top: 22px;right: 12px;"></span></a>
+                    <ul role="menu" class="dropdown-menu">
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=sysset.account"><i class="icon icon-similar"></i>  切换公众号</a></li>
+                        <li><a href="./index.php?c=account&a=post&uniacid=2" target="_blank"><i class="icon icon-wechat"></i>  编辑公众号</a></li>
+                        <li><a href="./index.php?c=profile&a=payment&" target="_blank"><i class="icon icon-pay"></i>  支付参数</a></li>
+                        <!--   <li><a href="./index.php?c=utility&a=emulator&" target="_blank"><i class="icon icon-machinery"></i>  模拟测试</a></li>-->
+                        <li class="divider"></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=perm"><i class="icon icon-person2"></i> 权限管理</a></li>
+                        <li class="divider"></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system"><i class="icon icon-settings"></i> 系统管理</a></li>
+                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade"><i class="icon icon-down"></i> 系统更新</a></li>
+                        <li><a href="./index.php?c=user&a=profile&" target="_blank"><i class="icon icon-lock"></i>  修改密码</a></li>
+                        <li><a href="./index.php?c=account&a=display&" target="_blank"><i class="icon icon-back"></i>  返回系统</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+<div class='wrapper main-wrapper wrapper-content '>
+    <link type="text/css" rel="stylesheet" href="web/static/mobapps/css/dsh_style.css">
+    <script src="web/static/mobapps/js/hm.js"></script>
+    <script src="web/static/mobapps/js/jquery.min.js"></script>
+    <script src="web/static/mobapps/js/slides.min.jquery.js"></script>
+    <div class="row" style="margin-top: 30px">
+        <div class="col-md-12 col-sm-12">
+            <div class="contact-box">
+                <div class="col-sm-1" style="padding:0">
+                    <img src="http://abc.5xieys.cn/attachment/images/2/2016/12/as3COOc6scWsKBctZg7C3kS3gYZg6b.png" style="width:65px;height:65px;border-radius:5px">
+                </div>
+                <div class="col-sm-10"  style="padding-left:10px">
+                    <h3>许多宝新品试用平台</h3>
+                    <p></p>
+                </div>
+                <div class="col-sm-1" style="padding-left: 0"><a class="btn btn-primary btn-sm" href="shop-edit.html" style="color: #fff"> 点击修改</a></div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="col-md-12 col-sm-12">
+            <div class="contact-box" style="border: 1px solid #e7eaec">
+                <div class="forum-item">
+                    <div class="row">
+                        <a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=goods&goodsfrom=out">
+                            <div class="col-sm-3 forum-info">
+                                                <span class="views-number goods_totals">
+                                                    --
+                                                </span>
+                                <div>
+                                    <small>已售罄商品</small>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="orderstatus1.html">
+                            <div class="col-sm-3 forum-info">
+                                                <span class="views-number status1">
+                                                    --
+                                                </span>
+                                <div>
+                                    <small>待发货订单</small>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.list.status4">
+                            <div class="col-sm-3 forum-info">
+                                                <span class="views-number status4">
+                                                    --
+                                                </span>
+                                <div>
+                                    <small>今日访问量</small>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=finance.log.withdraw&status=0">
+                            <div class="col-sm-3 forum-info">
+                                            <span class="views-number finance_total">
+                                                --
+                                            </span>
+                                <div>
+                                    <small>已完成订单</small>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-12 col-sm-12">
+        <div class="ibox float-e-margins" style="border: 1px solid #e7eaec">
+            <div class="ibox-title">
+                <h5>商品出售概况</h5>
+            </div>
+            <div class="ibox-content">
+                <div id="sale-info" style="width: 900px;height:500px;"></div>
+                <script type="text/javascript">
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init(document.getElementById('sale-info'));
+                    var dataAxis = ['204', '205', '206', '207', '208', '209', '210', '211', '212', '213', '214', '215', '216', '217', '218', '219', '210', '211', '212', '213'];
+                    var data = [220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 810, 122, 133, 334, 198, 123, 125, 220];
+                    var yMax = 1000;
+                    var dataShadow = [];
+                    // 指定图表的配置项和数据
+                    var option = {
+                        tooltip : {
+                            trigger: 'axis',
+                            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                            }
+                        },
+                        legend: {
+                            data: ['时间1', '时间2','时间3','时间4','时间5','时间6','时间7']
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis:  {
+                            type: 'value'
+                        },
+                        yAxis: {
+                            type: 'category',
+                            data: ['商品1','商品2','商品3','商品4','商品5','商品6','商品7']
+                        },
+                        series: [
+                            {
+                                name: '时间1',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        position: 'insideRight'
+                                    }
+                                },
+                                data: [320, 302, 301, 334, 390, 33, 32]
+                            },
+                            {
+                                name: '时间2',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        position: 'insideRight'
+                                    }
+                                },
+                                data: [120, 132, 101, 134, 90, 230, 210]
+                            },
+                            {
+                                name: '时间3',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        position: 'insideRight'
+                                    }
+                                },
+                                data: [220, 182, 191, 234, 290, 330, 310]
+                            },
+                            {
+                                name: '时间4',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        position: 'insideRight'
+                                    }
+                                },
+                                data: [150, 212, 201, 154, 190, 330, 410]
+                            },
+                            {
+                                name: '时间5',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        position: 'insideRight'
+                                    }
+                                },
+                                data: [820, 832, 901, 934, 129, 133, 132]
+                            },
+                            {
+                                name: '时间6',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        position: 'insideRight'
+                                    }
+                                },
+                                data: [820, 832, 901, 934, 129, 133, 132]
+                            },
+                            {
+                                name: '时间7',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        position: 'insideRight'
+                                    }
+                                },
+                                data: [820, 832, 901, 934, 129, 133, 132]
+                            }
+                        ]
+                    };
+
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                </script>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <input type="hidden" name="len" value="0">
+    <input type="hidden" name="index" value="0">
+    <script>
+        function selectImage(obj){
+            util.image('',function(val){
+                $(obj).attr('src',val.url);
+
+                $.post("http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=shop.index.ajaxshopconfig&type=logo", { value: val.attachment},
+                        function(data){
+                            if (data.status == 1)
+                            {
+                                tip.msgbox.suc('修改成功!' || tip.lang.success);
+                            }
+                            else
+                            {
+                                tip.msgbox.err('修改失败!' || tip.lang.error);
+                            }
+                        }, "json");
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function AutoScroll(obj,len){
+            var text = $(obj).find("a span");
+            var index = $("input[name='index']").val();
+            $("input[name='index']").val(parseInt(index)+1);
+            $("input[name='len']").val(text.length);
+            if (text.length > index)
+            {
+                $("#notice span").text($(text[index]).text());
+            }
+            else
+            {
+                $("input[name='index']").val(parseInt(0));
+                $("#notice span").text($(text[0]).text());
+            }
+
+        }
+        $(document).ready(function(){
+            var scrollDiv = setInterval('AutoScroll("#w0-1")',3000);
+            $("#w0").hover(
+                    function () {
+                        clearInterval(scrollDiv);
+                    },
+                    function () {
+                        scrollDiv = setInterval('AutoScroll("#w0-1")',3000);
+                    }
+            );
+
+            $.ajax({
+                type: "GET",
+                url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.list.ajaxgettotals&merch=-1",
+                dataType: "json",
+                success: function (data) {
+                    var res = data.result;
+                    $("span.status1").text(res.status1);
+                    $("span.status4").text(res.status4);
+                    $.ajax({
+                        type: "GET",
+                        url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=shop.ajax",
+                        dataType: "json",
+                        success: function (data) {
+                            var res = data.result;
+                            $("span.goods_totals").text(res.goods_totals);
+                            $("span.finance_total").text(res.finance_total);
+                            $("span.commission_agent_total").text(res.commission_agent_total);
+                            $("span.commission_agent_status0_total").text(res.commission_agent_status0_total);
+                            $("span.commission_apply_status1_total").text(res.commission_apply_status1_total);
+                            $("span.commission_apply_status2_total").text(res.commission_apply_status2_total);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+</div>
+
+<script language='javascript'>
+    require(['bootstrap'], function ($) {
+        $('[data-toggle="tooltip"]').tooltip({
+            container: $(document.body)
+        });
+        $('[data-toggle="popover"]').popover({
+            container: $(document.body)
+        });
+    });
+
+
+    function check_ewei_shopv2_upgrade() {
+
+        require(['util'], function (util) {
+            if (util.cookie.get('checkeweishopv2upgrade_sys')) {
+                return;
+            }
+            $.post('http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade.check', function (ret) {
+                if (ret && ret.status == '1') {
+
+                    var result = ret.result;
+                    if(result.filecount>0 || result.database || result.upgrades){
+
+                        var html = '<div id="ewei-shopv2-upgrade-tips" class="tips-upgrade">';
+                        html+='<span class="tclose" onclick="check_ewei_shopv2_upgrade_hide();"><i class="fa fa-times-circle fa-2x"></i></span>';
+                        html+= '<div class="title">检测到更新</div>';
+                        html+='<div class="text"> 新版本 ' + result.version + " RELEASE " + result.release;
+                        html+=',请尽快更新! </div>';
+                        html+='<div class="buttons"><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade" class="btn btn-warning btn-sm">立即去更新</a></div></div>';
+                        $('body').prepend(html);
+                    }
+                }
+            },'json');
+        });
+    }
+    function check_ewei_shopv2_upgrade_hide() {
+        require(['util'], function (util) {
+            util.cookie.set('checkeweishopv2upgrade_sys', 1, 3600);
+            $('#ewei-shopv2-upgrade-tips').fadeOut(150);
+        });
+    }
+    $(function () {
+        setTimeout( function() {
+            check_ewei_shopv2_upgrade();
+        },4000);
+    });
+
+    $(function () {
+        $('.page-content').show();
+        $('.img-thumbnail').each(function () {
+            if ($(this).attr('src').indexOf('nopic.jpg') != -1) {
+                $(this).attr('src', "../addons/ewei_shopv2/static/images/nopic.jpg");
+            }
+        })
+        $.ajax({
+            url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=util.task",
+            async:false,
+            cache: false
+        });
+    });
+</script>
+<script language="javascript">myrequire(['web/init'],function(){
+    if($('.form-validate').length<=0) {  $('#page-loading').remove(); }
+});</script>
+<!--<div id="page-loading" style="position: fixed;width:100%;height:100%;background:rgba(255,255,255,0.8);left:0;top:0;z-index:9999">
+    <div class="sk-spinner sk-spinner-double-bounce" style="position:fixed;top:50%;left:50%;width:40px;height:40px;margin-left:-20px;margin-top:-20px;">
+        <div class="sk-double-bounce1"></div>
+        <div class="sk-double-bounce2"></div>
+    </div>
+</div>-->
+
+</body>
+</html>
