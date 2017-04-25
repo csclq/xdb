@@ -19,6 +19,12 @@ class YztRole extends \Phalcon\Mvc\Model
      * @Column(type="string", length=40, nullable=false)
      */
     protected $name;
+    /**
+     *
+     * @var remark
+     * @Column(type="string", length=255, nullable=false)
+     */
+    protected $remark;
 
     /**
      * Method to set the value of field id
@@ -45,6 +51,18 @@ class YztRole extends \Phalcon\Mvc\Model
 
         return $this;
     }
+    /**
+     * Method to set the value of field remark
+     *
+     * @param string $remark
+     * @return $this
+     */
+    public function setRemark($remark)
+    {
+        $this->remark = $remark;
+
+        return $this;
+    }
 
     /**
      * Returns the value of field id
@@ -66,6 +84,15 @@ class YztRole extends \Phalcon\Mvc\Model
         return $this->name;
     }
 
+    /**
+     * Returns the value of field remark
+     *
+     * @return string
+     */
+    public function getRemark()
+    {
+        return $this->remark;
+    }
     /**
      * Initialize method for model.
      */
@@ -117,7 +144,8 @@ class YztRole extends \Phalcon\Mvc\Model
     {
         return [
             'id' => 'id',
-            'name' => 'name'
+            'name' => 'name',
+            'remark'    =>  'remark'
         ];
     }
 

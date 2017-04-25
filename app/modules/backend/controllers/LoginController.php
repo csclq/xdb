@@ -41,7 +41,7 @@ class LoginController extends Controller {
             $this->session->set('user_name',$username);
             $this->session->set('user_id',$user->getId());
 //            header("location:/backend/system/user");
-           $this->response->redirect('/backend/system/user');
+           $this->response->redirect('/backend/index/index');
         }else{
            echo "<script>alert('用户名或密码错误');history.back();</script>";
             exit;

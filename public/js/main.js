@@ -31,6 +31,7 @@ myapp.service('retrieve', function ($http) {
                 'method': 'POST',
                 'data': data
             }).success(function (a) {
+                data.result=a['code'];
             })
         }
     };

@@ -1,6 +1,9 @@
 <?php
 namespace App\Modules\Backend\Controllers;
 
+use App\Models\YztApp;
+use App\Models\YztAuth;
+use App\Models\YztRole;
 use Backend\Models\Admin;
 use Backend\Models\App;
 use Backend\Models\Depart;
@@ -42,19 +45,18 @@ class SystemController extends ControllerBase
     {
         if ($this->request->isPost()) {
             $this->view->disable();
-            $post = json_decode(file_get_contents("php://input"), true);
-            $where = 'active=1';
-            empty($post['username']) || $where .= " and name like '%" . htmlspecialchars(trim($post['username'])) . "%'";
-            empty($post['remark']) || $where .= " and remark like '%" . htmlspecialchars(trim($post['remark'])) . "%'";
+            $where ['conditions']= '1=1 ';
+            empty($this->request->getPost('name')) || $where['conditions'] .= " and name like '%" . htmlspecialchars(trim($this->request->getPost('name'))) . "%'";
+            empty($this->request->getPost('remark')) || $where['conditions'] .= " and remark like '%" . htmlspecialchars(trim($this->request->getPost('remark'))) . "%'";
             $limit = array('number' => $this->config->pageNum,//$GLOBALS['config']['pageNum'],
-                'offset' => (intval($post['p']) - 1) * $this->config->pageNum);
-            $arr = array($where, 'limit' => $limit, 'order' => 'id desc');
-            $user = Depart::find($arr);
-
-            $total = Depart::count($where);
-            $info = array('total' => ceil($total /$this->config->pageNum),// $GLOBALS['config']['pageNum']),
-                'info' => $user->toArray());
-            echo json_encode($info);
+                'offset' => (intval($this->request->getPost('p')) - 1) * $this->config->pageNum);
+            $where['limit'] =  $limit;
+            $where['order'] = 'id desc';
+            $user = YztRole::find($where);
+            $total = YztRole::count($where);
+            $this->result['total']= ceil($total /$this->config->pageNum);
+            $this->result['data']= $user->toArray();
+            echo json_encode($this->result);
         }
 
     }
@@ -63,6 +65,36 @@ class SystemController extends ControllerBase
     {
 
     }
+
+    public function roleditAction(){
+        if($this->request->isPost()) {
+            $this->view->disable();
+            if ($this->request->getPost('action') == 'edit' && $this->request->getPost('id')) {
+                $data=[];
+                foreach ($_POST as $k => $v){
+                    if($k!=='action'|| $k!='result'){
+                        $data[$k]=htmlspecialchars($v);
+                    }
+                }
+                YztRole::findFirst('id=' . $this->request->getPost('id'))->update($data);
+            } elseif ($this->request->getPost('action') == 'delete') {
+                YztRole::findFirst('id=' . $this->request->getPost('id'))->delete();
+            } elseif ($this->request->getPost('action') == 'add') {
+                $goods=new YztRole();
+                $data=[];
+                foreach ($_POST as $k => $v){
+                    if($k!=='action'|| $k!='result'){
+                        $data[$k]=htmlspecialchars($v);
+                    }
+                }
+                $goods->create($data);
+            }
+            echo json_encode($this->result);
+        }
+
+    }
+
+
 
     public function clearcacheAction()
     {             //清队缓存
@@ -226,48 +258,44 @@ class SystemController extends ControllerBase
 
     public function permissionAction()
     {                                //权限管理
-        $did = intval($this->dispatcher->getParam(0));
-        if (!$did) {
-            $this->view->disable();
-            echo "<script>alert('选择部门出错');history.back();</script>";
-        }
+        $did = intval($this->dispatcher->getParam(0))??0;
         if ($this->request->isPost()) {
-            $this->modelsManager->executeQuery("delete from Backend\Models\Permission where did=:did:", array('did' => $did));
-            foreach ($_POST['app'] as $v) {
-                $model = new Permission();
-                $model->setAid($v);
-                $model->setDid($did);
-                $model->create();
+            if($did){
+                $this->modelsManager->executeQuery("delete from App\Models\YztAuth where role_id=:did:", array('did' => $did));
+                foreach ($_POST['app'] as $v) {
+                    $model = new YztAuth();
+                    $model->setAppId($v);
+                    $model->setRoleId($did);
+                    $model->create();
+                }
             }
 
         }
-        $perm = App::find('active=1');
+        $perm = YztApp::find('active=1');
         $arr = array();
-        $acc = Permission::find('did=' . $did);
-        if ($acc) {
-            foreach ($acc as $v) {
-                array_push($arr, $v->aid);
+        if($did){
+            $acc = YztAuth::find('role_id=' . $did);
+            if ($acc) {
+                foreach ($acc as $v) {
+                    array_push($arr, $v->app_id);
+                }
             }
         }
-        $list = infinate($perm->toArray(), 0, $arr);
-
-
+        $list = $this->common->infinate($perm->toArray(), 0, $arr);
+        $this->view->role_id=$did;
         $this->view->list = $list;
     }
 
-    public function addappAction()
+    public function appeditAction()
     {                         //添加新应用
         if ($this->request->isPost()) {
             $this->view->disable();
-            $post = json_decode(file_get_contents("php://input"), true);
-            $app = new App();
-            $app->setName(htmlspecialchars(trim($post['name'])));
-            $app->setRemark(htmlspecialchars(trim($post['remark'])));
-            $app->setPid(intval($post['pid']));
-            $app->setShow(intval($post['show']));
-            $app->setLevel(intval($post['pid']) > 0 ? 2 : 1);
-            $app->setAddTime();
-            $app->setAddIp();
+            $app = new YztApp();
+            $app->setName(htmlspecialchars(trim($this->request->getPost('name'))));
+            $app->setRemark(htmlspecialchars(trim($this->request->getPost('remark'))));
+            $app->setPid(intval($this->request->getPost('pid')));
+            $app->setShow(intval($this->request->getPost('show')));
+            $app->setLevel(intval($this->request->getPost('pid')) > 0 ? 2 : 1);
             $app->save();
         }
     }

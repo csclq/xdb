@@ -406,6 +406,29 @@ class YztApp extends \Phalcon\Mvc\Model
         $this->hasMany('id', 'App\Models\YztAuth', 'app_id', ['alias' => 'YztAuth']);
     }
 
+
+    /**
+     * create new record set add_at equal now time,update_at equal now time
+     */
+
+    public function beforeCreate()
+    {
+        $this->add_time=time();
+        $this->update_time=time();
+        $this->add_ip=$_SERVER['REMOTE_ADDR'];
+        $this->update_ip=$_SERVER['REMOTE_ADDR'];
+    }
+
+    /**
+     * update record set update_at equal now time
+     */
+
+    public function beforeUpdate()
+    {
+        $this->update_time=time();
+        $this->update_ip=$_SERVER['REMOTE_ADDR'];
+    }
+
     /**
      * Returns table name mapped in the model.
      *

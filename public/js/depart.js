@@ -3,8 +3,7 @@ myapp.controller('userinfo',['$scope','$http','retrieve',function ($scope,$http,
     $scope.list=[];                                                         //数据源
     $scope.info.p=1;                                                        //分页
     $scope.total=1;                                                         //总页数
-
-
+    $scope.edit = {};
 
 
   retrieve.list($scope);
@@ -42,32 +41,25 @@ myapp.controller('userinfo',['$scope','$http','retrieve',function ($scope,$http,
     }
     $scope.delete=function (id) {
         if (confirm("删除后无法恢复，确定要删除？？？？")) {
-            $http({
-                'url': '/backend/system/deleteDepart',
-                'method': 'POST',
-                'data': {id: id}
-            }).success(function (a) {
-                location.reload();
-            })
+            $scope.edit.action = 'delete';
+            $scope.edit.id = id;
+            retrieve.edit($scope.edit, '/backend/system/roledit');
+            retrieve.list($scope);
+            $scope.edit = {};
         }
     }
 }]);
 
-myapp.controller('addController',function ($scope,$http) {
-    $scope.add={};
+myapp.controller('addController',['$scope','$http','retrieve',function ($scope,$http,retrieve) {
+    $scope.edit={};
+    $scope.edit.result=1;
+    $scope.edit.action='add';
     $scope.addsub=function () {
-        $http({
-            'url':'/backend/system/adddepart',
-            'method':'POST',
-            'data':$scope.add
-        }).success(function (a) {
-           if(!a){
-               alert("添加失败");
-           }
-           location.reload();
-        })
+        $scope.edit.action = 'add';
+        retrieve.edit($scope.edit, '/backend/system/roledit');
+        location.reload();
     }
-})
+}])
 
 
 
