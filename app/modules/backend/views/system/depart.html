@@ -1,4 +1,4 @@
-<div class="grid" ng-controller="userinfo" >
+<div class="grid" >
     <div class="toolbar">
         <div class="search">
             <label>名称: <input  class="input" ng-model="info.name" /> </label>
@@ -38,9 +38,9 @@
         </table>
     </div>
     {{ partial('public/paging') }}
-
+<button ng-click="loginfo()">显示</button>
 </div>
-<div class="add" ng-controller="addController">
+<div class="add" >
     <form name="addForm" >
         <table>
             <caption>添加新部门</caption>

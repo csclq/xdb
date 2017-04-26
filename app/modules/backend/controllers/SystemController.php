@@ -18,17 +18,14 @@ class SystemController extends ControllerBase
     public function userAction()
     {
 
-        $this->view->disable();
-        var_dump($_SESSION);exit;
 
 
         if ($this->request->isPost()) {
             $this->view->disable();
-            $post = json_decode(file_get_contents("php://input"), true);
-            $where = '1=1';
-            empty($post['username']) || $where .= " and name like '%" . htmlspecialchars(trim($post['username'])) . "%'";
-            empty($post['depart']) || $where .= " and depart=" . intval($post['depart']);
-            $limit = array('number' => $this->config->pageNum, 'offset' => (intval($post['p']) - 1) * $this->config->pageNum);
+            $where = ' active = 1 ';
+            empty($post['username']) || $where .= " and name like '%" . $this->post['username'] . "%'";
+            empty($post['depart']) || $where .= " and depart=" . intval($this->post['depart']);
+            $limit = array('number' => $this->config->pageNum, 'offset' => (intval($this->post['p']) - 1) * $this->config->pageNum);
             $arr = array($where, 'limit' => $limit, 'order' => 'id desc');
             $user = Admin::find($arr);
 
@@ -37,7 +34,7 @@ class SystemController extends ControllerBase
                 'info' => $user->toArray());
             echo json_encode($info);
         }
-        $this->view->departs = Depart::find()->toArray();
+        $this->view->departs = YztRole::find()->toArray();
 
     }
 
@@ -193,10 +190,10 @@ class SystemController extends ControllerBase
     {                                            //修改管理员
         if ($this->request->isPost()) {
             $this->view->disable();
-            $id = intval($this->request->getPost('id'));
-            $depart = intval($this->request->getPost('depart'));
-            $active = intval($this->request->getPost('active'));
-            $username = htmlspecialchars(trim($this->request->getPost('name')));
+            $id = $this->request->getPost('id','int');
+            $depart = $this->request->getPost('depart','int');
+            $active = $this->request->getPost('active','int');
+            $username = ($this->request->getPost('name','string'));
 
             $admin = Admin::findFirst($id);
             empty($username) || $admin->setName($username);
@@ -260,30 +257,31 @@ class SystemController extends ControllerBase
     {                                //权限管理
         $did = intval($this->dispatcher->getParam(0))??0;
         if ($this->request->isPost()) {
-            if($did){
+            if($did && $this->post['action']=='edit'){
                 $this->modelsManager->executeQuery("delete from App\Models\YztAuth where role_id=:did:", array('did' => $did));
-                foreach ($_POST['app'] as $v) {
+                is_array($this->post['app'])||$this->post['app']=explode(',',$this->post['app']);
+                foreach ($this->post['app'] as $v) {
                     $model = new YztAuth();
                     $model->setAppId($v);
                     $model->setRoleId($did);
                     $model->create();
                 }
             }
-
-        }
-        $perm = YztApp::find('active=1');
-        $arr = array();
-        if($did){
-            $acc = YztAuth::find('role_id=' . $did);
-            if ($acc) {
-                foreach ($acc as $v) {
-                    array_push($arr, $v->app_id);
+            $perm = YztApp::find('active=1');
+            $arr = array();
+            if($did){
+                $acc = YztAuth::find('role_id=' . $did);
+                if ($acc) {
+                    foreach ($acc as $v) {
+                        array_push($arr, $v->app_id);
+                    }
                 }
             }
+            $list = $this->common->infinate($perm->toArray(), 0, $arr);
+            $this->result['data']=$list;
+            echo json_encode($this->result);
         }
-        $list = $this->common->infinate($perm->toArray(), 0, $arr);
         $this->view->role_id=$did;
-        $this->view->list = $list;
     }
 
     public function appeditAction()
@@ -293,8 +291,8 @@ class SystemController extends ControllerBase
             $app = new YztApp();
             $app->setName(htmlspecialchars(trim($this->request->getPost('name'))));
             $app->setRemark(htmlspecialchars(trim($this->request->getPost('remark'))));
-            $app->setPid(intval($this->request->getPost('pid')));
-            $app->setShow(intval($this->request->getPost('show')));
+            $app->setPid($this->request->getPost('pid','int'));
+            $app->setShow($this->request->getPost('show','int'));
             $app->setLevel(intval($this->request->getPost('pid')) > 0 ? 2 : 1);
             $app->save();
         }

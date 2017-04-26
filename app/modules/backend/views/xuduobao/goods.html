@@ -1,4 +1,4 @@
-<div class='wrapper main-wrapper wrapper-content ' ng-controller="myCtrl">
+<div class='wrapper main-wrapper wrapper-content '>
 
     <div class="page-content">
         <div class="page-heading">
@@ -26,13 +26,17 @@
             <thead class="navbar-inner">
             <tr>
                 <th style="width:5%;"><input type='checkbox' />ID</th>
-                <th style="width:10%;text-align:center;">排序</th>
-                <th style="width:10%;">商品</th>
-                <th style="width:10%;" >价格</th>
-                <th style="width:10%;" >库存</th>
-                <th style="width:10%;" >销量</th>
-                <th  style="width:10%;" >状态</th>
-                <th style="width:35%">操作</th>
+                <th style="width:8%;text-align:center;">排序</th>
+                <th style="width:8%;">商品</th>
+                <th style="width:8%;" >价格</th>
+                <th style="width:8%;" >库存</th>
+                <th style="width:8%;" >销量</th>
+                <th  style="width:8%;" >状态</th>
+                <th style="width:6%">选中</th>
+                <th style="width:6%">购买</th>
+                <th style="width:6%">发货</th>
+                <th style="width:9%">购买位置统计</th>
+                <th style="width:20%">操作</th>
             </tr>
             </thead>
             <tbody>
@@ -44,7 +48,7 @@
                     {_ product.sort _}
                 </td>
                 <td>
-                    <img src="{_ product['pic_url'] _}" style="width:40px;height:40px;padding:1px;border:1px solid #ccc;"  />
+                    <img src="/{_ product.pic_url _}" style="width:40px;height:40px;padding:1px;border:1px solid #ccc;"  />
                 </td>
                 <td>
                     {_ product.price _}
@@ -55,15 +59,19 @@
                 <td>{_ product.sale_count _}</td>
                 <td ng-dblclick="togglegoods($event,product.id,product.deleted)"><span ng_if="product.deleted==1">下架</span><span ng_if="product.deleted==0">上架</span>
                 </td>
+                <td>{_ product.select_count _}</td>
+                <td>{_ product.sale_count _}</td>
+                <td>{_ product.send_count _}</td>
+                <td>4</td>
                 <td  style="overflow:visible;position:relative">
                     <a  class='btn btn-default btn-sm' href="/backend/xuduobao/goodsedit/{_ product.id _}" title="编辑"><i class='fa fa-edit'></i> 编辑</a>
                     <a  class='btn btn-default btn-sm' ng-click="delete(product.id)"><i class='fa fa-trash'></i> 删除</a>
-                    <a href="javascript:;" class='btn btn-default btn-sm js-clip' data-url="#"><i class='fa fa-link'></i> 复制链接</a>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
+
     {{ partial('public/paging') }}
    </div>
 <script src="/js/goods.js"></script>

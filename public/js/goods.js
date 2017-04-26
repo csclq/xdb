@@ -23,13 +23,14 @@ myapp.controller('myCtrl', ['$scope', '$http', '$compile', 'retrieve', function 
     };
     $scope.editsort = function (a, b, c) {
         $scope.edit = {};
+        $scope.edit.token=$scope.info.token;
         $scope.edit.id = b;
         $scope.oldsort = c;
         $(a.target).empty();
         $(a.target).html($compile("<input value='" + c + "' class='sort' ng-blur='updatesort($event)' / >")($scope));
         $(a.target).find(".sort").focus();
     }
-    $scope.updatesort = function (a) {
+    $scope.updatesort = function (a) {                                      //排序
         $scope.edit.action = 'edit';
         $scope.edit.sort = $(a.target).val();
         if ($scope.oldsort != $scope.edit.sort) {
@@ -40,8 +41,9 @@ myapp.controller('myCtrl', ['$scope', '$http', '$compile', 'retrieve', function 
         }
     }
 
-    $scope.togglegoods=function (a,b,c) {
+    $scope.togglegoods=function (a,b,c) {                                   //上下架（软删除）
         $scope.edit = {};
+        $scope.edit.token=$scope.info.token;
         $scope.edit.action = 'edit';
         $scope.edit.id = b;
         $scope.edit.deleted=c==0?1:0;
@@ -49,14 +51,16 @@ myapp.controller('myCtrl', ['$scope', '$http', '$compile', 'retrieve', function 
         retrieve.list($scope);
     }
 
-    $scope.delete=function (a) {
-        if(confirm("你确定要删除此商品")){
+    $scope.delete=function (a) {                                        //删除,此删除为真删除，请谨慎操作
+        if(confirm("你确定要删除此商品?")){
             $scope.edit = {};
+            $scope.edit.token=$scope.info.token;
             $scope.edit.action = 'delete';
             $scope.edit.id = a;
             retrieve.edit($scope.edit, '/backend/xuduobao/goodsedit');
             retrieve.list($scope);
         }
     }
+
 }]);
 

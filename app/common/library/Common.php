@@ -40,7 +40,7 @@ class Common
 
     public  function getAccess(){
 
-        if($GLOBALS['config']['superadmin']==$_SESSION['user_name']){
+        if($GLOBALS['config']['super_role']==$_SESSION['role_id']){
             $this->accessList= $this->infinate(YztApp::find()->toArray());
         }else{
             $arr=array();
@@ -58,7 +58,7 @@ class Common
 
     public  function check($route){
         $result=false;
-        if($GLOBALS['config']['superadmin']==$_SESSION['user_name']){
+        if($GLOBALS['config']['super_role']==$_SESSION['role_id']){
             $result=true;
         }elseif(strtolower($route->getControllerName())==strtolower($GLOBALS['config']['skip_controller'])){
             $result=true;

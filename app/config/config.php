@@ -18,6 +18,7 @@ return new \Phalcon\Config([
         'charset' => 'utf8',
     ],
     'skip_controller'=>'index',
+    'super_role'    =>  1,
 
     'application' => [
         'appDir' => APP_PATH . '/',

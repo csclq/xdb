@@ -21,18 +21,18 @@
     </head>
     <body>
         <header>
-            <div class="company"> 许多宝网络有限公司</div>
+            <div class="company">许多宝网络有限公司</div>
             <div class="user" style="position:absolute;right: 30px;top: 0px;">
                 <span>欢迎您：<span class="username">{{ user }}</span><a href="javascript:chpasswd()">修改密码</a><a href="/backend/login/logout">退出</a></span>
             </div>
         </header>
         <div class="container" style="width: 100%;padding: 0">
-            <div class="menu">
-                <div class="menu">
+            <div class="menu" style="width:191.8px; overflow: hidden;">
+                <div class="menu" style="width:217.8px;overflow-x: hidden;overflow-y: scroll">
                     {% for menu in menus if menu['show'] == 1 %}
                     <div class="item">
                         <div class="controller">{{ menu['remark'] }}</div>
-                        <ul class="action">
+                        <ul class="action" style="margin-bottom:0px;">
                             {% for action in menu['child'] if action['show'] == 1 %}
                             <li {% if menu['name'] == currentcontroller and action['name'] == currentaction %} class='active' {% endif %} ><a href="/backend/{{ menu['name'] }}/{{ action['name'] }}">{{ action['remark'] }}</a></li>
                             {% endfor %}
@@ -41,9 +41,9 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="content" ng-app="myapp" ng-init="pagenum=20">
+            <div class="content" ng-app="myapp">
                <img src="/img/in.gif"  class="shrink" />
-                <div class="main">
+                <div class="main" ng-controller="myCtrl" ng-init="info.token='{{ token }}';edit.token='{{ token }}'">
                     {{ content() }}
                 </div>
             </div>

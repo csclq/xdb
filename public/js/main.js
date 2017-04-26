@@ -31,7 +31,11 @@ myapp.service('retrieve', function ($http) {
                 'method': 'POST',
                 'data': data
             }).success(function (a) {
-                data.result=a['code'];
+               if(a['code']==0){
+                   data['uri']?(location.href=data['uri']):(location.reload());
+               }else{
+                   alert("失败: " + a['msg']);
+               }
             })
         }
     };

@@ -3,9 +3,6 @@
 namespace App\Modules\Frontend\Controllers;
 
 
-use Box\Spout\Common\Type;
-use Box\Spout\Reader\ReaderFactory;
-
 class IndexController extends ControllerBase
 {
 
@@ -30,7 +27,6 @@ class IndexController extends ControllerBase
         if ($this->request->hasFiles()) {
             $types = ['jpg', 'jpeg', 'gif', 'png'];             //上传类型
             $sizes = 6291456;                                   //上传大小
-            $info = array();
             foreach ($this->request->getUploadedFiles() as $file) {
                 $type=str_replace('image/','',$file->getType());
                 if($file->getError()){
@@ -52,7 +48,7 @@ class IndexController extends ControllerBase
                 }
                 $saveName='files/'.uniqid().'.'.$type;
                 $file->moveTo($saveName);
-                array_push($this->result['data'],'/'.$saveName);
+                array_push($this->result['data'],$saveName);
             }
             echo json_encode($this->result);
         }

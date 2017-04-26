@@ -1,4 +1,4 @@
-myapp.controller('userinfo',['$scope','$http','retrieve',function ($scope,$http,retrieve) {
+myapp.controller('myCtrl',['$scope','$http','retrieve',function ($scope,$http,retrieve) {
     $scope.info={};                                                         //筛选条件
     $scope.list=[];                                                         //数据源
     $scope.info.p=1;                                                        //分页
@@ -42,28 +42,26 @@ myapp.controller('userinfo',['$scope','$http','retrieve',function ($scope,$http,
     $scope.delete=function (id) {
         if (confirm("删除后无法恢复，确定要删除？？？？")) {
             $scope.edit.action = 'delete';
+            $scope.edit.token=$scope.info.token;
             $scope.edit.id = id;
             retrieve.edit($scope.edit, '/backend/system/roledit');
-            retrieve.list($scope);
-            $scope.edit = {};
+            // location.reload();
         }
+    }
+
+    $scope.addsub=function () {
+        $scope.edit.action = 'add';
+        $scope.edit.uri='/backend';
+        $scope.edit.token=$scope.info.token;
+        retrieve.edit($scope.edit, '/backend/system/roledit');
+        // location.reload();
+
+    }
+
+
+    $scope.loginfo=function () {
+        console.log($scope.edit)
     }
 }]);
 
-myapp.controller('addController',['$scope','$http','retrieve',function ($scope,$http,retrieve) {
-    $scope.edit={};
-    $scope.edit.result=1;
-    $scope.edit.action='add';
-    $scope.addsub=function () {
-        $scope.edit.action = 'add';
-        retrieve.edit($scope.edit, '/backend/system/roledit');
-        location.reload();
-    }
-}])
 
-
-
-function deleted() {
-    if($(".table tbody input:checkbox").is(":checked"))
-        $("#delback").submit();
-}

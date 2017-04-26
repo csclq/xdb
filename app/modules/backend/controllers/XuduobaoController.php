@@ -144,7 +144,9 @@ class XuduobaoController extends ControllerBase{
 
     }
     public function indexAction(){
-
+        $this->view->disable();
+        echo $this->session->get('_token');
+        exit("xuduobao index action");
     }
     public function menuAction(){
 
