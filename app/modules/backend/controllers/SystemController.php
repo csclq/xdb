@@ -1,15 +1,10 @@
 <?php
 namespace App\Modules\Backend\Controllers;
 
+use App\Models\YztAdmin;
 use App\Models\YztApp;
 use App\Models\YztAuth;
 use App\Models\YztRole;
-use Backend\Models\Admin;
-use Backend\Models\App;
-use Backend\Models\Depart;
-use Backend\Models\NhsO2oAdmin;
-use Backend\Models\Permission;
-use Backend\Models\Syslog;
 
 class SystemController extends ControllerBase
 {
@@ -18,23 +13,28 @@ class SystemController extends ControllerBase
     public function userAction()
     {
 
-
-
         if ($this->request->isPost()) {
             $this->view->disable();
-            $where = ' active = 1 ';
-            empty($post['username']) || $where .= " and name like '%" . $this->post['username'] . "%'";
-            empty($post['depart']) || $where .= " and depart=" . intval($this->post['depart']);
-            $limit = array('number' => $this->config->pageNum, 'offset' => (intval($this->post['p']) - 1) * $this->config->pageNum);
-            $arr = array($where, 'limit' => $limit, 'order' => 'id desc');
-            $user = Admin::find($arr);
+            $where['conditions'] = ' active = 1 ';
+            empty($this->post['username']) || $where['conditions'] .= " and username like '%" . $this->post['username'] . "%'";
+            empty($this->post['role_id']) || $where['conditions'] .= " and role_id=" . intval($this->post['role_id']);
+            $total = YztAdmin::count($where);
+            $where['limit'] = array('number' => $this->config->pageNum, 'offset' => (intval($this->post['p']) - 1) * $this->config->pageNum);
+            $user = YztAdmin::find($where);
+            $arr=[];
+            foreach ($user as $k=> $v){
+                $arr[$k]['username']=$v->getUsername();
+                $arr[$k]['id']=$v->getId();
+                $arr[$k]['status']=$v->getActive()?'正常':'冻结';
+                $arr[$k]['role']=$v->YztRole->name;
+            }
 
-            $total = Admin::count($where);
-            $info = array('total' => ceil($total / $this->config->pageNum),
-                'info' => $user->toArray());
-            echo json_encode($info);
+
+            $this->result['total']= ceil($total /$this->config->pageNum);
+            $this->result['data']= $arr;
+            echo json_encode($this->result);
         }
-        $this->view->departs = YztRole::find()->toArray();
+        $this->view->departs = YztRole::find();
 
     }
 
@@ -45,12 +45,13 @@ class SystemController extends ControllerBase
             $where ['conditions']= '1=1 ';
             empty($this->request->getPost('name')) || $where['conditions'] .= " and name like '%" . htmlspecialchars(trim($this->request->getPost('name'))) . "%'";
             empty($this->request->getPost('remark')) || $where['conditions'] .= " and remark like '%" . htmlspecialchars(trim($this->request->getPost('remark'))) . "%'";
+            $total = YztRole::count($where);
             $limit = array('number' => $this->config->pageNum,//$GLOBALS['config']['pageNum'],
                 'offset' => (intval($this->request->getPost('p')) - 1) * $this->config->pageNum);
             $where['limit'] =  $limit;
             $where['order'] = 'id desc';
             $user = YztRole::find($where);
-            $total = YztRole::count($where);
+
             $this->result['total']= ceil($total /$this->config->pageNum);
             $this->result['data']= $user->toArray();
             echo json_encode($this->result);
@@ -58,38 +59,95 @@ class SystemController extends ControllerBase
 
     }
 
-    public function appAction()
-    {
 
-    }
 
     public function roleditAction(){
         if($this->request->isPost()) {
             $this->view->disable();
-            if ($this->request->getPost('action') == 'edit' && $this->request->getPost('id')) {
+            if ($this->post['action'] == 'edit' && $this->post['id']) {
                 $data=[];
-                foreach ($_POST as $k => $v){
-                    if($k!=='action'|| $k!='result'){
-                        $data[$k]=htmlspecialchars($v);
+                foreach ($this->post as $k => $v){
+                    if($k!='action'&& $k!='result'){
+                        $data[$k]=$v;
                     }
                 }
-                YztRole::findFirst('id=' . $this->request->getPost('id'))->update($data);
-            } elseif ($this->request->getPost('action') == 'delete') {
-                YztRole::findFirst('id=' . $this->request->getPost('id'))->delete();
-            } elseif ($this->request->getPost('action') == 'add') {
-                $goods=new YztRole();
+                YztRole::findFirst('id=' . $this->post['id'])->update($data);
+            } elseif ($this->post['action'] == 'delete') {
+                YztRole::findFirst('id=' . $this->post['id'])->delete();
+            } elseif ($this->post['action'] == 'add') {
+                $model=new YztRole();
                 $data=[];
-                foreach ($_POST as $k => $v){
-                    if($k!=='action'|| $k!='result'){
-                        $data[$k]=htmlspecialchars($v);
+                foreach ($this->post as $k => $v){
+                    if($k!='action'&& $k!='result'){
+                        $data[$k]=$v;
                     }
                 }
-                $goods->create($data);
+                $model->create($data);
             }
             echo json_encode($this->result);
         }
 
     }
+
+    public function usereditAction(){
+        $admin=null;
+        if($this->dispatcher->getParam(0)){
+            $uid=intval($this->dispatcher->getParam(0));
+            $admin=YztAdmin::findFirst('id='.$uid)->toArray();
+            $this->view->actionname="编辑";
+            $this->post['action']="edit";
+        }else{
+            $this->view->actionname="添加";
+            $this->post['action']="add";
+        }
+        if($this->request->isPost()) {
+            $this->view->disable();
+            if ($this->post['action'] == 'edit' && $uid) {
+                $data=[];
+                foreach ($this->post as $k => $v){
+                    if($k=='password' && !empty($v)){
+                        $data[$k]=md5(trim($v));
+                    }elseif($k=='password' && empty($v)){
+                       continue;
+                    }elseif($k!='action'&& $k!='result'){
+                        $data[$k]=$v;
+                    }
+                }
+
+
+                YztAdmin::findFirst('id=' . $uid)->update($data);
+            } elseif ($this->post['action'] == 'delete') {
+                YztAdmin::findFirst('id=' . $uid)->delete();
+
+            } elseif ($this->post['action'] == 'add') {
+                $model=new YztAdmin();
+                $data=[];
+                foreach ($this->post as $k => $v){
+                    if($k=='password' && !empty($v)){
+                        $data[$k]=md5(trim($v));
+                    }elseif($k=='password' && empty($v)){
+                        $data[$k]=md5('123456');
+                    }elseif($k!='action'&& $k!='result'){
+                        $data[$k]=$v;
+                    }
+                }
+              $model->create($data);
+
+            }
+            if($this->post['result']=='jump'){
+                $this->response->redirect('/backend/system/user');
+            }else{
+                echo json_encode($this->result);
+            }
+
+        }
+
+        $this->view->departs = YztRole::find();
+        $this->view->admin=$admin;
+    }
+
+
+
 
 
 
@@ -206,52 +264,10 @@ class SystemController extends ControllerBase
     }
 
 
-    public function adddepartAction()
-    {                                            //添加新部门
-        if ($this->request->isPost()) {
-            $this->view->disable();
-            if (stristr($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded')) {
-                $post = $_POST;
-            } elseif (stristr($_SERVER['CONTENT_TYPE'], 'application/json')) {
-                $post = json_decode(file_get_contents("php://input"), true);
-            }
-            $admin = new Depart();
-            $admin->setAddTime();
-            $admin->setName(htmlspecialchars(trim($post['name'])));
-            $admin->setRemark(htmlspecialchars(trim($post['remark'])));
-
-            $admin->save();
-            if ($admin->getId()) {
-                echo 1;
-            } else {
-                echo 0;
-            }
-            exit;
-        }
-    }
 
 
-    public function deleteUserAction()
-    {                                     //删除管理员
-        if ($this->request->isPost()) {
-            $this->view->disable();
-            $post = json_decode(file_get_contents("php://input"), true);
-            $model = Admin::findFirst(intval($post['id']));
-            $model->delete();
-            exit;
-        }
-    }
 
-    public function deleteDepartAction()
-    {                               //删除部门
-        if ($this->request->isPost()) {
-            $this->view->disable();
-            $post = json_decode(file_get_contents("php://input"), true);
-            $model = Depart::findFirst(intval($post['id']));
-            $model->delete();
-            exit;
-        }
-    }
+
 
     public function permissionAction()
     {                                //权限管理
@@ -295,32 +311,11 @@ class SystemController extends ControllerBase
             $app->setShow($this->request->getPost('show','int'));
             $app->setLevel(intval($this->request->getPost('pid')) > 0 ? 2 : 1);
             $app->save();
+            echo json_encode($this->result);
         }
     }
 
-    public function chpassAction()
-    {              //密码修改
-        if ($this->request->isPost()) {
-            $this->view->disable();
-            $oldpass=trim($this->request->getPost('oldpass'));
-            $newpass=trim($this->request->getPost('newpass'));
-            if(empty($oldpass)||empty($newpass)){
-                echo "<script>alert('密码不能为空'),history.back();</script>";
-                exit;
-            }
-            $user=Admin::findFirst($this->uid);
-            if(md5($oldpass)!=$user->getPasswd()){
-                echo "<script>alert('原密码错误'),history.back();</script>";
-                exit;
-            }
-            $user->setPasswd(md5($newpass));
-            $user->update();
-            echo "<script>alert('密码修改成功'),history.back();</script>";
-            exit;
-        }else{
-            $this->response->setStatusCode(404, "Not Found");
-        }
-    }
+
 
     public function operlogAction(){                //系统操作日志
         if ($this->request->isPost()) {

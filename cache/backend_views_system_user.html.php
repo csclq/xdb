@@ -4,9 +4,9 @@
             <label>名称: <input  class="input" ng-model="info.username" /> </label>
             <label>部门:
                 <select ng-model="info.role_id">
-                    {% for depart in departs %}
-                    <option value="{{ depart.id }}">{{ depart.name }}</option>
-                    {% endfor %}
+                    <?php foreach ($departs as $depart) { ?>
+                    <option value="<?= $depart->id ?>"><?= $depart->name ?></option>
+                    <?php } ?>
                 </select>
             </label>
             <label><span class="button" ng-click="search()"> 查 找 </span> </label>
@@ -43,7 +43,7 @@
             </tbody>
         </table>
     </div>
-    {{ partial('public/paging') }}
+    <?= $this->partial('public/paging') ?>
 
 </div>
 

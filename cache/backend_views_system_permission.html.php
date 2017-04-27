@@ -1,6 +1,6 @@
 <div>
     <div class="permission">
-        {% if role_id %}<form ng-submit="editapp()">{% endif %}
+        <?php if ($role_id) { ?><form ng-submit="editapp()"><?php } ?>
             <label style="display: inline-block;height: 30px;line-height: 30px;font-size: 18px;padding: 0 4px;background: #00a4ff;color:#fff;box-sizing: border-box"><input type="checkbox" id="all"> 全选 </label><span ng-click="add(0)"> 添加控制器</span>
             <div  style="background: #00A0E4;color: #fff" ng-repeat="controllers in list">
                 <label  style="display: inline-block;height: 30px;line-height: 30px;font-size: 18px;margin: 0 4px" class="controller"><input name="app"   ng-click="selectall($event,0)"  type="checkbox" value="{_ controllers.id _}"  ng-if="controllers.checked"  checked /> <input ng-click="selectall($event,0)" name="app" type="checkbox" value="{_ controllers.id _}"  ng-if="!controllers.checked"   />{_ controllers.remark _}</label><span ng-click="add(controllers.id)">添加方法</span>
@@ -10,8 +10,8 @@
             <br/>
 
             </div>
-             {% if role_id %} <input type="submit"  style="width: 150px;height: 30px;border-radius: 10px;background: #00a4ff;color:#fff;font-size: 18px;cursor: pointer;text-align: center"  value="确 &nbsp; &nbsp; &nbsp; &nbsp;   定"/>{% endif %}
-            {% if role_id %}</form>{% endif %}
+             <?php if ($role_id) { ?> <input type="submit"  style="width: 150px;height: 30px;border-radius: 10px;background: #00a4ff;color:#fff;font-size: 18px;cursor: pointer;text-align: center"  value="确 &nbsp; &nbsp; &nbsp; &nbsp;   定"/><?php } ?>
+            <?php if ($role_id) { ?></form><?php } ?>
     </div>
 
     <div class="add">

@@ -114,7 +114,7 @@ class XuduobaoController extends ControllerBase{
             if ($this->request->getPost('action') == 'edit' && $this->request->getPost('id')) {
                $data=[];
                foreach ($_POST as $k => $v){
-                   if($k!=='action'|| $k!='result'){
+                   if($k!='action'&& $k!='result'){
                        $data[$k]=htmlspecialchars($v);
                    }
                }
@@ -125,7 +125,7 @@ class XuduobaoController extends ControllerBase{
                 $goods=new XdbProduct();
                 $data=[];
                 foreach ($_POST as $k => $v){
-                    if($k!=='action'|| $k!='result'){
+                    if($k!='action'&& $k!='result'){
                         $data[$k]=htmlspecialchars($v);
                     }
                 }

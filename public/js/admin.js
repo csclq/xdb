@@ -50,14 +50,12 @@ myapp.controller('myCtrl',['$scope','$http','retrieve',function ($scope,$http,re
 
     $scope.addsub=function () {
         $scope.edit.action = 'add';
+        $scope.edit.uri='/backend';
         $scope.edit.token=$scope.info.token;
         retrieve.edit($scope.edit, '/backend/system/roledit');
+
     }
 
-
-    $scope.loginfo=function () {
-        console.log($scope.edit)
-    }
 }]);
 
 
