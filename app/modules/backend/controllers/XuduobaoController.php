@@ -103,12 +103,14 @@ class XuduobaoController extends ControllerBase{
 
     }
     public function goodseditAction(){
+        $product=null;
         if(is_numeric($this->dispatcher->getParam(0))){
-            $this->view->info= XdbProduct::findFirst('id=' . $this->dispatcher->getParam(0));
-            $this->view->action='edit';
-        }elseif($this->dispatcher->getParam(0)=='add'){
-            $this->view->action='add';
+            $product= XdbProduct::findFirst('id=' . $this->dispatcher->getParam(0))->toArray();
+            $this->view->action='编辑';
+        }else{
+            $this->view->action='添加';
         }
+        $this->view->cates=XdbCategory::find();
         if($this->request->isPost()) {
             $this->view->disable();
             if ($this->request->getPost('action') == 'edit' && $this->request->getPost('id')) {
@@ -132,7 +134,7 @@ class XuduobaoController extends ControllerBase{
                 $goods->create($data);
             }
         }
-
+        $this->view->goods=$product;
     }
     public function goodssoldAction(){
 
@@ -187,12 +189,9 @@ class XuduobaoController extends ControllerBase{
                 $where['conditions'].=" and submitted_at >= '".$this->request->getPost('time1')."' and  submitted_at <= '".$this->request->getPost('time2')."'";
             }
 
-
-
             $total=XdbOrder::count($where);
             $where['limit']=array('number' => $this->config->pageNum,//$GLOBALS['config']['pageNum'],
                 'offset' => (intval($this->request->getPost()['p']) - 1) * $this->config->pageNum);
-
 
             $data=XdbOrder::find($where);
             $data=$data->toArray();
@@ -200,10 +199,6 @@ class XuduobaoController extends ControllerBase{
             $this->result['data']=$data;
             echo json_encode($this->result);
         }
-
-
-
-
 
     }
     public function orderoutAction(){

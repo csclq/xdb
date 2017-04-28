@@ -17,9 +17,14 @@ class IndexController extends ControllerBase{
 
     }
 
-    public function testAction(){
+    public function cacheAction(){
         $this->view->disable();
-        echo __METHOD__;
+        if($dir=opendir($this->config->application['cacheDir'])){
+            while($file=readdir($dir)){
+                if(is_file($this->config->application['cacheDir'].$file))
+               unlink($this->config->application['cacheDir'].$file);
+            }
+        }
     }
 
     public function chpassAction()

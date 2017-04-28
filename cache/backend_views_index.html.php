@@ -21,9 +21,9 @@
     </head>
     <body>
         <header>
-            <div class="company">许多宝网络有限公司</div>
+            <div class="company">灯芯网络有限公司</div>
             <div class="user" style="position:absolute;right: 30px;top: 0px;">
-                <span>欢迎您：<span class="username"><?= $user ?></span><a href="javascript:chpasswd()">修改密码</a><a href="/backend/login/logout">退出</a></span>
+                <span>欢迎您：<span class="username"><?= $user ?></span><a href="javascript:chpasswd()">修改密码</a><a href="javascript:delcache()">清除缓存</a><a href="/backend/login/logout">退出</a></span>
             </div>
         </header>
         <div class="container" style="width: 100%;padding: 0">

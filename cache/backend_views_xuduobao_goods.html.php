@@ -48,7 +48,7 @@
                     {_ product.sort _}
                 </td>
                 <td>
-                    <img src="/{_ product.pic_url _}" style="width:40px;height:40px;padding:1px;border:1px solid #ccc;"  />
+                    <img ng-src="{_ product.pic_url _}" style="width:40px;height:40px;padding:1px;border:1px solid #ccc;"  />
                 </td>
                 <td>
                     {_ product.price _}

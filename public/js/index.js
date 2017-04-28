@@ -47,3 +47,9 @@ $(function(){
 function chpasswd() {
     $(".chpass").show();
 }
+
+function delcache() {
+    $.get("/backend/index/cache",function () {
+        alert("清除缓存成功");
+    })
+}

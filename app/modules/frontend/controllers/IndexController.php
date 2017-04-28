@@ -3,6 +3,8 @@
 namespace App\Modules\Frontend\Controllers;
 
 
+use App\Models\XdbProduct;
+
 class IndexController extends ControllerBase
 {
 
@@ -19,6 +21,8 @@ class IndexController extends ControllerBase
 
     public function testAction()
     {
+
+
     }
 
     public function uploadAction()                          //图片上传

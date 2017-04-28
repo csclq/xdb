@@ -3,9 +3,9 @@
         {% if role_id %}<form ng-submit="editapp()">{% endif %}
             <label style="display: inline-block;height: 30px;line-height: 30px;font-size: 18px;padding: 0 4px;background: #00a4ff;color:#fff;box-sizing: border-box"><input type="checkbox" id="all"> 全选 </label><span ng-click="add(0)"> 添加控制器</span>
             <div  style="background: #00A0E4;color: #fff" ng-repeat="controllers in list">
-                <label  style="display: inline-block;height: 30px;line-height: 30px;font-size: 18px;margin: 0 4px" class="controller"><input name="app"   ng-click="selectall($event,0)"  type="checkbox" value="{_ controllers.id _}"  ng-if="controllers.checked"  checked /> <input ng-click="selectall($event,0)" name="app" type="checkbox" value="{_ controllers.id _}"  ng-if="!controllers.checked"   />{_ controllers.remark _}</label><span ng-click="add(controllers.id)">添加方法</span>
+                <label  style="display: inline-block;height: 30px;line-height: 30px;font-size: 18px;margin: 0 4px" class="controller"><input name="app"   ng-click="selectall($event,0)"  type="checkbox" value="{_ controllers.id _}"    ng-checked="controllers.checked" />  {_ controllers.remark _}</label><span ng-click="add(controllers.id)">添加方法</span>
             <div class="action">
-                <label style="display: inline-block;height: 30px;line-height: 30px;margin: 0 10px" ng-repeat="actions in controllers.child"><input name="app" ng-click="selectall($event,1)" type="checkbox" value="{_ actions.id _}"  ng-if="actions.checked"  checked /> <input name="app" ng-click="selectall($event,1)" type="checkbox" value="{_ actions.id _}"  ng-if="!actions.checked"   /> {_ actions.remark _}</label>
+                <label style="display: inline-block;height: 30px;line-height: 30px;margin: 0 10px" ng-repeat="actions in controllers.child"><input name="app" ng-click="selectall($event,1)" type="checkbox" value="{_ actions.id _}"    ng-checked="actions.checked" />  {_ actions.remark _}</label>
             </div>
             <br/>
 

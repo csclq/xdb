@@ -4,6 +4,7 @@
             <label>名称: <input  class="input" ng-model="info.username" /> </label>
             <label>部门:
                 <select ng-model="info.role_id">
+                    <option value="0">全部</option>
                     {% for depart in departs %}
                     <option value="{{ depart.id }}">{{ depart.name }}</option>
                     {% endfor %}
