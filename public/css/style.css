@@ -252,3 +252,6 @@ input.sort{
     border: 1px solid #aaa;
     border-radius:4px;
 }
+ label input{
+     display: none;
+ }

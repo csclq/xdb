@@ -74,8 +74,12 @@ $di->setShared('weixin', function () {
 });
 
 
-$di->setShared('xlsx', function () {
+$di->setShared('xlsxWriter', function () {
     return \Box\Spout\Writer\WriterFactory::create(\Box\Spout\Common\Type::XLSX);
+});
+
+$di->setShared('xlsxReader', function () {
+    return \Box\Spout\Reader\ReaderFactory::create(\Box\Spout\Common\Type::XLSX);
 });
 
 $di->setShared('common',function (){

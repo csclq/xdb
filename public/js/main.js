@@ -40,3 +40,42 @@ myapp.service('retrieve', function ($http) {
         }
     };
 })
+
+myapp.directive('upload',['$http',function ($http) {
+    return {
+        restrict:'EA',
+        replace:'true',
+        scope:{'pic_url':'=upimg'},
+        template:'<div><p> </p><label><input type="file"  multiple /><i class="fa fa-picture-o fa-5x"></i> </label></div>',
+        link:function (scope,element) {
+            element.find("input").bind("change",function (e) {
+                scope.pic_url=[];
+                var files=e.target.files;
+                var fd=new FormData();
+                for(i in files){
+                    fd.append("file[]",files[i]);
+                }
+                $.ajax({                                    //angularjs的$http上传formdata有问题，暂时使用jquery的方法
+                    type:'post',
+                    url:'/index/upload',
+                    data:fd,
+                    dataType:'json',
+                    processData: false,
+                    contentType: false,
+                    success:function (res) {
+                        if(res.code==0){
+                            for(i in res.data){
+                                scope.pic_url.push(res.data[i])
+                                element.find("p").append("<img src='"+res.data[i]+"' style='width:100px;margin: 4px' />");
+                            }
+                            console.log(scope.pic_url)
+                        }else{
+                            alert(res.msg)
+                        }
+                    }
+                })
+            })
+        }
+
+    }
+}])

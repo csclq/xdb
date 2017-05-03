@@ -50,18 +50,18 @@ class ControllerBase extends Controller
             }
         }
 
-        if($this->request->isGet()){
+        if ($this->request->isGet()) {
             $token = bin2hex(random_bytes(10));
             $this->view->token = $token;
             $this->session->set('_token', $token);
         }
 
-if (!$this->common->check($this->dispatcher)) {
-    return $this->dispatcher->forward([
-        'controller' => 'index',
-        'action' => 'index'
-    ]);
-    exit ("<script>alert('您的权限不足');history.back()</script>");
-}
-}
+        if (!$this->common->check($this->dispatcher)) {
+            return $this->dispatcher->forward([
+                'controller' => 'index',
+                'action' => 'index'
+            ]);
+            exit ("<script>alert('您的权限不足');history.back()</script>");
+        }
+    }
 }

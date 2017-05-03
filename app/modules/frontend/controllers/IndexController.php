@@ -52,10 +52,26 @@ class IndexController extends ControllerBase
                 }
                 $saveName='files/'.uniqid().'.'.$type;
                 $file->moveTo($saveName);
-                array_push($this->result['data'],$saveName);
+                array_push($this->result['data'],'/'.$saveName);
             }
             echo json_encode($this->result);
         }
+    }
+
+
+    public function xlsxAction(){
+//        $this->view->disable();
+//        $cation=['姓名','年龄',"身高"];
+//        $content=[
+//            ['张三',25,157],
+//            ['李四',26,158],
+//            ['王五',27,159],
+//            ['赵六',28,160],
+//        ];
+//        $this->xlsx->openToBrowser();
+//        $this->xlsx->addRow($cation);
+//        $this->xlsx->addRows($content);
+//        $this->xlsx->close();
     }
 
 

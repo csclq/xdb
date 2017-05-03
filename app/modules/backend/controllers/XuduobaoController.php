@@ -4,6 +4,7 @@ namespace App\Modules\Backend\Controllers;
 
 use App\Models\XdbCategory;
 use App\Models\XdbOrder;
+use App\Models\XdbOrderPayment;
 use App\Models\XdbProduct;
 
 class XuduobaoController extends ControllerBase{
@@ -203,9 +204,134 @@ class XuduobaoController extends ControllerBase{
     }
     public function orderoutAction(){
 
+        $this->view->disable();
+        $this->xlsxWriter->openToBrowser('excel.xlsx');
+
+
+
+        $day = date("Y-m-d 0:0:0", strtotime("-2 day"));
+        $where['conditions']=' submitted_at <:day: and active=1 and send=""';
+        $where['bind']=['day'=>$day];
+        $orders=XdbOrder::find($where)->toArray();
+
+        $caption = [
+            '订单号','品名', '数量', '重量', '备注', '分单数量', '代收货款','到付款',
+           '发件网点', '收件人姓名','收件人省','收件人市', '收件人区', '收件人地址',  '收件人电话', '收件人邮编',
+            '发件人姓名', '发件人省','发件人市','发件人区',  '发件人地址', '发件人电话', '发件人邮编', '始发地',
+            '目的地', '长',  '宽', '高', '费用总计'
+        ];
+        $this->xlsxWriter->addRow($caption);
+
+        $i = 0;
+        foreach ($orders as $k => $v) {
+            if ($orders[$k]['paid']) {
+                $productnum = count(explode(',', $orders[$k]['product_id']));
+                $paidnum = count(explode(',', $orders[$k]['paid']));
+                if ($paidnum >= $productnum) {
+                    $orders[$k]['goods'] = str_replace(',', '/', $orders[$k]['product_id']);
+                    $orders[$k]['number'] = $productnum;
+                } else {
+                    $orders[$k]['goods'] = str_replace(',', '/', $orders[$k]['paid']);
+                    $orders[$k]['number'] = $paidnum;
+                }
+            } else {
+                $i++;
+                $openid = 'ofLKNwjl4M52phuU39t7BLRluzQg';
+                $nickname = '张明';
+                $avatar = 'http://wx.qlogo.cn/mmopen/ajNVdqHZLLBREBZhyp7uW2g4Mr2vgsCiaLPG1Ezd8pgwepoSwZPgPrlVZkVoMEVrfHarEGxSe1K59YIE9T21DpA/132';
+                $orderid = $v['id'];
+                $tran = '50042820012017032343' . substr((time() + $i) . '', 2);
+                $paid = 19.9;
+                $paid_at = date('Y-m-d H:i:s');
+                $refund = 0;
+                $refund_applied = 0;
+                $last_id = $v['id'];
+                $goods_id = substr($orders[$k]['product_id'], 0, strpos($orders[$k]['product_id'], ','));
+
+//                $order=XdbOrder::findFirst('id='.$v['id']);
+//                $order->setPaid($goods_id);
+//                $order->setStatus(2);
+//                $order->update();
+//                $payment=new XdbOrderPayment();
+//                $payment->setOpenid($openid);
+//                $payment->setNickname($nickname);
+//                $payment->setAvatar($avatar);
+//                $payment->setOrderId($orderid);
+//                $payment->setTransactionId($tran);
+//                $payment->setPaid($paid);
+//                $payment->setPaidAt($paid_at);
+//                $payment->setGoodsId($goods_id);
+//                $payment->setRefunded($refund);
+//                $payment->setRefundApplied($refund_applied);
+//                $payment->setLastId($last_id);
+//
+//                $payment->save();
+
+
+                $orders[$k]['goods'] = $goods_id;
+                $orders[$k]['number'] = 1;
+            }
+
+
+        }
+
+        foreach ($orders as $v) {
+            $arr= array(
+                time() . '_' . $v['id'],
+                $v['goods'],
+                $v['number'],
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                $v['fullname'],
+                 $v['province'],
+                $v['city'],
+                 $v['district'],
+                $v['address'],
+                $v['mobile'],
+                '',
+               '苏州施得保生物科技有限公司',
+               '江苏省',
+                '苏州市',
+               '工业园区',
+               '通园路199号联发工业园6幢3层',
+                '18852996322',
+                '', '', '', '', '', '', ''
+            );
+            $this->xlsxWriter->addRow($arr);
+        }
+
+        $this->xlsxWriter->close();
+
+
+
+
     }
     public function ordersendAction(){
-
+        if($this->request->hasFiles()){
+            $this->xlsxReader->open($this->request->getUploadedFiles()[0]->getTempName());
+            foreach ($this->xlsxReader->getSheetIterator() as $sheet) {
+                foreach ($sheet->getRowIterator() as $row) {
+                    $order=explode('_',$row[0]);
+                    if($order[1]){
+                        $payment=XdbOrderPayment::find('last_id='.$order[1]);
+                        foreach ($payment as $v){
+                            $v->setExpressCourier('中通');
+                            $v->setExpressNo($row[1]);
+                            $v->setStatus(2);
+                            $v->setSendTime(time());
+                            $v->update();
+                        }
+                        $orders=XdbOrder::findFirst('id='.$order[1]);
+                        $orders->setSend($row[22]);
+                        $orders->update();
+                    }
+                }
+            }
+        }
     }
     public function orderstatus1Action(){
 
