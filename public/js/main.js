@@ -48,8 +48,9 @@ myapp.directive('upload',['$http',function ($http) {
         scope:{'pic_url':'=upimg'},
         template:'<div><p> </p><label><input type="file"  multiple /><i class="fa fa-picture-o fa-5x"></i> </label></div>',
         link:function (scope,element) {
+            scope.pic_url=[];
             element.find("input").bind("change",function (e) {
-                scope.pic_url=[];
+
                 var files=e.target.files;
                 var fd=new FormData();
                 for(i in files){
