@@ -6,6 +6,8 @@ use App\Models\XdbCategory;
 use App\Models\XdbOrder;
 use App\Models\XdbOrderPayment;
 use App\Models\XdbProduct;
+use App\Models\XdbStarRule;
+use App\Models\YztWechatMessage;
 
 class XuduobaoController extends ControllerBase{
     public function basicAction(){
@@ -98,6 +100,17 @@ class XuduobaoController extends ControllerBase{
 
     }
     public function goodscategoryAction(){
+        $where['order']='deleted';
+        $cates=XdbCategory::find($where);
+            if($this->request->isPost()){
+                $this->view->disable();
+
+                var_dump($this->post);
+
+
+            }
+
+        $this->view->cates=$cates->toArray();
 
     }
     public function goodscycleAction(){
@@ -107,33 +120,43 @@ class XuduobaoController extends ControllerBase{
         $product=null;
         if(is_numeric($this->dispatcher->getParam(0))){
             $product= XdbProduct::findFirst('id=' . $this->dispatcher->getParam(0))->toArray();
-            $this->view->action='编辑';
+            $this->view->actionname='编辑';
+            $this->view->action='edit';
         }else{
-            $this->view->action='添加';
+            $this->view->actionname='添加';
+            $this->view->action='add';
         }
-        $this->view->cates=XdbCategory::find();
+        $this->view->cates=XdbCategory::find()->toArray();
         if($this->request->isPost()) {
             $this->view->disable();
-            if ($this->request->getPost('action') == 'edit' && $this->request->getPost('id')) {
-               $data=[];
-               foreach ($_POST as $k => $v){
-                   if($k!='action'&& $k!='result'){
-                       $data[$k]=htmlspecialchars($v);
-                   }
+
+            if ($this->request->getPost('action') == 'edit' ) {
+               $data=$this->post;
+               unset($data['action']);
+               if(!$this->post['id']){
+                   isset($data['new']) || $data['new']=0;
+                   isset($data['fashion']) || $data['fashion']=0;
+                   isset($data['hot']) || $data['hot']=0;
                }
-              XdbProduct::findFirst('id=' . $this->request->getPost('id'))->update($data);
+
+                $data['id']=$this->post['id']??$this->dispatcher->getParam(0,'int');
+             XdbProduct::findFirst('id=' . $data['id'])->update($data);
+              is_numeric($this->dispatcher->getParam(0))||
+              exit(json_encode($this->result));
             } elseif ($this->request->getPost('action') == 'delete') {
                 XdbProduct::findFirst('id=' . $this->request->getPost('id'))->delete();
+
+                exit(json_encode($this->result));
             } elseif ($this->request->getPost('action') == 'add') {
                 $goods=new XdbProduct();
-                $data=[];
-                foreach ($_POST as $k => $v){
-                    if($k!='action'&& $k!='result'){
-                        $data[$k]=htmlspecialchars($v);
-                    }
-                }
-                $goods->create($data);
+                $data=$this->post;
+                unset($data['action']);
+               isset($data['new']) || $data['new']=0;
+               isset($data['fashion']) || $data['fashion']=0;
+                isset($data['hot']) || $data['hot']=0;
+               $goods->create($data);
             }
+            $this->response->redirect('/backend/xuduobao/goods');
         }
         $this->view->goods=$product;
     }
@@ -164,7 +187,18 @@ class XuduobaoController extends ControllerBase{
 
     }
     public function orderdetailAction(){
+        $id=$this->dispatcher->getParam(0,'int');
+        $id || exit("<script>alert('缺少必要的参数');history.back();</script>");
+        $order=XdbOrder::findFirst('id='.$id);
+        $product=XdbProduct::find('id in ('.$order->getProductId().')');
 
+        $payment=XdbOrderPayment::find('last_id = '.$id.' and paid > 0 ');
+
+
+
+        $this->view->payments=$payment;
+        $this->view->products=$product->toArray();
+        $this->view->order=$order;
     }
     public function orderlistAction(){
         if($this->request->isPost()){
@@ -173,12 +207,8 @@ class XuduobaoController extends ControllerBase{
             $where['order']="id desc";
             $where['conditions']='active=1 ';
             $this->request->getPost('id')&& $where['conditions']=" id={$this->request->getPost('id')} ";
-            if($this->request->getPost('filter')){
-                if(preg_match('/^1[1|3|5|7|8|9][0-9]{9}$/',$this->request->getPort('filter'))){
-                    $where['conditions']=" mobile={$this->request->get('filter')} ";
-                }else{
-                    $where['conditions'].=" and (fullname like '%".$this->request->get('filter'). "%' or nickname like '%".$this->request->get('filter'). "%' or address like '%".$this->request->get('filter'). "%' ) ";
-                }
+            if(isset($this->post['searchvalue']) && $this->post['searchvalue'] ){
+                    $where['conditions'].=" and  ".$this->post['searchname'] ." like '%".$this->post['searchvalue']."%' ";
             }
             if($this->request->getPost('time1')&& empty($this->request->getPost('time2'))){
                     $where['conditions'].=" and submitted_at >= '".$this->request->getPost('time1')."' ";
@@ -193,11 +223,21 @@ class XuduobaoController extends ControllerBase{
             $total=XdbOrder::count($where);
             $where['limit']=array('number' => $this->config->pageNum,//$GLOBALS['config']['pageNum'],
                 'offset' => (intval($this->request->getPost()['p']) - 1) * $this->config->pageNum);
-
             $data=XdbOrder::find($where);
             $data=$data->toArray();
+            $price=0;
+            foreach ($data as $k => $v){
+                $price+=$v['unit_price']*$v['buy_number'];
+                $rule['conditions']=' hit_number <= :hit: or buy_number <= :buy:';
+                $rule['bind']=['hit'=>$v['hit_number'],'buy'=>$v['buy_number']];
+                $star=XdbStarRule::findFirst($rule);
+                $data[$k]['star']=$star?$star->getStar():0;
+            }
+
             $this->result['total']=ceil($total/$this->config->pageNum);
             $this->result['data']=$data;
+            $this->result['totalprice']=$price;
+            $this->result['count']=$total;
             echo json_encode($this->result);
         }
 
@@ -353,6 +393,27 @@ class XuduobaoController extends ControllerBase{
     }
     public function shop_editAction(){
 
+    }
+
+    public function messageeditAction(){
+            if($this->request->isPost()){
+                $this->view->disable();
+                if($this->post['action']=='edit'){
+                    $msg=new YztWechatMessage();
+                    unset($this->post['action']);
+                    if(!$msg->save($this->post)){
+                        $this->result['code']=1;
+                        $this->result['msg']="消息回复设置失败";
+                    }
+                }elseif($this->post['action']=='delete'){
+                    YztWechatMessage::findFirst('id='.$this->post['id'])->delete();
+                }
+
+              exit(json_encode($this->result));
+            }
+
+        $msg=YztWechatMessage::find();
+        $this->view->msgs=$msg;
     }
 
 }

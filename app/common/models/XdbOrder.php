@@ -914,6 +914,7 @@ class XdbOrder extends \Phalcon\Mvc\Model
     {
         $this->setSchema("gxc");
         $this->useDynamicUpdate(true);
+        $this->hasMany('id', 'App\Models\XdbOrderHit', 'order_id', ['alias' => 'XdbOrderHit']);
     }
 
     /**

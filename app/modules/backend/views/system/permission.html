@@ -1,9 +1,11 @@
-<div>
+<div class="wrapper main-wrapper wrapper-content">
     <div class="permission">
         {% if role_id %}<form ng-submit="editapp()">{% endif %}
-            <label style="display: inline-block;height: 30px;line-height: 30px;font-size: 18px;padding: 0 4px;background: #00a4ff;color:#fff;box-sizing: border-box"><input type="checkbox" id="all"> 全选 </label><span ng-click="add(0)"> 添加控制器</span>
-            <div  style="background: #00A0E4;color: #fff" ng-repeat="controllers in list">
-                <label  style="display: inline-block;height: 30px;line-height: 30px;font-size: 18px;margin: 0 4px" class="controller"><input name="app"   ng-click="selectall($event,0)"  type="checkbox" value="{_ controllers.id _}"    ng-checked="controllers.checked" />  {_ controllers.remark _}</label><span ng-click="add(controllers.id)">添加方法</span>
+            <label style="display: inline-block;height: 30px;line-height: 30px;font-size: 18px;padding: 0 4px;background: #fff;color:#999;box-sizing: border-box">
+                <input type="checkbox" id="all"> 全选 </label><span ng-click="add(0)"> 添加控制器</span>
+            <div  style="background: #fff;color: #999 ;margin-left: 10px" ng-repeat="controllers in list">
+                <label  style="display: inline-block;height: 30px;line-height: 30px;font-size: 18px;margin: 0 4px" class="controller"><input name="app"   ng-click="selectall($event,0)"  type="checkbox" value="{_ controllers.id _}"    ng-checked="controllers.checked" />  {_ controllers.remark _}</label>
+                <span ng-click="add(controllers.id)" style="color:#3718FF;cursor: pointer">添加方法</span>
             <div class="action">
                 <label style="display: inline-block;height: 30px;line-height: 30px;margin: 0 10px" ng-repeat="actions in controllers.child"><input name="app" ng-click="selectall($event,1)" type="checkbox" value="{_ actions.id _}"    ng-checked="actions.checked" />  {_ actions.remark _}</label>
             </div>
@@ -17,10 +19,10 @@
     <div class="add">
         <form name="addForm" ng-submit="addsub()">
             <table>
-                <caption>添 加 应 用</caption>
+                <tr><td colspan="2" style="font-size:20px;font-weight: 600;">添 加 应 用</td></tr>
                 <tr>
                     <th>名称(英文)</th>
-                    <td><input class="biginput" ng-model="edit.name" name="name" required ng-minlength="2" maxlength="10"
+                    <td><input class="biginput" ng-model="edit.name" name="name" required ng-minlength="2" maxlength="20"
                                ng-class="{'error':addForm.name.$invalid}"/></td>
                 </tr>
                 <tr>
@@ -31,7 +33,7 @@
                 </tr>
                 <tr>
                     <th>是否显示</th>
-                    <td><input type="radio" ng-model="edit.show" value="1" name="show" checked/> 是 &nbsp;&nbsp;<input
+                    <td style="text-align: left"><input type="radio" ng-model="edit.show" value="1" name="show" checked/> 是 &nbsp;&nbsp;<input
                             type="radio" ng-model="edit.show" value="0" name="show"/> 否
                     </td>
                 </tr>

@@ -54,6 +54,7 @@ footer{
     width: 10vw;
     background: #222D32;
     height: 100%;
+    overflow-y:auto;
 }
 .content{
     width: 90vw;
@@ -63,7 +64,7 @@ footer{
 }
 .shrink{
     width: 10px;
-    height: 100%;
+    height: auto;
     cursor: pointer;
 }
 .main{
@@ -252,6 +253,7 @@ input.sort{
     border: 1px solid #aaa;
     border-radius:4px;
 }
- label input{
-     display: none;
- }
+
+label input[type="file"]{
+    display: none;
+}

@@ -3,7 +3,10 @@
 namespace App\Modules\Frontend\Controllers;
 
 
-use App\Models\XdbProduct;
+use App\Models\XdbCategory;
+use App\Models\XdbOrder;
+use App\Models\XdbOrderPayment;
+use App\Models\YztGxcRepastCate;
 
 class IndexController extends ControllerBase
 {
@@ -19,11 +22,7 @@ class IndexController extends ControllerBase
         phpinfo();
     }
 
-    public function testAction()
-    {
 
-
-    }
 
     public function uploadAction()                          //图片上传
     {
@@ -58,20 +57,46 @@ class IndexController extends ControllerBase
         }
     }
 
+    public function notifyAction(){                         //微信通知处理
 
-    public function xlsxAction(){
-//        $this->view->disable();
-//        $cation=['姓名','年龄',"身高"];
-//        $content=[
-//            ['张三',25,157],
-//            ['李四',26,158],
-//            ['王五',27,159],
-//            ['赵六',28,160],
-//        ];
-//        $this->xlsx->openToBrowser();
-//        $this->xlsx->addRow($cation);
-//        $this->xlsx->addRows($content);
-//        $this->xlsx->close();
+        $response = $this->weixin->payment->handleNotify(function($notify, $successful){
+           $payid=substr($notify->out_trade_no,11);
+           $payment=XdbOrderPayment::findFirst('id='.$payid);
+           if(!$payment)
+               return false;
+           $payment->setPaidAt(date("Y-m-d H:i:s"));
+           $payment->setPaid($notify->total_fee);
+           $payment->setTransactionId($notify->transaction_id);
+           $payment->save();
+           $payorder=XdbOrder::findFirst('id='.$payment->getLastId());
+           $paid=explode(',',$payorder->getPaid());
+           if(count($paid)<1){
+               $payorder->setPaid($payment->getGoodsId());
+           }else{
+               if(!in_array($payment->getGoodsId(),$paid)){
+                    array_push($paid,$payment->getGoodsId());
+                   $payorder->setPaid(implode(',',$paid));
+               }
+           }
+           $payorder->setBuyNumber($payorder->getBuyNumber()+1);
+           $payorder->setStatus(1);
+           $payorder->save();
+            return true;
+        });
+        $response->send();
+    }
+
+
+    public function testAction(){
+        $this->view->disable();
+        echo "<pre>";
+//        var_dump(get_class_methods($this->transactionManager));
+        $this->db->begin();
+        $cate=XdbCategory::findFirst('id=1');
+        $cate->setDeleted(1);
+        var_dump($cate->save());
+        $this->db->rollback();
+
     }
 
 

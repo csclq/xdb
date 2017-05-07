@@ -23,10 +23,24 @@ class XdbOrderHit extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     * @Column(type="integer", length=10, nullable=true)
+     */
+    protected $order_openid;
+
+    /**
+     *
      * @var string
      * @Column(type="string", length=28, nullable=true)
      */
     protected $openid;
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=28, nullable=true)
+     */
+    protected $nickname;
+
 
     /**
      *
@@ -69,6 +83,19 @@ class XdbOrderHit extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Method to set the value of field order_openid
+     *
+     * @param integer $order_id
+     * @return $this
+     */
+    public function setOrderOpenId($order_openid)
+    {
+        $this->order_openid = $order_openid;
+
+        return $this;
+    }
+
+    /**
      * Method to set the value of field openid
      *
      * @param string $openid
@@ -77,6 +104,19 @@ class XdbOrderHit extends \Phalcon\Mvc\Model
     public function setOpenid($openid)
     {
         $this->openid = $openid;
+
+        return $this;
+    }
+
+    /**
+     * Method to set the value of field nickname
+     *
+     * @param string $nickname
+     * @return $this
+     */
+    public function setNickname($nickname)
+    {
+        $this->nickname = $nickname;
 
         return $this;
     }
@@ -128,6 +168,16 @@ class XdbOrderHit extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Returns the value of field order_openid
+     *
+     * @return integer
+     */
+    public function getOrderOpenId()
+    {
+        return $this->order_openid;
+    }
+
+    /**
      * Returns the value of field openid
      *
      * @return string
@@ -158,6 +208,16 @@ class XdbOrderHit extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Returns the value of field nickname
+     *
+     * @return string
+     */
+    public function getNickname()
+    {
+        return $this->nickname;
+    }
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
@@ -174,6 +234,8 @@ class XdbOrderHit extends \Phalcon\Mvc\Model
     {
         return 'xdb_order_hit';
     }
+
+
 
     /**
      * Allows to query a set of records that match the specified conditions
@@ -210,7 +272,9 @@ class XdbOrderHit extends \Phalcon\Mvc\Model
             'order_id' => 'order_id',
             'openid' => 'openid',
             'add_at' => 'add_at',
-            'active' => 'active'
+            'active' => 'active',
+            'order_openid'  => 'order_openid',
+            'nickname'  =>  'nickname'
         ];
     }
 

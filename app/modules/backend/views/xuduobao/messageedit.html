@@ -1,0 +1,91 @@
+<div class='wrapper main-wrapper wrapper-content '>
+    <div class="page-content">
+        <div class="page-heading"> <h2>基本功能</h2> </div>
+        <div>
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="messageedit.html">管理回复</a></li>
+                <li><a class="btn" ng-click="add=1">添加回复</a></li>
+            </ul>
+            </div>
+        <div class="panel panel-default">
+            <div class="grid">
+                <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>消息类型</th>
+                <th>事件类型</th>
+                <th>事件KEY值</th>
+                <th>关键词</th>
+                <th>回复类型</th>
+                <th>回复标题</th>
+                <th>回复内容</th>
+                <th>回复资源</th>
+                <th>回复跳转</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for msg in msgs %}
+            <tr>
+                <td>{{ msg.type }}</td>
+                <td>{{ msg.event }}</td>
+                <td>{{ msg.eventkey }}</td>
+                <td>{{ msg.keyword }}</td>
+                <td>{{ msg.reply_type }}</td>
+                <td>{{ msg.reply_title }}</td>
+                <td>{{ msg.reply_content }}</td>
+                <td>{{ msg.reply_img }}</td>
+                <td>{{ msg.reply_url }}</td>
+                <td ng-click="del({{ msg.id }})">删除</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+            </div>
+        </div>
+<form name="myForm" ng-if="add">
+    <p>接收消息类型：<select ng-model="edit.type">
+        <option value="text">关键词</option>
+        <option value="event">事件</option>
+    </select></p>
+    <p ng-if="edit.type=='event'">事件类型:
+        <select ng-model="edit.event">
+            <option value="subscribe">关注</option>
+            <option value="CLICK">点击</option>
+            <option value="VIEW">跳转</option>
+            <option value="SCAN">扫描二维码</option>
+        </select>
+    </p>
+    <p ng-if="edit.type=='event'">事件KEY值:
+       <input ng-model="edit.eventkey" />
+    </p>
+    <p ng-if="edit.type=='text'">关键词:
+        <input ng-model="edit.keyword" />
+    </p>
+    <p>
+        回复类型：<select ng-model="edit.reply_type">
+            <option value="text">文本回复</option>
+            <option value="image">图片回复</option>
+            <option value="news">图文回复</option>
+            <option value="video">视频回复</option>
+            <option value="voice">语音回复</option>
+            <option value="music">音乐回复</option>
+    </select>
+    </p>
+    <p ng-if="edit.reply_type=='news'">图文标题:
+        <input ng-model="edit.reply_title" />
+    </p>
+    <p ng-if="edit.reply_type=='news' ||  edit.reply_type=='text' ">回复内容:
+        <input ng-model="edit.reply_content" />
+    </p>
+    <p ng-if=" edit.reply_type &&  edit.reply_type!='text' ">回复资源（图片、视频、语音。。。）:
+        <upload upimg="edit.reply_img"></upload>
+    </p>
+    <p ng-if="edit.reply_type!='text' ">跳转链接:
+        <input ng-model="edit.reply_url" />
+    </p>
+    <p><button ng-click="sub()">确定</button></p>
+</form>
+</div>
+    </div>
+<script src="/js/msgedit.js"></script>

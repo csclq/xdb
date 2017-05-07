@@ -45,6 +45,7 @@ myapp.controller('myCtrl',['$scope','$http','retrieve',function ($scope,$http,re
             $scope.edit.token=$scope.info.token;
             $scope.edit.id = id;
             retrieve.edit($scope.edit, '/backend/system/roledit');
+            // location.reload();
         }
     }
 
@@ -53,9 +54,14 @@ myapp.controller('myCtrl',['$scope','$http','retrieve',function ($scope,$http,re
         $scope.edit.uri='/backend';
         $scope.edit.token=$scope.info.token;
         retrieve.edit($scope.edit, '/backend/system/roledit');
+        // location.reload();
 
     }
 
+
+    $scope.loginfo=function () {
+        console.log($scope.edit)
+    }
 }]);
 
 

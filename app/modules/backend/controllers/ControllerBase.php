@@ -42,7 +42,8 @@ class ControllerBase extends Controller
                 if ($k == 'token') {
                     continue;
                 }
-                if ($k == 'content' || is_array($v) || is_object($v)) {
+                $v=trim($v);
+                if ($k == 'description' ||$k == 'content' || is_array($v) || is_object($v)) {
                     $this->post[$k] = $v;
                 } else {
                     $this->post[$k] = $this->request->getPost($k, 'string');

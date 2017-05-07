@@ -23,6 +23,10 @@ myapp.service('retrieve', function ($http) {
             }).success(function (a) {
                 data.list = a['data'];
                 data.total = a['total'];
+                data.totalprice=0;
+                a['totalprice'] && (data.totalprice = a['totalprice']);
+                a['count'] && (data.count = a['count']);
+
             })
         },
         'edit':function (data,uri) {
@@ -41,12 +45,12 @@ myapp.service('retrieve', function ($http) {
     };
 })
 
-myapp.directive('upload',['$http',function ($http) {
+myapp.directive('upload',['$http',function () {                                             //图片上传指令
     return {
         restrict:'EA',
         replace:'true',
         scope:{'pic_url':'=upimg'},
-        template:'<div><p> </p><label><input type="file"  multiple /><i class="fa fa-picture-o fa-5x"></i> </label></div>',
+        template:'<div><p contenteditable  ng-keyup="chimg($event)"> </p><label><input type="file"  multiple /><i class="fa fa-picture-o fa-5x"></i> </label></div>',
         link:function (scope,element) {
             scope.pic_url=[];
             element.find("input").bind("change",function (e) {
@@ -75,7 +79,18 @@ myapp.directive('upload',['$http',function ($http) {
                         }
                     }
                 })
-            })
+            });
+            scope.chimg=function (e) {                                              //删除图片
+                if(e.keyCode==8 || e.keyCode==46 || e.keyCode==110){
+                    if($(e.target).find('img').length!=scope.pic_url.length){
+                        scope.pic_url=[];
+                        $(e.target).find('img').each(function () {
+                            scope.pic_url.push($(this).attr("src"))
+                        })
+                    }
+                }
+            }
+
         }
 
     }

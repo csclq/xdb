@@ -1,101 +1,8 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <link rel="shortcut icon" href="http://abc.5xieys.cn/attachment/images/global/wechat.jpg" />
-    <link href="static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
-    <link href="static/css/animate.css" rel="stylesheet">
-    <link href="static/css/v2.css?v=4.1.0" rel="stylesheet">
-    <link href="static/css/common.css?v=2.0.0" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="static/fonts/iconfont.css?v=2016070717">
-    <script src="resource/js/lib/jquery-1.11.1.min.js"></script>
-    <script src="static/js/dist/jquery/jquery.gcjs.js"></script>
-    <script src="resource/js/app/util.js"></script>
-    <script src="static/js/require.js"></script>
-    <script src="resource/js/app/config.js"></script>
-    <script>
-        require.config({
-            waitSeconds: 0
-        });
-    </script>
-    <script src="static/js/myconfig.js"></script>
-    <script type="text/javascript">
-        if (navigator.appName == 'Microsoft Internet Explorer') {
-            if (navigator.userAgent.indexOf("MSIE 5.0") > 0 || navigator.userAgent.indexOf("MSIE 6.0") > 0 || navigator.userAgent.indexOf("MSIE 7.0") > 0) {
-                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
-            }
-        }
-        myrequire.path = "http://abc.5xieys.cn/addons/ewei_shopv2/static/js/";
 
-        function preview_html(txt)
-        {
-            var win = window.open("", "win", "width=300,height=600"); // a window object
-            win.document.open("text/html", "replace");
-            win.document.write($(txt).val());
-            win.document.close();
-        }
-    </script>
-
-</head>
-
-
-<body class="white-bg ">
-<div id='topbar' class='top-navigation   gray-bg '>
-    <nav class="navbar   gray-bg " role="navigation" style="width:1024px;margin:auto;">
-        <div class="navbar-header" style="width:200px;">
-            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                <i class="fa fa-reorder"></i>
-            </button>
-            <a class="navbar-brand" href="index.html">新品试用平台</a>
-        </div><style>
-        .deg180{
-            transform:rotate(180deg);
-            -ms-transform:rotate(180deg); 	/* IE 9 */
-            -moz-transform:rotate(180deg); 	/* Firefox */
-            -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
-            -o-transform:rotate(180deg); 	/* Opera */
-        }
-    </style>
-        <div class="navbar-collapse collapse" id="navbar">
-            <ul class="nav navbar-nav gray-bg">
-                <li ><a href="index.html">首页</a></li>
-                <li ><a href="goods.html"> 商品管理</a></li>
-                <li  class="active"><a href="order.html"> 订单管理</a></li>
-                <li ><a href="basicword.html"> 微信基本功能</a></li>
-                <li ><a href="data.html">数据分析</a></li>
-            </ul>
-
-            <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown" style="position:relative;" onclick="$(this).find('span').toggleClass('deg180')">
-                        <name style="width: 80px;white-space:nowrap;overflow:hidden;text-overflow: ellipsis;display: block;text-align: center">许多宝</name>
-                        <span class="caret" style="position: absolute;top: 22px;right: 12px;"></span></a>
-                    <ul role="menu" class="dropdown-menu">
-                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=sysset.account"><i class="icon icon-similar"></i>  切换公众号</a></li>
-                        <li><a href="./index.php?c=account&a=post&uniacid=2" target="_blank"><i class="icon icon-wechat"></i>  编辑公众号</a></li>
-                        <li><a href="./index.php?c=profile&a=payment&" target="_blank"><i class="icon icon-pay"></i>  支付参数</a></li>
-                        <!--   <li><a href="./index.php?c=utility&a=emulator&" target="_blank"><i class="icon icon-machinery"></i>  模拟测试</a></li>-->
-                        <li class="divider"></li>
-                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=perm"><i class="icon icon-person2"></i> 权限管理</a></li>
-                        <li class="divider"></li>
-                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system"><i class="icon icon-settings"></i> 系统管理</a></li>
-                        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade"><i class="icon icon-down"></i> 系统更新</a></li>
-                        <li><a href="./index.php?c=user&a=profile&" target="_blank"><i class="icon icon-lock"></i>  修改密码</a></li>
-                        <li><a href="./index.php?c=account&a=display&" target="_blank"><i class="icon icon-back"></i>  返回系统</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-        </div>
-    </nav>
-</div>
 <div class='wrapper main-wrapper wrapper-content '>
     <div class="page-menubar">
         <style type='text/css'>
+            ul,li{margin:0;padding:0;list-style: none}
             .order-list a {
                 position: relative;
             }
@@ -103,66 +10,133 @@
 
                 float:right;margin-right:20px;
             }
+            .ui-step {
+                padding:14px 0 8px 0;
+                zoom:1
+            }
+            .ui-step:after {
+                content:"";
+                display:table;
+                clear:both
+            }
+            .ui-step li {
+                float:left;
+                position:relative;
+                -webkit-box-sizing:border-box;
+                -moz-box-sizing:border-box;
+                box-sizing:border-box;
+                text-align:center
+            }
+            .ui-step li::before,.ui-step li::after {
+                position:absolute;
+                left:0;
+                top:36px;
+                display:block;
+                content:' ';
+                width:50%;
+                height:4px;
+                background:#999;
+                z-index:1
+            }
+            .ui-step li::after {
+                left:50%
+            }
+            .ui-step li:first-child::before {
+                width:0
+            }
+            .ui-step li:last-child::after {
+                width:0
+            }
+            .ui-step .ui-step-title {
+                color:#999;
+                font-size:12px;
+                font-weight:bold;
+                line-height:18px
+            }
+            .ui-step .ui-step-number {
+                position:relative;
+                display:inline-block;
+                width:20px;
+                height:20px;
+                margin:10px 0;
+                line-height:22px;
+                background:#999;
+                color:#fff;
+                border-radius:100%;
+                -webkit-box-sizing:border-box;
+                -moz-box-sizing:border-box;
+                box-sizing:border-box;
+                z-index:2
+            }
+            .ui-step .ui-step-meta {
+                color:#ccc
+            }
+            .ui-step li.ui-step-done::before,
+            .ui-step li.ui-step-done::after,
+            .ui-step li.ui-step-done .ui-step-number {
+                background:#1ab394
+            }
+            .ui-step li.ui-step-done .ui-step-number {
+                color:transparent
+            }
+            .ui-step li.ui-step-done .ui-step-number::after {
+                position:absolute;
+                left:0;
+                width:17px;
+                height:20px;
+                line-height:22px;
+                content:'√';
+                color:#fff;
+                font-family:serif
+            }
+            .ui-step li.ui-step-done .ui-step-title {
+                color:#1ab394
+            }
+            .ui-step-2 li {
+                width:50%
+            }
+            .ui-step-3 li {
+                width:33.33333%
+            }
+            .ui-step-4 li {
+                width:24.9999%
+            }
+            .ui-step-5 li {
+                width:20%
+            }
+            .order-container { position:relative;
+                overflow:hidden;border:1px solid #f2f2f2;margin: 0px;
+            }
+            .order-container-left {
+                float:left;width:500px;
+                margin-left:200px;
+            }
+            .order-container-right {border-left:1px solid #f2f2f2;
+                float:left;width:600px;position:relative;
+            }
+            .order-tips {
+                width:95%;
+                margin:10px;
+                position: absolute;
+                bottom:0;
+            }
+            .order-tips-title {
+                padding: 10px 0 10px 45px;
+                color:#f90;
+                border-top:1px dotted #f2f2f2;
+            }
+            .order-tips-row {
+                padding: 0px 0 2px 50px
+            }
+            .help-block-validate {
+                display:block;
+                padding:10px 0;
+            }
+            .has-error .help-block-validate {
+                color:#ed5565;
+            }
         </style>
-        <ul class="menu-head-top">
-            <li ><a href="order.html">订单概述 <i class="fa fa-caret-right"></i></a></li>
-        </ul>
-
-        <div class='menu-header'>订单</div>
-        <ul class='order-list'>
-            <li >
-                <a href="orderstatus1.html">待发货 <span class='text-danger status1'>--</span></a>
-            </li>
-
-            <li >
-                <a href="orderstatus2.html">待收货 <span class='text-warning status2'>--</span></a>
-            </li>
-
-            <li >
-                <a href="orderstatus3.html">待付款 <span class="status0">--</span></a>
-            </li>
-            <li >
-                <a href="orderstatus4.html">已完成 <span class='text-primary status3'>--</span></a>
-            </li>
-
-            <li >
-                <a href="orderstatus5.html">已关闭 <span class="status_1">--</span></a>
-            </li>
-
-            <li >
-                <a href="orderlist.html" >全部订单<span class="all">--</span></a>
-            </li>
-
-        </ul>
-
-        <div class='menu-header'>工具</div>
-        <ul>
-            <li >
-                <a href="orderout.html">自定义导出</a>
-            </li>
-
-            <li >
-                <a href="ordersend.html">批量发货</a>
-            </li>
-            <li><a href="conlight.html">次数控制</a>
-            </li>
-        </ul>
-        <script>
-            $(function () {
-                $.ajax({type: "GET",url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.list.ajaxgettotals",dataType:"json",success: function(data){
-                    var res = data.result;
-                    $("span.status0").text(res.status0);
-                    $("span.status1").text(res.status1);
-                    $("span.status2").text(res.status2);
-                    $("span.status3").text(res.status3);
-                    $("span.status4").text(res.status4);
-                    $("span.status5").text(res.status5);
-                    $("span.status_1").text(res.status_1);
-                    $("span.all").text(res.all);
-                }
-                });
-            });
-        </script>    </div>
+        </div>
     <div class="page-content">
         <style type='text/css'>
             .ordertable { width:100%;position: relative;margin-bottom:10px}
@@ -172,31 +146,6 @@
             .ops .btn { padding:5px 10px;}
         </style>
         <div class="page-heading"> <h2>订单详情</h2> </div>
-        <div class="step-region" >
-            <ul class="ui-step ui-step-4" >
-                <li class="ui-step-done">
-                    <div class="ui-step-title" >买家下单</div>
-                    <div class="ui-step-number" >1</div>
-                    <div class="ui-step-meta" >2017-02-12<br/>16:31:14</div>
-                </li>
-                <li class="ui-step-done">
-                    <div class="ui-step-title">买家付款</div>
-                    <div class="ui-step-number">2</div>
-                    <div class="ui-step-meta">2017-02-12<br/>16:31:26</div>
-                </li>
-                <li >
-                    <div class="ui-step-title">            商家发货
-                    </div>
-                    <div class="ui-step-number" >3</div>
-                    <div class="ui-step-meta" ></div>
-                </li>
-                <li >
-                    <div class="ui-step-title">订单完成</div>
-                    <div class="ui-step-number" >4</div>
-                    <div class="ui-step-meta"></div>
-                </li>
-            </ul>
-        </div>
         <form class="form-horizontal form" action="" method="post">
             <input type="hidden" name="id" value="189" />
 
@@ -210,89 +159,24 @@
                             <table class='ordertable' style='table-layout:fixed'>
                                 <tr>
                                     <td style='width:80px'>订单编号：</td>
-                                    <td>SH20170212163114658285</td>
+                                    <td>{{ order.id }}</td>
                                 </tr>
                                 <tr>
                                     <td>订单金额：</td>
-                                    <td>￥5.00 &nbsp;&nbsp;<a data-toggle='popover' data-html='true' data-placement='right'
-                                                             data-content="<table style='width:100%;'>
-                <tr>
-                    <td  style='border:none;text-align:right;'>商品小计：</td>
-                    <td  style='border:none;text-align:right;'>￥0.00</td>
-                </tr>
-                <tr>
-                    <td  style='border:none;text-align:right;'>运费：</td>
-                    <td  style='border:none;text-align:right;'>￥5.00</td>
-                </tr>
-                                                                                                                                                                                                                                <tr>
-                    <td style='border:none;text-align:right;'>应收款：</td>
-                    <td  style='border:none;text-align:right;color:green;'>￥5.00</td>
-                </tr>
-
-            </table>
-"><i class='fa fa-question-circle'></i></a></td>
-                                </tr>
-
-
-
-                                <tr>
-                                    <td style='width:80px'>付款方式：</td>
-                                    <td>                                                                                                 微信支付                                                                                                </td>
+                                    <td>￥{{ order.unit_price }} &nbsp;&nbsp;</td>
                                 </tr>
 
                                 <tr>
                                     <td>买家：</td>
-                                    <td><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=member.list.detail&id=1909" target='_blank'>農樂</a> &nbsp;&nbsp;<a data-toggle='popover' data-html='true' data-placement='right'
-                                                                                                                                                                                            data-content="<table style='width:100%;'>
-                <tr>
-                    <td  style='border:none;text-align:right;' colspan='2'><img src='http://wx.qlogo.cn/mmopen/iccuwm4ZdY3DfASTQqmiaR3cDflzPuxgrImCSLsxy84ZAANHbCgmDfOsR14Sjbr7OKxvOHQDjDUceqrpibGNZJApDKdnBx9hbVJ/132' style='width:100px;height:100px;padding:1px;border:1px solid #ccc' /></td>
-                </tr>
-                <tr>
-                    <td  style='border:none;text-align:right;'>ID：</td>
-                    <td  style='border:none;text-align:right;'>1909</td>
-                </tr>
-                <tr>
-                    <td  style='border:none;text-align:right;'>昵称：</td>
-                    <td  style='border:none;text-align:right;'>農樂</td>
-                </tr>
-                <tr>
-                    <td  style='border:none;text-align:right;'>姓名：</td>
-                    <td  style='border:none;text-align:right;'>王先生</td>
-                </tr>
-                <tr>
-                    <td  style='border:none;text-align:right;'>手机号：</td>
-                    <td  style='border:none;text-align:right;'>13661811161</td>
-                </tr>
-                <tr>
-                    <td  style='border:none;text-align:right;'>微信号：</td>
-                    <td  style='border:none;text-align:right;'></td>
-                </tr>
-                </table>
-"><i class='fa fa-question-circle'></i></a></td>
+                                    <td>{{ order.nickname }} &nbsp;&nbsp;</td>
                                 </tr>
                             </table>
 
                             <table class='ordertable' style='table-layout:fixed;border-top:1px dotted #ccc'>
-
-                                <tr>
-                                    <td style='width:80px'>配送方式：</td>
-                                    <td>
-                                        快递
-                                    </td>
-                                </tr>
-
-
                                 <tr>
                                     <td style='width:80px'>收货人：</td>
                                     <td style='word-break: break-all;white-space: normal'>
-                                        浙江省 杭州市 临安市 锦北社区科技大道桃李春风1001, 王农跃, 15063360000 <a class='js-clip' data-url="浙江省 杭州市 临安市 锦北社区科技大道桃李春风1001, 王农跃, 15063360000">[复制]</a></td>
-                                </tr>
-
-
-
-                                <tr>
-                                    <td style='width:80px'></td>
-                                    <td style='word-break: break-all;white-space: normal'><a class="btn btn-primary btn-xs" data-toggle="ajaxModal" href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.op.changeaddress&id=189">编辑收货信息</a></td>
+                                        {{ order.province }} {{ order.city }} {{ order.district }} {{ order.address }}  {{ order.fullname }} {{ order.mobile }}<a class='js-clip' data-url="浙江省 杭州市 临安市 锦北社区科技大道桃李春风1001, 王农跃, 15063360000">[复制]</a></td>
                                 </tr>
 
                             </table>
@@ -307,56 +191,27 @@
                             <div class='col-sm-3 control-label' style='padding-top:10px;'>订单状态: </div>
                             <div class="col-sm-9 col-xs-12">
                                 <h3 class="form-control-static">
-                                                                                        <span class="text-danger">
-                                                                    待发货
-                                                                </span>
+                                    <span class="text-danger">
+                                        {% if order.status == 0 %}待购买
+                                        {% elseif order.status ==1 %}待发货
+                                        {% else %}已完成
+                                        {% endif %}
+                                    </span>
                                 </h3>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label"></label>
-                            <div class="col-sm-9 col-xs-12">
-                                <div class="form-control-static">
-
-                                    买家已经付款，请商家尽快发货                                                                                </div>
-
+                        <div class="choosed-goods">
+                            {% for item in products %}
+                            <div>
+                                <img src="{{ item['pic_url'] }}" style="width: 100px">
+                                <p class="p2 ">{{ item['id'] }}</p>
                             </div>
+                            {% endfor %}
                         </div>
-
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label"></label>
-                            <div class="col-sm-9 col-xs-12">
-                                <p class="form-control-static ops">
-                                    <!--已付款-->
-
-                                    <!--快递 发货-->
-                                    <a class="btn btn-primary btn-xs" data-toggle="ajaxModal"  href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.op.send&id=189">确认发货</a>
-
-
-                                    &nbsp;&nbsp;
-                                    </p>
-                            </div>
-                        </div>
-
-
-                        <div class='order-tips'>
-                            <div class='row order-tips-title'>友情提醒</div>
-
-                            <div class='row order-tips-row'>如果无法进行发货，请及时联系买家进行妥善处理;</div>
-
-                        </div>
-
-
                     </div>
-
                 </div>
-
             </div>
-
             <br>
-
 
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -366,134 +221,30 @@
                     <table class="table table-hover">
                         <thead class="navbar-inner">
                         <tr>
-                            <th style="width:200px">标题</th>
-                            <th>规格/编号/条码</th>
-                            <th style="text-align: center;">单价(元)/数量</th>
-                            <th style="text-align: center;">折扣前/折扣后(元)</th>
-
-                            <!--<th style="width:5%;">操作</th>-->
+                            <th style="width:200px">订单编号</th>
+                            <th>订单号</th>
+                            <th style="text-align: center;">商品编号</th>
+                            <th style="text-align: center;">姓名</th>
+                            <th style="text-align: center;">手机</th>
+                            <th style="text-align: center;">地址</th>
+                            <th style="text-align: center;">配送订单</th>
                         </tr>
                         </thead>
+                        {% for item in payments %}
                         <tr>
-                            <td class='full'>
-                                许多宝面膜试用装                     </td>
-                            <td><span style="white-space:normal;">规格：<span class="label-info" style="font-family: 微软雅黑;font-size: 12px;font-weight: 600;">美白</span></span>                                                </td>
-                            <td style="text-align: right;">0                        <br/>x1</td>
-                            <td style='color:red;font-weight:bold;text-align: right;'>
-                                0.00/0.00                                                                        </td>
-
-                            <!--td>
-            <a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=goods.edit&id=207" class="btn btn-default btn-sm" title="编辑"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-        </td-->
+                            <td class='full'>{{ item.transaction_id}} </td>
+                            <td> {{ item.id }}</td>
+                            <td style="text-align: right;">{{ item.goods_id }}</td>
+                            <td style='color:red;font-weight:bold;text-align: right;'>  {{ item.XdbOrder.fullname }}  </td>
+                            <td> {{ item.XdbOrder.mobile }} </td>
+                            <td>{{ item.XdbOrder.address }}</td>
+                            <td></td>
                         </tr>
-
-
+                        {% endfor %}
                     </table>
                 </div>
             </div>
         </form>
 
-        <script language='javascript'>
-            $(function () {
-                $("#showdiymore1").click(function () {
-                    $(".diymore1").show();
-                    $(".diymore11").hide();
-                });
-
-                $("#showdiymore2").click(function () {
-                    $(".diymore2").show();
-                    $(".diymore22").hide();
-                });
-            });
-
-            function showDiyInfo(obj){
-                var data = $(obj).attr('data');
-                var id = "diyinfo_" + data;
-
-                var hide = $(obj).attr('hide');
-                if(hide=='1'){
-                    $("#"+id).slideDown();
-                }
-                else{
-                    $("#"+id).slideUp();
-                }
-                $(obj).attr('hide',hide=='1'?'0':'1');
-            }
-            document.getElementById('asd').className();
-        </script>
-
     </div>
-
-    <script language='javascript'>
-        require(['bootstrap'], function ($) {
-            $('[data-toggle="tooltip"]').tooltip({
-                container: $(document.body)
-            });
-            $('[data-toggle="popover"]').popover({
-                container: $(document.body)
-            });
-        });
-
-
-        function check_ewei_shopv2_upgrade() {
-
-            require(['util'], function (util) {
-                if (util.cookie.get('checkeweishopv2upgrade_sys')) {
-                    return;
-                }
-                $.post('http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade.check', function (ret) {
-                    if (ret && ret.status == '1') {
-
-                        var result = ret.result;
-                        if(result.filecount>0 || result.database || result.upgrades){
-
-                            var html = '<div id="ewei-shopv2-upgrade-tips" class="tips-upgrade">';
-                            html+='<span class="tclose" onclick="check_ewei_shopv2_upgrade_hide();"><i class="fa fa-times-circle fa-2x"></i></span>';
-                            html+= '<div class="title">检测到更新</div>';
-                            html+='<div class="text"> 新版本 ' + result.version + " RELEASE " + result.release;
-                            html+=',请尽快更新! </div>';
-                            html+='<div class="buttons"><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade" class="btn btn-warning btn-sm">立即去更新</a></div></div>';
-                            $('body').prepend(html);
-                        }
-                    }
-                },'json');
-            });
-        }
-        function check_ewei_shopv2_upgrade_hide() {
-            require(['util'], function (util) {
-                util.cookie.set('checkeweishopv2upgrade_sys', 1, 3600);
-                $('#ewei-shopv2-upgrade-tips').fadeOut(150);
-            });
-        }
-        $(function () {
-            setTimeout( function() {
-                check_ewei_shopv2_upgrade();
-            },4000);
-        });
-
-        $(function () {
-            $('.page-content').show();
-            $('.img-thumbnail').each(function () {
-                if ($(this).attr('src').indexOf('nopic.jpg') != -1) {
-                    $(this).attr('src', "../addons/ewei_shopv2/static/images/nopic.jpg");
-                }
-            })
-            $.ajax({
-                url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=util.task",
-                async:false,
-                cache: false
-            });
-        });
-    </script>
-    <script language="javascript">myrequire(['web/init'],function(){
-        if($('.form-validate').length<=0) {  $('#page-loading').remove(); }
-    });</script>
-<!--    <div id="page-loading" style="position: fixed;width:100%;height:100%;background:rgba(255,255,255,0.8);left:0;top:0;z-index:9999">
-        <div class="sk-spinner sk-spinner-double-bounce" style="position:fixed;top:50%;left:50%;width:40px;height:40px;margin-left:-20px;margin-top:-20px;">
-            <div class="sk-double-bounce1"></div>
-            <div class="sk-double-bounce2"></div>
-        </div>
-    </div>-->
-
-</body>
-</html>
+</div>

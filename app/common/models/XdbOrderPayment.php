@@ -673,6 +673,9 @@ class XdbOrderPayment extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("gxc");
+        $this->belongsTo('goods_id', 'App\Models\\XdbProduct', 'id', ['alias' => 'XdbProduct']);
+        $this->belongsTo('last_id', 'App\Models\\XdbOrder', 'id', ['alias' => 'XdbOrder']);
+
     }
 
     /**

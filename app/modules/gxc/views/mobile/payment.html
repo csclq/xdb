@@ -1,350 +1,46 @@
-{php $bootstrap_type = 3;}
-
-{template 'header'}
-<link type="text/css" rel="stylesheet" href="../addons/qw_cca/template/assets/css/common.css">
-
-<div class="head" style="background-color: #5e5e5e;">
-    <a href="javascript:history.back();" class="bn pull-left"><i class="fa fa-angle-left"></i></a>
-    <span class="title">下订单</span>
-    <a href="{php echo $this->createMobileUrl('index')}" class="bn pull-right" style="margin-right:0;">
-        <i class="fa fa-home"></i>
-    </a>
-</div>
-<style>
-.error {
-    color:#a94442;
-}
-.error-input {
-    border:1px solid #a94442;
-}
-.masklayer_div{
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 180;
-    background: rgba(0,0,0,0);
-}
-.masklayer_div.on{display: block;}
-</style>
-<script>
-function checkform() {
-    var success = true;
-
-    var province = $("select[name='address[province]']");
-    var city = $("select[name='address[city]']");
-    var district = $("select[name='address[district]']");
-    var address = $("input[name='address[detail]']");
-    //var postcode = $("input[name='address[postcode]']");
-    var recipientName = $("input[name='recipient_name']");
-    var mobile = $("input[name='mobile']");
-    var splitNumber = $("input[name='split_number']");
-
-    $(province).removeClass("error");
-    if ($(province).val() == "") {
-        $(province).addClass("error");
-        success = false;
-    }
-
-    $(city).removeClass("error");
-    if ($(city).val() == "") {
-        $(city).addClass("error");
-        success = false;
-    }
-
-    $(district).removeClass("error");
-    if ($(district).val() == "") {
-        $(district).addClass("error");
-        success = false;
-    }
-
-    $(address).removeClass("error-input");
-    if ($(address).val() == "") {
-        $(address).addClass("error-input");
-        success = false;
-    }
-
-    //$(postcode).removeClass("error-input");
-    //if ($(postcode).val() == "") {
-    //   $(postcode).addClass("error-input");
-     //   success = false;
-   //}
-
-    $(recipientName).removeClass("error-input");
-    if ($(recipientName).val() == "") {
-        $(recipientName).addClass("error-input");
-        success = false;
-    }
-
-    $(mobile).removeClass("error-input");
-    if ($(mobile).val() == "") {
-        $(mobile).addClass("error-input");
-        success = false;
-    }
-
-    $(splitNumber).removeClass("error-input");
-    if ($(splitNumber).val() == "") {
-        $(splitNumber).addClass("error-input");
-        success = false;
-    }
-
-    return success;
-}
-</script>
-
-<form action="" method="post" onsubmit="return checkform();">
-    <input type="hidden" name="token" value="$_W['token']">
-    <div class="detail-main" style='margin-bottom:65px;margin-top:40px;padding:0;'>
-    {if empty($_GPC['order_id'])}
-    <div class="detail-div address">
-        <span class="margin-5 pull-left">请输入收货地址</span>
-        <span class="margin-5 text-danger pull-right">友情提示：以下均为必添项</span>
-        <div style="clear: both;"></div>
-        <form class="form-horizontal">
-            <script type="text/javascript">
-                require(["jquery", "district"], function($, dis){
-                    $(".tpl-district-container").each(function(){
-                        var elms = {};
-                        elms.province = $(this).find(".tpl-province")[0];
-                        elms.city = $(this).find(".tpl-city")[0];
-                        elms.district = $(this).find(".tpl-district")[0];
-                        var vals = {};
-                        vals.province = $(elms.province).attr("data-value");
-                        vals.city = $(elms.city).attr("data-value");
-                        vals.district = $(elms.district).attr("data-value");
-                        dis.render(elms, vals, {withTitle: true});
-                    });
-                });
-            </script>
-            <div class="row row-fix tpl-district-container" style="margin-right: -10px;margin-left: -5px;">
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    <select name="address[province]" data-value="" class="form-control tpl-province">
-                    </select>
-                </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    <select name="address[city]" data-value="" class="form-control tpl-city">
-                    </select>
-                </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    <select name="address[district]" data-value="" class="form-control tpl-district">
-                    </select>
-                </div>
-            </div>
-            <input type="text" name="address[detail]" class="form-control margin-5" required placeholder="详细地址" /><!--
-            <input type="tel" name="address[postcode]" class="form-control margin-5" required placeholder="邮编" />-->
-            <input type="text" name="recipient_name" class="form-control margin-5" required placeholder="收货人姓名" />
-            <input type="tel" name="mobile" class="form-control margin-5" required placeholder="手机号码" />
-            <!--<button type="button" class="btn btn-success btn-sm margin-5 pull-right">保存</button>-->
-        </form>
-    </div>
-    {/if}
-
-    <div class="detail-div goods">
-        <a href="{php echo tomedia($row);}" rel='{php echo tomedia($row);}'>
-            <img src="{$_W['attachurl']}{$product['pic_url']}" class="img-responsive" style="width:80px;height:80px;float:left;"/>
-        </a>
-        <div class="detail-group" style="line-height:20px;font-weight:bold;padding:0 10px;">{$product['name']}</div>
-        <div class="detail-group" style='margin-top:10px;'>
-			<span class="col-xs-8" style="width:100%;">
-				<span id='marketprice' class="text-danger" style="font-size:18px; font-weight:bold;"><i class="fa fa-yen"></i><span id="product_price">{$product['price']}</span></span>
-                <div class='detail-group pull-right' style="margin-top:10px;">
-                    <span style="float:left;margin-left:15px; margin-top:5px;">数量：{if !empty($_GPC['order_id'])}{$order['quantity']}{/if}</span>
-                    {if empty($_GPC['order_id'])}
-                    <div class="input-group" style="width:100px;float:left;margin-left:8px;">
-        				<span class="input-group-btn">
-        					<button class="btn btn-default btn-sm" disabled type="button" id="min"><i class="fa fa-minus"></i></button>
-        				</span>
-                        <input type="tel" class="form-control input-sm pricetotal goodsnum" name="quantity" style="width:50px;text-align:center" value="1" id="text_box"/>
-        				<span class="input-group-btn">
-        					<button class="btn btn-default btn-sm" type="button" id="add"><i class="fa fa-plus"></i></button>
-        				</span>
-                    </div>
-                    {/if}
-                </div>
-			</span>
-        </div>
-    </div>
-
-   
-
-    {if !empty($two_user)}
-    <div class="detail-div person">
-        <img src="{$two_user[0]['avatar']}" class="img-responsive" style="width:80px;height:80px;float:left;border-radius: 80px;"/>
-        <strong class="pull-left">{$two_user[0]['nickname']}</strong>
-        <div class="pull-right">{php echo date('Y年m月d日', strtotime($two_user[0]['submitted_at']))}</div>
-        <div style='margin-top:30px;'>
-            <p style="margin-left:30%;">{$two_user[0]['message']}</p>
-        </div>
-    </div>
-    {/if}
-
-    {if !empty($one_user[0])}
-    <div class="detail-div person">
-        <img src="{$one_user[0]['avatar']}" class="img-responsive" style="width:80px;height:80px;float:left;border-radius: 80px;"/>
-        <strong class="pull-left">{$one_user[0]['nickname']}</strong>
-        <div class="pull-right">{php echo date('Y年m月d日', strtotime($one_user[0]['submitted_at']))}</div>
-        <div style='margin-top:30px;'>
-            <p style="margin-left:30%;">{$one_user[0]['message']}</p>
-        </div>
-    </div>
-    {/if}
-
-    {if !empty($_GPC['order_id'])}
-    <div class="detail-div person">
-        <img src="{$order['avatar']}" class="img-responsive" style="width:80px;height:80px;float:left;border-radius: 80px;"/>
-        <strong class="pull-left">{$order['nickname']}</strong>
-        <div class="pull-right">{php echo date('Y年m月d日', strtotime($order['submitted_at']))}</div>
-        <div style='margin-top:30px;'>
-            <p style="margin-left:30%;">{$order['message']}</p>
-        </div>
-    </div>
-    {/if}
-
-   
-    
-    {if !empty($_GPC['order_id'])}
-    <div class="detail-div cca">
-        {if !$paid or $paid <= 0}
-        <h4>筹爱金额</h4>
-        <h1 class="text-center" style="color:red;font-weight: bold;"><i class="fa fa-yen"></i>{php echo round(floatval($order['unit_price'] * $order['quantity']) / $order['split_number'], 2);}</h1>
-        {else}
-        <h4 class="pull-left">我已支付</h4>
-        {if $refundable && $refund_application['refund_applied'] != 1}
-        <a href="{php echo $this->createMobileUrl('refund', array('order_id' => $_GPC['order_id']));}" class="btn btn-default pull-right" style="border:none;color:red;">申请退款</a>
-        {/if}
-        <h1 class="text-center" style="color:red;font-weight: bold;"><i class="fa fa-yen"></i>{php echo round($paid, 2);}</h1>
-
-        {if $refundable && $refund_application['refund_applied'] == 1}
-        <span class="text-danger">您已于{$refund_application['refund_applied_at']}申请退款，我们将尽快处理。</span>
-        {/if}
-        {/if}
-    </div>
-    {/if}
-
-    {if $has_payment && $user['openid'] == $openid}
-    <div class="detail-div person">
-        <ul>
-        {loop $payment_rows $payment}
-        <li><img src="{$payment['avatar']}" class="img-responsive" /><strong>{$payment['nickname']}</strong>于{$payment['paid_at']}支付了<strong>{$payment['paid']}</strong>元</li>
-        {/loop}
-        </ul>
-    </div>
-    {/if}
-
-    {if !empty($_GPC['order_id'])}
-    <div class="detail-div prog">
-        <strong class="margin-5">筹爱进度</strong>
-        <div class="progress">
-            <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;line-height: 50px;font-size:30px; width: {$progress}%;">
-                {$progress}%
-            </div>
-        </div>
-        {if $progress < 100}
-        <p class="text-center">加油哦还差一点点，<a href="javascript:;" id="share_btn" style="color:red;"> <i class="fa fa-share-alt"></i> 再去分享给小伙伴</a>吧</p>
-        {else}
-        <p class="text-center">筹爱已完成哦，再去<a style="color:red" href="{php echo $this->createMobileUrl('index')}"> <i class="fa fa-cart-plus"></i> 购买</a> 吧</p>
-        {/if}
-    </div>
-    {/if}
-
-    {if empty($_GPC['order_id'])}
-    <div class="detail-div message" style="margin-bottom:35px">
-            <strong class="margin-5">附言</strong>
-            <textarea class="form-control" rows="3" name="message" placeholder="{if $_GPC['type'] == 'self'}您可以在此给卖家留言{else}给真爱们说句话吧！{/if}"></textarea>
-    </div>
-    {/if}
-
-    <div class="bottom">
-        {if $_GPC['type'] == 'friends'}
-            <p class="pull-right">
-            <strong>拆分数量</strong>
-                <input type="number" name="split_number" class="form-control" style="width:80px;margin-right:5px;display: inline-block;" />
-                <button type="submit" class="btn btn-danger btn-md">确定</button>
-            </p>
-        {/if}
-
-        {if !empty($_GPC['order_id'])}
-        <div id="df" class="margin-5">
-
-           {if $progress < 100}
-           <a href="{php echo $this->createMobileUrl('index')}" class="btn btn-success btn-md pull-left" style="width:45%;">我也参与</a>
-           <button type="submit" class="btn btn-danger btn-md pull-right" style="width:45%">
-               {if $user['openid'] == $openid}
-               我也付点
-               {else}
-               帮TA付款
-               {/if}
-           </button>
-
-            {else}
-            <a href="{php echo $this->createMobileUrl('index')}" class="btn btn-success btn-md pull-left" style="width:100%;">我也参与</a>
-            {/if}
-        </div>
-
-        {else}
-        <div id="buy">
-            <span class="pull-left">合计：<strong class="text-danger"><i class="fa fa-yen"></i> <label id="total"></label></strong> </span>
-            {if $_GPC['type'] == 'self'}
-            <span class="margin-5 pull-right" style="margin-top:9px;"><button type="submit" class="btn btn-danger col-xs-12">确认付款</button></span>
-            {/if}
-        </div>
-        {/if}
-    </div>
-</div>
-</form>
-<div id="shareit">
-    <img class="arrow" src="/addons/qw_cca/template/assets/img/btnLightSmall.png" />
-    <a href="#" id="follow">
-
-    </a>
-</div>
-<script>
-    //立即分享到微信朋友圈点击事件
-    $("#share_btn").on("click", function() {
-        $("#shareit").show();
-    });
-
-
-    $("#shareit").on("click", function(){
-        $("#shareit").hide();
-    })
-</script>
-
-<script>
-    $(function(){
-        //获得文本框对象
-        var t = $("#text_box");
-        //数量增加操作
-        $("#add").click(function(){
-            t.val(parseInt(t.val())+1)
-            if (parseInt(t.val())!=1){
-                $('#min').attr('disabled',false);
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/js/jquery.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script>
+        function jsApiCall()
+        {
+            WeixinJSBridge.invoke(
+                'getBrandWCPayRequest',
+                {{json}},
+            function(res){
+              if(res.err_msg=="get_brand_wcpay_request:ok"){
+                  window.open("/gxc/mobile/payment1/{{myid}}");
+              }
             }
-            setTotal();
-        })
-        //数量减少操作
-        $("#min").click(function(){
-            t.val(parseInt(t.val())-1);
-            if (parseInt(t.val())==1){
-                $('#min').attr('disabled',true);
-            }
-
-            setTotal();
-        })
-        //计算操作
-        function setTotal(){
-            var productPrice = $("span#product_price").text();
-            $("#total").html((parseInt(t.val())*productPrice).toFixed(2));
+        );
         }
-        //初始化
-        setTotal();
-    })
-</script>
 
-
-{template 'footer'}
-<script>
-$(".footer").hide();
-</script>
+        function callpay()
+        {
+            if (typeof WeixinJSBridge == "undefined"){
+                if( document.addEventListener ){
+                    document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                }else if (document.attachEvent){
+                    document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                    document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                }
+            }else{
+                jsApiCall();
+            }
+        }
+    </script>
+</head>
+<body>
+<p>商品名称: {{ goods }}</p>
+<p>商品价格: {{ fee/100 }}</p>
+<p>订单号: {{ trade_no }}</p>
+<button onclick="callpay()"> 立 即 支 付 </button>
+</body>
+</html>

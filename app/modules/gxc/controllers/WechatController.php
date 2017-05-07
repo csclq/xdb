@@ -80,26 +80,27 @@ class WechatController extends ControllerBase
     {
         switch ($message->MsgType) {
             case 'event':
-//                if($message->EventKey){
-//                    $msg=YztWechatMessage::findFirst('type="event" and event="'.$message->Event.'" and eventkey="'.$message->EventKey.'"');
-//                }else{
-//                    $msg=YztWechatMessage::findFirst('type="event" and event="'.$message->Event.'"');
-//                }
-                $msg['media_id']=$this->qrcode($message->FromUserName);
-                $msg['reply_type']='image';
-//                $msg=$msg->toArray();
+                if($message->EventKey){
+                    $msg=YztWechatMessage::findFirst('type="event" and event="'.$message->Event.'" and eventkey="'.$message->EventKey.'"');
+                }else{
+                    $msg=YztWechatMessage::findFirst('type="event" and event="'.$message->Event.'"');
+                }
+//                $msg['media_id']=$this->qrcode($message->FromUserName);
+//                $msg['reply_type']='image';
+                $msg=$msg->toArray();
+
                 break;
             case 'text':
                 $info=YztWechatMessage::find('type="text"');
                 if($info){
                     foreach ($info->toArray() as $value){
-                        if(strtolower($message->Content)==strtolower($value['keyword'])){
+                        if(strtolower(trim($message->Content))==strtolower(trim($value['keyword']))){
                             $msg=$value;
                             goto send;
                         }
                     }
                     foreach ($info->toArray() as $value){
-                        if(stripos(strtolower($value['keyword']),strtolower($message->Content)) !== false){
+                        if(stripos(strtolower(trim($value['keyword'])),strtolower(trim($message->Content))) !== false){
                             $msg=$value;
                             goto send;
                         }
@@ -152,7 +153,9 @@ class WechatController extends ControllerBase
        $news->title=$msg['reply_title'];
        $news->description=$msg['reply_content'];
        $news->url=$msg['reply_url'];
-       $news->image=$msg['reply_img'];
+
+
+       $news->image='http://'.$_SERVER['HTTP_HOST'].$msg['reply_img'];
        return $news;
     }
 
@@ -248,7 +251,7 @@ class WechatController extends ControllerBase
     protected function materialImg($img){
         $this->view->disable();
         if(!file_exists($img)){
-            $img=BASE_PATH.'/public/'.$img;
+            $img=BASE_PATH.'/public/'.trim($img,'/');
         }
         if(!file_exists($img)){
             return false;

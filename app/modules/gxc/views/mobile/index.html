@@ -1,710 +1,427 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
-<head>
+<html lang="zh-CN" >
+  <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>许多宝 - 许多宝</title>
-    <meta name="format-detection" content="telephone=no, address=no">
-    <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
-    <meta name="apple-touch-fullscreen" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="keywords" content="微信营销系统,微信,微信公众平台" />
-    <meta name="description" content="微信营销系统是一款免费开源的微信公众平台管理系统，是国内最完善移动网站及移动互联网技术解决方案。" />
-    <link rel="shortcut icon" href="http://abc.5xieys.cn/attachment/images/global/wechat.jpg" />
-    <script src="/js/jweixin-1.1.0.js"></script>
-    <script type="text/javascript" src="/js/util.js"></script>
-    <script src="/js/require.js"></script>
-    <script src="/js/config.js"></script>
-    <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="/js/mui.min.js"></script>
-    <script type="text/javascript" src="/js/common.js"></script>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/common.min.css" rel="stylesheet">
-    <script type="text/javascript">
-        if(navigator.appName == 'Microsoft Internet Explorer'){
-            if(navigator.userAgent.indexOf("MSIE 5.0")>0 || navigator.userAgent.indexOf("MSIE 6.0")>0 || navigator.userAgent.indexOf("MSIE 7.0")>0) {
-                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
-            }
-        }
-        window.sysinfo = {
-            'uniacid': '2',		'acid': '2',				'siteroot': 'http://abc.5xieys.cn/',
-            'siteurl': 'http://abc.5xieys.cn/app/index.php?i=2&c=entry&order_id=1212&paid=2&do=index&m=qw_cca&u=4&from=singlemessage&isappinstalled=0&winzoom=1&wxref=mp.weixin.qq.com',
-            'attachurl': 'http://abc.5xieys.cn/attachment/',
-            'attachurl_local': 'http://abc.5xieys.cn/attachment/',
-            'attachurl_remote': '',
-            'MODULE_URL': 'http://abc.5xieys.cn/addons/qw_cca/',		'cookie' : {'pre': 'b961_'}
-        };
-        // jssdk config 对象
-        jssdkconfig = null || {};
-        // 是否启用调试
-        jssdkconfig.debug = false;
-        jssdkconfig.jsApiList = [
-            'checkJsApi',
-            'onMenuShareTimeline',
-            'onMenuShareAppMessage',
-            'onMenuShareQQ',
-            'onMenuShareWeibo',
-            'hideMenuItems',
-            'showMenuItems',
-            'hideAllNonBaseMenuItem',
-            'showAllNonBaseMenuItem',
-            'translateVoice',
-            'startRecord',
-            'stopRecord',
-            'onRecordEnd',
-            'playVoice',
-            'pauseVoice',
-            'stopVoice',
-            'uploadVoice',
-            'downloadVoice',
-            'chooseImage',
-            'previewImage',
-            'uploadImage',
-            'downloadImage',
-            'getNetworkType',
-            'openLocation',
-            'getLocation',
-            'hideOptionMenu',
-            'showOptionMenu',
-            'closeWindow',
-            'scanQRCode',
-            'chooseWXPay',
-            'openProductSpecificView',
-            'addCard',
-            'chooseCard',
-            'openCard',
-            'openAddress'
-        ];
-    </script>
-</head>
-<body>
-<div class="container container-fill">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>许多宝新品</title>
 
-    <style>
-        .show-more {padding-bottom:30px;}
-    </style>
-    <link type="text/css" rel="stylesheet" href="/css/common.css">
-    <link type="text/css" rel="stylesheet" href="/css/jd_cart.css">
 
-    <style type='text/css'>
-        .sel { background:#e9342a; color:#fff;}
-        .nosel { background:#fff;color:#000}
-        .sum-count{
-            position: relative;
-            left: 5%;
-            line-height: 50px;
-            float: left;
-            font-size: 14px;
-        }
-        .sum-count span{
-            color:#d9534f;
-            font-weight: 700;
-            font-size: 18px;
-        }
-        .select_product{
-            height:20px;
-            float:right;
-            width:20px
-        }
-        /*input[type="checkbox"]{
-            display: none;
-        }
-        input[type="checkbox"]+label {
-            display: inline-block;
-            -webkit-box-sizing: border-box;
-            margin-left: 3px;
-        }
-        label::before{
-            content: '';
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            background: #c7c7c7;
-            vertical-align: middle;
-            -webkit-border-radius: 50%;
-            margin-right: 5px;
-            -webkit-box-sizing:border-box;
-            -webkit-transition:background ease-in .5s
-        }
-        input[type="checkbox"]:checked+label::before{
-            background-color: rgb(217, 83, 79);
-            border: 3px #d4d4d4 solid;
-        }*/
-
-        /*input[type="checkbox"] + label {
-            background-color: #fafafa;
-            border: 1px solid #cacece;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
-            padding: 9px;
-            border-radius: 3px;
-            display: inline-block;
-            position: relative;
-        }
-
-        input[type="checkbox"] + label:active, .input[type="checkbox"] + label:active {
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
-        }
-
-        input[type="checkbox"] + label {
-            background-color: #e9ecee;
-            border: 1px solid #adb8c0;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
-            color: #99a1a7;
-        }
-
-        input[type="checkbox"] + label:after {
-            content: '';
-            font-size: 14px;
-            position: absolute;
-            top: -26px;
-            left: 3px;
-            color: #99a1a7;
-        }*/
-        .goods-row{
-            background-color: #fff;
-            padding:5px;
-            height: 284px;
-            position: relative;
-            width: 50%;
-            float: left;
-            border: 1px solid #dedede
-        }
-        .good{
-            width:100%;
-            height:auto;
-        }
-        .guige{
-            top:30px;
-            left:50%;
-        }
-        .info{
-            position: absolute;
-            top:35px;
-            left:30%;
-        }
-        ._active{
-            background: red;
-            color:white;
-        }
-        #images{
-            width:100%;
-            height:140px;
-            background-color:#fff;
-        }
-        .goods-detail{height:36px;width:100%;border:1px solid #ccc;box-shadow: 0px 0px 9px rgba(97,97,97,0.73) inset;margin: 8px auto;border-bottom: none}
-        ul,li{list-style: none;margin: 0px;padding: 0px}
-        .goods-detail ul{line-height: 32px;text-align: center}
-        .goods-detail li{float:left;width:25%;color:#666;font-size: 14px;font-weight: 600;border:1px solid #ccc}
-        .goods-detail li a{text-decoration: none;list-style: none}
-        .goods-detail li:hover{color:#d9534f}
-        .goods-detail li a:hover{text-decoration: none;list-style: none;color:#d9534f}
-        .goods-detail li a:active {color: #0000FF}
-    </style>
-    <div>
-        <img src="/img/bg1.jpg" style="height:auto;width:100%;" id="images">
-    </div>
-
-    <div class="shopping-main" style="padding:0;">
-        <!--<div class="row" style="margin:0;background-color: #fff;">
-            <div class="col-sm-2 col-xs-2">
-                <a role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" class="btn btn-default btn-sm btn-list" style="background-color: transparent;border-color: transparent;">
-                    <i class="fa fa-list" style="font-size: 20px;color:#ec4e49;">
-
-                    </i>
-                </a>
-            </div>
-            <div class="col-sm-12 col-xs-12">
-                <form action="" method="get">
-                    <input type="hidden" name="i" value="2">
-                    <input type="hidden" name="c" value="entry">
-                    <input type="hidden" name="do" value="index">
-                    <input type="hidden" name="m" value="qw_cca">
-                    <input type="hidden" name="paid" value="2">
-
-                    <div class="input-group">
-                        <input type="text" class="form-control input-sm" name="name" value="" placeholder="请输入关键字">
-                        <span class="input-group-btn">
-                        <button class="btn btn-default btn-sm" type="submit"><i class="fa fa-search"></i> 搜索</button>
-                        </span>
-                    </div>
-                </form>
-            </div>
-
-        </div>-->
-        <div class="collapse" id="collapseExample">
-            <div class="well" style="margin:0;">
-                <li><a href="./index.php?i=2&c=entry&category=3&paid=2&do=index&m=qw_cca">面膜</a> </li>
-                <li><a href="./index.php?i=2&c=entry&category=15&paid=2&do=index&m=qw_cca">丝袜</a> </li>
-                <li><a href="./index.php?i=2&c=entry&category=16&paid=2&do=index&m=qw_cca">女士内裤</a> </li>
-                <li><a href="./index.php?i=2&c=entry&category=17&paid=2&do=index&m=qw_cca">男士内裤</a> </li>
-                <li><a href="./index.php?i=2&c=entry&category=18&paid=2&do=index&m=qw_cca">水果零食</a> </li>
-                <li><a href="./index.php?i=2&c=entry&category=19&paid=2&do=index&m=qw_cca">化妆品</a> </li>
-                <div style="clear:both;"></div>
-
+    <link  href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link  href="/css/index.css" rel="stylesheet"/>
+    <link  href="/css/city-picker.css" rel="stylesheet" type="text/css" />
+    <script src="/js/template.js"></script>
+    <script src="/js/jquery-1.11.1.min.js"></script>
+   
+  </head>
+  <body>
+    <div class="container" id="containerBox">
+    
+      <div class="row ">
+        <div class="yun">
+          <div class="closeYun"></div>
+        </div>
+        <div class="bgImg"></div>
+        <div class="header col-xs-12 col-sm-12"></div>
+        <div class="banner col-xs-12 col-sm-12"> 
+          <ul>
+            <a><li id="allGoods" class="active"></li></a><a href="#"><li id="hot"></li></a><a href="#"><li id="new"></li></a><a href="#"><li id="fashion"></li>
+          </ul>
+        </div>
+        <div class="content col-xs-12 col-sm-12" > 
+          <ul id="moduleBox">
+            
+          </ul>
+        </div>
+           
+        <div class="clearfix "></div>
+          <div class="content_footer"></div>
+        <div class="details_page" style="display:none"> 
+            <div id="detailsBox">
+              
             </div>
         </div>
-        <div style="clear: both;"></div>
-        <div id="carousel-container" class="carousel slide">
-            <ol class="carousel-indicators">
-            </ol>
+        <div class="shippingAddress"> 
+          <div>
+            <h5>请输入收货地址</h5>
+             <div class="docs-methods">
+                           
+                <div id="distpicker">
+                 <form action="/gxc/mobile/payment" method="post" class="editFrm">
+                    <div class="form-group">
+                        <div style="position: relative;">
+                            <input id="city-picker3" class="form-control" name="dz" readonly type="text" value="江苏省/苏州市/吴中区" data-toggle="city-picker">
+                            <input id="More-address" name="address" class="form-control"  type="text" placeholder="详细地址" >
+                            <input id="Person" name="fullname" class="form-control"  type="text" placeholder="收货人" >
+                            <input id="Phone" name="mobile" class="form-control"  type="tel" placeholder="手机号码" >
 
-            <div class="carousel-inner" role="listbox">
-            </div>
+                            <input type="hidden" name="orderid" value="{{ orderid }}">
+                            <input type="hidden" name="lastid" value="{{ lastId }}">
+
+
+                            <input type="hidden" name="province" value="province" >
+                            <input type="hidden" name="city"  value="city" >
+                            <input type="hidden" name="district"  value="district" >
+                        </div>
+                        <div class="goods1">
+                          <input type="hidden" name="product_id">
+                          <input type="hidden" name="product_detail" value='{""}'>
+                        </div>
+                        <!-- <div class="goods2">
+                          <input type="hidden" name="products[]">
+                          <input type="hidden" name="color[]" >
+                          <input type="hidden" name="size[]" >
+                          <input type="hidden" name="posit[]" >
+                        </div> -->
+                       
+
+                    </div>
+               
+                    <div class="form-group">
+                    <button id="toPay" type="submit">确定</button>
+                        <!-- <div id="toPay" >确定</div> -->
+                    </div>
+                    </form>
+                </div> 
         </div>
-        <script>
-            require(['bootstrap', 'hammer'], function($, Hammer){
-                $('#carousel-container').carousel();
-                var mc = new Hammer($('#carousel-container').get(0));
-                mc.on("panleft", function(ev) {
-                    $('#carousel-container').carousel('next');
-                });
-                mc.on("panright", function(ev) {
-                    $('#carousel-container').carousel('prev');
-                });
-            });
-        </script>
 
-        <div style="clear: both;"></div>
-        <div style="text-align: center;background-color: #fff;color:#d9534f;font-size: 20px;font-weight: 700">许多宝  新品试用  只送不卖
-            <span style="text-align: center;display: block;color:#000;font-size: 15px;font-weight: 500">开始挑选自己喜欢的9件商品吧</span>
+
+          </div>
         </div>
-        <!--<h4 style="background-color: #fff;padding:10px;margin:0;border-top:1px dotted #d3d3d3;">
-            精品推荐        <small class="pull-right">流行元素  权威榜单</small>
-        </h4>-->
-        <div class="goods-detail">
-            <ul>
-                <li>全部商品</li>
-                <li class="hot">热选</li>
-                <li class="new">新品</li>
-                <li class="fashion">新款</li>
-            </ul>
-        </div>
-        <div class="goods-list">
-            <form id="select_goods" action="./index.php?i=2&c=entry&orderid=1212&do=payments&m=qw_cca" method="post">    <div class="list" id="list" style="padding: 2px;background-color: #d9534f;">
-                <div class="goods-row">
-                    <a href="./index.php?i=2&c=entry&id=278&do=view_detail&m=qw_cca" style="display: block;height:30px;">
-                        <div class="good" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/v10LSsSt5D0QO41f7lssSQxv1q5045.jpg') top center no-repeat;background-size:cover;height:140px;float: left;">
-                            <!--
-                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/v10LSsSt5D0QO41f7lssSQxv1q5045.jpg">-->
-                        </div></a>
-                    <div>
-                        <div style="height:150px">
-                            <a href="./index.php?i=2&c=entry&id=278&do=view_detail&m=qw_cca" style="color:#459ae9;text-decoration: none">
-                                波司登超薄莫代尔男袜（2双）                    </a>
-                        </div>
-                        <div class="price" style="color: #f15f5b">市场参考价<i class="fa fa-yen"></i> 22.00元
-                            <span style="float: left">已被选604件</span></div>
-                        <input type="hidden" class="_color" data-id="278" name="color[]">
-                        <input type="hidden" class="_size" data-id="278" name="size[]">
-                        <label for="checkbox_1"></label>
-                    </div>
-                    <input type="checkbox" id="checkbox_1"  data-id="278"    class="select_product"  name="product_id[]" value="278" style="margin-right:5px;">            <div class="type">
-                <span class="t-color">颜色：
-                    <select name="color[]" class="s-color" data-id="278">
-                        <option value ="278_黑色">黑色</option>
-                        <option value ="278_白色">白色</option>
-                    </select>
-                </span><br>
-                <span class="t-size">尺码：
-                    <select name="size[]" class="s-size" data-id="278">
-                    </select>
-                </span>
-                </div>
-                    <div>
 
-                    </div>
-                    <!--<a href="./index.php?i=2&c=entry&id=278&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>-->
-                </div>
-                <div class="goods-row">
-                    <a href="./index.php?i=2&c=entry&id=283&do=view_detail&m=qw_cca" style="display: block;height:30px;">
-                        <div class="good" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/QifsNoUrIrXFYU0kkrwK9RXiM9IikI.jpg') top center no-repeat;background-size:cover;height:140px;float: left;">
-                            <!--
-                                <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/QifsNoUrIrXFYU0kkrwK9RXiM9IikI.jpg">-->
-                        </div></a>
-                    <div>
-                        <div style="height:150px">
-                            <a href="./index.php?i=2&c=entry&id=283&do=view_detail&m=qw_cca" style="color:#459ae9;text-decoration: none">
-                                波司登浅口运动女袜（2双）                    </a>
-                        </div>
-                        <div class="price" style="color: #f15f5b">市场参考价<i class="fa fa-yen"></i> 24.00元
-                            <span style="float: left">已被选723件</span></div>
-                        <input type="hidden" class="_color" data-id="283" name="color[]">
-                        <input type="hidden" class="_size" data-id="283" name="size[]">
-                        <label for="checkbox_1"></label>
-                    </div>
-                    <input type="checkbox" id="checkbox_1"  data-id="283"    class="select_product"  name="product_id[]" value="283" style="margin-right:5px;">            <div class="type">
-                <span class="t-color">颜色：
-                    <select name="color[]" class="s-color" data-id="283">
-                        <option value ="283_绿色">绿色</option>
-                    </select>
-                </span><br>
-                <span class="t-size">尺码：
-                    <select name="size[]" class="s-size" data-id="283">
-                    </select>
-                </span>
-                </div>
-                    <div>
-
-                    </div>
-                    <!--<a href="./index.php?i=2&c=entry&id=283&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>-->
-                </div>
-            </div>
-                <div class="list" id="hot" style="padding: 2px;background-color: #d9534f;">
-                    <div class="goods-row">
-                        <a href="./index.php?i=2&c=entry&id=275&do=view_detail&m=qw_cca" style="display: block;height:30px;">
-                            <div class="good" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/Tth5wA5ctTHwpH5mt50adcH5h0h3rA.jpg') top center no-repeat;background-size:cover;height:140px;float: left;">
-                                <!--
-                                    <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/Tth5wA5ctTHwpH5mt50adcH5h0h3rA.jpg">-->
-                            </div></a>
-                        <div>
-                            <div style="height:150px">
-                                <a href="./index.php?i=2&c=entry&id=275&do=view_detail&m=qw_cca" style="color:#459ae9;text-decoration: none">
-                                    泊泉雅魅惑秘密果冻口红保湿唇彩（1支）                        </a>
-                            </div>
-                            <div class="price" style="color: #f15f5b">市场参考价<i class="fa fa-yen"></i> 19.90元
-                                <span style="float: left">已被选1897件</span></div>
-                            <label for="checkbox_1"></label>
-                        </div>
-                        <input type="checkbox" id="checkbox_1"  data-id="275"    class="select_product"   value="275" style="margin-right:5px;">                <div class="type">
-                <span class="t-color">颜色：
-                    <select  class="s-color" data-id="275">
-                        <option value ="275_烈焰红">烈焰红</option>
-                        <option value ="275_芭比粉">芭比粉</option>
-                        <option value ="275_果粒橙">果粒橙</option>
-                    </select>
-                </span><br>
-                <span class="t-size">尺码：
-                    <select  class="s-size" data-id="275">
-                    </select>
-                </span>
-                    </div>
-                        <div>
-
-                        </div>
-                        <!--<a href="./index.php?i=2&c=entry&id=275&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>-->
-                    </div>
-                </div>
-                <div class="list" id="new" style="padding: 2px;background-color: #d9534f;">
-                    <div class="goods-row">
-                        <a href="./index.php?i=2&c=entry&id=270&do=view_detail&m=qw_cca" style="display: block;height:30px;">
-                            <div class="good" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/l2242dDz3ddzf723cbBdCD52D0424N.jpg') top center no-repeat;background-size:cover;height:140px;float: left;">
-                                <!--
-                                    <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/l2242dDz3ddzf723cbBdCD52D0424N.jpg">-->
-                            </div></a>
-                        <div>
-                            <div style="height:150px">
-                                <a href="./index.php?i=2&c=entry&id=270&do=view_detail&m=qw_cca" style="color:#459ae9;text-decoration: none">
-                                    水果时光蓝莓罐头1瓶装                        </a>
-                            </div>
-                            <div class="price" style="color: #f15f5b">市场参考价<i class="fa fa-yen"></i> 29.00元
-                                <span style="float: left">已被选577件</span></div>
-                            <label for="checkbox_1"></label>
-                        </div>
-                        <input type="checkbox" id="checkbox_1"  data-id="270"    class="select_product"   value="270" style="margin-right:5px;">                <div class="type">
-                <span class="t-color">颜色：
-                    <select  class="s-color" data-id="270">
-                    </select>
-                </span><br>
-                <span class="t-size">尺码：
-                    <select  class="s-size" data-id="270">
-                    </select>
-                </span>
-                    </div>
-                        <div>
-
-                        </div>
-                        <!--<a href="./index.php?i=2&c=entry&id=270&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>-->
-                    </div>
-                </div>
-
-                <div class="list" id="fashion" style="padding: 2px;background-color: #d9534f;">
-                    <div class="goods-row">
-                        <a href="./index.php?i=2&c=entry&id=264&do=view_detail&m=qw_cca" style="display: block;height:30px;">
-                            <div class="good" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/peAMyFAdKemJkeZm36368D386ai7zY.jpg') top center no-repeat;background-size:cover;height:140px;float: left;">
-                                <!--
-                                    <img class="img-responsive" src="http://abc.5xieys.cn/attachment/images/2/2017/03/peAMyFAdKemJkeZm36368D386ai7zY.jpg">-->
-                            </div></a>
-                        <div>
-                            <div style="height:150px">
-                                <a href="./index.php?i=2&c=entry&id=264&do=view_detail&m=qw_cca" style="color:#459ae9;text-decoration: none">
-                                    顶鹿莫代尔大仓男士内裤（1条）                    </a>
-                            </div>
-                            <div class="price" style="color: #f15f5b">市场参考价<i class="fa fa-yen"></i> 25.00元
-                                <span style="float: left">已被选468件</span></div>
-                            <label for="checkbox_1"></label>
-                        </div>
-                        <input type="checkbox" id="checkbox_1"  data-id="264"    class="select_product"   value="264" style="margin-right:5px;">            <div class="type">
-                <span class="t-color">颜色：
-                    <select  class="s-color" data-id="264">
-                        <option value ="264_黑色">黑色</option>
-                        <option value ="264_宝蓝">宝蓝</option>
-                        <option value ="264_深紫">深紫</option>
-                    </select>
-                </span><br>
-                <span class="t-size">尺码：
-                    <select  class="s-size" data-id="264">
-                        <option value ="264_XL">XL</option>
-                        <option value ="264_L">L</option>
-                        <option value ="264_XXL">XXL</option>
-                        <option value ="264_XXXL">XXXL</option>
-                    </select>
-                </span>
-                    </div>
-                        <div>
-
-                        </div>
-                        <!--<a href="./index.php?i=2&c=entry&id=264&do=details&m=qw_cca" class="btn btn-danger btn-block add-cart pull-right"> 找真爱</a>-->
-                    </div>
-                </div>
-
-            </form>    </div>
-        <div class="jd_win">
-            <div class="jd_win_box">
-                <div class="jd_win_tit">选择商品规格</div>
-                <div class="guige">
-                    <span id="_color">颜色：</span><br>
-                    <span id="_size">尺码：</span>
-                </div>
-                <div class="jd_btn clearfix">
-                    <a href="#" class="qr_left">取消</a>
-                    <a href="#" class="qr_right">确定</a>
-                </div>
-
-            </div>
-        </div>
-        <div style="height:55px"></div>
-        <div class="pager-position"></div>
-    </div>
-    <div class="choose">
-        <!--<div class="allchoose">
-            <input type="checkbox" id="select_all" class="float:left">
-            <span>全选</span>
-        </div>-->
-        <div class="sum-count">
+         
+        <div class="footer col-xs-12 col-sm-12"> 
+          <div class="footer_num  col-xs-6 col-sm-6">
             还需选择<span>9</span>件
+          </div>
+          <div class="footer_show  col-xs-3 col-sm-3" style="border-right:1px solid #fff">
+            查看已选
+          </div>
+          <div class="footer_button  col-xs-3 col-sm-3" >
+            确认选择
+          </div>
         </div>
-        <div>
-            <a href="javascript:sub_product()">确认选择</a>
-        </div>
+      </div>
+ 
+
     </div>
 
+     <script id="goodsList" type="text/html">
+      
+       <% for (var i = 0; i < data.length; i++) { %>
+          <li class="content_goodsList col-xs-6 col-sm-6" data-px="<%=i%>" data-hot="<%=data[i].hot%>" data-fashion="<%=data[i].fashion%>" data-new="<%=data[i].new%>">
+                    <div class="goods_image">
+                      <img src="<%=data[i].pic_url%>" alt="">
+                    </div>
+                    <div class="CheckBox"><input class="checkBoxClass" type="checkbox"> </div>
+                    <div class="goods_choice">已被选<span><%= data[i].select_count %></span>件</div>
+                    <div class="goods_price">市场参考价<span><%= data[i].price %></span>元</div>
+                    <div class="goods_title"><%= data[i].name %></div>
+                    <span class="descriptionImg" style="display:none"><%=data[i].description%></span>
+                    <input type="hidden" name="products[]" value="<%=data[i].id%>" class="selected_id">
+                    <!-- <input type="hidden" name="color[]" value="">
+                    <input type="hidden" name="size[]" value="">
+                    <input type="hidden" name="posit[]" value=""> -->
+               </li>
+       <%} %>
+     
+    </script>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>/
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/city-picker.data.js"></script>
+    <script src="/js/city-picker.js"></script>
+    
 
-    <!--<div class="count">
-        您已选择件<span></span>商品
-    </div>-->
-    <div class="text-center footer" style="margin:10px 0; width:100%; text-align:center; word-break:break-all;">
-        &nbsp;&nbsp;			</div>
-    <script>require(['bootstrap']);</script>
-</div>
-<style>
-    h5{color:#555;}
-</style>
-<script type="text/javascript">
-    $(function(){
-        wx.config(jssdkconfig);
-        var $_share = {"title":"\u8bb8\u591a\u5b9d","imgUrl":"","desc":"","link":"http:\/\/abc.5xieys.cn\/app\/index.php?i=2&c=entry&order_id=1212&paid=2&do=index&m=qw_cca&from=singlemessage&isappinstalled=0&winzoom=1&wxref=mp.weixin.qq.com"};
-        if(typeof sharedata == 'undefined'){
-            sharedata = $_share;
-        } else {
-            sharedata['title'] = sharedata['title'] || $_share['title'];
-            sharedata['desc'] = sharedata['desc'] || $_share['desc'];
-            sharedata['link'] = sharedata['link'] || $_share['link'];
-            sharedata['imgUrl'] = sharedata['imgUrl'] || $_share['imgUrl'];
+    <script>
+    var page=1;
+    var total;
+    var goodsNum=0;
+    var scrollTrue=true;
+    $.post('',{p:page}, function(ret) {
+       total=ret.total;
+       var html=template('goodsList',ret);
+       document.getElementById('moduleBox').innerHTML = html;    
+       document.body.scrollTop-=0.1;     
+    },'json');
+    //初始化页面高度
+    $(".bgImg").css({'height':window.innerHeight});
+         var choiceCount=0;
+
+    //导航
+    $(".banner li").on('click',function(){
+     
+      $(".banner li").css("background-image","url(/src/shopping/banner.png)");
+      $(".banner li").removeClass('active');
+      $(this).css('background-image',"url(/src/shopping/banner2.png)");
+      $(this).addClass('active');
+      $(".content li").css({'display':'none'});
+
+      if($(this).attr('id')=="allGoods"){
+        $(".content li").css({'display':'block'});
+      }else if($(this).attr('id')=="hot"){ 
+        $('.content li[data-hot="1"]').css({'display':'block'});
+        goodsNum=0;
+        $('.content li[data-hot="1"]').each(function(){
+          goodsNum++;
+        })
+      }else if($(this).attr('id')=="new"){
+        $('.content li[data-new="1"]').css({'display':'block'});
+        goodsNum=0;
+        $('.content li[data-new="1"]').each(function(){
+          goodsNum++;
+        })
+      }else if($(this).attr('id')=="fashion"){
+        $('.content li[data-fashion="1"]').css({'display':'block'});
+        goodsNum=0;
+        $('.content li[data-fashion="1"]').each(function(){
+          goodsNum++;
+        })
+      }
+        if(goodsNum<5){
+          ajaxNext();
         }
-        if(sharedata.imgUrl == ''){
-            var _share_img = $('body img:eq(0)').attr("src");
-            if(_share_img == ""){
-                sharedata['imgUrl'] = window.sysinfo.attachurl + 'images/global/wechat_share.png';
-            } else {
-                sharedata['imgUrl'] = util.tomedia(_share_img);
+      
+      
+    })
+   //计算已选商品件数
+      $("#moduleBox").on('click','.checkBoxClass',function(){
+        event.stopPropagation(); 
+        if(choiceCount>=9){
+          if($(this).prop("checked")){
+            $(this).removeProp("checked");
+            alert("最多选择9件商品");
+          } 
+        }
+       var productsID=[];
+       var weizhiID=[];
+       var json="{";
+       var num;
+        choiceCount=0;
+       $("input[type=checkbox]").each(function(index){
+          if($(this).prop("checked")){
+            choiceCount++;
+            num=index+1;
+            productsID.push($(this).parent().parent().children('input[name="products[]"]').val());
+            json=json+$(this).parent().parent().children('input[name="products[]"]').val()+":"+num+",";
+             weizhiID.push(json);
+             
+            // $(".goods"+choiceCount).children('input[name="products[]"]').val($(this).parent().parent().children('input[name="products[]"]').val());
+            // $(".goods"+choiceCount).children('input[name="color[]"]').val($(this).parent().parent().children('input[name="color[]"]').val());
+            // $(".goods"+choiceCount).children('input[name="size[]"]').val($(this).parent().parent().children('input[name="size[]"]').val());
+            // $(".goods"+choiceCount).children('input[name="posit[]"]').val($(this).parent().parent().children('input[name="posit[]"]').val());
+          }
+       })
+       $(".goods1").children('input[name="product_id"]').val(productsID);
+       json=json.substring(0,json.length-1)+"}";
+       json=JSON.stringify(json);
+       $('input[name="product_detail"]').val(json);
+       $(".footer_num span").html(9-choiceCount);
+      });
+
+      //弹出相关属性
+      $("#moduleBox").on("click",".goods_image,.goods_choice,.goods_price,.goods_title",function(){
+    
+        $("#detailsBox").html($(this).parent().children('.descriptionImg').text());
+       
+        event.stopPropagation(); 
+        $(".yun").css({'display':'block'});
+        $('.details_page').css({'zIndex':'102'}).fadeIn();
+        // $('html,body').css({'overflow':'hidden'});
+        // $(this).find(".goods_details").css({'display':'block','zIndex':'101'}).animate(
+        //     {top:'15%'}
+        //   );
+        //  event.stopPropagation(); 
+      })
+
+      //遮罩
+      $(".yun").on('click',function(){
+        event.stopPropagation(); 
+        $('.goods_details').css({'display':'none','zIndex':'99'}).animate({
+          top:'-54%'});
+        $(this).css({'display':'none'});
+        $('.details_page').css({'display':'none','zIndex':'98'});
+        $(".shippingAddress").css({'display':'none','top':'-300px'});
+        // $('html,body').css({'overflow-y':'scroll'});
+      })
+
+      //详情按钮
+      $(".details_button").click(function(){
+       
+        $('.details_page').css({'zIndex':'102'}).fadeIn();
+        $(".details_page").scrollUnique();
+      })
+
+      //查看已选
+      $(".footer_show").click(function(){
+        if(scrollTrue){
+          scrollTrue=false;
+        $(this).text("返回");
+        $("input[type=checkbox]").each(function(index){
+          if(!$(this).prop("checked")){
+           $(this).parent().parent().css({'display':'none'});
+          }
+       })
+        $(".header,.banner").css({'display':'none'});
+        $(".content_goodsList").css({'height':'120px'});
+      }else{
+          scrollTrue=true;
+           $(this).text("查看已选");
+           $(".header, .banner").css({'display':'block'});
+           $(".content_goodsList").css({'height':'160px'});
+
+
+           $(".banner li").css("background-image",'url(/src/shopping/banner.png)');
+           $(".banner li").removeClass('active');
+           $("#allGoods").css('background-image','url(/src/shopping/banner2.png)');
+           $("#allGoods").addClass('active');
+           $(".content li").css({'display':'block'});
+
             }
+        
+
+      })
+      //填写地址
+      $(".footer_button").click(function(){
+        event.stopPropagation(); 
+        if($(".footer_num span").html()>0){
+          alert("请选完9件战利品");
+          return;
         }
-        if(sharedata.desc == ''){
-            var _share_content = util.removeHTMLTag($('body').html());
-            if(typeof _share_content == 'string'){
-                sharedata.desc = _share_content.replace($_share['title'], '')
-            }
-        }
-        wx.ready(function () {
-            wx.onMenuShareAppMessage(sharedata);
-            wx.onMenuShareTimeline(sharedata);
-            wx.onMenuShareQQ(sharedata);
-            wx.onMenuShareWeibo(sharedata);
+        $(".yun").css({'display':'block'});
+        $(".shippingAddress").css({'display':'block'}).animate({top:'0'});
+      })
+
+
+
+      //关闭网页提醒
+      // $(window).bind('beforeunload',function(){
+        
+   
+      // })
+      //更新收货地址
+      $("#distpicker").click(function(){
+       $('input[name="province"]').val($("#city-picker3").val().split('/')[0]);
+       $('input[name="city"]').val($("#city-picker3").val().split('/')[1]);
+       $('input[name="district"]').val($("#city-picker3").val().split('/')[2]);
+
+ 
+
+      })
+
+
+      //省市联动相关开始
+        var $citypicker1 = $('#city-picker1');
+
+        $citypicker1.citypicker();
+
+        var $citypicker2 = $('#city-picker2');
+
+        $citypicker2.citypicker({
+            province: '江苏省',
+            city: '苏州市',
+            district: '吴中区'
         });
-        if($('.js-quickmenu')!=null && $('.js-quickmenu')!=''){
-            var h = $('.js-quickmenu').height()+'px';
-            $('body').css("padding-bottom",h);
-        }else{
-            $('body').css("padding-bottom", "0");
+
+        var $citypicker3 = $('#city-picker3');
+
+        // $('#reset').click(function () {
+        //     $citypicker3.citypicker('reset');
+        // });
+
+        $('#destroy').click(function () {
+            $citypicker3.citypicker('destroy');
+        });
+      //省市联动相关结束
+
+      //上拉获取更多产品
+        //获取滚动条当前位置
+       function getScrollTop(){
+        var scrollTop=0;
+        if(document.documentElement && document.documentElement.scrollTop){
+          scrollTop=document.documentElement.scrollTop;
+        }else if(document.body){
+          scrollTop=document.body.scrollTop;
         }
-    });
-</script>
-</body>
+        return scrollTop;
+       }
+        //获取当前可视范围的高度 
+        function getClientHeight() { 
+        var clientHeight = 0; 
+        if (document.body.clientHeight && document.documentElement.clientHeight) { 
+        clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight); 
+        } 
+        else { 
+        clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight); 
+        } 
+        return clientHeight; 
+        } 
+
+        //获取文档完整的高度 
+        function getScrollHeight() { 
+        return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight); 
+        } 
+        $(window).bind('scroll',function(){
+      
+          if(getScrollTop()+getClientHeight()==getScrollHeight()){
+            if(scrollTrue){
+              ajaxNext();
+            }
+            
+           
+          }
+
+        })
+//加载下一页函数
+function ajaxNext(){
+    page++;
+    if(page>total){
+      return;
+    }
+       $.post('',{p:page}, function(ret) {
+        total=ret.total;
+        var html=template('goodsList',ret);
+        $("#moduleBox").append(html);
+        document.body.scrollTop-=0.1;
+         $("#moduleBox li").css({'display':'none'});
+        $(".banner li").each(function(){
+          if($(this).attr('class')=="active"){
+          if($(this).attr('id')=="allGoods"){
+            $(".content li").css({'display':'block'});
+          }else if($(this).attr('id')=="hot"){
+            $('.content li[data-hot="1"]').css({'display':'block'});
+            goodsNum=0;
+            $('.content li[data-hot="1"]').each(function(){
+            goodsNum++;
+            })
+          }else if($(this).attr('id')=="new"){
+            $('.content li[data-new="1"]').css({'display':'block'});
+            goodsNum=0;
+            $('.content li[data-new="1"]').each(function(){
+            goodsNum++;
+            })
+          }else if($(this).attr('id')=="fashion"){
+            $('.content li[data-fashion="1"]').css({'display':'block'});
+            goodsNum=0;
+            $('.content li[data-fashion="1"]').each(function(){
+            goodsNum++;
+            })
+          }
+          if(goodsNum<5){
+            ajaxNext();
+          }
+        }
+        });
+      },'json');    
+}
+//提交订单
+ // $("#toPay").on('click',function(){
+
+ //  $.post('http://web.5xieys.cn/gxc/mobile/payment',$(".editFrm").serialize(),function(ret){
+ //    console.log("yes");
+ //  })
+ // })
+      
+    </script>
+  </body>
 </html>
-<script>
-    $("#hot").hide();
-    $("#fashion").hide();
-    $("#new").hide();
-    var $div_li = $("div.goods-detail ul li");
-    $div_li.click(function () {       //定义了tan_menu对应的单击事件，也就是类别的单击事件。
-        var index = $div_li.index(this);
-        var array1=[];
-        var array2=[];
-        $("div.goods-list form>div").eq(index).show()
-                .siblings().hide();
-        $("div.goods-list form>div").find("input[type='checkbox']:checked").each(function(){
-            array1.push($(this).attr("data-id"));
-        });
-        //console.log(array1);
-        $("div.goods-list form>div").eq(index).find("input[type='checkbox']").each(function(){
-            var data_id=$(this).attr("data-id");
-            //console.log(data_id);
-            //console.log($.inArray(data_id,array1));
-            if($.inArray(data_id,array1)>-1){
-                $(this).attr("checked",true);
-            }
-        });
-    });
-    $(".goods-row").each(function(){
-        if($(this).find(".s-color option").size()==0){
-            $(this).find(".t-color").hide();
-        }
-        if($(this).find(".s-size option").size()==0){
-            $(this).find(".t-size").hide();
-        }
-    });
-
-    var that;
-    var product_id=0;
-    //    $(".goods-list input[type='checkbox']").click(function() {
-    // /*       product_id=$(this).data("id");
-    //        $("#_color a").remove();
-    //        $("#_size a").remove();
-    //        $.post("./index.php?i=2&c=entry&do=specification&m=qw_cca",{"id":product_id},function (a) {
-    //            $.each(a,function (i,n) {
-    //               if(n.type==1){
-    //                   $("#_color").append("<a>"+n.value+"</a> ");
-    //               }
-    //                if(n.type==2){
-    //                    $("#_size").append("<a>"+n.value+"</a> ");
-    //                }
-    //
-    //            })
-    //        },'json')
-    //        $(".jd_win").fadeIn(1000);*/
-    //        var count1=$("#new input:checked").length;
-    //        var count2=$("#hot input:checked").length;
-    //        var count3=$("#fashion input:checked").length;
-    //        var count=0;
-    //        if(count1==0&&count2==0&&count3==0){
-    //            count=9-($(this).closest("#list").find("input:checked").length);
-    //        }else{
-    //            count=9-(count1+count2+count3);
-    //        }
-    //        console.log(count1);
-    //        console.log(count2);
-    //        console.log(count3);
-    //        var sum_count=$(this).parents(".shopping-main").next().find(".sum-count span");
-    //        //console.log(count);
-    //        if(count>=0){
-    //            sum_count.text(count);
-    //        }else{
-    //            sum_count.text(0);
-    //            $(this).removeAttr("checked");
-    //            alert("您已选择9件");
-    //        }
-    //        //that = $(this);
-    //    });
-    $(".qr_left").on("click",function(){
-        that.attr("checked",false);
-        $(".jd_win").hide();
-    })
-    $(".qr_right").on("click",function(){
-        $(that).parent().next().find(".info").css("display","block");
-        $(".jd_win").hide();
-    })
-    $(".footer").hide();
-    function sub_product() {
-        var count = 9-($("#list input:checked")).length;
-        if(count==0){
-            $("#select_goods").submit();
-        }else{
-            alert("请选满9款产品"+count);
-        }
-    }
-
-    $("#_color").on("click","a",function () {
-        $("#_color a").removeClass("_active");
-        $(this).addClass("_active");
-        $("._color[data-id="+product_id+"]").val(product_id+"_"+$(this).text())
-    })
-    $("#_size").on("click","a",function () {
-        $("#_size a").removeClass("_active");
-        $(this).addClass("_active");
-        $("._size[data-id="+product_id+"]").val(product_id+"_"+$(this).text())
-    })
-    /*$(".goods-detail li").on("click",function(){
-     $(this).children("a").css("color","#d9534f").siblings().css("color","green");
-     })*/
-</script>
-<script>
-    var arr=new Array();
-    arr[0]="/img/bg1.jpg";
-    arr[1]="/img/bg2.jpg";
-    var num=0;
-    setInterval(turnpic,3000); //每隔3秒转换图片
-    function turnpic(){
-        idsrc=document.getElementById("images");
-        if(num==arr.length-1)
-            num=0;
-        else
-            num+=1;
-        idsrc.src=arr[num];
-    }
-
-    $("input.select_product").change(function () {
-        var sid=$(this).data('id');
-        if($(this).is(":checked")){
-            $("input.select_product").each(function (i,e) {
-                if($(e).data('id')==sid){
-                    $(e).prop("checked",true);
-                }
-            })
-            var len=$("#list input.select_product:checked").length;
-            $(".sum-count span").text(9-len);
-            if(len>=9){
-                $("input.select_product").not(":checked").prop("disabled",true);
-                return false;
-            }
-        }else{
-            $("input.select_product").each(function (i,e) {
-                if($(e).data('id')==sid){
-                    $(e).prop("checked",false);
-                }
-            })
-            var len=$("#list input.select_product:checked").length;
-            $(".sum-count span").text(9-len);
-            $("input.select_product").not(":checked").prop("disabled",false);
-        }
-    })
-    $(".s-color").change(function () {
-        var s_color=$(this).val();
-        var s_color_id=$(this).data('id');
-        $(".s-color").each(function(i,e){
-            if($(e).data('id')==s_color_id){
-                $(e).val(s_color);
-            }
-        })
-    })
-    $(".s-size").change(function () {
-        var s_size=$(this).val();
-        var s_size_id=$(this).data('id');
-        $(".s-size").each(function(i,e){
-            if($(e).data('id')==s_size_id){
-                $(e).val(s_size);
-            }
-        })
-    })
-
-
-</script>
