@@ -1,6 +1,7 @@
 <?php
 namespace App\Modules\Gxc\Controllers;
 
+use App\Models\XdbMember;
 use Phalcon\Mvc\Controller;
 
 class ControllerBase extends Controller
@@ -29,6 +30,17 @@ class ControllerBase extends Controller
         $this->openid=$this->session->get('openid');
         $this->nickname=$this->session->get('nickname');
         $this->avatar=$this->session->get('avatar');
+        $date=date('Y-m-d');
+        if(!XdbMember::findFirst('openid="'.$this->openid.'" and add_at="'.$date.'"')){
+            $member=new XdbMember();
+            $member->setAddAt($date);
+            $member->setOpenid($this->openid);
+            $member->setNickname($this->nickname);
+            $member->create();
+        }
+
+
+
     }
 
 }

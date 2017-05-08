@@ -55,8 +55,9 @@ myapp.controller('myCtrl', ['$scope', '$http', '$compile', 'retrieve', function 
         if(confirm("你确定要删除此商品?")){
             $scope.edit = {};
             $scope.edit.token=$scope.info.token;
-            $scope.edit.action = 'delete';
-            $scope.edit.id = a;
+            $scope.edit.action = 'edit';
+            $scope.edit.id = b;
+            $scope.edit.deleted=2;
             retrieve.edit($scope.edit, '/backend/xuduobao/goodsedit');
             retrieve.list($scope);
         }

@@ -81,6 +81,9 @@ class IndexController extends ControllerBase
            $payorder->setBuyNumber($payorder->getBuyNumber()+1);
            $payorder->setStatus(1);
            $payorder->save();
+
+           $this->db->execute("update xdb_product set send_count = send_count + 1 where id=".$payment->getGoodsId());
+
             return true;
         });
         $response->send();
@@ -90,12 +93,21 @@ class IndexController extends ControllerBase
     public function testAction(){
         $this->view->disable();
         echo "<pre>";
-//        var_dump(get_class_methods($this->transactionManager));
-        $this->db->begin();
-        $cate=XdbCategory::findFirst('id=1');
-        $cate->setDeleted(1);
-        var_dump($cate->save());
-        $this->db->rollback();
+        $arr=[
+          ['name'=>'zhangsan','age'=>18,'height'=>170],
+          ['name'=>'lishi','age'=>19,'height'=>170],
+          ['name'=>'wangwu','age'=>18,'height'=>170],
+          ['name'=>'zhaoliu','age'=>18,'height'=>170],
+          ['name'=>'zhenqi','age'=>18,'height'=>170],
+        ];
+        foreach ($arr as $k=>$item) {
+            if($item['name']=='lishi'){
+                unset($arr[$k]);
+            }
+        }
+
+        var_dump($arr);
+
 
     }
 

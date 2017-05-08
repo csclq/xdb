@@ -29,6 +29,7 @@ class ControllerBase extends Controller
         $this->view->currentcontroller = $this->dispatcher->getControllerName();
         $this->view->currentaction = $this->dispatcher->getActionName();
 
+        $this->common->autobuy();
 
         if ($this->request->isPost()) {
             $this->view->disable();

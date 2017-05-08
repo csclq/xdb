@@ -1,120 +1,11 @@
-
-<!DOCTYPE html>
-<html lang="zh-cn">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title></title>
-        <link rel="shortcut icon" href="http://abc.5xieys.cn/attachment/images/global/wechat.jpg" />
-        <link href="static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-        <link href="static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
-        <link href="static/css/animate.css" rel="stylesheet">
-        <link href="static/css/v2.css?v=4.1.0" rel="stylesheet">
-        <link href="static/css/common.css?v=2.0.0" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="static/fonts/iconfont.css?v=2016070717">
-        <script src="./resource/js/lib/jquery-1.11.1.min.js"></script>
-        <script src="static/js/dist/jquery/jquery.gcjs.js"></script>
-        <script src="./resource/js/app/util.js"></script>
-
-
-        <script src="static/js/require.js"></script>
-        <script src="./resource/js/app/config.js"></script>
-        <script>
-            require.config({
-                waitSeconds: 0
-            });
-        </script>
-        <script src="static/js/myconfig.js"></script>
-        <script type="text/javascript">
-                if (navigator.appName == 'Microsoft Internet Explorer') {
-                    if (navigator.userAgent.indexOf("MSIE 5.0") > 0 || navigator.userAgent.indexOf("MSIE 6.0") > 0 || navigator.userAgent.indexOf("MSIE 7.0") > 0) {
-                        alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
-                    }
-                }
-                myrequire.path = "http://abc.5xieys.cn/addons/ewei_shopv2/static/js/";
-                
-            function preview_html(txt)
-            {
-                var win = window.open("", "win", "width=300,height=600"); // a window object
-                win.document.open("text/html", "replace");
-                win.document.write($(txt).val());
-                win.document.close();
-            }
-        </script>
-
-    </head>
-
-
-    <body class="white-bg ">
-        <div id='topbar' class='top-navigation   gray-bg '>
-            <nav class="navbar   gray-bg " role="navigation" style="width:1024px;margin:auto;">
-                <div class="navbar-header" style="width:200px;">
-                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                        <i class="fa fa-reorder"></i>
-                    </button>
-		    		    <a class="navbar-brand" href="index.html">新品试用平台</a>
-		    		</div><style>
-    .deg180{
-        transform:rotate(180deg);
-        -ms-transform:rotate(180deg); 	/* IE 9 */
-        -moz-transform:rotate(180deg); 	/* Firefox */
-        -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
-        -o-transform:rotate(180deg); 	/* Opera */
-    }
-</style>
-<div class="navbar-collapse collapse" id="navbar">
-<ul class="nav navbar-nav gray-bg">
-                <li ><a href="index.html">首页</a></li>
-                <li ><a href="goods.html"> 商品管理</a></li>
-                <li  ><a href="order.html"> 订单管理</a></li>
-                <li ><a href="basic.html"> 微信基本功能</a></li>
-                <li class="active"><a href="data.html">数据分析</a></li>
-            </ul>
-
-
-    <ul class="nav navbar-top-links navbar-right">
-        <li class="dropdown">
-            <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown" style="position:relative;" onclick="$(this).find('span').toggleClass('deg180')">
-                <name style="width: 80px;white-space:nowrap;overflow:hidden;text-overflow: ellipsis;display: block;text-align: center">许多宝</name>
-                <span class="caret" style="position: absolute;top: 22px;right: 12px;"></span></a>
-            <ul role="menu" class="dropdown-menu">
-                <li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=sysset.account"><i class="icon icon-similar"></i>  切换公众号</a></li>
-                                <li><a href="./index.php?c=account&a=post&uniacid=2" target="_blank"><i class="icon icon-wechat"></i>  编辑公众号</a></li>
-                <li><a href="./index.php?c=profile&a=payment&" target="_blank"><i class="icon icon-pay"></i>  支付参数</a></li>
-                             <!--   <li><a href="./index.php?c=utility&a=emulator&" target="_blank"><i class="icon icon-machinery"></i>  模拟测试</a></li>-->
-				<li class="divider"></li>  
-		<li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=perm"><i class="icon icon-person2"></i> 权限管理</a></li>
-		     		<li class="divider"></li>  
-	<li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system"><i class="icon icon-settings"></i> 系统管理</a></li>
-	<li><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade"><i class="icon icon-down"></i> 系统更新</a></li>
-	                <li><a href="./index.php?c=user&a=profile&" target="_blank"><i class="icon icon-lock"></i>  修改密码</a></li>
-                <li><a href="./index.php?c=account&a=display&" target="_blank"><i class="icon icon-back"></i>  返回系统</a></li>
-            </ul>
-        </li>
-    </ul>
-
-    </div>
-</nav>				
-</div> 
 <div class='wrapper main-wrapper wrapper-content '>
-    <div class="page-menubar">
-<div class='menu-header'>销售统计</div>
-<ul>
-        	<li class="active"><a href="data.html">销售排行</a></li>
-                <li ><a href="datatrans.html">销售转化率</a></li>
-                <li ><a href="dataincrease.html">增长趋势</a></li>
-    
-</ul>
-
-    </div>
     <div class="page-content">
         
 
-<div class="page-heading"> <h2>商品销售排行</h2> <span>查询商品销售量和销售额，默认排序为销售额从高到低 总数: <span style='color:red'>21</span></div>
+<div class="page-heading"> <h2>商品销售排行</h2> <span>查询商品销售量和销售额，默认排序为销售额从高到低 总数: <span style='color:red'>{_ count _}</span></div>
 
 
-        <form action="./index.php" method="get" class="form-horizontal">
+        <form class="form-horizontal">
             <input type="hidden" name="c" value="site" />
             <input type="hidden" name="a" value="entry" />
             <input type="hidden" name="m" value="ewei_shopv2" />
@@ -173,17 +64,17 @@
 
 		<div class="col-sm-6 pull-right">
 
-			<select name='orderby'  class='form-control  input-sm select-md'   style="width:110px;">
+			<select name='orderby'  class='form-control  input-sm select-md'   style="width:110px;float:left">
 
 				<option value='' selected>排序</option>
 				<option value='0' >按销售额</option>
 				<option value='1' >按销售量</option>
 			</select>
 			<div class="input-group">				 
-				<input type="text" class="form-control input-sm"  name="title" value="" placeholder="商品名称"/> 
+				<input type="text" class="form-control input-sm"  name="title" value="" placeholder="商品名称"   ng-model="info.name"   />
 				<span class="input-group-btn">
 							
-					<button class="btn btn-sm btn-primary btn-sm" type="submit"> 搜索</button>
+					<button class="btn btn-sm btn-primary btn-sm" type="submit"  ng-click="search()"> 搜索</button>
                        <button type="submit" name="export" value="1" class="btn btn-success  btn-sm">导出 Excel</button>
                     				</span>
 			</div>
@@ -203,23 +94,28 @@
                 </tr>
             </thead>
             <tbody>
-                                <tr>
-                    <td>                             <labe class='label label-danger' style='padding:8px;'>&nbsp;1&nbsp;</labe>
+                                <tr ng-repeat="item in list">
+                    <td>                             <labe class='label label-danger' style='padding:8px;'>&nbsp;{_ (info.p - 1 ) * 10  +  $index + 1 _}&nbsp;</labe>
                                                     </td>
                     <td>
-                        <img src="http://abc.5xieys.cn/attachment/images/2/2016/12/rtC61T5reremVmER1t5mq6Er3Tvv6g.jpg" style="width: 30px; height: 30px;border:1px solid #ccc;padding:1px;">
-                        许多宝保湿面膜</td>
-                    <td>5</td>
-                    <td>385.00</td>
+                        <img ng-src="{_ item['pic_url'] _}" style="width: 30px; height: 30px;border:1px solid #ccc;padding:1px;">
+                        {_ item['name'] _}</td>
+                    <td>{_ item['send_count'] _}</td>
+                    <td>{_ item['send_count'] * item['price'] _}</td>
                 </tr>
                               
                         </table>
-        <div><ul class="pagination pagination-centered">
+        {{ partial('public/paging') }}
+        <div><ul class="pagination pagination-centered" style="background-color: #fff !important;color:#000 !important;">
        <li class="active"><a href="javascript:;">1</a></li>
-        <!--  <li><a href="?c=site&a=entry&m=ewei_shopv2&do=web&r=statistics.goods_rank&page=2">2</a></li>
-        <li><a href="/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=statistics.goods_rank&page=2" class="pager-nav">下一页&raquo;</a></li> -->
-        <li><a href="/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=statistics.goods_rank&page=2" class="pager-nav">尾页</a></li></ul></div>
+          <li><a href="#">2</a></li>
+        <li><a href="#" class="pager-nav">下一页&raquo;</a></li>
+        <li><a href="#" class="pager-nav">尾页</a></li></ul></div>
 </div>
+</div>
+
+<script src="/js/data.js"></script>
+
 
 <script language='javascript'>
 
@@ -291,15 +187,4 @@
         });
     });
 </script>
-<script language="javascript">myrequire(['web/init'],function(){
-    if($('.form-validate').length<=0) {  $('#page-loading').remove(); }
-});</script>
-<!-- <div id="page-loading" style="position: fixed;width:100%;height:100%;background:rgba(255,255,255,0.8);left:0;top:0;z-index:9999">
-    <div class="sk-spinner sk-spinner-double-bounce" style="position:fixed;top:50%;left:50%;width:40px;height:40px;margin-left:-20px;margin-top:-20px;">
-        <div class="sk-double-bounce1"></div>
-        <div class="sk-double-bounce2"></div>
-    </div>
-</div> -->
 
-</body>
-</html>

@@ -32,27 +32,29 @@
         <form  class="form-horizontal table-search" role="form">
             <div class="page-toolbar row m-b-sm m-t-sm">
                 <div class="col-sm-7">
-
                     <div class="btn-group btn-group-sm" style='float:left'>
                         <button class="btn btn-default btn-sm"  type="button" data-toggle='refresh'><i class='fa fa-refresh'></i></button>
 
                     </div>
                     <div class='input-group input-group-sm'   >
                         <select name='searchtime'  class='form-control  input-sm select-md'   style="width:85px;padding:0 5px;"  >
-                            <option value=''>不按时间</option>
                             <option value='create' >下单时间</option>
-                            <option value='pay' >付款时间</option>
-                            <option value='send' >发货时间</option>
-                            <option value='finish' >完成时间</option>
                         </select>
                         <input class="datainp wicon btn btn-default " id="inpstart" type="text" placeholder="开始日期" value=""  readonly>
-                        <input class="datainp wicon btn btn-default " id="inpend" type="text" placeholder="结束日期"   readonly>
+                        <input class="datainp wicon btn btn-default " id="inpend" type="text" placeholder="结束日期"   readonly >
                     </div>
                 </div>
-                <div class="col-sm-5 pull-right">
-
+                <div class="col-sm-2">
+                    <select class='form-control  input-sm select-md'   style="width:95px;padding:0 5px;float:left" ng-model="info.status">
+                        <option value="" selected>状态</option>
+                        <option value="1">待发货</option>
+                        <option value="2">已完成</option>
+                        <option value="3">作废订单</option>
+                    </select>
+                </div>
+                <div class="col-sm-3 pull-right">
                     <select name='searchfield'  class='form-control  input-sm select-md'   style="width:95px;padding:0 5px;float:left"   ng-model="info.searchname"   >
-                        <option value='id' name="id">订单号</option>
+                        <option value='id' name="id" selected>订单号</option>
                         <option value='fullname' name="fullname">会员信息</option>
                         <option value="mobile" name="mobile">手机号</option>
                     </select>

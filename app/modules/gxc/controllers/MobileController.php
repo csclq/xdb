@@ -32,7 +32,18 @@ class MobileController extends ControllerBase{
                 $product=XdbProduct::find($where);
 
                 $this->result['total']=ceil($total/$this->config->pageNum);
-                $this->result['data']=$product->toArray();;
+                $this->result['data']=$product->toArray();
+                $add['conditions']='openid="'.$this->openid.'"';
+                $add['order']='id desc';
+                $add['columns']='province,city,district,address,fullname,mobile';
+                $address=XdbOrder::findFirst($add);
+                if($address){
+                    $this->result['historyAddress']=implode(',',$address->toArray());
+                }
+
+
+
+
                 echo json_encode($this->result);
             }
 
@@ -206,6 +217,8 @@ class MobileController extends ControllerBase{
             $this->result['msg']="该订单号不存在";
             exit(json_encode( $this->result));
         }
+
+        $this->result['owner']= $this->openid==$order->getOpenid();
 
         if($this->request->isPost()){
             $this->view->disable();

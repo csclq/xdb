@@ -5,6 +5,14 @@
             <h2>商品列表</h2> </div>
 
             <div class="page-toolbar row m-b-sm m-t-sm">
+                <div class="col-sm-2 pull-left">
+                    <select name="delete" class='form-control input-sm select-sm select2'  ng-model="info.deleted"  >
+                        <option value="0" selected>商品上架</option>
+                        <option value="1">商品售罄</option>
+                        <option value="2">商品回收</option>
+                        <option value="3">商品仓库</option>
+                    </select>
+                </div>
                 <div class="col-sm-8 pull-right">
                     <select name="cate" class='form-control input-sm select-sm select2' style="width:200px;float:left" data-placeholder="商品分类" ng-model="info.cate">
                         <option value="" selected >商品分类</option>
@@ -14,9 +22,10 @@
                     </select>
 
                     <div class="input-group">
-                        <input type="text" class="input-sm form-control" name='keyword' value="" placeholder="ID/名称/编号/条码/商户名称" ng-model="info.filter"> <span class="input-group-btn">
-
-                    <button class="btn btn-sm btn-primary" type="submit" ng-click="search()"> 搜索</button>  &nbsp; &nbsp;  <a href="goodsedit" class="btn btn-sm btn-primary" >添加</a></span>
+                        <input type="text" class="input-sm form-control" name='keyword' value="" placeholder="ID/名称/编号/条码/商户名称" ng-model="info.filter">
+                        <span class="input-group-btn">
+                            <button class="btn btn-sm btn-primary" type="submit" ng-click="search()"> 搜索</button>  &nbsp; &nbsp;
+                        <button style="border:none;margin-left: 5px;"><a href="goodsedit" class="btn btn-sm btn-primary" >添加</a></button></span>
                     </div>
 
                 </div>
