@@ -10,10 +10,225 @@ Target Server Type    : MYSQL
 Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2017-04-21 09:28:40
+Date: 2017-05-09 10:23:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for xdb_category
+-- ----------------------------
+DROP TABLE IF EXISTS `xdb_category`;
+CREATE TABLE `xdb_category` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `uniacid` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for xdb_comment
+-- ----------------------------
+DROP TABLE IF EXISTS `xdb_comment`;
+CREATE TABLE `xdb_comment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `pid` int(10) unsigned NOT NULL,
+  `star` tinyint(3) unsigned NOT NULL DEFAULT '5',
+  `comment` text,
+  `openid` char(30) DEFAULT '',
+  `nickname` varchar(60) DEFAULT NULL,
+  `add_ip` char(16) DEFAULT '',
+  `add_time` int(11) unsigned DEFAULT NULL,
+  `praise` smallint(6) unsigned DEFAULT '0',
+  `oid` int(10) unsigned DEFAULT '0',
+  `img` text,
+  PRIMARY KEY (`id`),
+  KEY `pid` (`pid`),
+  KEY `oid` (`oid`)
+) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for xdb_member
+-- ----------------------------
+DROP TABLE IF EXISTS `xdb_member`;
+CREATE TABLE `xdb_member` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `openid` char(28) NOT NULL,
+  `nickname` varchar(50) DEFAULT '',
+  `add_at` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `openid` (`openid`),
+  KEY `add_at` (`add_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for xdb_order
+-- ----------------------------
+DROP TABLE IF EXISTS `xdb_order`;
+CREATE TABLE `xdb_order` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `openid` varchar(100) NOT NULL,
+  `product_id` varchar(255) NOT NULL,
+  `unit_price` decimal(10,2) unsigned NOT NULL,
+  `quantity` tinyint(3) unsigned NOT NULL,
+  `fullname` varchar(10) NOT NULL,
+  `province` varchar(40) NOT NULL,
+  `city` varchar(20) NOT NULL,
+  `district` varchar(20) NOT NULL,
+  `address` varchar(200) NOT NULL,
+  `postcode` varchar(6) NOT NULL DEFAULT '',
+  `mobile` varchar(11) NOT NULL,
+  `split_number` tinyint(3) unsigned NOT NULL DEFAULT '1',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `submitted_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `express_courier` varchar(10) DEFAULT NULL,
+  `express_no` varchar(30) DEFAULT NULL,
+  `nickname` varchar(50) DEFAULT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
+  `message` varchar(300) DEFAULT NULL,
+  `uniacid` varchar(100) NOT NULL DEFAULT '0',
+  `last_id` int(11) DEFAULT '0',
+  `paid` varchar(255) DEFAULT '',
+  `send` varchar(255) DEFAULT '',
+  `request` varchar(255) DEFAULT '',
+  `active` tinyint(2) unsigned DEFAULT '0',
+  `product_detail` text,
+  `output` tinyint(2) unsigned DEFAULT '0',
+  `hit_number` int(10) unsigned DEFAULT '0',
+  `buy_number` int(10) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1554 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for xdb_order_hit
+-- ----------------------------
+DROP TABLE IF EXISTS `xdb_order_hit`;
+CREATE TABLE `xdb_order_hit` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `order_id` int(10) unsigned DEFAULT NULL,
+  `order_openid` char(28) DEFAULT NULL,
+  `openid` char(28) DEFAULT NULL,
+  `add_at` int(11) unsigned DEFAULT NULL,
+  `active` tinyint(1) unsigned DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `order_id` (`order_id`),
+  KEY `openid` (`openid`),
+  KEY `order_openid` (`order_openid`),
+  KEY `order_openid_2` (`order_openid`,`openid`),
+  CONSTRAINT `xdb_order_hit_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `xdb_order` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for xdb_order_payment
+-- ----------------------------
+DROP TABLE IF EXISTS `xdb_order_payment`;
+CREATE TABLE `xdb_order_payment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `openid` varchar(50) NOT NULL,
+  `nickname` varchar(50) NOT NULL,
+  `avatar` varchar(255) NOT NULL,
+  `order_id` int(10) unsigned NOT NULL,
+  `transaction_id` varchar(50) NOT NULL,
+  `paid` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `refunded` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `paid_at` timestamp NULL DEFAULT NULL,
+  `refunded_at` timestamp NULL DEFAULT NULL,
+  `refund_applied` tinyint(1) NOT NULL DEFAULT '0',
+  `refund_applied_at` timestamp NULL DEFAULT NULL,
+  `last_id` int(11) DEFAULT '0',
+  `goods_id` int(11) DEFAULT '0',
+  `status` tinyint(2) DEFAULT '0',
+  `express_courier` varchar(50) DEFAULT '' COMMENT '快递名称',
+  `express_no` varchar(100) DEFAULT '' COMMENT '快递号',
+  `send_id` int(11) DEFAULT '0',
+  `send_time` int(11) unsigned DEFAULT '0',
+  `myid` int(10) unsigned DEFAULT '0',
+  `expire` tinyint(2) unsigned DEFAULT '0',
+  `posit` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `order_id` (`order_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2560 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for xdb_product
+-- ----------------------------
+DROP TABLE IF EXISTS `xdb_product`;
+CREATE TABLE `xdb_product` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `product_id` varchar(20) DEFAULT NULL COMMENT '商品自编号',
+  `pic_url` varchar(255) DEFAULT NULL,
+  `price` decimal(6,2) NOT NULL,
+  `stock` int(11) NOT NULL,
+  `on_sale` tinyint(1) NOT NULL DEFAULT '1',
+  `num_sold` int(10) unsigned NOT NULL DEFAULT '0',
+  `description` text,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `uniacid` varchar(100) NOT NULL DEFAULT '1',
+  `select_count` int(11) DEFAULT '0',
+  `sale_count` int(11) DEFAULT '0',
+  `send_count` int(11) DEFAULT '0',
+  `sort` int(11) DEFAULT '0',
+  `hot` tinyint(2) DEFAULT '0',
+  `new` tinyint(2) DEFAULT '0',
+  `fashion` tinyint(2) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `category_id` (`category_id`),
+  KEY `hot` (`hot`),
+  KEY `new` (`new`),
+  KEY `fashion` (`fashion`)
+) ENGINE=MyISAM AUTO_INCREMENT=285 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for xdb_repository
+-- ----------------------------
+DROP TABLE IF EXISTS `xdb_repository`;
+CREATE TABLE `xdb_repository` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `measure` varchar(70) DEFAULT '',
+  `color` varchar(70) DEFAULT '',
+  `price` decimal(10,2) DEFAULT '0.00',
+  `type` tinyint(2) unsigned DEFAULT '1',
+  `number` int(10) unsigned DEFAULT '1',
+  `inventory` int(11) unsigned DEFAULT '0',
+  `add_time` int(11) unsigned DEFAULT '0',
+  `add_ip` varchar(10) DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`),
+  KEY `product_id_2` (`product_id`,`measure`),
+  KEY `product_id_3` (`product_id`,`color`),
+  KEY `product_id_4` (`product_id`,`measure`,`color`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for xdb_specification
+-- ----------------------------
+DROP TABLE IF EXISTS `xdb_specification`;
+CREATE TABLE `xdb_specification` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `type` tinyint(4) unsigned NOT NULL DEFAULT '0',
+  `value` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=200 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for xdb_star_rule
+-- ----------------------------
+DROP TABLE IF EXISTS `xdb_star_rule`;
+CREATE TABLE `xdb_star_rule` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `hit_number` int(11) DEFAULT NULL,
+  `buy_number` int(11) DEFAULT NULL,
+  `star` tinyint(4) unsigned DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `star` (`star`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for yzt_admin
@@ -37,12 +252,7 @@ CREATE TABLE `yzt_admin` (
   KEY `role_id` (`role_id`),
   KEY `active` (`active`),
   CONSTRAINT `yzt_admin_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `yzt_role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of yzt_admin
--- ----------------------------
-INSERT INTO `yzt_admin` VALUES ('1', 'root', '63a9f0ea7bb98050796b649e85481845', '1', '0', '', '', '0', null, null, null, '1');
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for yzt_app
@@ -63,21 +273,7 @@ CREATE TABLE `yzt_app` (
   `update_time` int(10) unsigned DEFAULT '0',
   `update_ip` char(16) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='应用';
-
--- ----------------------------
--- Records of yzt_app
--- ----------------------------
-INSERT INTO `yzt_app` VALUES ('1', 'user', '用户中心', '0', '1', '', '', '1', '1', '0', '', '0', '');
-INSERT INTO `yzt_app` VALUES ('2', 'userlist', '用户列表', '1', '2', '', '', '1', '1', '0', '', '0', '');
-INSERT INTO `yzt_app` VALUES ('3', 'usermanager', '用户管理', '1', '2', '', '', '1', '1', '0', '', '0', '');
-INSERT INTO `yzt_app` VALUES ('4', 'shop', '商城中心', '0', '1', '', '', '1', '1', '0', '', '0', '');
-INSERT INTO `yzt_app` VALUES ('5', 'shoplist', '商品列表', '4', '2', '', '', '1', '1', '0', '', '0', '');
-INSERT INTO `yzt_app` VALUES ('6', 'shopdetail', '商品详情', '4', '2', '', '', '1', '1', '0', '', '0', '');
-INSERT INTO `yzt_app` VALUES ('7', 'index', '首页', '0', '1', '', '', '1', '1', '0', '', '0', '');
-INSERT INTO `yzt_app` VALUES ('8', 'index', '首页', '7', '2', '', '', '1', '1', '0', '', '0', '');
-INSERT INTO `yzt_app` VALUES ('9', 'wechat', '微信', '0', '1', '', '', '1', '1', '0', '', '0', '');
-INSERT INTO `yzt_app` VALUES ('10', 'notice', '模板', '9', '2', '', '', '1', '1', '0', '', '0', '');
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8 COMMENT='应用';
 
 -- ----------------------------
 -- Table structure for yzt_area
@@ -96,8 +292,26 @@ CREATE TABLE `yzt_area` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='省市区';
 
 -- ----------------------------
--- Records of yzt_area
+-- Table structure for yzt_article
 -- ----------------------------
+DROP TABLE IF EXISTS `yzt_article`;
+CREATE TABLE `yzt_article` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) NOT NULL,
+  `content` text,
+  `user_id` int(10) unsigned DEFAULT NULL,
+  `label` varchar(200) DEFAULT '',
+  `describ` varchar(200) DEFAULT '',
+  `sort` tinyint(4) DEFAULT '0',
+  `add_at` int(11) unsigned DEFAULT NULL,
+  `update_at` int(11) unsigned DEFAULT NULL,
+  `active` tinyint(4) DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `sort` (`sort`),
+  KEY `active` (`active`),
+  FULLTEXT KEY `title` (`title`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for yzt_auth
@@ -112,24 +326,7 @@ CREATE TABLE `yzt_auth` (
   KEY `app_id` (`app_id`),
   CONSTRAINT `yzt_auth_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `yzt_role` (`id`),
   CONSTRAINT `yzt_auth_ibfk_2` FOREIGN KEY (`app_id`) REFERENCES `yzt_app` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of yzt_auth
--- ----------------------------
-INSERT INTO `yzt_auth` VALUES ('1', '1', '1');
-INSERT INTO `yzt_auth` VALUES ('2', '1', '2');
-INSERT INTO `yzt_auth` VALUES ('3', '1', '4');
-INSERT INTO `yzt_auth` VALUES ('4', '1', '5');
-INSERT INTO `yzt_auth` VALUES ('5', '1', '6');
-INSERT INTO `yzt_auth` VALUES ('6', '2', '1');
-INSERT INTO `yzt_auth` VALUES ('7', '2', '3');
-INSERT INTO `yzt_auth` VALUES ('8', '2', '4');
-INSERT INTO `yzt_auth` VALUES ('9', '2', '5');
-INSERT INTO `yzt_auth` VALUES ('10', '1', '7');
-INSERT INTO `yzt_auth` VALUES ('11', '1', '8');
-INSERT INTO `yzt_auth` VALUES ('12', '1', '9');
-INSERT INTO `yzt_auth` VALUES ('13', '1', '10');
+) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for yzt_error
@@ -145,24 +342,6 @@ CREATE TABLE `yzt_error` (
   `action` varchar(20) DEFAULT '' COMMENT '方法',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of yzt_error
--- ----------------------------
-INSERT INTO `yzt_error` VALUES ('4', 'The method \'getDepart\' doesn\'t exist on model \'App\\Models\\YztAdmin\'', null, 'App\\Modules\\Backend\\Controllers', 'backend', 'login', 'login');
-INSERT INTO `yzt_error` VALUES ('5', 'Dispatcher has detected a cyclic routing causing stability problems', null, 'App\\Modules\\Backend\\Controllers', 'backend', 'index', 'index');
-INSERT INTO `yzt_error` VALUES ('6', 'Dispatcher has detected a cyclic routing causing stability problems', '1491791578', 'App\\Modules\\Backend\\Controllers', 'backend', 'index', 'index');
-INSERT INTO `yzt_error` VALUES ('7', 'Dispatcher has detected a cyclic routing causing stability problems', '1491791959', 'App\\Modules\\Backend\\Controllers', 'backend', 'index', 'index');
-INSERT INTO `yzt_error` VALUES ('8', 'Dispatcher has detected a cyclic routing causing stability problems', '1491792021', 'App\\Modules\\Backend\\Controllers', 'backend', 'index', 'index');
-INSERT INTO `yzt_error` VALUES ('9', 'Dispatcher has detected a cyclic routing causing stability problems', '1491792073', 'App\\Modules\\Backend\\Controllers', 'backend', 'index', 'index');
-INSERT INTO `yzt_error` VALUES ('10', 'Dispatcher has detected a cyclic routing causing stability problems', '1491792495', 'App\\Modules\\Backend\\Controllers', 'backend', 'index', 'index');
-INSERT INTO `yzt_error` VALUES ('11', 'Dispatcher has detected a cyclic routing causing stability problems', '1491792749', 'App\\Modules\\Backend\\Controllers', 'backend', 'index', 'index');
-INSERT INTO `yzt_error` VALUES ('12', 'Dispatcher has detected a cyclic routing causing stability problems', '1491792788', 'App\\Modules\\Backend\\Controllers', 'backend', 'index', 'index');
-INSERT INTO `yzt_error` VALUES ('13', 'Dispatcher has detected a cyclic routing causing stability problems', '1491792835', 'App\\Modules\\Backend\\Controllers', 'backend', 'index', 'index');
-INSERT INTO `yzt_error` VALUES ('14', 'Dispatcher has detected a cyclic routing causing stability problems', '1491793101', 'App\\Modules\\Backend\\Controllers', 'backend', 'index', 'index');
-INSERT INTO `yzt_error` VALUES ('15', 'Dispatcher has detected a cyclic routing causing stability problems', '1491793255', 'App\\Modules\\Backend\\Controllers', 'backend', 'index', 'index');
-INSERT INTO `yzt_error` VALUES ('16', 'Dispatcher has detected a cyclic routing causing stability problems', '1491793490', 'App\\Modules\\Backend\\Controllers', 'backend', 'index', 'index');
-INSERT INTO `yzt_error` VALUES ('17', 'api unauthorized hint: [OzEIcA0155vr43!]', '1491795151', 'App\\Modules\\Backend\\Controllers', 'backend', 'wechat', 'notice');
 
 -- ----------------------------
 -- Table structure for yzt_gxc_apply_partner
@@ -192,10 +371,6 @@ CREATE TABLE `yzt_gxc_apply_partner` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='申请成为合伙人';
 
 -- ----------------------------
--- Records of yzt_gxc_apply_partner
--- ----------------------------
-
--- ----------------------------
 -- Table structure for yzt_gxc_love_story
 -- ----------------------------
 DROP TABLE IF EXISTS `yzt_gxc_love_story`;
@@ -221,10 +396,6 @@ CREATE TABLE `yzt_gxc_love_story` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='爱心故事';
 
 -- ----------------------------
--- Records of yzt_gxc_love_story
--- ----------------------------
-
--- ----------------------------
 -- Table structure for yzt_gxc_love_story_praise
 -- ----------------------------
 DROP TABLE IF EXISTS `yzt_gxc_love_story_praise`;
@@ -240,10 +411,6 @@ CREATE TABLE `yzt_gxc_love_story_praise` (
   KEY `item_id` (`item_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='爱心故事点赞';
-
--- ----------------------------
--- Records of yzt_gxc_love_story_praise
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for yzt_gxc_partner
@@ -264,10 +431,6 @@ CREATE TABLE `yzt_gxc_partner` (
   KEY `user_id` (`user_id`),
   KEY `status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='审请成功股东';
-
--- ----------------------------
--- Records of yzt_gxc_partner
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for yzt_gxc_publish
@@ -296,10 +459,6 @@ CREATE TABLE `yzt_gxc_publish` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of yzt_gxc_publish
--- ----------------------------
-
--- ----------------------------
 -- Table structure for yzt_gxc_publish_praise
 -- ----------------------------
 DROP TABLE IF EXISTS `yzt_gxc_publish_praise`;
@@ -314,10 +473,6 @@ CREATE TABLE `yzt_gxc_publish_praise` (
   KEY `item_id` (`item_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of yzt_gxc_publish_praise
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for yzt_gxc_repast
@@ -361,10 +516,6 @@ CREATE TABLE `yzt_gxc_repast` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='餐饮';
 
 -- ----------------------------
--- Records of yzt_gxc_repast
--- ----------------------------
-
--- ----------------------------
 -- Table structure for yzt_gxc_repast_cate
 -- ----------------------------
 DROP TABLE IF EXISTS `yzt_gxc_repast_cate`;
@@ -372,11 +523,7 @@ CREATE TABLE `yzt_gxc_repast_cate` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(60) NOT NULL DEFAULT '' COMMENT '分类名称',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of yzt_gxc_repast_cate
--- ----------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for yzt_gxc_user
@@ -420,10 +567,6 @@ CREATE TABLE `yzt_gxc_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户';
 
 -- ----------------------------
--- Records of yzt_gxc_user
--- ----------------------------
-
--- ----------------------------
 -- Table structure for yzt_gxc_userinfo
 -- ----------------------------
 DROP TABLE IF EXISTS `yzt_gxc_userinfo`;
@@ -447,10 +590,6 @@ CREATE TABLE `yzt_gxc_userinfo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of yzt_gxc_userinfo
--- ----------------------------
-
--- ----------------------------
 -- Table structure for yzt_integral
 -- ----------------------------
 DROP TABLE IF EXISTS `yzt_integral`;
@@ -469,10 +608,6 @@ CREATE TABLE `yzt_integral` (
   KEY `active` (`active`),
   KEY `type` (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='积分列表';
-
--- ----------------------------
--- Records of yzt_integral
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for yzt_merchant
@@ -521,10 +656,6 @@ CREATE TABLE `yzt_merchant` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商家';
 
 -- ----------------------------
--- Records of yzt_merchant
--- ----------------------------
-
--- ----------------------------
 -- Table structure for yzt_merchant_repast
 -- ----------------------------
 DROP TABLE IF EXISTS `yzt_merchant_repast`;
@@ -558,10 +689,6 @@ CREATE TABLE `yzt_merchant_repast` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of yzt_merchant_repast
--- ----------------------------
-
--- ----------------------------
 -- Table structure for yzt_repast_reserve
 -- ----------------------------
 DROP TABLE IF EXISTS `yzt_repast_reserve`;
@@ -586,10 +713,6 @@ CREATE TABLE `yzt_repast_reserve` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订餐';
 
 -- ----------------------------
--- Records of yzt_repast_reserve
--- ----------------------------
-
--- ----------------------------
 -- Table structure for yzt_repast_room
 -- ----------------------------
 DROP TABLE IF EXISTS `yzt_repast_room`;
@@ -610,28 +733,15 @@ CREATE TABLE `yzt_repast_room` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of yzt_repast_room
--- ----------------------------
-
--- ----------------------------
 -- Table structure for yzt_role
 -- ----------------------------
 DROP TABLE IF EXISTS `yzt_role`;
 CREATE TABLE `yzt_role` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
+  `remark` varchar(255) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of yzt_role
--- ----------------------------
-INSERT INTO `yzt_role` VALUES ('1', '超级管理员');
-INSERT INTO `yzt_role` VALUES ('2', '管理员');
-INSERT INTO `yzt_role` VALUES ('3', '技术部');
-INSERT INTO `yzt_role` VALUES ('4', '运营部');
-INSERT INTO `yzt_role` VALUES ('5', '产品部');
-INSERT INTO `yzt_role` VALUES ('6', '客服部');
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for yzt_shop
@@ -687,10 +797,6 @@ CREATE TABLE `yzt_shop` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品';
 
 -- ----------------------------
--- Records of yzt_shop
--- ----------------------------
-
--- ----------------------------
 -- Table structure for yzt_shop_cart
 -- ----------------------------
 DROP TABLE IF EXISTS `yzt_shop_cart`;
@@ -710,10 +816,6 @@ CREATE TABLE `yzt_shop_cart` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='购物车';
 
 -- ----------------------------
--- Records of yzt_shop_cart
--- ----------------------------
-
--- ----------------------------
 -- Table structure for yzt_shop_category
 -- ----------------------------
 DROP TABLE IF EXISTS `yzt_shop_category`;
@@ -728,10 +830,6 @@ CREATE TABLE `yzt_shop_category` (
   KEY `name` (`name`),
   KEY `level` (`level`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品种类';
-
--- ----------------------------
--- Records of yzt_shop_category
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for yzt_shop_comment
@@ -759,10 +857,6 @@ CREATE TABLE `yzt_shop_comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品评论';
 
 -- ----------------------------
--- Records of yzt_shop_comment
--- ----------------------------
-
--- ----------------------------
 -- Table structure for yzt_shop_comment_praise
 -- ----------------------------
 DROP TABLE IF EXISTS `yzt_shop_comment_praise`;
@@ -777,10 +871,6 @@ CREATE TABLE `yzt_shop_comment_praise` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评论点赞LOG';
 
 -- ----------------------------
--- Records of yzt_shop_comment_praise
--- ----------------------------
-
--- ----------------------------
 -- Table structure for yzt_shop_label
 -- ----------------------------
 DROP TABLE IF EXISTS `yzt_shop_label`;
@@ -789,10 +879,6 @@ CREATE TABLE `yzt_shop_label` (
   `name` varchar(20) NOT NULL COMMENT '名称',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品标签';
-
--- ----------------------------
--- Records of yzt_shop_label
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for yzt_shop_list
@@ -839,10 +925,6 @@ CREATE TABLE `yzt_shop_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of yzt_shop_list
--- ----------------------------
-
--- ----------------------------
 -- Table structure for yzt_shop_log
 -- ----------------------------
 DROP TABLE IF EXISTS `yzt_shop_log`;
@@ -866,10 +948,6 @@ CREATE TABLE `yzt_shop_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品进出日志';
 
 -- ----------------------------
--- Records of yzt_shop_log
--- ----------------------------
-
--- ----------------------------
 -- Table structure for yzt_shop_logistics
 -- ----------------------------
 DROP TABLE IF EXISTS `yzt_shop_logistics`;
@@ -887,10 +965,6 @@ CREATE TABLE `yzt_shop_logistics` (
   KEY `order_id` (`order_id`),
   KEY `active` (`active`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单物流信息';
-
--- ----------------------------
--- Records of yzt_shop_logistics
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for yzt_shop_order
@@ -919,14 +993,26 @@ CREATE TABLE `yzt_shop_order` (
   KEY `user_id` (`user_id`),
   KEY `serial` (`serial`),
   KEY `shop_id` (`shop_id`,`deal_id`),
-  KEY `status` (`status`),
-  CONSTRAINT `yzt_shop_order_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `yzt_shop_list` (`id`),
-  CONSTRAINT `yzt_shop_order_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `yzt_gxc_user` (`id`)
+  KEY `status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单';
 
 -- ----------------------------
--- Records of yzt_shop_order
+-- Table structure for yzt_shop_relat
 -- ----------------------------
+DROP TABLE IF EXISTS `yzt_shop_relat`;
+CREATE TABLE `yzt_shop_relat` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `shop_id` int(10) unsigned NOT NULL,
+  `merchant_id` int(10) unsigned NOT NULL,
+  `number` int(10) unsigned DEFAULT '0',
+  `sale_number` int(10) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `shop_id` (`shop_id`),
+  KEY `merchant_id` (`merchant_id`),
+  KEY `number` (`number`),
+  CONSTRAINT `yzt_shop_relat_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `yzt_shop` (`id`),
+  CONSTRAINT `yzt_shop_relat_ibfk_2` FOREIGN KEY (`merchant_id`) REFERENCES `yzt_merchant` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for yzt_user_dispatch
@@ -948,10 +1034,6 @@ CREATE TABLE `yzt_user_dispatch` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户配送地址';
 
 -- ----------------------------
--- Records of yzt_user_dispatch
--- ----------------------------
-
--- ----------------------------
 -- Table structure for yzt_wechat_message
 -- ----------------------------
 DROP TABLE IF EXISTS `yzt_wechat_message`;
@@ -969,11 +1051,14 @@ CREATE TABLE `yzt_wechat_message` (
   `media_id` varchar(60) DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `type` (`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of yzt_wechat_message
--- ----------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+DROP TRIGGER IF EXISTS `hit`;
+DELIMITER ;;
+CREATE TRIGGER `hit` AFTER INSERT ON `xdb_order_hit` FOR EACH ROW BEGIN 
+ update xdb_order set hit_number=hit_number+1 where id=new.order_id;
+END
+;;
+DELIMITER ;
 DROP TRIGGER IF EXISTS `userinfo`;
 DELIMITER ;;
 CREATE TRIGGER `userinfo` AFTER INSERT ON `yzt_gxc_user` FOR EACH ROW BEGIN 

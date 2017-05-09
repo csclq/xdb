@@ -161,6 +161,8 @@ class XuduobaoController extends ControllerBase
     public function datatransAction()
     {
 
+
+
     }
 
     public function goodsAction()
@@ -170,21 +172,37 @@ class XuduobaoController extends ControllerBase
             $where = [];
             $where['order'] = "deleted,sort";
             $where['conditions'] = '1=1 ';
-            $this->request->getPost('cate') && $where['conditions'] .= " and category_id={$this->request->getPost('cate')} ";
-            if ($this->request->getPost('filter')) {
-                if (is_numeric($this->request->get('filter'))) {
-                    $where['conditions'] = " id={$this->request->get('filter')} ";
+            isset($this->post['cate'] )  &&  $this->post['cate'] && $where['conditions'] .= " and category_id={$this->post['cate']} ";
+            if (isset($this->post['filter'] )&&$this->post['filter']) {
+                if (is_numeric($this->post['filter'])) {
+                    $where['conditions'] = " id={$this->post['filter']} ";
                 } else {
-                    $where['conditions'] .= " and name like '%" . $this->request->get('filter') . "%' ";
+                    $where['conditions'] .= " and name like '%" . $this->post['filter'] . "%' ";
                 }
             }
             $total = XdbProduct::count($where);
             $where['limit'] = array('number' => $this->config->pageNum,//$GLOBALS['config']['pageNum'],
-                'offset' => (intval($this->request->getPost()['p']) - 1) * $this->config->pageNum);
+                'offset' => (intval($this->post['p']) - 1) * $this->config->pageNum);
 
 
             $data = XdbProduct::find($where);
             $data = $data->toArray();
+
+            foreach ($data as $k=>$v){
+                $where=[];
+                $where['conditions']=' goods_id = '.$v['id'].' and paid > 0 and posit > 0';
+                $where['group']='posit';
+                $where['columns']='posit,count(id) as number';
+                $posit=XdbOrderPayment::find($where);
+                $arr=[];
+                if($posit){
+                    foreach ($posit as $key => $value){
+                        array_push($arr,$value['posit'].':'.$value['number']);
+                    }
+                }
+                $data[$k]['posit']=json_encode($arr);
+            }
+
             $this->result['total'] = ceil($total / $this->config->pageNum);
             $this->result['data'] = $data;
             echo json_encode($this->result);
@@ -313,13 +331,16 @@ class XuduobaoController extends ControllerBase
         $id = $this->dispatcher->getParam(0, 'int');
         $id || exit("<script>alert('缺少必要的参数');history.back();</script>");
         $order = XdbOrder::findFirst('id=' . $id);
-        $product = XdbProduct::find('id in (' . $order->getProductId() . ')');
+        $product = XdbProduct::find('id in (' . $order->getProductId() . ')')->toArray();
 
         $payment = XdbOrderPayment::find('last_id = ' . $id . ' and paid > 0 ');
 
+        foreach ($product as $k => $v){
+               $product[$k]['send'] =in_array($v['id'],explode(',',$order->getSend()));
+        }
 
         $this->view->payments = $payment;
-        $this->view->products = $product->toArray();
+        $this->view->products = $product;
         $this->view->order = $order;
     }
 
@@ -350,13 +371,14 @@ class XuduobaoController extends ControllerBase
             }
 
             $total = XdbOrder::count($where);
+            $price=XdbOrder::query()->where($where['conditions'])->columns("sum(unit_price*buy_number) as price")->execute();
+
+
             $where['limit'] = array('number' => $this->config->pageNum,//$GLOBALS['config']['pageNum'],
                 'offset' => (intval($this->request->getPost()['p']) - 1) * $this->config->pageNum);
             $data = XdbOrder::find($where);
             $data = $data->toArray();
-            $price = 0;
             foreach ($data as $k => $v) {
-                $price += $v['unit_price'] * $v['buy_number'];
                 $rule['conditions'] = ' hit_number <= :hit: or buy_number <= :buy:';
                 $rule['bind'] = ['hit' => $v['hit_number'], 'buy' => $v['buy_number']];
                 $star = XdbStarRule::findFirst($rule);
@@ -365,7 +387,7 @@ class XuduobaoController extends ControllerBase
 
             $this->result['total'] = ceil($total / $this->config->pageNum);
             $this->result['data'] = $data;
-            $this->result['totalprice'] = $price;
+            $this->result['totalprice'] = $price->toArray()[0]['price'];
             $this->result['count'] = $total;
             echo json_encode($this->result);
         }
@@ -393,12 +415,18 @@ class XuduobaoController extends ControllerBase
         ];
         $this->xlsxWriter->addRow($caption);
 
+
+
         foreach ($orders as $k => $v) {
             if ($orders[$k]['paid']) {
                 $productarr = explode(',', $orders[$k]['product_id']);
                 $paidarr = explode(',', $orders[$k]['paid']);
-                $sendarr = explode(',', $orders[$k]['send']);
-                $sendnum = count($sendarr);
+                if(empty($orders[$k]['send'])){
+                   unset($sendarr);
+                }else{
+                    $sendarr = explode(',', $orders[$k]['send']);
+                }
+                $sendnum = isset($sendarr) ? count($sendarr):0;
                 $productnum = count($productarr);
                 $paidnum = count($paidarr);
                 if ($sendnum >= $productnum || $sendnum >= $paidnum) {
@@ -407,7 +435,7 @@ class XuduobaoController extends ControllerBase
                     $arr=[];
                     $presends=array_unique($paidarr);
                     foreach ($presends as $presend){
-                        if(!in_array($presend,$sendarr)){
+                        if( !isset($sendarr)|| !in_array($presend,$sendarr)){
                             array_push($arr,$presend);
                         }
                     }
@@ -416,6 +444,7 @@ class XuduobaoController extends ControllerBase
                 }
             }
         }
+
 
         foreach ($orders as $v) {
             $arr = array(
@@ -448,7 +477,6 @@ class XuduobaoController extends ControllerBase
 
         $this->xlsxWriter->close();
 
-
     }
 
     public function ordersendAction()
@@ -466,7 +494,12 @@ class XuduobaoController extends ControllerBase
                             $v->setStatus(2);
                             $v->setSendTime(time());
                             $v->update();
+
+                            $this->db->execute("update xdb_product set send_count = send_count + 1 where id=".$v->getGoodsId());
+
                         }
+
+
                         $orders = XdbOrder::findFirst('id=' . $order[1]);
                         $send = $orders->getSend();
                         if ($send) {

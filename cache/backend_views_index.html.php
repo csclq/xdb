@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>许多宝科技 </title>
+        <link rel="stylesheet" href="/css/style.css">
+        <script src="/js/jquery.js"></script>
+        <script src="/js/angular.min.js"></script>
+        <script src="/js/index.js"></script>
+        <script src="/js/main.js"></script>
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/css/v2.css?v=4.1.0" rel="stylesheet">
+        <link href="/css/common.css?v=2.0.0" rel="stylesheet">
+        <link href="/css/animate.css" rel="stylesheet">
+
+        
+    </head>
+    <body>
+        <header>
+            <div class="company">灯芯网络有限公司</div>
+            <div class="user" style="position:absolute;right: 30px;top: 0px;">
+                <span>欢迎您：<span class="username"><?= $user ?></span><a href="javascript:chpasswd()">修改密码</a><a href="javascript:delcache()">清除缓存</a><a href="/backend/login/logout">退出</a></span>
+            </div>
+        </header>
+        <div class="container" style="width: 100%;padding: 0">
+            <div class="menu" style="width:191.8px; overflow: hidden;">
+                <div class="menu" style="width:217.8px;overflow-x: hidden;overflow-y: scroll">
+                    <?php foreach ($menus as $menu) { if ($menu['show'] == 1) { ?>
+                    <div class="item">
+                        <div class="controller"><?= $menu['remark'] ?></div>
+                        <ul class="action" style="margin-bottom:0px;">
+                            <?php foreach ($menu['child'] as $action) { if ($action['show'] == 1) { ?>
+                            <li <?php if ($menu['name'] == $currentcontroller && $action['name'] == $currentaction) { ?> class='active' <?php } ?> ><a href="/backend/<?= $menu['name'] ?>/<?= $action['name'] ?>"><?= $action['remark'] ?></a></li>
+                            <?php } ?><?php } ?>
+                        </ul>
+                    </div>
+                    <?php } ?><?php } ?>
+                </div>
+            </div>
+            <div class="content" ng-app="myapp">
+               <img src="/img/in.gif"  class="shrink" />
+                <div class="main" ng-controller="myCtrl" ng-init="info.token='<?= $token ?>';edit.token='<?= $token ?>'">
+                    <?= $this->getContent() ?>
+                </div>
+            </div>
+        </div>
+        <footer style="">
+            Copyright © 2017 苏州许多宝网络有限公司.保留所有权利。
+        </footer>
+        <div class="chpass" >
+            <form action="/backend/index/chpass" method="post" >
+                <table>
+                    <caption>修改密码</caption>
+                    <tr>
+                        <th>原密码</th>
+                        <td><input class="biginput"  name="oldpass" type="password" required /></td>
+                    </tr>
+                    <tr>
+                        <th>新密码</th>
+                        <td> <input  class="biginput"  name="newpass" type="password" required >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" class="bigbutton" value=" 确 定 "  />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+</html>

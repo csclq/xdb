@@ -16,9 +16,9 @@
                 <div class="col-sm-8 pull-right">
                     <select name="cate" class='form-control input-sm select-sm select2' style="width:200px;float:left" data-placeholder="商品分类" ng-model="info.cate">
                         <option value="" selected >商品分类</option>
-                        {% for cate in category %}
-                        <option value="{{ cate.id }}"  >{{ cate.name }}</option>
-                        {% endfor %}
+                        <?php foreach ($category as $cate) { ?>
+                        <option value="<?= $cate->id ?>"  ><?= $cate->name ?></option>
+                        <?php } ?>
                     </select>
 
                     <div class="input-group">
@@ -81,6 +81,6 @@
         </table>
     </div>
 
-    {{ partial('public/paging') }}
+    <?= $this->partial('public/paging') ?>
    </div>
 <script src="/js/goods.js"></script>

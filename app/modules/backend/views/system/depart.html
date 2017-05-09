@@ -1,21 +1,24 @@
-<div class="grid" >
-    <div class="toolbar">
-        <div class="search">
-            <label>名称: <input  class="input" ng-model="info.name" /> </label>
-            <label>备注:
-                <input  class="input" ng-model="info.remark" />
-            </label>
-            <label><span class="button" ng-click="search()"> 查 找 </span> </label>
+<div class="grid wrapper main-wrapper wrapper-content" >
+    <div class="page-heading">
+        <h2>部门管理</h2> </div>
+    <div class="toolbar page-toolbar row m-b-sm m-t-sm">
+        <div class="search col-sm-8 pull-right">
+            <input  class="form-control input-sm select-sm select2" ng-model="info.name" type="text" placeholder="名称" style="width:200px;float:left"/>
+            <div class="input-group">
+            <input  class="input input-sm form-control" ng-model="info.remark" type="text" placeholder="备注"/>
 
+            <span class="input-group-btn"><button class="btn btn-sm btn-primary" ng-click="search()"> 查 找 </button>
+                <button class="btn btn-sm btn-primary" ng-click="add()" style="margin-left: 10px"> 新 增 </button></span>
+
+            </div>
         </div>
         <div class="tool">
-            <label><span class="button" ng-click="add()"> 新 增 </span> </label>&nbsp;&nbsp;
+            &nbsp;&nbsp;
             <!--<label><span class="button" ng-click="del()"> 删 除 </span> </label>&nbsp;&nbsp;-->
         </div>
     </div>
-    <div class="table">
-        <table>
-            <thead>
+        <table class="table table-hover table-responsive">
+            <thead class="navbar-inner">
                 <tr>
                     <!--<th><input type="checkbox"></th>-->
                     <th>ID</th>
@@ -38,12 +41,11 @@
         </table>
     </div>
     {{ partial('public/paging') }}
-<button ng-click="loginfo()">显示</button>
-</div>
-<div class="add" >
+
+<div class="add" style="z-index: 1000">
     <form name="addForm" >
         <table>
-            <caption>添加新部门</caption>
+           
             <tr>
                 <th>名称</th>
                 <td><input class="biginput" ng-model="edit.name" name="name"  /></td>

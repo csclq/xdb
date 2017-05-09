@@ -70,7 +70,7 @@ class IndexController extends ControllerBase
            $payment->save();
            $payorder=XdbOrder::findFirst('id='.$payment->getLastId());
            $paid=explode(',',$payorder->getPaid());
-           if(count($paid)<1){
+           if(empty($payorder->getPaid())){
                $payorder->setPaid($payment->getGoodsId());
            }else{
                if(!in_array($payment->getGoodsId(),$paid)){
@@ -82,7 +82,11 @@ class IndexController extends ControllerBase
            $payorder->setStatus(1);
            $payorder->save();
 
-           $this->db->execute("update xdb_product set send_count = send_count + 1 where id=".$payment->getGoodsId());
+           $this->db->execute("update xdb_product set sale_count = sale_count + 1,stock = stock - 1 where id=".$payment->getGoodsId());
+
+           $myorder=XdbOrder::findFirst('id='.$payment->getMyid());
+
+            $this->db->execute("update xdb_product set select_count = select_count + 1 where id in (".$myorder->getProductId().")");
 
             return true;
         });
@@ -93,20 +97,11 @@ class IndexController extends ControllerBase
     public function testAction(){
         $this->view->disable();
         echo "<pre>";
-        $arr=[
-          ['name'=>'zhangsan','age'=>18,'height'=>170],
-          ['name'=>'lishi','age'=>19,'height'=>170],
-          ['name'=>'wangwu','age'=>18,'height'=>170],
-          ['name'=>'zhaoliu','age'=>18,'height'=>170],
-          ['name'=>'zhenqi','age'=>18,'height'=>170],
-        ];
-        foreach ($arr as $k=>$item) {
-            if($item['name']=='lishi'){
-                unset($arr[$k]);
-            }
-        }
-
-        var_dump($arr);
+       $str='';
+       var_dump(empty($str));
+       $arr=explode(',',$str);
+       var_dump($arr);
+       echo count($arr);
 
 
     }
