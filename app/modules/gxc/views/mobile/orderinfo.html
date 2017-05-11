@@ -1,324 +1,74 @@
-
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>许多宝 - 许多宝</title>
-    <meta name="format-detection" content="telephone=no, address=no">
-    <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
-    <meta name="apple-touch-fullscreen" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="keywords" content="微信营销系统,微信,微信公众平台" />
-    <meta name="description" content="微信营销系统是一款免费开源的微信公众平台管理系统，是国内最完善移动网站及移动互联网技术解决方案。" />
-    <link rel="shortcut icon" href="http://abc.5xieys.cn/attachment/images/global/wechat.jpg" />
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
-    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/app/util.js"></script>
-    <script src="http://abc.5xieys.cn/app/resource/js/require.js"></script>
-    <script src="http://abc.5xieys.cn/app/resource/js/app/config.js"></script>
-    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/lib/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/lib/mui.min.js"></script>
-    <script type="text/javascript" src="http://abc.5xieys.cn/app/resource/js/app/common.js"></script>
-    <link href="http://abc.5xieys.cn/app/resource/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://abc.5xieys.cn/app/resource/css/common.min.css" rel="stylesheet">
-    <script type="text/javascript">
-        if(navigator.appName == 'Microsoft Internet Explorer'){
-            if(navigator.userAgent.indexOf("MSIE 5.0")>0 || navigator.userAgent.indexOf("MSIE 6.0")>0 || navigator.userAgent.indexOf("MSIE 7.0")>0) {
-                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
-            }
-        }
-        window.sysinfo = {
-            'uniacid': '2',		'acid': '2',				'siteroot': 'http://abc.5xieys.cn/',
-            'siteurl': 'http://abc.5xieys.cn/app/index.php?i=2&c=entry&id=528&do=orderinfo&m=qw_cca',
-            'attachurl': 'http://abc.5xieys.cn/attachment/',
-            'attachurl_local': 'http://abc.5xieys.cn/attachment/',
-            'attachurl_remote': '',
-            'MODULE_URL': 'http://abc.5xieys.cn/addons/qw_cca/',		'cookie' : {'pre': 'b961_'}
-        };
-        // jssdk config 对象
-        jssdkconfig = null || {};
-        // 是否启用调试
-        jssdkconfig.debug = false;
-        jssdkconfig.jsApiList = [
-            'checkJsApi',
-            'onMenuShareTimeline',
-            'onMenuShareAppMessage',
-            'onMenuShareQQ',
-            'onMenuShareWeibo',
-            'hideMenuItems',
-            'showMenuItems',
-            'hideAllNonBaseMenuItem',
-            'showAllNonBaseMenuItem',
-            'translateVoice',
-            'startRecord',
-            'stopRecord',
-            'onRecordEnd',
-            'playVoice',
-            'pauseVoice',
-            'stopVoice',
-            'uploadVoice',
-            'downloadVoice',
-            'chooseImage',
-            'previewImage',
-            'uploadImage',
-            'downloadImage',
-            'getNetworkType',
-            'openLocation',
-            'getLocation',
-            'hideOptionMenu',
-            'showOptionMenu',
-            'closeWindow',
-            'scanQRCode',
-            'chooseWXPay',
-            'openProductSpecificView',
-            'addCard',
-            'chooseCard',
-            'openCard',
-            'openAddress'
-        ];
-    </script>
-</head>
-<body>
-<div class="container container-fill">
-    <link type="text/css" rel="stylesheet" href="../assets/css/common.css">
-    <style>
-        ul,li{padding:0;margin:0;list-style: none}
-        .main-list{width:100%;height:40px;position: fixed;top:38px;color:#000;border-bottom: 1px solid #ccc;background-color: #fff}
-        .main-list li{list-style: none;float: left;width:20%;padding: 1px 3px;line-height: 40px;text-align: center;}
-        .table .sold{line-height: 25px;height:25px}
-        .table p{position: absolute;right:20%;line-height: 25px;height:25px}
-        .table .state{text-align: center;height:25px;line-height: 25px;}
-        .table .state .ch-check{text-align: center;height:20px;}
-        .table .products{    margin: 0 auto;}
-        .table .lamp{text-align: center}
-        .rule{width:90%;height:auto; padding: 10px;margin: 20px auto;border:1px solid #ccc;box-shadow: 0 0 10px #ccc}
-        .rule p{text-align: center;font-size: 14px;height:20px;line-height: 20px;}
-        table span{text-align: center;color:#a94442;font-weight: 800}
-        .bg{ background: rgba(230,99,91,.3);  }
-        .count{text-align: right;padding-right:20px;display: block  }
-        .head-time{height:40px;line-height: 40px;font-size: 16px;text-align: center;color:#6d645e;font-weight: 500;display: block}
-        #time{height:40px;line-height: 30px;font-size: 16px;text-align: center;color:#f00;font-weight: 800}
-        .state a{text-decoration: none;list-style: none}
-        .state a:hover{list-style: none;text-decoration: none;color:#a94442;}
-    </style>
-    <div class="head">
-        <a href="javascript:history.back();" class="bn pull-left"><i class="fa fa-angle-left"></i></a>
-        <span class="title">订单详情</span>
-        <a href="#" class="bn pull-right" style="margin-right:30px;"></a>
-    </div>
-
-    <div style="height:38px"></div>
-    <span class="head-time">下单时间：<strong id="o_time">2017-03-21 10:59:11</strong></span>
-    <div id="time">倒计时显示</div>
-    <table class="table">
-        <tr>
-            <td style="width:31%;text-align: center">商品</td>
-            <td style="width:22%;text-align: center">价格</td>
-            <td style="width:25%;text-align: center">状态</td>
-            <td style="text-align: center;width:22%">宝莲灯</td>
-        </tr>
-        <tr style="border:0">
-            <td style="height:40px" rowspan=2>
-                <div class="products" style="background: url('http://abc.5xieys.cn/attachment/images/2/2017/03/HG4G5w1plgDTKLP4pdTl0sspW5kjbZ.jpg') top center no-repeat;background-size:cover;height:74px;width:74px"></div></td>
-            <td style="height:20px">
-                <div class="sold">
-                    <strong class="price pull-left text-danger"><i class="fa fa-yen"></i> 21.00</strong><i>2017-03-22 15:59:41</i>
-                </div>
-            </td>
-            <td class="state">
-                <!--<p>0</p>-->
-        <span>
-                <a href="./index.php?i=2&c=entry&pid=269&oid=528&do=comment&m=qw_cca">评论</a>    </span>
-            </td>
-            <td class="lamp">
-                <img src="../assets/img/time1.png" style="width:34px;height: 50px;position: relative" id="img">
-            </td>
-        </tr>
-        <tr class="zhishu">
-            <td colspan="3">
-                <div style="height:25px;text-align: center"><span>你的人气指数已经超过<b>0</b></span></div>
-            </td>
-        </tr>
-    </table>
-    <span class="count">参与人数:<b class="canyu">3</b></span>
-    <div class="rule">
-        <p><b>温馨提示</b></p>
-        <div style="text-indent:2em">
-            转发的次数越多，你的宝莲灯开启的越多，倒计时结束后，次日我们将所有开启的宝莲灯对应的商品发送给你，
-            在您收到货后，在【我的订单】中请给予公正的评价！
-        </div>
-    </div>
-    <!--<div style="width:90%;margin:0px auto;margin-bottom: 50px">
-        <a href="http://abc.5xieys.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail&id=219">
-            <form action=""  method="post" id="send">
-                <button type="submit" class="btn btn-danger col-xs-12">请求发货</button>
-            </form>
-        </a>
-    </div>-->
-    <div class="text-center footer" style="margin:10px 0; width:100%; text-align:center; word-break:break-all;">
-        &nbsp;&nbsp;			</div>
-    <script>require(['bootstrap']);</script>
-</div>
+<link type="text/css" rel="stylesheet" href="../addons/qw_cca/template/assets/css/common.css">
 <style>
-    h5{color:#555;}
+    ul,li{padding:0;margin:0;list-style: none}
+    .main-list{width:100%;height:40px;position: fixed;top:38px;color:#000;border-bottom: 1px solid #ccc;background-color: #fff}
+    .main-list li{list-style: none;float: left;width:20%;padding: 1px 3px;line-height: 40px;text-align: center;}
+    .table .sold{line-height: 25px;height:25px}
+    .table p{position: absolute;right:20%;line-height: 25px;height:25px}
+    .table .state{text-align: center;height:25px;line-height: 25px;}
+    .table .state .ch-check{text-align: center;height:20px;}
+    .table .products{    margin: 0 auto;}
+    .table .lamp{text-align: center}
+    .rule{width:90%;height:auto; padding: 10px;margin: 20px auto;border:1px solid #ccc;box-shadow: 0 0 10px #ccc}
+    .rule p{text-align: center;font-size: 14px;height:20px;line-height: 20px;}
+    table span{text-align: center;color:#a94442;font-weight: 800}
+    .bg{ background: rgba(230,99,91,.3);  }
+    .count{text-align: right;padding-right:20px;display: block  }
+    .head-time{height:40px;line-height: 40px;font-size: 16px;text-align: center;color:#6d645e;font-weight: 500;display: block}
+    #time{height:40px;line-height: 30px;font-size: 16px;text-align: center;color:#f00;font-weight: 800}
+    .state a{text-decoration: none;list-style: none}
+    .state a:hover{list-style: none;text-decoration: none;color:#a94442;}
 </style>
-<script type="text/javascript">
-    $(function(){
-        wx.config(jssdkconfig);
-        var $_share = {"title":"\u8bb8\u591a\u5b9d","imgUrl":"","desc":"","link":"http:\/\/abc.5xieys.cn\/app\/index.php?i=2&c=entry&id=528&do=orderinfo&m=qw_cca"};
-        if(typeof sharedata == 'undefined'){
-            sharedata = $_share;
-        } else {
-            sharedata['title'] = sharedata['title'] || $_share['title'];
-            sharedata['desc'] = sharedata['desc'] || $_share['desc'];
-            sharedata['link'] = sharedata['link'] || $_share['link'];
-            sharedata['imgUrl'] = sharedata['imgUrl'] || $_share['imgUrl'];
-        }
-        if(sharedata.imgUrl == ''){
-            var _share_img = $('body img:eq(0)').attr("src");
-            if(_share_img == ""){
-                sharedata['imgUrl'] = window.sysinfo.attachurl + 'images/global/wechat_share.png';
-            } else {
-                sharedata['imgUrl'] = util.tomedia(_share_img);
-            }
-        }
-        if(sharedata.desc == ''){
-            var _share_content = util.removeHTMLTag($('body').html());
-            if(typeof _share_content == 'string'){
-                sharedata.desc = _share_content.replace($_share['title'], '')
-            }
-        }
-        wx.ready(function () {
-            wx.onMenuShareAppMessage(sharedata);
-            wx.onMenuShareTimeline(sharedata);
-            wx.onMenuShareQQ(sharedata);
-            wx.onMenuShareWeibo(sharedata);
-        });
-        if($('.js-quickmenu')!=null && $('.js-quickmenu')!=''){
-            var h = $('.js-quickmenu').height()+'px';
-            $('body').css("padding-bottom",h);
-        }else{
-            $('body').css("padding-bottom", "0");
-        }
-    });
-</script>
-</body>
-</html>
-
-<script>
-    $(function () {
-        $(".count").hide();
-        $(".sold i").hide();
-        var count1 = ($("tr").length-1)/2;
-        //alert(count1);
-        var count2 = $("input").length;
-        //var canyu=parseInt($(".canyu").html());
-        /*for(var i=0;i<canyu;i++){
-         $("img").eq(i).attr('src',"/addons/qw_cca/template/assets/img/light.png");
-         }
-         $("img:first").attr('src',"/addons/qw_cca/template/assets/img/light.png");
-         $("img").each(function(a,b){
-         var src = $(this).attr("src");    //获取图片路径
-         console.log(src);
-         var figure=$(this).parent().parent("tr").next().find("td");
-         if(src == "/addons/qw_cca/template/assets/img/black.png"){
-         figure.remove();
-         }
-         else{
-         var number=(a+1)*100;
-         figure.find("b").html(number);
-         }
-         });*/
-
-        $("img").each(function(a,b){
-            var src = $(this).attr("src");    //获取图片路径
-            var figure=$(this).parent().parent("tr").next().find("td");
-            //console.log(b);
-            if(src != "/addons/qw_cca/template/assets/img/time5.png"){
-                figure.remove();
-            }
-            else{
-                var number=(a+1)*100;
-                figure.find("b").html(number);
-            }
-        });
-        /*if(canyu>=0&&canyu<=2){
-         var n = 1;
-         var interval1=setInterval(function() {
-         $("img").eq(0).attr('src',"/assets/img/time"+n+".png");
-         n++;
-         if (n<5) {
-         $("img").eq(0).attr('src',"/assets/img/time"+n+".png");
-         };
-         if(n==5){
-         $("img").eq(0).attr('src',"/assets/img/time"+n+".png");
-         clearInterval(interval1);
-         }
-         }, 1000);
-         for(var i=0;i<=canyu;i++){
-         $("img").eq(i).attr('src',"/assets/img/time5.png");
-         }
-         var canyu1 = canyu+1;
-         var m0 = 1;
-         var interval2=setInterval(function() {
-         $("img").eq(canyu1).attr('src',"/assets/img/time"+m0+".png");
-         m0++;
-         if (m0 <4) {
-         $("img").eq(canyu1).attr('src',"/assets/img/time"+m0+".png");
-         };
-         if(m0==4){
-         $("img").eq(canyu1).attr('src',"/assets/img/time"+m0+".png");
-         clearInterval(interval2);
-         }
-         }, 1000);
-         }
-         else{
-         for(var i=0;i<canyu;i++){
-         $("img").eq(i).attr('src',"/addons/qw_cca/template/assets/img/time5.png");
-         }
-         var i=canyu;
-         var m = 1;
-         var interval2=setInterval(function() {
-         $("img").eq(i).attr('src',"/addons/qw_cca/template/assets/img/time"+m+".png");
-         m++;
-         if (m <4) {
-         $("img").eq(i).attr('src',"/addons/qw_cca/template/assets/img/time"+m+".png");
-         };
-         if(m==4){
-         $("img").eq(i).attr('src',"/addons/qw_cca/template/assets/img/time"+m+".png");
-         clearInterval(interval2);
-         }
-         }, 1000);
-         //$("img").eq(i).attr('src',"/addons/qw_cca/template/assets/img/time2.png");
-
-         }*/
-
-
-        $("tr:odd .state input").on("click",function(){
-            var hasSelected = $(this).closest("tr").hasClass("bg");
-            var count = ($("input:checked")).length;
-            $(this).closest("tr")[hasSelected ? "removeClass" : "addClass"]("bg").find(":checkbox").prop("checked", !hasSelected);
-            if(count>=2 || count>canyu-count1+count2){
-                alert("已超过数目");
-                $(this).closest("tr").removeClass("bg").find(":checkbox").prop("checked", false);
-                //$(this).find(":checkbox").prop("checked", false);
-            }
-        })
-    });
-
-    function changeImg(n){
-        if(n=4){return false}
-        document.getElementById("img").setAttribute("src","/assets/img/time"+n+".png");
-        n++;
-        setTimeout("changeImg("+n+")",1000);
-    }
-</script>
+<div class="head">
+   <a href="javascript:history.back();" class="bn pull-left"><i class="fa fa-angle-left"></i></a>
+    <span class="title">订单详情</span>
+    <a href="#" class="bn pull-right" style="margin-right:30px;"></a>
+</div>
+<div style="height:38px" class="light_num">{{ order['star'] }}</div>
+<span class="head-time">下单时间：<strong id="o_time">{{ order["submitted_at"] }}</strong></span>
+<div id="time">倒计时显示</div>
+<table class="table">
+<tr>
+    <td style="width:31%;text-align: center">商品</td>
+    <td style="width:22%;text-align: center">价格</td>
+    <td style="width:25%;text-align: center">状态</td>
+    <td style="text-align: center;width:22%">宝莲灯</td>
+</tr>
+{% for item in order['product'] %}
+<tr style="border:0">
+    <td style="height:40px">
+        <div class="products" style="background: url('{{ item['pic_url'] }}') top center no-repeat;background-size:cover;height:74px;width:74px"></div></td>
+    <td style="height:20px">
+        <div class="sold">
+            <strong class="price pull-left text-danger"><i class="fa fa-yen"></i> {{ item['price'] }}</strong><i>{$item['pay_at']}</i>
+        </div>
+    </td>
+    <td class="state">
+       {% if item['status'] == 1 %}
+       未发货
+       {% elseif item['status']==2 %}
+        已发货
+        {% else %}
+        待参与
+        {% endif %}
+    </td>
+    <td class="lamp">
+        <img src="1.png" style="width:34px;height: 50px;position: relative" id="img">
+    </td>
+</tr>
+{% endfor %}
+</table>
+<span class="count">参与人数:<b class="canyu">{{ count }}</b></span>
+<div class="rule">
+    <p><b>温馨提示</b></p>
+    <div style="text-indent:2em">
+        转发的次数越多，你的宝莲灯开启的越多，倒计时结束后，次日我们将所有开启的宝莲灯对应的商品发送给你，
+        在您收到货后，在【我的订单】中请给予公正的评价！
+    </div>
+</div>
 <script>
     var interval = 1000;
-    var canyu=parseInt($(".canyu").html());
-    var order_time=$("table").find("tr:eq("+(canyu*2-1)+")").children().eq(1).find("i").text();
     var time1=$("#o_time").html();
-
     var t_year=time1.substr(0,4);
     var t_month=time1.substr(5,2);
     var t_day=time1.substr(8,2);
@@ -326,17 +76,6 @@
     var t_minute=time1.substr(14,2);
     var t_second=time1.substr(17,2);
 
-    var o_year=order_time.substr(0,4);
-    var o_month=order_time.substr(5,2);
-    var o_day=order_time.substr(8,2);
-    var o_hour=order_time.substr(11,2);
-    var o_minute=order_time.substr(14,2);
-    var o_second=order_time.substr(17,2);
-    //console.log(time1);
-    //console.log(t_year,t_month,t_day,t_hour,t_minute,t_second);
-    var time2=t_year+"/"+t_month+"/"+t_day+" "+t_hour+":"+t_minute+":"+t_second;
-    var time3=o_year+"/"+o_month+"/"+o_day+" "+o_hour+":"+o_minute+":"+o_second;
-    //console.log(time2);
     function ShowCountDown(year,month,day,divname)
     {
         var now = new Date();
@@ -355,57 +94,6 @@
             cc.innerHTML = "距离订单结束"+"还有："+day1+"天"+hour+"小时"+minute+"分"+second+"秒";
         }else{
             cc.innerHTML = "订单已结束";
-            //$("img").eq(canyu).attr('src',"/addons/qw_cca/template/assets/img/time0.png");
-        }
-        if(canyu==0){
-            if(leftsecond>48*60*60-12*60 && leftsecond<=48*60*60-6*60){
-                $("img").eq(0).attr('src',"../assets/img/time1.png");
-            }
-            if(leftsecond>48*60*60-18*60 && leftsecond<=48*60*60-12*60){
-                $("img").eq(0).attr('src',"../assets/img/time2.png");
-            }
-            if(leftsecond>48*60*60-24*60 && leftsecond<=48*60*60-18*60){
-                $("img").eq(0).attr('src',"../assets/img/time3.png");
-            }
-            if(leftsecond>48*60*60-30*60 && leftsecond<=48*60*60-24*60){
-                $("img").eq(0).attr('src',"../assets/img/time4.png");
-            }
-            if(leftsecond>48*60*60-60*60 && leftsecond<=48*60*60-30*60){
-                $("img").eq(0).attr('src',"../assets/img/time5.png");
-            }
-            if(leftsecond>48*60*60-150*60 && leftsecond<=48*60*60-60*60){
-                $("img").eq(0).attr('src',"/assets/img/time5.png");
-                $("img").eq(1).attr('src',"/assets/img/time1.png");
-            }
-            if(leftsecond>48*60*60-270*60 && leftsecond<=48*60*60-150*60){
-                $("img").eq(0).attr('src',"../assets/img/time5.png");
-                $("img").eq(1).attr('src',"../assets/img/time2.png");
-            }
-            if(leftsecond>48*60*60-390*60 && leftsecond<=48*60*60-270*60){
-                $("img").eq(0).attr('src',"../assets/img/time5.png");
-                $("img").eq(1).attr('src',"../assets/img/time2.png");
-            }
-            if(leftsecond<=48*60*60-390*60){
-                $("img").eq(0).attr('src',"../assets/img/time5.png");
-                $("img").eq(1).attr('src',"../assets/img/time2.png");
-            }
-        }
-        else{
-            for(var i=0;i<canyu;i++){
-                $("img").eq(i).attr('src',"../assets/img/time5.png");
-            }
-            if(oversecond>0 && oversecond<=30*60){
-                $("img").eq(canyu).attr('src',"../assets/img/time1.png");
-            }
-            if(oversecond>30*60 && oversecond<=120*60){
-                $("img").eq(canyu).attr('src',"../assets/img/time2.png");
-            }
-            if(oversecond>120*60 && oversecond<=240*60){
-                $("img").eq(canyu).attr('src',"../assets/img/time3.png");
-            }
-            if(oversecond>240*60){
-                $("img").eq(canyu).attr('src',"../assets/img/time4.png");
-            }
         }
     }
     window.setInterval(function(){ShowCountDown(t_year,t_month,t_day,'time');}, interval);

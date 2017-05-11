@@ -2,18 +2,16 @@
 
 namespace App\Modules\Backend\Controllers;
 
+use App\Models\XdbOrder;
+use App\Models\XdbProduct;
 use App\Models\YztAdmin;
 
 class IndexController extends ControllerBase{
 
     public function indexAction(){
-        if($this->request->isPost()){
-            $this->view->disable();
-            echo "<pre>";
-            print_r($this->request->getPost());
-            echo "<hr />";
-            print_r($_POST);
-        }
+        $this->view->over=XdbProduct::count('stock <= 0');
+        $this->view->send=XdbOrder::count('status=1 and active=1');
+        $this->view->finish=XdbOrder::count('status=3 and active=1');
 
     }
 

@@ -19,6 +19,8 @@ myapp.controller('myCtrl', ['$scope', '$http', '$compile', 'retrieve', function 
     }
     $scope.search = function () {                                         //筛选
         $scope.info.p = 1;
+        $("#inpstart").val() && ($scope.info.time1= $("#inpstart").val());
+        $("#inpend").val() && ($scope.info.time2= $("#inpend").val());
         console.log($scope);
         retrieve.list($scope);
     };

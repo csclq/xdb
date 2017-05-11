@@ -79,7 +79,8 @@ class IndexController extends ControllerBase
                }
            }
            $payorder->setBuyNumber($payorder->getBuyNumber()+1);
-           $payorder->setStatus(1);
+
+           $payorder->getStatus()!=3 && $payorder->setStatus(1);
            $payorder->save();
 
            $this->db->execute("update xdb_product set sale_count = sale_count + 1,stock = stock - 1 where id=".$payment->getGoodsId());
@@ -95,14 +96,9 @@ class IndexController extends ControllerBase
 
 
     public function testAction(){
-        $this->view->disable();
-        echo "<pre>";
-       $str='';
-       var_dump(empty($str));
-       $arr=explode(',',$str);
-       var_dump($arr);
-       echo count($arr);
+        $js=$this->weixin->js;
 
+        $this->view->js=$js;
 
     }
 

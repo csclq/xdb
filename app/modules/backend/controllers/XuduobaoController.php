@@ -160,6 +160,25 @@ class XuduobaoController extends ControllerBase
 
     public function datatransAction()
     {
+        if ($this->request->isPost()) {
+            $this->view->disable();
+            $where = [];
+            $where['order'] = "deleted,sort";
+            $where['conditions'] = '1=1 ';
+            isset($this->post['name']) && $this->post['name'] &&  $where['conditions'] .= ' and name like "%'.$this->post['name'].'%"';
+            $total = XdbProduct::count($where);
+            $where['limit'] = array('number' => $this->config->pageNum,//$GLOBALS['config']['pageNum'],
+                'offset' => (intval($this->post['p']) - 1) * $this->config->pageNum);
+
+
+            $data = XdbProduct::find($where);
+            $data = $data->toArray();
+
+            $this->result['total'] = ceil($total / $this->config->pageNum);
+            $this->result['data'] = $data;
+            $this->result['count'] = $total;
+            echo json_encode($this->result);
+        }
 
 
 
@@ -381,6 +400,7 @@ class XuduobaoController extends ControllerBase
             foreach ($data as $k => $v) {
                 $rule['conditions'] = ' hit_number <= :hit: or buy_number <= :buy:';
                 $rule['bind'] = ['hit' => $v['hit_number'], 'buy' => $v['buy_number']];
+                $rule['order'] = 'star desc';
                 $star = XdbStarRule::findFirst($rule);
                 $data[$k]['star'] = $star ? $star->getStar() : 0;
             }
@@ -499,20 +519,21 @@ class XuduobaoController extends ControllerBase
 
                         }
 
-
                         $orders = XdbOrder::findFirst('id=' . $order[1]);
+                        $status=2;
                         $send = $orders->getSend();
                         if ($send) {
                             $send = explode(',', $send);
                             if (!in_array($row[22], $send)) {
                                 array_push($send, $row[22]);
                             }
+                            count($send)==count(explode(',',$orders->getProductId())) && $status=3;
                             $send = implode(',', $send);
                         } else {
                             $send = $row[22];
                         }
                         $orders->setSend($send);
-                        $orders->setStatus(2);
+                        $orders->setStatus($status);
                         $orders->update();
                     }
                 }

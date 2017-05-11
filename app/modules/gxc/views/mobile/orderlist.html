@@ -1,8 +1,3 @@
-{php $bootstrap_type = 3;}
-
-{template 'header'}
-<link type="text/css" rel="stylesheet" href="../addons/qw_cca/template/assets/css/common.css">
-
 <div class="head">
     <a href="javascript:history.back();" class="bn pull-left"><i class="fa fa-angle-left"></i></a>
     <span class="title">商品详情</span>
@@ -23,24 +18,18 @@
         </tr>
         </thead>
         <tbody>
-        {if !empty($orders)}
-        {loop $orders $order}
+       {% for item in info %}
         <tr>
-            <td>{$order['id']}</td>
-            <td>{$order['unit_price']} 元</td>
-            <td>{$order['province']} {$order['city']} {$order['district']} {$order['address']}</td>
-            <td>{$order['mobile']}</td>
-            <td><a href="{php echo $this->createMobileUrl('orderinfo', array('id' => $order['id']));}">查看</a></td>
+            <td>{{  item.unit_price }}</td>
+            <td>{{ item.unit_price }} 元</td>
+            <td>{{ item.city }} {{ item.district }} {{ item.address }}</td>
+            <td>{{ item.mobile }}</td>
+            <td><a href="/gxc/mobile/orderinfo/{{ item.id }}">查看</a></td>
         </tr>
-        {/look}
-        {/if}
+        {% endfor %}
         </tbody>
     </table>
 
     </div>
 
-
-
-
-    {template 'footer'}
 

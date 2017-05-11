@@ -2,11 +2,11 @@
 <div class="wrapper main-wrapper wrapper-content ">
 
     <div class="page-content" style="display: block;">
-        <div class="page-heading"> <h2>商品销售转化率</h2> <span>查询商品浏览量及购买转化率，默认排序为转化率从高到低 总数: <span style="color:red">21</span></span></div>
+        <div class="page-heading"> <h2>商品销售转化率</h2> <span>查询商品浏览量及购买转化率，默认排序为转化率从高到低 总数: <span style="color:red">{_ count _}</span></span></div>
 
 
 
-        <form action="http://abc.5xieys.cn/web/index.php" method="get" class="form-horizontal">
+        <form >
             <input type="hidden" name="c" value="site">
             <input type="hidden" name="a" value="entry">
             <input type="hidden" name="m" value="ewei_shopv2">
@@ -33,10 +33,10 @@
 				<option value="1">升序</option>
 			</select>
 			<div class="input-group">				 
-				<input type="text" class="form-control input-sm" name="title" value="" placeholder="商品名称"> 
+				<input type="text" class="form-control input-sm" name="title" value="" placeholder="商品名称"  ng-model="info.name">
 				<span class="input-group-btn">
 							
-					<button class="btn btn-sm btn-primary btn-sm" type="submit"> 搜索</button>
+					<button class="btn btn-sm btn-primary btn-sm" type="submit"  ng-click="search()" > 搜索</button>
                        <button type="submit" name="export" value="1" class="btn btn-success  btn-sm">导出 Excel</button>
                     				</span>
 			</div>
@@ -57,23 +57,19 @@
                 </tr>
             </thead>
             <tbody>
-                                <tr>
+            <tr ng-repeat="product in list">
                     <td>
-                        <img src="" style="width: 30px; height: 30px;border:1px solid #ccc;padding:1px;">
-                        许多宝保湿面膜(活动)</td>
-                    <td>24</td>
-                    <td>7</td> 
+                        <img ng-src="{_ product.pic_url _}" style="width: 30px; height: 30px;border:1px solid #ccc;padding:1px;">
+                        {_ product.name _}</td>
+                    <td>{_ product.uniacid _}</td>
+                    <td>{_ product.send_count _}</td>
                     <td>   <div class="progress" style="max-width:500px;">
-                            <div style="width: 29.17%;" class="progress-bar progress-bar-info"><span style="color:#000">29.17%</span></div>
+                            <div style="width: 29.17%;" class="progress-bar progress-bar-info"><span style="color:#000">{_ product.send_count * 100 / product.send_count | number:2 _}%</span></div>
                        </div></td>
                 </tr>
                               
                         </tbody></table>
-        <div><ul class="pagination pagination-centered" style="background-color: #fff !important;color:#000 !important;">
-        <li class="active"><a href="javascript:;">1</a></li>
-         <li><a href="http://abc.5xieys.cn/web/index.php?c=site&amp;a=entry&amp;m=ewei_shopv2&amp;do=web&amp;r=statistics.goods_trans&amp;page=2">2</a></li >
-        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&amp;a=entry&amp;m=ewei_shopv2&amp;do=web&amp;r=statistics.goods_trans&amp;page=2" class="pager-nav">下一页»</a></li>
-        <li><a href="http://abc.5xieys.cn/web/index.php?c=site&amp;a=entry&amp;m=ewei_shopv2&amp;do=web&amp;r=statistics.goods_trans&amp;page=2" class="pager-nav">尾页</a></li></ul></div> 
+        {{ partial('public/paging') }}
 </div>
 
 <script language="javascript">
@@ -138,3 +134,35 @@
     });
 </script>
 </div><div id="tip-msgbox" class="msgbox"></div>
+
+<script>
+    myapp.controller('myCtrl', ['$scope', '$http', '$compile', 'retrieve', function ($scope, $http, $compile, retrieve) {
+        $scope.info = {};                                                         //筛选条件
+        $scope.list = [];                                                         //数据源
+        $scope.info.p = 1;                                                        //分页
+        $scope.total = 1;                                                         //总页数
+        $scope.edit = {};
+        $scope.oldsort = 0;
+
+
+        retrieve.list($scope);
+        $scope.paging = function () {                                             //分页
+            if ($scope.info.p < 1) {
+                $scope.info.p = 1;
+            }
+            if ($scope.info.p > $scope.total) {
+                $scope.info.p = $scope.total;
+            }
+            retrieve.list($scope);
+        }
+        $scope.search = function () {                                         //筛选
+            $scope.info.p = 1;
+            retrieve.list($scope);
+        };
+
+
+
+    }]);
+
+
+</script>

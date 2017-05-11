@@ -3,10 +3,60 @@
 <head>
 	 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>activity</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0;">
+	<title>夺岛之战</title>
 	<link rel="stylesheet" href="/css/payment1.css">
-
+	<style>
+		.bottom_tip{
+			position: fixed;
+			left:0;
+			bottom:0;
+			right: 0;
+			background-color: #e0e0e0;
+			background: -moz-linear-gradient(top,  #848484 0%, #ffffff 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#848484), color-stop(100%,#ffffff));
+			background: -webkit-linear-gradient(top, rgba(132, 132, 132, 0.82) 0%,#ffffff 100%);
+			background: -o-linear-gradient(top,  #848484 0%,#ffffff 100%);
+			background: -ms-linear-gradient(top,  #848484 0%,#ffffff 100%);
+			background: linear-gradient(to bottom,  #848484 0%,#ffffff 100%);
+			color:#000;
+			height: 45px;
+			z-index: 10000;
+		}
+		.bottom_tip .font-vertical{
+			font-size: 14px;
+			font-family: Arial, "microsoft yahei";
+			text-align: center;
+			line-height: 15px;
+		}
+		ul,li,a{
+			list-style: none;
+			margin:0px;
+			padding:0px;
+		}
+		a{
+			text-decoration:none;
+		}
+		a:hover{
+			text-decoration:none;
+		}
+		.bottom_tip .font-vertical ul{
+			height:45px;
+		}
+		.bottom_tip .font-vertical li{
+			float:left;
+			width:50%;
+			text-align: center;
+			height:45px;
+			line-height: 45px;
+			box-sizing: border-box;
+			border-right:1px solid #fff;
+			border-left:1px solid #fff;
+		}
+		.bottom_tip .font-vertical li a{
+			text-decoration: none;
+		}
+	</style>
 </head>
 <body>
 <div id="yun">
@@ -21,9 +71,9 @@
 <div id="playRule" style="display:none">
 	<a href="/gxc/mobile/index/{{ orderid }}">前往商城</a>
 </div>
-<!-- 分享朋友圈 -->
+<!-- 游戏结束 -->
 <div id="shareFriends" style="display:none">
-	<img src="/src/sharePYQ.png" alt="">
+	<img src="/src/win9.png" alt="">
 </div>
 <div class="all_bg" id="bg">
 	<div id="allcanvas">
@@ -132,28 +182,43 @@
 		<div class="buttonbox">
 			<!-- <div class="buttonboxitem" id="button1">支援人数<span>99</span></div> -->
 			<div class="buttonboxitem" id="button2" onclick="DDZY();" style="display:none">导弹支援</div>
-			<div class="buttonboxitem" id="button3" onclick="playToo();">我也要玩</div>
-			<div class="buttonboxitem" id="button4" onclick="shareFriends();">分享</div>
+			<div class="buttonboxitem" id="button3" onclick="playToo();"  style="display:none">我也要玩</div>
+		<!-- 	<div class="buttonboxitem" id="button4" onclick="shareFriends();">规则</div> -->
 			<div class="buttonboxitem" id="button5" onclick="TGDH();">跳过动画</div>
 		</div>
-
+		<!-- 滚动显示区域 -->
 		<div class="detailsShow">
-			
+			<div id="allPerson">
+				总参与人数<span id="num"></span>
+			</div>
+			<div id="worldShowItem">
+				<ul id="worldcon1">
+				</ul>
+			    <ul id="worldcon2">
+			    </ul>
+			</div>
 			<div class="detailsShowItem" id="detailsShowItem1">
 				<ul id="con1"></ul>
 			    <ul id="con2"></ul>
-  	 
 			</div>
-		<!-- 	<script id="friendsHelp" type="text/html">
-			 	
-				 <% for (var i = 0; i < islandsTime.length; i++) { %>
-         		 <li><%=hi('sun',22)%><%= islandsTime[i].hit.length %>帮助您投放了导弹<%= islandsTime[i].length%></li>
+			<script id="canyu" type="text/html">
+				 <% for (var i = 0; i < MesOfParticipants.length; i++) { %>
+         		 <li><%= MesOfParticipants[i][0]%>参与了游戏<%= MesOfParticipants[i][1]%></li>
        			<%} %>
-       			
-			</script> -->
+			</script>
+			<script id="canyurenshu" type="text/html">
+				<%= data.NumOfParticipants%>
+			</script>
 		</div>
 	</div>
-	
+</div>
+<p>{{  ticket }}</p>
+<!--底部菜单栏-->
+<div class="bottom_tip">
+	<ul class="font-vertical">
+		<li><a href="../orderlist/{{ orderid }}">我的订单</a></li>
+		<li><a href="../link/{{orderid}}">我的链接</a></li>
+	</ul>
 </div>
 <script src="/js/jquery-1.11.1.min.js"></script>
 <script src="/js/template.js"></script>
@@ -166,3 +231,41 @@
 
 </body>
 </html>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    wx.config(<?php echo $js->config(array('onMenuShareAppMessage', 'onMenuShareTimeline'), false); ?>);
+
+
+	wx.ready(function () {
+        wx.onMenuShareAppMessage({
+            title: '互联网之子',
+            desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
+            imgUrl: location.origin+"/img/a.jpg",
+            success: function (res) {
+                alert('已发送给朋友');
+            },
+            cancel: function (res) {
+                alert('已取消');
+            },
+            fail: function (res) {
+                alert(JSON.stringify(res));
+            }
+        });
+
+        wx.onMenuShareTimeline({
+            title: '互联网之子',
+            imgUrl: location.origin+"/img/a.jpg",
+            success: function (res) {
+                alert('已分享到朋友圈');
+            },
+            cancel: function (res) {
+                alert('已取消');
+            },
+            fail: function (res) {
+                alert(JSON.stringify(res));
+            }
+        });
+    })
+
+</script>

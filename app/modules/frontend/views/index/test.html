@@ -4,11 +4,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link href="/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
-    <link href="/css/style.css" type="text/css" rel="stylesheet" />
-    <script src="/js/jquery.js"></script>
-    <script src="/js/angular.min.js"></script>
+
 
     <script src="/js/main.js"></script>
 </head>
@@ -26,11 +22,46 @@
 
 </body>
 </html>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
 <script>
-   myapp.controller('myCtrl',function ($scope) {
-       $scope.add={};
-       $scope.showpic=function () {
-           console.log($scope.add)
-       }
-   });
+    wx.config(<?php echo $js->config(array('onMenuShareAppMessage', 'onMenuShareTimeline'), false); ?>);
+
+
+
+
+    wx.ready(function () {
+        wx.onMenuShareAppMessage({
+            title: '互联网之子',
+            desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
+            link: 'http://movie.douban.com/subject/25785114/',
+            imgUrl: 'http://demo.open.weixin.qq.com/jssdk/images/p2166127561.jpg',
+            success: function (res) {
+                alert('已分享');
+            },
+            cancel: function (res) {
+                alert('已取消');
+            },
+            fail: function (res) {
+                alert(JSON.stringify(res));
+            }
+        });
+
+        wx.onMenuShareTimeline({
+            title: '互联网之子',
+            link: 'http://movie.douban.com/subject/25785114/',
+            imgUrl: 'http://demo.open.weixin.qq.com/jssdk/images/p2166127561.jpg',
+            success: function (res) {
+                alert('已分享');
+            },
+            cancel: function (res) {
+                alert('已取消');
+            },
+            fail: function (res) {
+                alert(JSON.stringify(res));
+            }
+        });
+    })
+
+
+
 </script>

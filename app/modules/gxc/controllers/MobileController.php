@@ -17,6 +17,9 @@ class MobileController extends ControllerBase{
 
         if($this->request->isPost()){
             $this->view->disable();
+            if($this->request->getPost('goodsID','int')){
+                $this->db->execute('update xdb_product set uniacid=uniacid + 1 where id='.$this->request->getPost('goodsID','int'));
+            }
             if(is_numeric( $p=$this->request->getPost('p'))){
                 $filt=['hot','new','fashion'];
 
@@ -66,7 +69,7 @@ class MobileController extends ControllerBase{
                 }
             }
         }
-        if($hited){
+//        if($hited){
             $newhit=new XdbOrderHit();
             $newhit->setOrderId($id);
             $newhit->setOrderOpenId($real->getOpenid());
@@ -75,7 +78,7 @@ class MobileController extends ControllerBase{
             $newhit->setActive(1);
             $newhit->setAddAt(time());
             $newhit->create();
-        }
+//        }
 
         $real && $this->view->lastId=$real->getLastId();
         $this->view->orderid=$id;
@@ -93,6 +96,13 @@ class MobileController extends ControllerBase{
 
     }
     public function linkAction(){
+        $info=null;
+        $where['conditions']='active = 1 and openid="'.$this->openid.'"';
+        $where['order'] = 'id desc';
+        $where['colunms']='id,submitted_at';
+        $info=XdbOrder::find($where);
+        $this->view->info=$info->toArray();
+
 
     }
     public function olistAction(){
@@ -103,9 +113,49 @@ class MobileController extends ControllerBase{
     }
     public function orderinfoAction(){
 
+        $orderid=$this->dispatcher->getParam(0,'int');
+        $orderid || exit("缺少必要的参数");
+        $order=XdbOrder::findFirst('id='.$orderid)->toArray();
+        $product=XdbProduct::find('id in ('.$order['product_id'].')')->toArray();
+        $paid=explode(',',$order['paid']);
+        $send=explode(',',$order['send']);
+
+        foreach ($product as $k=>$v){
+            $product[$k]['status']=0;
+            if(in_array($v['id'],$paid)){
+                $product[$k]['status']=1;
+            }
+            if(in_array($v['id'],$send)){
+                $product[$k]['status']=2;
+            }
+        }
+
+
+        $order['product']=$product;
+        $where['conditions']='hit_number <='.$order['hit_number'].' or buy_number <='.$order['buy_number'];
+        $where['order']='star desc';
+        $star=XdbStarRule::findFirst($where);
+        if($star){
+            $order['star']=$star->getStar();
+        }else{
+            $order['star']=0;
+        }
+
+
+
+        $this->view->order=$order;
+        $this->view->count=XdbOrderPayment::count("paid > 0 and last_id=".$orderid)+XdbOrderHit::count('order_id='.$orderid);
+
+
+
     }
     public function orderlistAction(){
-
+        $info=null;
+        $where['conditions']='active = 1 and openid="'.$this->openid.'"';
+        $where['order'] = 'id desc';
+        $where['colunms']='id,unit_price,city,district,address,mobile';
+        $info=XdbOrder::find($where);
+        $this->view->info=$info;
     }
     public function ordersAction(){
 
@@ -154,7 +204,7 @@ class MobileController extends ControllerBase{
                 $fee= $this->config['unify_fee']?$this->config['pay_fee']:$goodsinfo->getPrice()*100;
 
                 $posit=json_decode($orderinfo->getProductDetail(),true);
-                $posit=$posit->posit[$goodsid];
+                $posit=$posit[$goodsid];
                 $orderpayment=new XdbOrderPayment();
                 $orderpayment->setOpenid($this->openid);
                 $orderpayment->setNickname($this->nickname);
@@ -222,55 +272,88 @@ class MobileController extends ControllerBase{
 
         if($this->request->isPost()){
             $this->view->disable();
-            $this->result['data']['order_hit']=$order->getHitNumber();
-            $this->result['data']['order_payment']=$order->getBuyNumber();
 
-            $where['conditions']=' id in ('.$order->getProductId().')';
-            $where['columns']='pic_url';
-            $product=XdbProduct::find($where);
-            $this->result['data']['order_details']=array_column($product->toArray(),'pic_url');
-            unset($where);
-            $where['conditions']=' hit_number <= :hit: or buy_number <= :buy:';
-            $where['bind']=['hit'=>$this->result['data']['order_hit'],'buy'=>$this->result['data']['order_payment']];
-            $where['order']='id desc';
-            $star=XdbStarRule::findFirst($where);
+            if($this->request->getPost('type')=='init'){
+                $this->result['data']['order_hit']=$order->getHitNumber();
+                $this->result['data']['order_payment']=$order->getBuyNumber();
 
-            if($star){
-                $this->result['data']['islandsCount']=$star->getStar();
-            }else{
-                $this->result['data']['islandsCount']=0;
+                $where['conditions']=' id in ('.$order->getProductId().')';
+                $where['columns']='pic_url';
+                $product=XdbProduct::find($where);
+                $this->result['data']['order_details']= array_reverse(array_column($product->toArray(),'pic_url'));
+                unset($where);
+                $where['conditions']=' hit_number <= :hit: or buy_number <= :buy:';
+                $where['bind']=['hit'=>$this->result['data']['order_hit'],'buy'=>$this->result['data']['order_payment']];
+                $where['order']='id desc';
+                $star=XdbStarRule::findFirst($where);
+
+                if($star){
+                    $this->result['data']['islandsCount']=$star->getStar();
+                }else{
+                    $this->result['data']['islandsCount']=0;
+                }
+
+
+                $stars=XdbStarRule::find()->toArray();
+
+                $this->result['data']['hit_number']=array_column($stars,'hit_number');
+                $this->result['data']['buy_number']=array_column($stars,'buy_number');
+                $this->result['data']['openid_details']=[$order->getAvatar(),$order->getNickname()];
+                $this->result['data']['identity']=false;
+                $Identity= XdbOrderHit::findFirst('openid="'.$this->openid.'"');
+                if($Identity)  $this->result['data']['identity']=true;
+
+
+
+                $this->result['data']['islandsTime']=[];
+
+                $hit=XdbOrderHit::find('order_id='.$orderid.' and active=1');
+                if($hit){
+                    foreach ($hit as $v){
+                        array_push($this->result['data']['islandsTime'],array('hit'=> [ $v->getNickname(),  date('Y-m-d H:i:s',$v->getAddAt())]));
+                    }
+                }
+
+                $payment=XdbOrderPayment::find('last_id='.$orderid.' and paid>0 and expire=0');
+                if($payment){
+                    foreach ($payment as $v){
+                        array_push($this->result['data']['islandsTime'],array('buy'=>[$v->getNickname(),$v->getPaidAt()]));
+                    }
+                }
             }
 
+            if($this->request->getPost('type')=='update'){
 
-            $stars=XdbStarRule::find()->toArray();
-
-            $this->result['data']['hit_number']=array_column($stars,'hit_number');
-            $this->result['data']['buy_number']=array_column($stars,'buy_number');
-            $this->result['data']['openid_details']=[$order->getAvatar(),$order->getNickname()];
-
-
-
-            $this->result['data']['islandsTime']=[];
-
-            $hit=XdbOrderHit::find('order_id='.$orderid.' and active=1');
-            if($hit){
+                $this->result['data']['order_hit']=$order->getHitNumber();
+                $this->result['data']['order_payment']=$order->getBuyNumber();
+                $hit=XdbOrderHit::find('active=1');
+                $payment=XdbOrderPayment::find(' paid>0 and expire=0');
+                $arr=[];
                 foreach ($hit as $v){
-                    array_push($this->result['data']['islandsTime'],array('hit'=> [ $v->getNickname(),  date('Y-m-d H:i:s',$v->getAddAt())]));
+                    array_push($arr,[$v->getNickname(),date('Y-m-d H:i:s', $v->getAddAt())]);
                 }
-            }
-
-            $payment=XdbOrderPayment::find('last_id='.$orderid.' and paid>0 and expire=0');
-            if($payment){
                 foreach ($payment as $v){
-                    array_push($this->result['data']['islandsTime'],array('buy'=>[$v->getNickname(),$v->getPaidAt()]));
+                    array_push($arr,[$v->getNickname(),$v->getPaidAt()]);
                 }
+
+                usort($arr,function ($a,$b){
+                   return strcmp($b[1],$a[1]);
+                });
+
+                $this->result['data']['NumOfParticipants']=count($arr);
+                $this->result['data']['MesOfParticipants']=array_slice($arr,0,5);
+
             }
 
             echo json_encode($this->result);
 
         }
 
+        $js=$this->weixin->js;
+
         $this->view->orderid=$orderid;
+        $this->view->js=$js;
+        $this->view->ticket=$js->ticket();
 
     }
     public function payment2Action(){

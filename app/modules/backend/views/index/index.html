@@ -23,10 +23,10 @@
             <div class="contact-box" style="border: 1px solid #e7eaec">
                 <div class="forum-item">
                     <div class="row">
-                        <a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=goods&goodsfrom=out">
+                        <a href="#">
                             <div class="col-sm-3 forum-info">
                                                 <span class="views-number goods_totals">
-                                                    --
+                                                    {{ over }}
                                                 </span>
                                 <div>
                                     <small>已售罄商品</small>
@@ -34,10 +34,10 @@
                             </div>
                         </a>
 
-                        <a href="orderstatus1.html">
+                        <a href="">
                             <div class="col-sm-3 forum-info">
                                                 <span class="views-number status1">
-                                                    --
+                                                    {{ send }}
                                                 </span>
                                 <div>
                                     <small>待发货订单</small>
@@ -45,7 +45,7 @@
                             </div>
                         </a>
 
-                        <a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=order.list.status4">
+                        <a href="#">
                             <div class="col-sm-3 forum-info">
                                                 <span class="views-number status4">
                                                     --
@@ -56,10 +56,10 @@
                             </div>
                         </a>
 
-                        <a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=finance.log.withdraw&status=0">
+                        <a href="">
                             <div class="col-sm-3 forum-info">
                                             <span class="views-number finance_total">
-                                                --
+                                                {{ finish }}
                                             </span>
                                 <div>
                                     <small>已完成订单</small>
@@ -76,39 +76,4 @@
 
 </div>
 
-    <input type="hidden" name="len" value="0">
-    <input type="hidden" name="index" value="0">
-    <script>
-        function selectImage(obj){
-            util.image('',function(val){
-                $(obj).attr('src',val.url);
-
-                $.post("http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=shop.index.ajaxshopconfig&type=logo", { value: val.attachment},
-                        function(data){
-                            if (data.status == 1)
-                            {
-                                tip.msgbox.suc('修改成功!' || tip.lang.success);
-                            }
-                            else
-                            {
-                                tip.msgbox.err('修改失败!' || tip.lang.error);
-                            }
-                        }, "json");
-            });
-        }
-    </script>
-
-
 </div>
-
-<script language='javascript'>
-    require(['bootstrap'], function ($) {
-        $('[data-toggle="tooltip"]').tooltip({
-            container: $(document.body)
-        });
-        $('[data-toggle="popover"]').popover({
-            container: $(document.body)
-        });
-    });
-
-</script>
