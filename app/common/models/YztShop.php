@@ -52,13 +52,6 @@ class YztShop extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=255, nullable=true)
-     */
-    protected $brand_logo;
-
-    /**
-     *
-     * @var string
      * @Column(type="string", length=10, nullable=true)
      */
     protected $unit;
@@ -354,19 +347,6 @@ class YztShop extends \Phalcon\Mvc\Model
     public function setBrand($brand)
     {
         $this->brand = $brand;
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field brand_logo
-     *
-     * @param string $brand_logo
-     * @return $this
-     */
-    public function setBrandLogo($brand_logo)
-    {
-        $this->brand_logo = $brand_logo;
 
         return $this;
     }
@@ -848,16 +828,6 @@ class YztShop extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field brand_logo
-     *
-     * @return string
-     */
-    public function getBrandLogo()
-    {
-        return $this->brand_logo;
-    }
-
-    /**
      * Returns the value of field unit
      *
      * @return string
@@ -1183,8 +1153,8 @@ class YztShop extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("gxc");
-        $this->useDynamicUpdate(true);
         $this->hasMany('id', 'App\Models\YztShopList', 'shop_id', ['alias' => 'YztShopList']);
+        $this->hasMany('id', 'App\Models\YztShopRelat', 'shop_id', ['alias' => 'YztShopRelat']);
     }
 
     /**
@@ -1234,7 +1204,6 @@ class YztShop extends \Phalcon\Mvc\Model
             'child_cate' => 'child_cate',
             'label' => 'label',
             'brand' => 'brand',
-            'brand_logo' => 'brand_logo',
             'unit' => 'unit',
             'number' => 'number',
             'price' => 'price',

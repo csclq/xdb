@@ -1,0 +1,28 @@
+<div class="grid">
+    <div class="table">
+        <table>
+            <thead>
+            <tr>
+                <!--<th><input type="checkbox"></th>-->
+                <th>ID</th>
+                <th>名称</th>
+                <th>内容</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for item in info %}
+                <tr>
+                    <td>{{ item['id'] }}</td>
+                    <td>{{ item['remark'] }}</td>
+                    <td>{{ item[''] }}</td>
+                    <td>{{ item['id'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script src="/js/admin.js"></script>

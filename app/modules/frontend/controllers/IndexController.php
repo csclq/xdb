@@ -6,6 +6,8 @@ namespace App\Modules\Frontend\Controllers;
 use App\Models\XdbCategory;
 use App\Models\XdbOrder;
 use App\Models\XdbOrderPayment;
+use App\Models\XdbProduct;
+use App\Models\XdbStarRule;
 use App\Models\YztGxcRepastCate;
 
 class IndexController extends ControllerBase
@@ -65,23 +67,39 @@ class IndexController extends ControllerBase
            if(!$payment)
                return false;
            $payment->setPaidAt(date("Y-m-d H:i:s"));
-           $payment->setPaid($notify->total_fee);
+           $payment->setPaid($notify->total_fee/100);
            $payment->setTransactionId($notify->transaction_id);
            $payment->save();
            $payorder=XdbOrder::findFirst('id='.$payment->getLastId());
-           $paid=explode(',',$payorder->getPaid());
+
            if(empty($payorder->getPaid())){
                $payorder->setPaid($payment->getGoodsId());
            }else{
+               $paid=explode(',',$payorder->getPaid());
                if(!in_array($payment->getGoodsId(),$paid)){
                     array_push($paid,$payment->getGoodsId());
                    $payorder->setPaid(implode(',',$paid));
                }
            }
+
+
+
+
+            $rule['conditions'] = ' hit_number <= :hit: or buy_number <= :buy:';
+           $buynumber=$payorder->getBuyNumber()+1;
+            $rule['bind'] = ['hit' => $payorder->getHitNumber(), 'buy' => $buynumber];
+            $rule['order'] = 'star desc';
+            $star = XdbStarRule::findFirst($rule);
+
+            if($star && $star->getStar()>$payorder->getStars()){
+                $payorder->setStars($star->getStar());
+            }
+
            $payorder->setBuyNumber($payorder->getBuyNumber()+1);
 
            $payorder->getStatus()!=3 && $payorder->setStatus(1);
            $payorder->save();
+
 
            $this->db->execute("update xdb_product set sale_count = sale_count + 1,stock = stock - 1 where id=".$payment->getGoodsId());
 
@@ -96,10 +114,17 @@ class IndexController extends ControllerBase
 
 
     public function testAction(){
-        $js=$this->weixin->js;
+        $this->view->disable();
+        $order=XdbOrder::findFirst('id=1834');
+        $product_id=explode(',',$order->getProductId());
+        $product=[];
+        foreach ($product_id as $v){
+            $where['columns']='pic_url';
+            $where['conditions']='id='.$v;
+            array_push($product->toArray(),XdbProduct::findFirst($where));
+        }
 
-        $this->view->js=$js;
-
+        var_dump($product);
     }
 
 

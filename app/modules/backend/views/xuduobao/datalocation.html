@@ -36,14 +36,16 @@
             <thead>
             <tr>
                 <th style="width:400px;text-align: center" >商城位置</th>
+                <th style="width:400px;text-align: center" >选择次数</th>
                 <th style="width:400px;text-align: center">购买次数</th>
             </tr>
             </thead>
             <tbody>
             {% for item in info %}
             <tr>
-                <td>{{ item.posit }}</td>
-                <td>{{ item.num }}</td>
+                <td style="text-align: center">{{ item['posit'] }}</td>
+                <td style="text-align: center">{{ item['select'] }}</td>
+                <td style="text-align: center">{{ item['buy'] }}</td>
             </tr>
             {% endfor %}
             </tbody></table>

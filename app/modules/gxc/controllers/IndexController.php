@@ -9,8 +9,17 @@ class IndexController extends ControllerBase{
     }
 
     public function testAction(){
-        $this->view->disable();
-        echo microtime(true)*10000;
-    }
+       $this->view->disable();
+       echo "<pre>";
+       var_dump($_SESSION);
+        echo $this->nickname;
+        echo "<br />";
+        $str = preg_replace_callback('/./u',  function (array $match) {
+                return strlen($match[0]) >= 4 ? '' : $match[0];
+            },
+            $this->nickname);
+        echo $str;
+        echo "<br />";
 
+    }
 }

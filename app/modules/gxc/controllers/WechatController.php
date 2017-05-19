@@ -30,6 +30,7 @@ class WechatController extends ControllerBase
             $usr=YztGxcUser::findFirst('openid="'.$message->FromUserName.'"');                        //查询用户注册情况
             if(!$usr){                                                                          //未注册用户进行注册
                 $user=$userService->get($message->FromUserName);                                //根据微信openid获取用户的微信信息
+                $this->persistent->nickname=$user->nickname;
                 $member['nickname']=$user->nickname;
                 $member['sex']=$user->sex;
                 $member['province']=$user->province;
@@ -51,30 +52,7 @@ class WechatController extends ControllerBase
         $respond->send();
     }
 
-    public function testAction()
-    {
-        $this->view->disable();
 
-//        $qrcode=$this->weixin->qrcode;
-//        $result = $qrcode->temporary("o85-QwxURhlca1MKqyDq3BYP1L9A", 6 * 24 * 3600);
-//        $qr=$qrcode->url($result->ticket);
-//        $qrimg=imagecreatefromjpeg($qr);
-        $imgname=BASE_PATH.'/public/'.$this->config->shareQrcode['background'];
-        if(!file_exists($imgname)){
-            return false;
-        }
-        $resource=imagecreatefromjpeg($imgname);
-        $savename=BASE_PATH.'/public/img/recommend/'.uniqid().'.jpg';
-        $ttffile=BASE_PATH.'/public/files/ttf/stkaiti.ttf';
-        $ttf=imageloadfont($ttffile);
-       var_dump(imagestring($resource,$ttf,280,85,"众志成城",imagecolorallocate($resource,255,0,0)));
-       var_dump(imagestring($resource,$ttf,210,120,"VS20017",imagecolorallocate($resource,255,0,0)));
-//       var_dump(imagestring($resource,18,0,210,120,imagecolorallocate($resource,0,255,255),$ttffile,"VS20017"));
-
-//        imagecopymerge($resource,$qrimg,64,704,0,0,160,160,80);
-        var_dump(imagejpeg($resource,$savename));
-
-    }
 
     protected  function message($message)               //消息处理
     {
@@ -112,7 +90,10 @@ class WechatController extends ControllerBase
                         }
                     }
                 }
-                return 'openid:'.$this->persistent->openid." uid:".$this->persistent->uid;
+                $user=$this->weixin->user->get($message->FromUserName);
+                $nickname=$user->nickname;
+
+                return 'openid:'.$this->persistent->openid." uid:".$nickname ;
                 break;
             case 'image':
                 return '收到图片消息';
@@ -226,26 +207,57 @@ class WechatController extends ControllerBase
     public function menuAction()                                //自定义菜单
     {
         $this->view->disable();
-      if($this->request->isPost()){
-          $buttons=$this->request->getPost();
-        foreach ($buttons as $k => $v) {
-            foreach ($v as $i => $j){
-                if ($i == 'url') {
-                    $buttons[$k][$i] = $this->getUrl($j);
-                }
-                if ($i == 'sub_button') {
-                    foreach ($j as $key => $value) {
-                        foreach ($value as $m => $n){
-                            if ($m == 'url') {
-                                $buttons[$k][$i][$key][$m] = $this->getUrl($n);
-                            }
-                        }
-                    }
-                }
-            }
-        }
+//      if($this->request->isPost()){
+//          $this->view->disable();
+//          $buttons=$this->request->getPost();
+//        foreach ($buttons as $k => $v) {
+//            foreach ($v as $i => $j){
+//                if ($i == 'url') {
+//                    $buttons[$k][$i] = $this->getUrl($j);
+//                }
+//                if ($i == 'sub_button') {
+//                    foreach ($j as $key => $value) {
+//                        foreach ($value as $m => $n){
+//                            if ($m == 'url') {
+//                                $buttons[$k][$i][$key][$m] = $this->getUrl($n);
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        $this->weixin->menu->add($buttons);
+//      }
+
+
+        $buttons = [
+            [
+                "type" => "click",
+                "name" => "今日歌曲",
+                "key"  => "V1001_TODAY_MUSIC"
+            ],
+            [
+                "name"       => "菜单",
+                "sub_button" => [
+                    [
+                        "type" => "view",
+                        "name" => "搜索",
+                        "url"  => "http://www.soso.com/"
+                    ],
+                    [
+                        "type" => "view",
+                        "name" => "视频",
+                        "url"  => "http://v.qq.com/"
+                    ],
+                    [
+                        "type" => "click",
+                        "name" => "赞一下我们",
+                        "key" => "V1001_GOOD"
+                    ],
+                ],
+            ],
+        ];
         $this->weixin->menu->add($buttons);
-      }
     }
 
     protected function materialImg($img){

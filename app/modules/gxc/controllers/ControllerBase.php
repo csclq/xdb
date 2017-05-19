@@ -23,14 +23,23 @@ class ControllerBase extends Controller
             $response=$this->weixin->oauth->scopes(['snsapi_userinfo']) ->redirect('http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"]);
             $response->send();
             $user=$this->weixin->oauth->user();
+
+
+            $nickname = preg_replace_callback(
+                '/./u',
+                function (array $match) {
+                    return strlen($match[0]) >= 4 ? '' : $match[0];
+                },
+                $user->nickname);
+
             $this->session->set('openid',$user->id);
-            $this->session->set('nickname',$user->nickname);
+            $this->session->set('nickname',$nickname);
             $this->session->set('avatar',$user->avatar);
         }
         $this->openid=$this->session->get('openid');
         $this->nickname=$this->session->get('nickname');
         $this->avatar=$this->session->get('avatar');
-        $date=date('Y-m-d');
+        $date=date('Y-m-d H:i:s');
         if(!XdbMember::findFirst('openid="'.$this->openid.'" and add_at="'.$date.'"')){
             $member=new XdbMember();
             $member->setAddAt($date);
@@ -38,8 +47,6 @@ class ControllerBase extends Controller
             $member->setNickname($this->nickname);
             $member->create();
         }
-
-
 
     }
 

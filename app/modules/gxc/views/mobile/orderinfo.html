@@ -1,4 +1,17 @@
-<link type="text/css" rel="stylesheet" href="../addons/qw_cca/template/assets/css/common.css">
+<!DOCTYPE html>
+<html lang="zh-CN" >
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/v2.css?v=4.1.0" rel="stylesheet">
+    <link href="/css/common.css?v=2.0.0" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <title>许多宝新品</title>
+    <script src="/js/jquery.js"></script>
+</head>
 <style>
     ul,li{padding:0;margin:0;list-style: none}
     .main-list{width:100%;height:40px;position: fixed;top:38px;color:#000;border-bottom: 1px solid #ccc;background-color: #fff}
@@ -11,28 +24,32 @@
     .table .lamp{text-align: center}
     .rule{width:90%;height:auto; padding: 10px;margin: 20px auto;border:1px solid #ccc;box-shadow: 0 0 10px #ccc}
     .rule p{text-align: center;font-size: 14px;height:20px;line-height: 20px;}
-    table span{text-align: center;color:#a94442;font-weight: 800}
     .bg{ background: rgba(230,99,91,.3);  }
     .count{text-align: right;padding-right:20px;display: block  }
-    .head-time{height:40px;line-height: 40px;font-size: 16px;text-align: center;color:#6d645e;font-weight: 500;display: block}
+    .head-time{height:40px;line-height: 40px;font-size: 16px;text-align: center;color:#6d645e;font-weight: 500;display: block;margin-top:40px}
     #time{height:40px;line-height: 30px;font-size: 16px;text-align: center;color:#f00;font-weight: 800}
     .state a{text-decoration: none;list-style: none}
     .state a:hover{list-style: none;text-decoration: none;color:#a94442;}
+    .question{background-color: rgba(0,0,0,0.6);position: fixed;
+        top: 0px;bottom:0px;left: 0px;right:0px;display: none;z-index: 1111;overflow-y: scroll}
+    .que-del{background-color: #fff;border-radius: 10px;position: relative;top: 50px;bottom:20px;padding:20px; margin-left: 10px;
+        margin-right: 10px;margin-bottom: 10px}
+    .que-del table span{text-align: center;color:#a94442;font-weight: 800;margin-right: 10px;}
 </style>
+<body>
 <div class="head">
    <a href="javascript:history.back();" class="bn pull-left"><i class="fa fa-angle-left"></i></a>
     <span class="title">订单详情</span>
     <a href="#" class="bn pull-right" style="margin-right:30px;"></a>
 </div>
-<div style="height:38px" class="light_num">{{ order['star'] }}</div>
 <span class="head-time">下单时间：<strong id="o_time">{{ order["submitted_at"] }}</strong></span>
 <div id="time">倒计时显示</div>
 <table class="table">
 <tr>
-    <td style="width:31%;text-align: center">商品</td>
-    <td style="width:22%;text-align: center">价格</td>
+    <td style="width:30%;text-align: center">商品</td>
+    <td style="width:19%;text-align: center">价格</td>
     <td style="width:25%;text-align: center">状态</td>
-    <td style="text-align: center;width:22%">宝莲灯</td>
+    <td style="text-align: center;width:26%">评论</td>
 </tr>
 {% for item in order['product'] %}
 <tr style="border:0">
@@ -40,32 +57,100 @@
         <div class="products" style="background: url('{{ item['pic_url'] }}') top center no-repeat;background-size:cover;height:74px;width:74px"></div></td>
     <td style="height:20px">
         <div class="sold">
-            <strong class="price pull-left text-danger"><i class="fa fa-yen"></i> {{ item['price'] }}</strong><i>{$item['pay_at']}</i>
+            <strong class="price pull-left text-danger"><i class="fa fa-yen"></i> {{ item['price'] }}</strong>
         </div>
     </td>
     <td class="state">
        {% if item['status'] == 1 %}
-       未发货
+       待发货
        {% elseif item['status']==2 %}
         已发货
         {% else %}
-        待参与
+        待夺取
         {% endif %}
     </td>
-    <td class="lamp">
-        <img src="1.png" style="width:34px;height: 50px;position: relative" id="img">
+    <td class="comment" data-goodsID="{{item['id']}}">
+        {% if item['status'] == 1 %}
+        夺取后评价
+        {% elseif item['status']==2 %}
+        <a href="#" class="commentLicense">评价</a>
+        {% else %}
+        夺取后评价
+        {% endif %}
     </td>
 </tr>
 {% endfor %}
 </table>
-<span class="count">参与人数:<b class="canyu">{{ count }}</b></span>
+<!--调查问卷-->
+<div class="question">
+    <div class="que-del">
+        <form action="" method="post">
+        <table class="table">
+            <input type="hidden" name="id" value="">
+            <tr style="text-align: center"><td><h3>调查问卷</h3></td></tr>
+            <tr>
+                <td clospan="3">1.您对本产品的总体满意程度</td>
+            </tr>
+            <tr><td>
+                <input type="radio" name="all" value="0" checked><span>非常满意</span>
+                <input type="radio" name="all" value="1"><span>满意</span>
+                <input type="radio" name="all" value="2"><span>一般</span>
+            </td></tr>
+            <tr>
+                <td clospan="3">2.您对产品包装的满意程度</td>
+            </tr>
+            <tr><td>
+                <input type="radio" name="pack" value="0" checked><span>非常满意</span>
+                <input type="radio" name="pack" value="1"><span>满意</span>
+                <input type="radio" name="pack" value="2"><span>一般</span>
+            </td></tr>
+            <tr>
+                <td clospan="3">3.您对本产品价格的满意程度</td>
+            </tr>
+            <tr><td>
+                <input type="radio" name="price" value="0" checked><span>非常满意</span>
+                <input type="radio" name="price" value="1"><span>满意</span>
+                <input type="radio" name="price" value="2"><span>一般</span>
+            </td></tr>
+            <tr>
+                <td clospan="3">4.您对本产品的使用情况的满意程度</td>
+            </tr>
+            <tr><td>
+                <input type="radio" name="use" value="0" checked><span>非常满意</span>
+                <input type="radio" name="use" value="1"><span>满意</span>
+                <input type="radio" name="use" value="2"><span>一般</span>
+            </td></tr>
+            <tr>
+                <td clospan="3">5.您会不会浏览我们商品的相关详情<td>
+            </tr>
+            <tr><td>
+                <input type="radio" name="next" value="0" checked><span>肯定会</span>
+                <input type="radio" name="next" value="1"><span>有可能</span>
+                <input type="radio" name="next" value="2"><span>不会的</span>
+            </td></tr>
+        </table>
+            <input type="hidden" name="inquiry" value="1" >
+            <div style="text-align: center">
+                <input type="submit" class="btn btn-danger">
+                <button class="btn btn-danger"><a href="{{order['id']}}" style="color:#fff">返回</a></button>
+            </div>
+        </form>
+    </div>
+</div>
+<!--<div style="height:38px" class="light_num">{{ order['star'] }}</div>-->
 <div class="rule">
     <p><b>温馨提示</b></p>
     <div style="text-indent:2em">
-        转发的次数越多，你的宝莲灯开启的越多，倒计时结束后，次日我们将所有开启的宝莲灯对应的商品发送给你，
+        转发的次数越多，获得的战利品越多，每天15：00进行一次统计，我们会将已经显示的战利品发送给你，
         在您收到货后，在【我的订单】中请给予公正的评价！
     </div>
 </div>
+<div style="height: 20px;"></div>
+
+
+</div>
+</body>
+</html>
 <script>
     var interval = 1000;
     var time1=$("#o_time").html();
@@ -75,15 +160,16 @@
     var t_hour=time1.substr(11,2);
     var t_minute=time1.substr(14,2);
     var t_second=time1.substr(17,2);
+    var time2=t_year+"/"+t_month+"/"+t_day+" "+t_hour+":"+t_minute+":"+t_second;
 
     function ShowCountDown(year,month,day,divname)
     {
         var now = new Date();
         var endDate = new Date(time2);
-        var orderDate=new Date(time3);
+        //console.log(time1);
         //console.log(endDate);
-        var leftTime=endDate.getTime()+48*60*60*1000-now.getTime();
-        var oversecond=parseInt((now.getTime()-orderDate.getTime())/1000);
+        var leftTime=endDate.getTime()+30*24*60*60*1000-now.getTime();
+        //var oversecond=parseInt((now.getTime()-orderDate.getTime())/1000);
         var leftsecond = parseInt(leftTime/1000);
         var day1=Math.floor(leftsecond/(60*60*24));
         var hour=Math.floor((leftsecond-day1*24*60*60)/3600);
@@ -95,7 +181,24 @@
         }else{
             cc.innerHTML = "订单已结束";
         }
+        //console.log(leftTime);
     }
     window.setInterval(function(){ShowCountDown(t_year,t_month,t_day,'time');}, interval);
+
+</script>
+<script>
+$(".commentLicense").on("click",function(){
+    //console.log($(this).text().replace(/[\r\n]/g,"").replace(/[ ]/g,""));
+    $('input[name="id"]').val($(this).attr("data-goodsID"));
+    $(".question").css('display','block');
+    // var statu=$(this).text().replace(/[\r\n]/g,"").replace(/[ ]/g,"");
+    // if(statu=="暂无法评价"){
+    //     //alert("收到后可进行评价");
+    //     $(this).closest("table").next().css("display","block");
+    // }
+    // else{
+    //     $(this).closest("table").next().css("display","block");
+    // }
+})
 </script>
 

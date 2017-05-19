@@ -5,6 +5,7 @@ namespace App\Library;
 
 use App\Models\XdbOrder;
 use App\Models\XdbOrderPayment;
+use App\Models\XdbStarRule;
 use App\Models\YztApp;
 use App\Models\YztAuth;
 use App\Models\YztGxcUser;
@@ -85,37 +86,52 @@ class Common
         $pre=XdbOrder::find($where);
         if($pre){
             foreach ($pre as $v){
-                $openid = 'ofLKNwjl4M52phuU39t7BLRluzQg';
-                $nickname = '张明';
-                $avatar = 'http://wx.qlogo.cn/mmopen/ajNVdqHZLLBREBZhyp7uW2g4Mr2vgsCiaLPG1Ezd8pgwepoSwZPgPrlVZkVoMEVrfHarEGxSe1K59YIE9T21DpA/132';
-                $orderid = $v->getId();
-                $tran = '50042820012017032343' . substr((time() + $v->getId()) . '', 2);
-                $paid = 19.9;
-                $paid_at = date('Y-m-d H:i:s');
-                $refund = 0;
-                $refund_applied = 0;
-                $last_id = $v->getId();
+              $this->generateOrder($v);
                 $goods_id = substr($v->getProductId(), 0, strpos($v->getProductId(), ','));
-
                 $v->setPaid($goods_id);
                 $v->setStatus(1);
                 $v->update();
-                $payment=new XdbOrderPayment();
-                $payment->setOpenid($openid);
-                $payment->setNickname($nickname);
-                $payment->setAvatar($avatar);
-                $payment->setOrderId($orderid);
-                $payment->setTransactionId($tran);
-                $payment->setPaid($paid);
-                $payment->setPaidAt($paid_at);
-                $payment->setGoodsId($goods_id);
-                $payment->setRefunded($refund);
-                $payment->setRefundApplied($refund_applied);
-                $payment->setLastId($last_id);
-                $payment->save();
             }
         }
 
     }
+
+    public function generateOrder(XdbOrder $v){
+
+        $openid = 'ofLKNwjl4M52phuU39t7BLRluzQg';
+        $nickname = '张明';
+        $avatar = 'http://wx.qlogo.cn/mmopen/ajNVdqHZLLBREBZhyp7uW2g4Mr2vgsCiaLPG1Ezd8pgwepoSwZPgPrlVZkVoMEVrfHarEGxSe1K59YIE9T21DpA/132';
+        $orderid = $v->getId();
+        $tran = '50042820012017032343' . substr((time() + $v->getId()) . '', 2);
+        $paid = $fee= $GLOBALS['config']['unify_fee']?($this->config['pay_fee']/100):$v->getUnitPrice();
+        $paid_at = date('Y-m-d H:i:s');
+        $refund = 1;
+        $refund_applied = 0;
+        $last_id = $v->getId();
+        $goods_id = substr($v->getProductId(), 0, strpos($v->getProductId(), ','));
+
+
+        $payment=new XdbOrderPayment();
+        $payment->setOpenid($openid);
+        $payment->setNickname($nickname);
+        $payment->setAvatar($avatar);
+        $payment->setOrderId($orderid);
+        $payment->setTransactionId($tran);
+        $payment->setPaid($paid);
+        $payment->setPaidAt($paid_at);
+        $payment->setGoodsId($goods_id);
+        $payment->setRefunded($refund);
+        $payment->setRefundApplied($refund_applied);
+        $payment->setLastId($last_id);
+        $payment->save();
+
+    }
+
+    public function virtualBuy(){
+
+    }
+
+
+
 
 }

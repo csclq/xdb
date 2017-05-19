@@ -148,6 +148,17 @@ class SystemController extends ControllerBase
 
 
 
+
+
+
+    public function clearcacheAction()
+    {             //清队缓存
+        cleancache();
+        cleancache();
+        $this->common->syslog("清除缓存");
+        echo "<script>alert('缓存清除成功');history.back()</script>";
+    }
+
     public function backupAction()
     {               //数据备份
         $total = ceil(dircount() /$this->config->pageNum);// $GLOBALS['config']['pageNum']);
@@ -211,6 +222,45 @@ class SystemController extends ControllerBase
         $this->response->redirect('/backend/system/backup');
 
 
+    }
+
+    public function adduserAction()
+    {                                            //添加管理员
+        if ($this->request->isPost()) {
+            $this->view->disable();
+            if (stristr($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded')) {
+                $post = $_POST;
+            } elseif (stristr($_SERVER['CONTENT_TYPE'], 'application/json')) {
+                $post = json_decode(file_get_contents("php://input"), true);
+            }
+
+            $admin = new Admin();
+            $admin->setPasswd(md5(trim($post['passwd'])));
+            $admin->setAddTime();
+            $admin->setName(htmlspecialchars(trim($post['name'])));
+            $admin->setDepart(intval(trim($post['depart'])));
+            $admin->create();
+            exit;
+        }
+    }
+
+    public function chuserAction()
+    {                                            //修改管理员
+        if ($this->request->isPost()) {
+            $this->view->disable();
+            $id = $this->request->getPost('id','int');
+            $depart = $this->request->getPost('depart','int');
+            $active = $this->request->getPost('active','int');
+            $username = ($this->request->getPost('name','string'));
+
+            $admin = Admin::findFirst($id);
+            empty($username) || $admin->setName($username);
+            $admin->setDepart($depart);
+            $admin->setActive($active);
+            $admin->setUpdateTime();
+            $admin->save();
+            return $this->response->redirect('/backend/system/user');
+        }
     }
 
 

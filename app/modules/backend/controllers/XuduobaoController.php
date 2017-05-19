@@ -9,6 +9,7 @@ use App\Models\XdbOrderPayment;
 use App\Models\XdbProduct;
 use App\Models\XdbStarRule;
 use App\Models\YztWechatMessage;
+use function Clue\StreamFilter\fun;
 
 class XuduobaoController extends ControllerBase
 {
@@ -108,7 +109,7 @@ class XuduobaoController extends ControllerBase
             $this->view->disable();
             $where = [];
             $where['conditions'] = '1=1 ';
-            $where['order'] = "send_count desc,sort desc";
+            $where['order'] = "sale_count desc,sort desc";
 
             empty($this->post['name']) || $where['conditions'] .= " and name like '%" . $this->post['name'] . "%'";
             $total = XdbProduct::count($where);
@@ -135,23 +136,42 @@ class XuduobaoController extends ControllerBase
         if ($this->request->isPost()) {
             $this->view->disable();
             $arr = [];
-            if ($this->post['days'] && empty($this->post['month']) && empty($this->post['year'])) {
-                for ($i = 0; $i < $this->post['days']; $i++) {
-                    $key = date("Y-m-d", strtotime("-$i day"));
-                    $arr[$key]['hit'] = XdbMember::count('add_at <="' . $key . '"');
-                    $arr[$key]['buy'] = XdbOrderPayment::count('paid_at <="' . $key . '"');
-                }
-            } else {
-                $year = empty($this->post['year']) ? 2017 : $this->post['year'];
-                $month = empty($this->post['month']) ? date('n') : $this->post['month'];
+//            if ($this->post['days'] && empty($this->post['month']) && empty($this->post['year'])) {
+//                for ($i = 0; $i < $this->post['days']; $i++) {
+//                    $key = date("Y-m-d", strtotime("-$i day"));
+//                    $arr[$key]['hit'] = XdbMember::count('add_at <="' . $key . '"');
+//                    $arr[$key]['buy'] = XdbOrderPayment::count('paid_at <="' . $key . '"');
+//                }
+//            } else {
+//                $year = empty($this->post['year']) ? 2017 : $this->post['year'];
+//                $month = empty($this->post['month']) ? date('n') : $this->post['month'];
+//
+//                $days = $this->post['days']??date('t', strtotime($year . '-' . $month));
+//                for ($i = 0; $i < $days; $i++) {
+//                    $key = $year . '-' . $month . '-' . ($i + 1);
+//                    $arr[$key]['hit'] = XdbMember::count('add_at <="' . $key . '"');
+//                    $arr[$key]['buy'] = XdbOrderPayment::count('paid_at <="' . $key . '"');
+//                }
+//            }
 
-                $days = $this->post['days']??date('t', strtotime($year . '-' . $month));
-                for ($i = 0; $i < $days; $i++) {
-                    $key = $year . '-' . $month . '-' . ($i + 1);
-                    $arr[$key]['hit'] = XdbMember::count('add_at <="' . $key . '"');
-                    $arr[$key]['buy'] = XdbOrderPayment::count('paid_at <="' . $key . '"');
+            if($this->post['times']=='days'){
+                for ($i = 0; $i < 7; $i++) {
+                    $now = date("Y-m-d", strtotime("-$i day"));
+                    $next = date("Y-m-d", strtotime("-$i day")+86400);
+                    $arr[$now]['hit'] = XdbMember::count('add_at between "' . $now . '" and "'.$next.'" ');
+                    $arr[$now]['buy'] = XdbOrderPayment::count('paid >0 and   paid_at between "' . $now . '" and "'.$next.'" ');
+                }
+            }elseif($this->post['times']=='hours'){
+                $hour=date('G');
+                for($i=0;$i<=$hour;$i++){
+                    $now=date("Y-m-d ".$i.":0:0");
+                    $next=date("Y-m-d ".($i+1).":0:0");
+                    $arr[$now]['hit'] = XdbMember::count('add_at between "' . $now .'" and "'.$next.'" ');
+                    $arr[$now]['buy'] = XdbOrderPayment::count('paid >0 and  paid_at between "' . $now . '" and "'.$next.'" ');
                 }
             }
+
+
             $this->result['data'] = $arr;
             echo json_encode($this->result);
         }
@@ -342,6 +362,43 @@ class XuduobaoController extends ControllerBase
 
     public function orderAction()
     {
+        $this->view->todaymoney=XdbOrderPayment::sum([
+            'conditions'=>'paid >0  and refunded=0   and paid_at >= "'.date("Y-m-d 0:0:0").'"',
+            'column'=>'paid'
+        ]);
+        $this->view->todaycount=XdbOrderPayment::count([
+            'conditions'=>'paid >0     and paid_at >= "'.date("Y-m-d 0:0:0").'"'
+        ]);
+
+        $this->view->money1=XdbOrderPayment::sum([
+            'conditions'=>'paid >0   and refunded=0   and paid_at <= "'.date("Y-m-d 0:0:0").'" and paid_at >="'.date("Y-m-d 0:0:0",time()-86400).'"',
+            'column'=>'paid'
+        ]);
+        $this->view->count1=XdbOrderPayment::count([
+            'conditions'=>'paid >0      and paid_at <= "'.date("Y-m-d 0:0:0").'" and paid_at >="'.date("Y-m-d 0:0:0",time()-86400).'"',
+        ]);
+
+        $this->view->money7=XdbOrderPayment::sum([
+            'conditions'=>'paid >0   and refunded=0    and paid_at >="'.date("Y-m-d 0:0:0",time()-86400*7).'"',
+            'column'=>'paid'
+        ]);
+        $this->view->count7=XdbOrderPayment::count([
+            'conditions'=>'paid >0        and paid_at >="'.date("Y-m-d 0:0:0",time()-86400*7).'"',
+        ]);
+        $this->view->money30=XdbOrderPayment::sum([
+            'conditions'=>'paid >0   and refunded=0     and paid_at >="'.date("Y-m-d 0:0:0",time()-86400*30).'"',
+            'column'=>'paid'
+        ]);
+        $this->view->count30=XdbOrderPayment::count([
+            'conditions'=>'paid >0       and paid_at >="'.date("Y-m-d 0:0:0",time()-86400*30).'"',
+        ]);
+
+
+
+
+
+
+
 
     }
 
@@ -361,6 +418,8 @@ class XuduobaoController extends ControllerBase
         $this->view->payments = $payment;
         $this->view->products = $product;
         $this->view->order = $order;
+
+
     }
 
     public function orderlistAction()
@@ -396,17 +455,17 @@ class XuduobaoController extends ControllerBase
             $where['limit'] = array('number' => $this->config->pageNum,//$GLOBALS['config']['pageNum'],
                 'offset' => (intval($this->request->getPost()['p']) - 1) * $this->config->pageNum);
             $data = XdbOrder::find($where);
-            $data = $data->toArray();
-            foreach ($data as $k => $v) {
-                $rule['conditions'] = ' hit_number <= :hit: or buy_number <= :buy:';
-                $rule['bind'] = ['hit' => $v['hit_number'], 'buy' => $v['buy_number']];
-                $rule['order'] = 'star desc';
-                $star = XdbStarRule::findFirst($rule);
-                $data[$k]['star'] = $star ? $star->getStar() : 0;
-            }
+            $dataArr = $data->toArray();
+//            foreach ($dataArr as $k => $v) {
+//                $rule['conditions'] = ' hit_number <= :hit: or buy_number <= :buy:';
+//                $rule['bind'] = ['hit' => $v['hit_number'], 'buy' => $v['buy_number']];
+//                $rule['order'] = 'star desc';
+//                $star = XdbStarRule::findFirst($rule);
+//                $dataArr[$k]['star'] = $star ? $star->getStar() : 0;
+//            }
 
             $this->result['total'] = ceil($total / $this->config->pageNum);
-            $this->result['data'] = $data;
+            $this->result['data'] = $dataArr;
             $this->result['totalprice'] = $price->toArray()[0]['price'];
             $this->result['count'] = $total;
             echo json_encode($this->result);
@@ -459,8 +518,10 @@ class XuduobaoController extends ControllerBase
                             array_push($arr,$presend);
                         }
                     }
-                    $orders[$k]['goods'] = implode('/',$arr);
-                    $orders[$k]['number'] = count($arr);
+                    $goods_arr=array_slice($arr,0,$v['stars']);
+                    $orders[$k]['goods'] = implode('/', $goods_arr);
+
+                    $orders[$k]['number'] = count($goods_arr);
                 }
             }
         }
@@ -506,31 +567,40 @@ class XuduobaoController extends ControllerBase
             foreach ($this->xlsxReader->getSheetIterator() as $sheet) {
                 foreach ($sheet->getRowIterator() as $row) {
                     $order = explode('_', $row[0]);
-                    if ($order[1]) {
-                        $payment = XdbOrderPayment::find('last_id=' . $order[1]);
-                        foreach ($payment as $v) {
-                            $v->setExpressCourier('中通');
-                            $v->setExpressNo($row[1]);
-                            $v->setStatus(2);
-                            $v->setSendTime(time());
-                            $v->update();
+                    $goods=explode('/',$row[22]);
+                    if (count($order)>1 && $order[1]) {
 
-                            $this->db->execute("update xdb_product set send_count = send_count + 1 where id=".$v->getGoodsId());
+                        foreach ($goods as $v) {
+                            $payment = XdbOrderPayment::findFirst('last_id=' . $order[1].' and goods_id ='.$v);
+                            $payment->setExpressCourier('中通');
+                            $payment->setExpressNo($row[1]);
+                            $payment->setStatus(2);
+                            $payment->setSendTime(time());
+                            $payment->update();
+
+                            $this->db->execute("update xdb_product set send_count = send_count + 1 where id=".$v);
 
                         }
 
                         $orders = XdbOrder::findFirst('id=' . $order[1]);
                         $status=2;
                         $send = $orders->getSend();
+
+
+
+
                         if ($send) {
                             $send = explode(',', $send);
-                            if (!in_array($row[22], $send)) {
-                                array_push($send, $row[22]);
+                            foreach ($goods as $v){
+                                if (!in_array($v, $send)) {
+                                    array_push($send, $v);
+                                }
                             }
+
                             count($send)==count(explode(',',$orders->getProductId())) && $status=3;
                             $send = implode(',', $send);
                         } else {
-                            $send = $row[22];
+                            $send = implode(',',$goods);
                         }
                         $orders->setSend($send);
                         $orders->setStatus($status);
@@ -538,6 +608,8 @@ class XuduobaoController extends ControllerBase
                     }
                 }
             }
+
+            exit("<script>location.href=location.href;</script>");
         }
     }
 
@@ -612,8 +684,45 @@ class XuduobaoController extends ControllerBase
 
         }
 
-        $info = XdbOrderPayment::find($where);
-        $this->view->info = $info;
+        $order['columns']='product_detail';
+        $orders=XdbOrder::find($order);
+
+
+        $arr=[];
+        foreach ($orders as $v){
+            $detail=json_decode($v->product_detail,true);
+            foreach ($detail as $key => $value){
+                isset($arr[$value])?$arr[$value]++:$arr[$value]=1;
+            }
+        }
+
+
+
+
+
+
+
+        $info = XdbOrderPayment::find($where)->toArray();
+
+        $result=[];
+
+
+        foreach ($arr as $k => $v){
+            $buy=0;
+            foreach ($info as $value){
+                if($value['posit']==$k){
+                    $buy=$value['num'];
+                }
+            }
+            array_push($result,['posit'=>$k,'buy'=>$buy,'select'=>$v]);
+        }
+
+
+        usort($result,function ($a,$b){
+           return $a['posit']-$b['posit'];
+        });
+
+        $this->view->info = $result;
 
 
     }

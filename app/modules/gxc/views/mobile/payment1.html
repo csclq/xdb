@@ -69,7 +69,11 @@
 </div>
 <!-- 我也要玩规则 -->
 <div id="playRule" style="display:none">
-	<a href="/gxc/mobile/index/{{ orderid }}">前往商城</a>
+  <div id="playRuleImg">
+  	<img src="/src/role.jpg" alt="">
+  </div>
+	
+	<a href="/gxc/mobile/index/{{ orderid }}"></a>
 </div>
 <!-- 游戏结束 -->
 <div id="shareFriends" style="display:none">
@@ -234,14 +238,26 @@
 
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
 <script>
-    wx.config(<?php echo $js->config(array('onMenuShareAppMessage', 'onMenuShareTimeline'), false); ?>);
+	    wx.config(<?php echo $js->config(array('onMenuShareAppMessage', 'onMenuShareTimeline'), false); ?>);
+	    wx.ready(function () {
+		 switch(Level1){
 
+			case 1:islandsName="经过激战，夺取了钓鱼岛";break;
+			case 2:islandsName="经过激战，夺取了琉球群岛";break;
+			case 3:islandsName="经过激战，夺取了九州岛";break;
+			case 4:islandsName="经过激战，夺取了关岛";break;
+			case 5:islandsName="经过激战，夺取了所罗门群岛";break;
+			case 6:islandsName="经过激战，夺取了圣诞岛";break;
+			case 7:islandsName="经过激战，夺取了威克岛";break;
+			case 8:islandsName="经过激战，夺取了中途岛";break;
+			case 9:islandsName="经过激战，夺取了夏威夷岛";break;
+			default:islandsName="正在钓鱼岛激战";break;
+		}
 
-	wx.ready(function () {
-        wx.onMenuShareAppMessage({
-            title: '互联网之子',
-            desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
-            imgUrl: location.origin+"/img/a.jpg",
+        wx.onMenuShareAppMessage({						//发送给朋友
+            title: '许多宝',						//标题
+            desc:userName+islandsName,		//内容
+            imgUrl: location.origin+"/img/a.jpg",				//图片链接
             success: function (res) {
                 alert('已发送给朋友');
             },
@@ -253,8 +269,8 @@
             }
         });
 
-        wx.onMenuShareTimeline({
-            title: '互联网之子',
+        wx.onMenuShareTimeline({			//分享到朋友圈
+            title: '许多宝',
             imgUrl: location.origin+"/img/a.jpg",
             success: function (res) {
                 alert('已分享到朋友圈');

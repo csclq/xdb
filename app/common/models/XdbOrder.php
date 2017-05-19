@@ -14,6 +14,8 @@ class XdbOrder extends \Phalcon\Mvc\Model
      */
     protected $id;
 
+    protected $virtual;
+
     /**
      *
      * @var string
@@ -217,6 +219,11 @@ class XdbOrder extends \Phalcon\Mvc\Model
      */
     protected $buy_number;
 
+
+
+    protected $stars;
+
+
     /**
      * Method to set the value of field id
      *
@@ -227,6 +234,11 @@ class XdbOrder extends \Phalcon\Mvc\Model
     {
         $this->id = $id;
 
+        return $this;
+    }
+
+    public function setStars($stars){
+        $this->stars=$stars;
         return $this;
     }
 
@@ -278,6 +290,15 @@ class XdbOrder extends \Phalcon\Mvc\Model
     public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+
+
+    public function setVirtual($virtual)
+    {
+        $this->virtual = $virtual;
 
         return $this;
     }
@@ -657,6 +678,17 @@ class XdbOrder extends \Phalcon\Mvc\Model
         return $this->quantity;
     }
 
+
+    public function getVirtual()
+    {
+        return $this->virtual;
+    }
+
+    public function getStars(){
+        return $this->stars;
+    }
+
+
     /**
      * Returns the value of field fullname
      *
@@ -987,7 +1019,9 @@ class XdbOrder extends \Phalcon\Mvc\Model
             'product_detail' => 'product_detail',
             'output' => 'output',
             'hit_number' => 'hit_number',
-            'buy_number' => 'buy_number'
+            'buy_number' => 'buy_number',
+            'virtual'   =>  'virtual',
+            'stars' =>  'stars'
         ];
     }
 

@@ -3,6 +3,7 @@
 namespace App\Modules\Backend\Controllers;
 
 use App\Models\XdbOrder;
+use App\Models\XdbOrderHit;
 use App\Models\XdbProduct;
 use App\Models\YztAdmin;
 
@@ -12,7 +13,7 @@ class IndexController extends ControllerBase{
         $this->view->over=XdbProduct::count('stock <= 0');
         $this->view->send=XdbOrder::count('status=1 and active=1');
         $this->view->finish=XdbOrder::count('status=3 and active=1');
-
+        $this->view->count=XdbOrderHit::count('add_at >= '.strtotime(date("Y-m-d")));
     }
 
     public function cacheAction(){

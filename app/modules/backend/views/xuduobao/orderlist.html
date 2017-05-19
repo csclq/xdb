@@ -92,10 +92,11 @@
                     <span ng-switch-when="0">未购买</span>
                     <span ng-switch-when="1">已购买</span>
                     <span ng-switch-when="2">已发货</span>
+                    <span ng-switch-when="3">已完成</span>
                 </td>
                 <td style='text-align:center'  ng-bind="item.hit_number"></td>
                 <td  style='text-align:center'  ng-bind="item.buy_number"></td>
-                <td  style='text-align:center' ng-bind="item.star" ></td>
+                <td  style='text-align:center' ng-bind="item.stars" ></td>
                 <td style='text-align:center'  ng-bind="item.submitted_at"></td>
                 <td style='text-align:right;font-size:12px;'>
                     <a href="/backend/xuduobao/orderdetail/{_ item.id _}" >查看详情</a>

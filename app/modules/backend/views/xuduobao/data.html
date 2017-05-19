@@ -6,62 +6,6 @@
 
 
         <form class="form-horizontal">
-            <input type="hidden" name="c" value="site" />
-            <input type="hidden" name="a" value="entry" />
-            <input type="hidden" name="m" value="ewei_shopv2" />
-            <input type="hidden" name="do" value="web" />
-            <input type="hidden" name="r"  value="statistics.goods_rank" />
-	<div class="page-toolbar row m-b-sm m-t-sm">
-		<div class="col-sm-5">
-
-			<div class="btn-group btn-group-sm" style='float:left'>
-				<button class="btn btn-default btn-sm"  type="button" data-toggle='refresh'><i class='fa fa-refresh'></i></button>
-
-			</div> 
- 
-
-<script type="text/javascript">
-	require(["daterangepicker"], function($){
-		$(function(){
-			$(".daterange.daterange-time").each(function(){
-               
-				var elm = this;
-                                       var container =$(elm).parent().prev(); 
-				$(this).daterangepicker({
-				
-					format: "YYYY-MM-DD HH:mm",
-					timePicker: true,
-					timePicker12Hour : false,
-					timePickerIncrement: 1,
-					minuteStep: 1
-				}, function(start, end){
-					$(elm).find(".date-title").html(start.toDateTimeStr() + " 至 " + end.toDateTimeStr());
-					container.find(":input:first").val(start.toDateTimeStr());
-					container.find(":input:last").val(end.toDateTimeStr());
-				});
-			});
-		});
-	});
-     function clearTime(obj){
-         
-              $(obj).prev().html("<span class=date-title>" + $(obj).attr("placeholder") + "</span>");
-              $(obj).parent().prev().find("input").val("");
-    }
-</script>
-<div style="float:left">
-	<input name="datetime[start]" type="hidden" value="" />
-	<input name="datetime[end]" type="hidden" value="" />
-           </div>
-          <div class="btn-group btn-group-sm" style="padding-right:0;"  >
-          
-	<button style="width:240px" class="btn btn-default daterange daterange-time"  type="button"><span class="date-title">下单时间</span></button>
-        <button class="btn btn-default btn-sm" " type="button" onclick="clearTime(this)" placeholder="下单时间"><i class="fa fa-remove"></i></button>
-         </div>
-	
-			 			
-		</div>	
-
-
 		<div class="col-sm-6 pull-right">
 
 			<select name='orderby'  class='form-control  input-sm select-md'   style="width:110px;float:left">
@@ -75,7 +19,6 @@
 				<span class="input-group-btn">
 							
 					<button class="btn btn-sm btn-primary btn-sm" type="submit"  ng-click="search()"> 搜索</button>
-                       <button type="submit" name="export" value="1" class="btn btn-success  btn-sm">导出 Excel</button>
                     				</span>
 			</div>
 
@@ -100,91 +43,15 @@
                     <td>
                         <img ng-src="{_ item['pic_url'] _}" style="width: 30px; height: 30px;border:1px solid #ccc;padding:1px;">
                         {_ item['name'] _}</td>
-                    <td>{_ item['send_count'] _}</td>
-                    <td>{_ item['send_count'] * item['price'] _}</td>
+                    <td>{_ item['sale_count'] _}</td>
+                    <td>{_ item['sale_count'] * item['price'] _}</td>
                 </tr>
                               
                         </table>
         {{ partial('public/paging') }}
-        <div><ul class="pagination pagination-centered" style="background-color: #fff !important;color:#000 !important;">
-       <li class="active"><a href="javascript:;">1</a></li>
-          <li><a href="#">2</a></li>
-        <li><a href="#" class="pager-nav">下一页&raquo;</a></li>
-        <li><a href="#" class="pager-nav">尾页</a></li></ul></div>
 </div>
 </div>
 
 <script src="/js/data.js"></script>
 
-
-<script language='javascript'>
-
- // $.post('http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=statistics.goods_rank', function (ret) {
- //                    if (ret && ret.status == '1') {
- //                       console.log(123);
-                        
- //                        }
-                    
- //                },'json');
-            
-    require(['bootstrap'], function ($) {
-        $('[data-toggle="tooltip"]').tooltip({
-            container: $(document.body)
-        });
-        $('[data-toggle="popover"]').popover({
-            container: $(document.body)
-        });
-    });
-
-
-     function check_ewei_shopv2_upgrade() {
-  
-        require(['util'], function (util) {  
-            if (util.cookie.get('checkeweishopv2upgrade_sys')) {
-                return;
-            }
-            $.post('http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade.check', function (ret) {
-                if (ret && ret.status == '1') { 
-		  
-	var result = ret.result;	    
-                    if(result.filecount>0 || result.database || result.upgrades){
-	 	 
-                        var html = '<div id="ewei-shopv2-upgrade-tips" class="tips-upgrade">';
-	   html+='<span class="tclose" onclick="check_ewei_shopv2_upgrade_hide();"><i class="fa fa-times-circle fa-2x"></i></span>';
-                         html+= '<div class="title">检测到更新</div>';
-                        html+='<div class="text"> 新版本 ' + result.version + " RELEASE " + result.release;
-                        html+=',请尽快更新! </div>';
-			html+='<div class="buttons"><a href="http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=system.auth.upgrade" class="btn btn-warning btn-sm">立即去更新</a></div></div>';
-                        $('body').prepend(html);
-                   }
-                }
-            },'json');
-        });
-    }
-      function check_ewei_shopv2_upgrade_hide() {
-        require(['util'], function (util) {
-            util.cookie.set('checkeweishopv2upgrade_sys', 1, 3600);
-            $('#ewei-shopv2-upgrade-tips').fadeOut(150);
-        });
-    }
-    $(function () {
-        setTimeout( function() {
-            check_ewei_shopv2_upgrade();
-        },4000);
-    });
-    
-    $(function () {
-        $('.page-content').show();
-        $('.img-thumbnail').each(function () {
-            if ($(this).attr('src').indexOf('nopic.jpg') != -1) {
-                $(this).attr('src', "../addons/ewei_shopv2/static/images/nopic.jpg");
-            }
-        })
-        $.ajax({
-              url: "http://abc.5xieys.cn/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=util.task",
-			  async:false,
-              cache: false
-        });
-    });
-</script>
 

@@ -160,6 +160,14 @@
                 color: #fff;
                 margin-left: 12px;
             }
+            .gray {
+                -webkit-filter: grayscale(100%);
+                -moz-filter: grayscale(100%);
+                -ms-filter: grayscale(100%);
+                -o-filter: grayscale(100%);
+                filter: grayscale(100%);
+                border:50px solid #000;
+            }
         </style>
         </div>
     <div class="page-content">
@@ -257,12 +265,12 @@
                         {% for item in payments %}
                         <tr>
                             <td class='full'>{{ item.transaction_id}} </td>
-                            <td> {{ item.id }}</td>
-                            <td style="text-align: right;">{{ item.goods_id }}</td>
-                            <td style='color:red;font-weight:bold;text-align: right;'>  {{ item.XdbOrder.fullname }}  </td>
-                            <td> {{ item.XdbOrder.mobile }} </td>
-                            <td>{{ item.XdbOrder.address }}</td>
-                            <td></td>
+                            <td style="text-align: center;"> {{ item.id }}</td>
+                            <td style="text-align: center;">{{ item.goods_id }}</td>
+                            <td style='color:red;font-weight:bold;text-align: center;'>  {{ item.XdbOrder.fullname }}  </td>
+                            <td style="text-align: center;"> {{ item.XdbOrder.mobile }} </td>
+                            <td style="text-align: center;">{{ item.XdbOrder.address }}</td>
+                            <td style="text-align: center;">{{ item.express_courier }} {{ item.express_no }} </td>
                         </tr>
                         {% endfor %}
                     </table>
